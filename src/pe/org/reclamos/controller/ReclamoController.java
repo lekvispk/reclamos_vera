@@ -177,25 +177,6 @@ public class ReclamoController {
 		}
 	 }  
 	
-	@RequestMapping(value="/lIndemnizar.htm")
-	public String lIndemnizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("lista");
-			   response.setContentType("text/html;charset=ISO-8859-1");
-			   request.setCharacterEncoding("UTF8");
-			   
-			   model.put("lReclamos", reclamoService.buscar( new Reclamo() ));
-			   
-		   } catch (Exception e) {
-			 e.printStackTrace();
-			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			   model.put("reclamo", new Reclamo() );
-		   }
-		return "reclamos/lIndemnizar";
-	}
-	
 	@RequestMapping(value="/lResolucion.htm")
 	public String lResolucion(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
@@ -334,31 +315,7 @@ public class ReclamoController {
 		}
 	 }  
 	
-	@RequestMapping(value="/indemnizar.htm" , method=RequestMethod.GET)
-	public String preIndemnizar( ModelMap model){
-		logger.debug("pre indemnizar ");
-		model.put("reclamo", new Reclamo());
-		//model.put("lTipoTram", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOTRAM) );
-		return "reclamos/indemnizar";
-	}
 	
-	@RequestMapping(value="/indemnizar.htm" , method=RequestMethod.POST)  
-	 public String indemnizar(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request,  HttpServletResponse response, ModelMap model) {  
-		try {
-			logger.debug("indemnizar");
-			response.setContentType("text/html;charset=ISO-8859-1");
-			request.setCharacterEncoding("UTF8");
-			
-			model.put("mensaje","Se ha grabado satisfactoriamente");
-			return "reclamos/lIndemnizar";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );
-			return "reclamos/indemnizar";
-		}finally{
-			model.put("reclamo", reclamo);
-		}
-	 }  
 	
 
 	@RequestMapping(value="/lClienteAuto.htm")

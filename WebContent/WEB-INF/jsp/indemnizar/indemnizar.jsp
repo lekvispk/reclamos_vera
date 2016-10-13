@@ -16,7 +16,7 @@
 							<fieldset>
 							
 							<!-- Form Name -->
-							<legend>Registrar Reclamo</legend>
+							<legend>Indemnizar Calcular</legend>
 							
 							<!-- RUC Text input-->
 							<div class="form-group">

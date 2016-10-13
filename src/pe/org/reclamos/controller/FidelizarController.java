@@ -19,7 +19,7 @@ import pe.org.reclamos.service.ReclamoService;
 import pe.org.reclamos.utiles.Utiles;
 
 /**
- * clase para fidelizar clientes
+ * Clase que registra la fidelizacion realizada a los clientes
  * @author ElvisRubén
  *
  */

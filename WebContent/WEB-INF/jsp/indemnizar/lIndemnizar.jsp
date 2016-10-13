@@ -20,7 +20,7 @@
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtCodigo">C&oacute;digo</label>  
+							  <label class="col-md-4 control-label" for="txtCodigo">N&uacute;mero de Reclamo</label>  
 							  <div class="col-md-5">
 							  	<input type="text" id="txtCodigo" name="txtCodigo" placeholder="Codigo" class="form-control input-md">
 							  </div>
@@ -34,32 +34,14 @@
 							  </div>
 							</div>
 														
-							<!-- Select Basic -->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="cmbPrioridad">Prioridad</label>
-							  <div class="col-md-4">
-							    <select id="cmbPrioridad" name="cmbPrioridad" class="form-control">
-							      <option value="1">Alerta</option>
-							      <option value="2">Oposición</option>
-							      <option value="3">Usuarios</option>
-							    </select>
-							  </div>
-							</div>
 							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtVencimiento">Vencimiento</label>  
-							  <div class="col-md-5">
-							  	<input id="txtVencimiento" name="txtVencimiento" type="text" placeholder="Remitente" class="form-control input-md">
-							  </div>
-							</div>
 							
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
 							    <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
-							    <a href="indemnizar.htm" class="btn btn-success">Nuevo </a>
+							    <a href="indemnizar.htm" class="btn btn-success">Proccesar </a>
 							  </div>
 							</div>
 							
