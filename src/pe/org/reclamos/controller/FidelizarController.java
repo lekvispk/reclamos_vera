@@ -18,6 +18,11 @@ import pe.org.reclamos.service.FacturaService;
 import pe.org.reclamos.service.ReclamoService;
 import pe.org.reclamos.utiles.Utiles;
 
+/**
+ * clase para fidelizar clientes
+ * @author ElvisRubén
+ *
+ */
 @Controller
 @RequestMapping(value="/fidelizar")
 public class FidelizarController {
