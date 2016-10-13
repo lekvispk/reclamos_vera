@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <bean id="analizadorRespuestas" class="pe.org.reclamos.utiles.AnalizadorRespuestas"/>  
+
+	<bean id="alertaRespuestas" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+		<property name="targetObject" ref="analizadorRespuestas" />  
+		<property name="targetMethod" value="buscarRespuestasPendientes" />  
+		<property name="concurrent" value="false" />
+	</bean>
+
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">  
+		<property name="jobDetail" ref="alertaRespuestas" />  
+		<!-- Se lanza la tarea todos los dias 
+		Con la propiedad cronExpression indicamos la fecha en la que deberá ejecutar la tarea, 
+		los valores hacen referencia a los siguientes datos (de izquierda a derecha):
+		    * segundos (0 - 59)
+		    * minutos (0 - 59)
+		    * horas (0 - 23)
+		    * día del mes (0 - 31)
+		    * mes (1 - 12)
+		    * día de la semana (MON-SUN)
+		-->  
+		
+		<!-- <property name="cronExpression" value="1 30 8 * * ?" />-->
+		<property name="cronExpression" value="1 * * * * ?" />  
+	</bean>  
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+		<property name="triggers">  
+			<ref bean="cronTrigger" />  
+		</property>  
+	</bean>
+	
+</beans>

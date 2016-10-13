@@ -21,8 +21,8 @@ public class LoginController {
 	   return "login";  
 	 }  
 
-	@RequestMapping("/ingresar.htm")  
-	 public String ingresar( HttpServletRequest request , ModelMap model) {  
+	@RequestMapping("/inicio.htm")  
+	 public String inicio( HttpServletRequest request , ModelMap model) {  
 	   logger.debug("ingreso al index");
 	   
 //	   try {

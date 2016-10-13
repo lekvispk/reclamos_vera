@@ -1,9 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+	
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.ico" />
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,13 +50,26 @@
                         <h3 class="panel-title">Iniciar sesi&oacute;n</h3>
                     </div>
                     <div class="panel-body">
-                       <form accept-charset="UTF-8" role="form" action="ingresar.htm" method="post">
+                       <form accept-charset="UTF-8" role="form" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
                             <fieldset>
+                            <c:if test="${not empty param.login_error}">
+				   				<div class="errorLogin">				
+									No pudo ingresar al sistema, Intentelo nuevamente.<br />
+									Razon: ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
+									
+									<script>
+										document.forms[0].j_password.focus();
+									</script>
+								</div>				
+							</c:if>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                	<c:if test="${not empty param.login_error}">
+										<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
+									</c:if>
+                                    <input class="form-control" placeholder="E-mail" name="j_username"  value="${username}" type="email" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <input class="form-control" placeholder="Password" name="j_password" type="password" value="">
                                 </div>
                                 <div class="checkbox">
                                     <label>
