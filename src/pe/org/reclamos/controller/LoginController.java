@@ -7,6 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * Clase que maneja el login de los usuarios. 
+ * Debe cargar data de las tablas personalizadas para obtener datos completos de los usuarios.
+ * @author ElvisRubén
+ *
+ */
 @Controller
 public class LoginController {
 
