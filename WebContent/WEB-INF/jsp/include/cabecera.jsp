@@ -285,15 +285,23 @@
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lEvaluar.htm">Evaluar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lSolucionar.htm">Solucionar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/indemnizar/lIndemnizar.htm">Indemnizar</a></li>
-                                <li>
-                                	<a href="#"><i class="fa fa-edit fa-fw"></i> Fidelizar<span class="fa arrow"></span></a>
-                                	<ul class="nav nav-third-level">
-                                		<li><a href="${pageContext.request.contextPath}/fidelizar/lFidelizar.htm">Fidelizar</a></li>
-                                		<li><a href="#">Compensar</a></li>
-                                		<li><a href="${pageContext.request.contextPath}/fidelizar/lPromocion.htm">Promoci&oacute;n</a></li>
-                                	</ul>	
-                                </li>
                             </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                        	<a href="#"><i class="fa fa-edit fa-fw"></i> Fidelizar<span class="fa arrow"></span></a>
+                        	<ul class="nav nav-third-level">
+                        		<li><a href="${pageContext.request.contextPath}/fidelizar/lFidelizar.htm">Fidelizar</a></li>
+                        		<li><a href="#">Compensar</a></li>
+                        		<li><a href="${pageContext.request.contextPath}/fidelizar/lPromocion.htm">Promoci&oacute;n</a></li>
+                        		<li><a href="${pageContext.request.contextPath}/fidelizar/tableto.htm">Mostrar Tablero</a></li>
+                        	</ul>	
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Seguimiento<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="${pageContext.request.contextPath}/seguimiento/lista.htm">Ver Solicitudes</a></li>
+                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                          <li>

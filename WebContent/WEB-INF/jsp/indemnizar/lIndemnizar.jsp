@@ -3,7 +3,6 @@
 
 <jsp:include page="../include/cabecera.jsp"/>
 
-
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -33,15 +32,13 @@
 							  	<input id="txtRazonSocial" name="txtRazonSocial" type="text" placeholder="Razon Social" class="form-control input-md">
 							  </div>
 							</div>
-														
-							
 							
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
 							    <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
-							    <a href="indemnizar.htm" class="btn btn-success">Proccesar </a>
+							    <button id="btnProcesar" name="btnProcesar" class="btn btn-success">Proccesar</button>
 							  </div>
 							</div>
 							
@@ -53,7 +50,6 @@
 					   		<div id="displayTagDiv">
 						    	<jsp:scriptlet>
 							    <![CDATA[
-							       
 							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
 							        decorator.setId("idReclamo");
 							        decorator.setFieldName("_chk");
@@ -64,43 +60,31 @@
 						    	<display:table  name="requestScope.lReclamos" requestURI="lIndemnizar.htm" class="displaytag" pagesize="3"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            decorator="checkboxDecorator" >
-						             <display:column property="checkbox"/>
-						            <display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
-						           <display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />
-						           <display:column title="Razon Social" property="factura.cliente.nomCliente" sortable="true" headerClass="sortable" />
-						           <display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />
-						             <display:column title="Prioridad" sortable="true" headerClass="sortable">
-						            	<c:if test="${row.prioridad == 1}">Alta</c:if>
-						            	<c:if test="${row.prioridad == 2}">Normal</c:if>
-						            	<c:if test="${row.prioridad == 3}">Baja</c:if>
-						            </display:column>
-						            <display:column title="Fec. Vencimiento" property="fecReclamo" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
-						             <display:column title="Estado" sortable="true" headerClass="sortable">
-						            	<c:if test="${row.estado == 1}">Abierto</c:if>
-						            	<c:if test="${row.estado == 2}">Aceptado</c:if>
-						            	<c:if test="${row.estado == 3}">Rechazado</c:if>
-						            	<c:if test="${row.estado == 4}">Solucionado</c:if>
-						            </display:column>
-						           <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
-						           <%--
+						            	<display:column property="checkbox"/>
+						            	<display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
+						           		<display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />
+						           		<display:column title="Razon Social" property="factura.cliente.nomCliente" sortable="true" headerClass="sortable" media="csv" />
+						          		<display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />
+						          		<display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
+							            <display:column title="Prioridad" sortable="true" headerClass="sortable">
+							            	<c:if test="${row.prioridad == 1}">Alta</c:if>
+							            	<c:if test="${row.prioridad == 2}">Normal</c:if>
+							            	<c:if test="${row.prioridad == 3}">Baja</c:if>
+							            </display:column>
+							            <display:column title="Fec. Vencimiento" property="fecReclamo" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
+							            <display:column title="Estado" sortable="true" headerClass="sortable">
+							            	<c:if test="${row.estado == 1}">Abierto</c:if>
+							            	<c:if test="${row.estado == 2}">Aceptado</c:if>
+							            	<c:if test="${row.estado == 3}">Rechazado</c:if>
+							            	<c:if test="${row.estado == 4}">Solucionado</c:if>
+							            </display:column>
+							            <display:column title="Respuesta" sortable="false">
+							            -
+							            </display:column>
+							            <display:column title="Indemnizar" sortable="false">
+							            -
+							            </display:column>
 						           
-						           
-						           <display:column title="RUC" property="ruc" sortable="true" headerClass="sortable" />
-						           <display:column title="Representante" property="representante" sortable="true" headerClass="sortable" />
-						           <display:column title="Estado" sortable="true" headerClass="sortable">
-						            	<c:if test="${row.estado == 1}">Activo</c:if>
-						            	<c:if test="${row.estado == 2}">Inactivo</c:if>
-						            	<c:if test="${row.estado == 3}">Eliminado</c:if>
-						            </display:column>
-						            <display:column title="Codigo" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						            <display:column title="Asunto" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						            
-						            <display:column title="RUC" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						            <display:column title="Prioridad" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-
-						            
-						            <display:column title="Factura" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						           --%>
 						   		</display:table>
 							</div>
 						  	</div>
@@ -126,12 +110,32 @@
 	 
 	 
 <script>
-	function nuevo(){
+
+	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
+	
+	});
+
+	$(document).undelegate('#btnProcesar', 'click').delegate('#btnProcesar', 'click', function(){
+
+		 var fields = $("input[name='_chk']").serializeArray(); 
+		 if (fields.length === 0){ 
+		    alert('Seleccione una factura.');
+		 	return false;
+		 }
+		
+		if(confirm('¿Indemnizar al cliente?')){
+	   		console.info('redirecciona a indemnizar');
+	   		window.location.assign("${pageContext.request.contextPath}/indemnizar/indemnizar.htm");
+		}else{
+			console.debug(' registrar en BD que no se va a indemnizar');
+		}
+		return false;
+	});
+
+	/*function nuevo(){
 		document.forms[0].action='ncliente.htm';
 		document.forms[0].action.submit();
 	}
-	
-
 	function eliminar(id){
 		if(confirm('¿Está seguro de eliminar al cliente?')){
 			$("#tablaDinamica").css('opacity', 0.4);
@@ -142,10 +146,10 @@
 	   				}
 	   		);
 		}
-	}
+	}*/
 	
-	 $( function(){
+	$( function(){
    	   $("#displayTagDiv").displayTagAjax();
-   });
+   	});
    
 </script>

@@ -18,35 +18,43 @@
 							<!-- Form Name -->
 							<legend>Indemnizar Calcular</legend>
 							
-							<!-- RUC Text input-->
+							<!-- nro reclamo Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtRuc">RUC</label>  
+							  <label class="col-md-4 control-label" for="txtRuc">Nro de Recalmo</label>  
 							  <div class="col-md-5">
-							  	<input type="text" id="txtRuc" name="txtRuc" placeholder="R.U.C" maxlength="11" class="form-control input-md">
+							  	<input type="text" id="txtRuc" name="txtRuc" placeholder="nro. reclamo" maxlength="11" class="form-control input-md">
 							  </div>
 							</div>
 							
-							<!-- Razon Social Text input-->
+							<!-- vencimiento Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtRazonSocial">Raz&oacute;n Social</label>  
+							  <label class="col-md-4 control-label" for="txtRazonSocial">Fecha de Vencimiento</label>  
 							  <div class="col-md-5">
-							  	<input type="text" id="txtRazonSocial" name="txtRazonSocial"  placeholder="Razon Social" class="form-control input-md">
+							  	 <div class='input-group date' id='fecha_servicio'>
+				                      <input type="text" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" placeholder="dd/mm/yyyy">
+				                      <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                      </span>
+				                 </div>
 							  </div>
 							</div>
 							
-							<!-- Razon Social Text input-->
+							<!-- monto inicial Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtRepresentante">Representante</label>  
-							  <div class="col-md-5">
-							  	<input type="text" id="txtRepresentante" name="txtRepresentante"  placeholder="Representante" class="form-control input-md">
+							  <label class="col-md-4 control-label" for="txtRepresentante">Monto inicial</label>
+							  <div class="col-md-3">
+							  	<input type="text" id="inicial" name="inicial"  placeholder="0.0" class="form-control input-md">
+							  </div>
+							  <div class="col-md-2">
+							  	<input type="text" id="adicional" name="adicional"  placeholder="0%" class="form-control input-md">
 							  </div>
 							</div>
 							
-							<!-- Razon Social Text input-->
+							<!-- monto total Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtEmail">Email</label>  
+							  <label class="col-md-4 control-label" for="txtEmail">Monto Total</label>
 							  <div class="col-md-5">
-							  	<input type="text" id="txtEmail" name="txtEmail"  placeholder="E-mail" class="form-control input-md">
+							  	<input type="text" id="txtTotal" name="txtTotal"  placeholder="Representante" class="form-control input-md">
 							  </div>
 							</div>
 							
@@ -54,7 +62,10 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input class="btn btn-success" type="submit" value="Registrar">
+							    <input class="btn btn-success" type="button" id="btnRegistrar" value="Registrar">
+							  </div>
+							  <div class="col-md-4">
+							    <input class="btn btn-success" type="button" id="btnCalcular" value="Calcular">
 							  </div>
 							</div>
 							
@@ -79,7 +90,17 @@
 	 
 	 
 <script>
-	function nuevo(){
+
+	$(document).undelegate('#btnRegistrar', 'click').delegate('#btnRegistrar', 'click', function(){
+		
+	});
+
+	$(document).undelegate('#btnCalcular', 'click').delegate('#btnCalcular', 'click', function(){
+		console.debug('calculando...');
+		$('#txtTotal').attr('value','100');
+	});
+	
+	/*function nuevo(){
 		document.forms[0].action='ncliente.htm';
 		document.forms[0].action.submit();
 	}
@@ -95,7 +116,7 @@
 	   				}
 	   		);
 		}
-	}
+	}*/
 	
 	 $( function(){
    	   $("#displayTagDiv").displayTagAjax();
