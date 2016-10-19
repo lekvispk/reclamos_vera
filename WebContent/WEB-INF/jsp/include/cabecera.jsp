@@ -293,14 +293,23 @@
                         	<ul class="nav nav-third-level">
                         		<li><a href="${pageContext.request.contextPath}/fidelizar/lFidelizar.htm">Fidelizar</a></li>
                         		<li><a href="#">Compensar</a></li>
-                        		<li><a href="${pageContext.request.contextPath}/fidelizar/lPromocion.htm">Promoci&oacute;n</a></li>
-                        		<li><a href="${pageContext.request.contextPath}/fidelizar/tableto.htm">Mostrar Tablero</a></li>
+                        		<li><a href="${pageContext.request.contextPath}/fidelizar/lPromociones.htm">Promoci&oacute;n</a></li>
+                        		<li><a href="${pageContext.request.contextPath}/tablero/tablero.htm">Mostrar Tablero</a></li>
                         	</ul>	
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Capacitaci&oacute;n<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                             	<li><a href="${pageContext.request.contextPath}/capacitacion/lCapacitaciones.htm">Registrar capacitaci&oacute;n</a></li>
+                                <li><a href="${pageContext.request.contextPath}/capacitacion/posponer.htm">Posponer capacitaci&oacute;n</a></li>
+                                <li><a href="${pageContext.request.contextPath}/capacitacion/capacitaciones.htm">Asignar capacitador</a></li>
+                              </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Seguimiento<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="${pageContext.request.contextPath}/seguimiento/lista.htm">Ver Solicitudes</a></li>
+                               <li><a href="${pageContext.request.contextPath}/seguimiento/lista.htm">Ver Solicitudes</a></li>
                              </ul>
                             <!-- /.nav-second-level -->
                         </li>

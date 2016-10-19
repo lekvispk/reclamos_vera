@@ -5,6 +5,30 @@
 
 <jsp:include page="../include/cabecera.jsp"/>
 
+<script>
+	
+	function aceptar(){
+		
+		var fields = $("input[name='_chk']").serializeArray(); 
+	    if (fields.length >= 1) {
+		    //hacer post
+		    document.forms[0].action='promociones.htm';
+			document.forms[0].submit();
+	    	//window.location='promociones.htm?idFactura='+ $("input[name='_chk']").val();
+	    }else {
+	    	alert('Seleccione un cliente');
+	    }
+	
+	}
+	
+	function buscar(){
+		
+		document.forms[0].action='lPromociones.htm';
+		document.forms[0].submit();
+	
+	}
+	
+</script>
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -18,45 +42,24 @@
 							<fieldset>
 							
 							<!-- Form Name -->
-							<legend>Fidelizar Clientes</legend>
+							<legend>Fidelizar Clientes - Promociones</legend>
+							
+							<form:hidden path="idFactura"/>
+							<form:hidden path="cliente.idCliente"/>
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="fecFactura">Desde</label>  
+							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${factura.fecFactura}" pattern="dd/MM/yyyy" var="f_fecFactura"/>
-                    			<input type="text" class="form-control input-md" name="fecFactura" id="fecFactura" placeholder="dd/MM/yyyy" size="10" value="${f_fecFactura}"/>
+							  	<input type="text" name="ruc" id="ruc" placeholder="RUC" class="form-control input-md">
 							  </div>
 							</div>
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="fecFacturaFin">Hasta</label>  
+							  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${factura.fecFacturaFin}" pattern="dd/MM/yyyy" var="f_fecFacturaFin"/>
-                    			<input type="text" class="form-control input-md" name="fecFacturaFin" id="fecFacturaFin" placeholder="dd/MM/yyyy" size="10" value="${f_fecFacturaFin}"/>
-							  </div>
-							</div>
-							
-								<!-- Select Basic -->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="cmbPrioridad">Consumo</label>
-							  <div class="col-md-4">
-							    
-							    <form:select path="monto" cssClass="form-control" >
-							    	<form:option value="">-Seleccionar-</form:option>
-							  		<form:option value="7000.0">Mayor a 7000</form:option>
-							  		<form:option value="5000.0">Mayor a 5000</form:option>
-							  	</form:select>
-							  	
-							  </div>
-							</div>
-							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtRazonSocial">RUC</label>  
-							  <div class="col-md-5">
-							  	<form:input path="cliente.rucCliente" id="rucCliente" size="20" cssClass="form-control input-md" />
+							  	<input type="text" name="razonSocial" id="razonSocial" placeholder="Razon Social" class="form-control input-md">
 							  </div>
 							</div>
 							
@@ -64,7 +67,26 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
+							    <input type="button" id="btnBuscar" name="btnBuscar" onclick="javascript:buscar();" class="btn btn-success" value="Buscar"/>
+							  </div>
+							</div>
+							
+							<!-- Select Basic -->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="cmbPrioridad">Promocion</label>
+							  <div class="col-md-4">
+							    <select name="promociones" id="promociones" class="form-control input-md">
+							    	<option>dar dscto 20%</option>
+							    </select>
+							  </div>
+							</div>
+							
+							<!-- Button -->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="btnBuscar"></label>
+							  <div class="col-md-4">
+							    <input type="button" id="btnRegresar" name="btnRegresar" onclick="javascript:history.back();" class="btn btn-success" value="Refrescar"/>
+							    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Aceptar"/>
 							  </div>
 							</div>
 							
@@ -79,32 +101,28 @@
 							    <![CDATA[
 							       
 							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-							        decorator.setId("idReclamo");
+							        decorator.setId("idFactura");
 							        decorator.setFieldName("_chk");
 							        pageContext.setAttribute("checkboxDecorator", decorator);
 							     ]]>
 							  </jsp:scriptlet> 
 							  
-						    	<display:table  name="requestScope.lFacturas" requestURI="lFidelizar.htm" class="displaytag" pagesize="20"
+						    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            decorator="checkboxDecorator" >
 						            
-						            <display:column title="" >
-						            	<a href="lCompensar.htm?idFactura=${row.idFactura}">ver</a>
-						            </display:column>
+						            <display:column property="checkbox" />
 						            <display:column title="RUC" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Fec. Inicio" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Fin" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-						            						         
+						            <display:column title="# de Compras" property="monto" sortable="true" headerClass="sortable" />
 						            <display:column title="Consumo" property="monto" sortable="true" headerClass="sortable" />
+						            
 						    	</display:table>
 							
 							</div>
 						  	</div>
 							</div>			
-                        
-                        
                         
                     </div>
                     <!-- /.col-lg-12 -->
@@ -119,9 +137,7 @@
 			<div id="cuerpoDiv"></div>
 		</div>
 		
-		
 	 <jsp:include page="../include/pie.jsp"/>
-	 
 	 
 <script>
 	

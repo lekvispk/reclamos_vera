@@ -1,5 +1,7 @@
 package pe.org.reclamos.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -103,10 +105,9 @@ public class FidelizarController {
 		   }finally{
 			//  model.put("reclamo", new Reclamo() );
 		   }
-		return "reclamos/lCompensar";
+		return "fidelizar/lCompensar";
 	}
 	
-
 	@RequestMapping(value="/lCompensar.htm", method=RequestMethod.POST)
 	public String lCompensarPost(@Valid Factura factura, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
@@ -128,7 +129,7 @@ public class FidelizarController {
 		   }finally{
 			//  model.put("reclamo", new Reclamo() );
 		   }
-		return "reclamos/lCompensar";
+		return "fidelizar/lCompensar";
 	}
 	
 	@RequestMapping(value="/compensar.htm", method=RequestMethod.GET)
@@ -152,7 +153,71 @@ public class FidelizarController {
 		   }finally{
 			//  model.put("reclamo", new Reclamo() );
 		   }
-		return "reclamos/lCompensar";
+		return "fidelizar/lCompensar";
 	}
+	
+	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.GET)
+	public String lPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("lPromociones");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   model.put("lFacturas", new ArrayList<Factura>());
+			   
+			   model.put("factura", new Factura() );
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			//  model.put("reclamo", new Reclamo() );
+		   }
+		return "fidelizar/lPromociones";
+	}
+	
+	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.POST)
+	public String lPromocionesPost(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("lPromociones");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   model.put("lFacturas", facturaService.buscar( new Factura( ) ));
+			   
+			   model.put("factura", new Factura() );
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			//  model.put("reclamo", new Reclamo() );
+		   }
+		return "fidelizar/lPromociones";
+	}
+	
+	@RequestMapping(value="/promociones.htm", method=RequestMethod.POST)
+	public String grabarPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("grabarPromociones");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   model.put("lFacturas", facturaService.buscar( new Factura( ) ));
+			   model.put("factura", new Factura() );
+			   model.put("mensaje", "Datos grabados");
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			//  model.put("reclamo", new Reclamo() );
+		   }
+		return "fidelizar/lPromociones";
+	}
+	
 	
 }
