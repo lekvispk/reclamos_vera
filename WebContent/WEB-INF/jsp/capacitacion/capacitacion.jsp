@@ -38,7 +38,7 @@
 							<fieldset>
 							
 							<!-- Form Name -->
-							<legend>Capacitaciones</legend>
+							<legend>Registrar Capacitaci&oacute;n</legend>
 							
 							<form:hidden path="idFactura"/>
 							<form:hidden path="cliente.idCliente"/>
@@ -77,7 +77,8 @@
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <div class="col-md-8">
+								<label class="col-md-4 control-label"></label>
+							  	<div class="col-md-4">
 							  		<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">

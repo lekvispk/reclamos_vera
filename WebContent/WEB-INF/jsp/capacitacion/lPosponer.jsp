@@ -8,7 +8,7 @@
 <script>
 	
 	function buscar(){
-		document.forms[0].action='lCapacitaciones.htm';
+		document.forms[0].action='lPosponer.htm';
 		document.forms[0].submit();
 	}
 
@@ -16,10 +16,9 @@
 		
 		var fields = $("input[name='_chk']").serializeArray(); 
 	    if (fields.length >= 1) {
-		    document.forms[0].action='preCapacitacion.htm';
-			document.forms[0].submit();
+	    	window.location.assign("${pageContext.request.contextPath}/capacitacion/posponer.htm?id=1");
 	    }else {
-	    	alert('Seleccione un cliente');
+	    	alert('Seleccione una capacitacion');
 	    }
 	
 	}
@@ -38,18 +37,18 @@
 							<fieldset>
 							
 							<!-- Form Name -->
-							<legend>Capacitaciones</legend>
+							<legend>Posponer Capacitaci&oacute;n</legend>
 							
 							<form:hidden path="idFactura"/>
 							<form:hidden path="cliente.idCliente"/>
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
+							  <label class="col-md-4 control-label" for="codCapacitacion">C&oacute;digo de Capacitaci&oacute;n</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="ruc" id="ruc" placeholder="RUC" class="form-control input-md">
+							  	<input type="text" name="codCapacitacion" id="codCapacitacion" placeholder="CAP001" class="form-control input-md">
 							  </div>
-							   <div class="col-md-4">
+							  <div class="col-md-4">
 							    <input type="button" id="btnBuscar" name="btnBuscar" onclick="javascript:buscar();" class="btn btn-success" value="Buscar"/>
 							  </div>
 							</div>
@@ -62,14 +61,11 @@
 							  </div>
 							</div>
 							
-							
-							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="razonSocial">Capacitados</label>  
+							  <label class="col-md-4 control-label" for="txtVencimiento">Fecha de Capacitaci&oacute;n</label>  
 							  <div class="col-md-4">
-							  	<label><input type="radio" name="rb" id="rb1" value="1">Si</label>
-							  	<label><input type="radio" name="rb" id="rb2" value="2">No</label>
+							  	<input id="txtVencimiento" name="txtVencimiento" type="text" placeholder="dd/mm/yyyy" class="form-control input-md">
 							  </div>
 							</div>
 							
@@ -99,13 +95,13 @@
 							  </jsp:scriptlet> 
 							  
 						    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
-						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
-						            decorator="checkboxDecorator" >
+						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
 						            
 						            <display:column property="checkbox" />
+						            <display:column title="Capacitacion" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Factura" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Reclamo" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+						            <display:column title="Reclamo" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
+						            <display:column title="Solcuion" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
 						            
 						    	</display:table>
 							

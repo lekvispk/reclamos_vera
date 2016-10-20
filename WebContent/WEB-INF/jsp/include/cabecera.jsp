@@ -13,6 +13,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${pageContext.request.contextPath}/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="${pageContext.request.contextPath}/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
@@ -289,7 +290,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                        	<a href="#"><i class="fa fa-edit fa-fw"></i> Fidelizar<span class="fa arrow"></span></a>
+                        	<a href="#"><i class="fa fa-star fa-fw"></i> Fidelizar<span class="fa arrow"></span></a>
                         	<ul class="nav nav-third-level">
                         		<li><a href="${pageContext.request.contextPath}/fidelizar/lFidelizar.htm">Fidelizar</a></li>
                         		<li><a href="#">Compensar</a></li>
@@ -298,16 +299,26 @@
                         	</ul>	
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> Capacitaci&oacute;n<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-clipboard fa-fw"></i> Capacitaci&oacute;n<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                              	<li><a href="${pageContext.request.contextPath}/capacitacion/lCapacitaciones.htm">Registrar capacitaci&oacute;n</a></li>
-                                <li><a href="${pageContext.request.contextPath}/capacitacion/posponer.htm">Posponer capacitaci&oacute;n</a></li>
-                                <li><a href="${pageContext.request.contextPath}/capacitacion/capacitaciones.htm">Asignar capacitador</a></li>
+                                <li><a href="${pageContext.request.contextPath}/capacitacion/lPosponer.htm">Posponer capacitaci&oacute;n</a></li>
+                                <li><a href="${pageContext.request.contextPath}/capacitacion/lCapacitador.htm">Asignar capacitador</a></li>
+                              </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                         <li>
+                            <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Producto<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                             	<li><a href="${pageContext.request.contextPath}/producto/autorizar.htm">Autorizaci&oacute;n</a></li>
+                                <li><a href="${pageContext.request.contextPath}/producto/seleccionar.htm">Selecci&oacute;n</a></li>
+                                <li><a href="${pageContext.request.contextPath}/producto/verificar.htm">Verificar</a></li>
+                                <li><a href="${pageContext.request.contextPath}/producto/asignar.htm">Asignar</a></li>
                               </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i> Seguimiento<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-link  fa-fw"></i> Seguimiento<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                <li><a href="${pageContext.request.contextPath}/seguimiento/lista.htm">Ver Solicitudes</a></li>
                              </ul>
