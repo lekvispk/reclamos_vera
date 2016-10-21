@@ -19,7 +19,7 @@ import pe.org.reclamos.service.FacturaService;
 @RequestMapping(value="/producto")
 public class ProductoController {
 
-private static final Logger logger = Logger.getLogger( ProductoController.class );
+	private static final Logger logger = Logger.getLogger( ProductoController.class );
 	
 	@Autowired
 	private FacturaService facturaService;

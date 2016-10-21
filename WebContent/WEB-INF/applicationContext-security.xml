@@ -9,6 +9,8 @@
 	<!-- Configure Spring Security -->
 	<http auto-config="true">
 	    
+	    <intercept-url pattern="/rest/**" filters="none"/>
+	    
 		<intercept-url pattern="/css/*" filters="none"/>
 		<intercept-url pattern="/js/*" filters="none"/>
 		<intercept-url pattern="/images/*" filters="none"/>
