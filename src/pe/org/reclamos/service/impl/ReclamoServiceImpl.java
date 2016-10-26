@@ -21,7 +21,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 		if(reclamo.getFecReclamo()==null){
 			reclamo.setFecReclamo(new Date());
 			//auditoria
-			reclamo.setFecRegistro( new Date());
+			reclamo.setFecReclamo( new Date());
 			//TODO validar cuando se registra fecha de vencimiento
 		}
 		reclamoDAO.registrar(reclamo);

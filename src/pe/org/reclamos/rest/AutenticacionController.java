@@ -1,5 +1,7 @@
 package pe.org.reclamos.rest;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,7 +19,7 @@ public class AutenticacionController {
 	//http://localhost:8082/reclamos/rest/auth/basic/elvis
 	
 	@RequestMapping(value = "/basic/{user}", method = RequestMethod.GET )
-	public  @ResponseBody String basicLogin(@PathVariable String user, ModelMap model) {
+	public @ResponseBody String basicLogin(@PathVariable String user, ModelMap model) {
 		logger.debug("basicLogin " + user);
 		return "{'usuario':'elvis','apellido':'campos'}";
 	}
@@ -28,13 +30,14 @@ public class AutenticacionController {
 		return "list";
 	}
 	
-	/*
 	@RequestMapping(value = "/login", method = RequestMethod.POST )
 	public String postLogin(HttpServletRequest request, ModelMap model) {
 
 		logger.debug("basicLogin " + request.getParameter("usuario"));
-		return "{'usuario':'elvis','apellido':'campos'}";
+		logger.debug("basicLogin " + request.getParameter("password"));
+		
+		return "{'usuario':'elvis','apellido':'campos', 'status':'ok'}";
 
-	}*/
+	}
 	
 }

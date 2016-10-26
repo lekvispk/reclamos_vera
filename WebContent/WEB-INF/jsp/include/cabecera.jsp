@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/inicio.htm">Reclamos</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -329,6 +329,15 @@
                             <ul class="nav nav-second-level">
                                 <li><a href="${pageContext.request.contextPath}/clientes/lista.htm">Gestionar</a></li>
                             </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-link  fa-fw"></i> Administraci&oacute;n<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                               <li><a href="${pageContext.request.contextPath}/usuario/lista.htm">Usuarios</a></li>
+                               <li><a href="${pageContext.request.contextPath}/permiso/lista.htm">Permisos</a></li>
+                               <li><a href="${pageContext.request.contextPath}/perfil/lista.htm">Perfiles</a></li>
+                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         

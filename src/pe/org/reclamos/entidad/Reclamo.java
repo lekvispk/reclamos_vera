@@ -2,16 +2,20 @@ package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import java.util.Date;
+import java.util.Set;
 
 
 /**
- * The persistent class for the tb_reclamos database table.
+ * The persistent class for the reclamo database table.
  * 
  */
 @Entity
-@Table(name="tb_reclamos")
-@NamedQuery(name="Reclamo.findAll", query="SELECT r FROM Reclamo r")
+@Table(name="reclamo")
 public class Reclamo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,35 +25,61 @@ public class Reclamo implements Serializable {
 
 	private String asunto;
 
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="created_at")
+	private Date createdAt;
+
+    @Lob()
 	private String descripcion;
 
 	private int estado;
 
-	@Temporal(TemporalType.TIMESTAMP)
+    @Temporal( TemporalType.TIMESTAMP)
 	private Date fecReclamo;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fecRegistro;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fecVencimiento;
-	  
+	private String indemnizar;
+
+    @Lob()
 	private String mensaje;
 
 	private int prioridad;
 
+	private String respuesta;
+
+    @Lob()
 	private String solucion;
-	
+
 	private String tipoReclamo;
 
-	//bi-directional many-to-one association to Factura
-	@ManyToOne
-	@JoinColumn(name="idFactura")
-	private Factura factura;
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="updated_at")
+	private Date updatedAt;
 
-	public Reclamo() {
-		factura = new Factura();
-	}
+    @Temporal( TemporalType.TIMESTAMP)
+	private Date vencimiento;
+
+	//bi-directional many-to-one association to Devolucion
+	@OneToMany(mappedBy="reclamo")
+	private Set<Devolucion> devolucions;
+
+	//bi-directional many-to-one association to Fideliza
+	@OneToMany(mappedBy="reclamo")
+	private Set<Fideliza> fidelizas;
+
+	//bi-directional many-to-one association to Indemnizacion
+	@OneToMany(mappedBy="reclamo")
+	private Set<Indemnizacion> indemnizacions;
+
+	//bi-directional many-to-one association to ItemsReclamo
+	@OneToMany(mappedBy="reclamo")
+	private Set<ItemsReclamo> itemsReclamos;
+
+	//bi-directional many-to-one association to Solucion
+	@OneToMany(mappedBy="reclamo")
+	private Set<Solucion> solucions;
+
+    public Reclamo() {
+    }
 
 	public Long getIdReclamo() {
 		return this.idReclamo;
@@ -67,6 +97,14 @@ public class Reclamo implements Serializable {
 		this.asunto = asunto;
 	}
 
+	public Date getCreatedAt() {
+		return this.createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -74,18 +112,16 @@ public class Reclamo implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
 	/**
 	 * 1=Abierto<br>
 	 * 2=Aceptado<br>
 	 * 3=Rechazado<br>
 	 * 4=solucionado<br>
-	 * @return
+	 * @param estado
 	 */
 	public int getEstado() {
 		return this.estado;
 	}
-
 	/**
 	 * 1=Abierto<br>
 	 * 2=Aceptado<br>
@@ -105,6 +141,14 @@ public class Reclamo implements Serializable {
 		this.fecReclamo = fecReclamo;
 	}
 
+	public String getIndemnizar() {
+		return this.indemnizar;
+	}
+
+	public void setIndemnizar(String indemnizar) {
+		this.indemnizar = indemnizar;
+	}
+
 	public String getMensaje() {
 		return this.mensaje;
 	}
@@ -121,6 +165,22 @@ public class Reclamo implements Serializable {
 		this.prioridad = prioridad;
 	}
 
+	public String getRespuesta() {
+		return this.respuesta;
+	}
+
+	public void setRespuesta(String respuesta) {
+		this.respuesta = respuesta;
+	}
+
+	public String getSolucion() {
+		return this.solucion;
+	}
+
+	public void setSolucion(String solucion) {
+		this.solucion = solucion;
+	}
+
 	public String getTipoReclamo() {
 		return this.tipoReclamo;
 	}
@@ -129,41 +189,65 @@ public class Reclamo implements Serializable {
 		this.tipoReclamo = tipoReclamo;
 	}
 
-	public Factura getFactura() {
-		return this.factura;
+	public Date getUpdatedAt() {
+		return this.updatedAt;
 	}
 
-	public void setFactura(Factura tbFactura) {
-		this.factura = tbFactura;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
-	public String getSolucion() {
-		return solucion;
+	public Date getVencimiento() {
+		return this.vencimiento;
 	}
 
-	public void setSolucion(String solucion) {
-		this.solucion = solucion;
+	public void setVencimiento(Date vencimiento) {
+		this.vencimiento = vencimiento;
 	}
 
-	public Date getFecRegistro() {
-		return fecRegistro;
+	public Set<Devolucion> getDevolucions() {
+		return this.devolucions;
 	}
 
-	public void setFecRegistro(Date fecRegistro) {
-		this.fecRegistro = fecRegistro;
-	}
-
-	public Date getFecVencimiento() {
-		return fecVencimiento;
-	}
-
-	public void setFecVencimiento(Date fecVencimiento) {
-		this.fecVencimiento = fecVencimiento;
-	}
-
-	@Override
-	public String toString(){
-		return "id: " + idReclamo + " asunto: "+ asunto;
+	public void setDevolucions(Set<Devolucion> devolucions) {
+		this.devolucions = devolucions;
 	}
 	
+	public Set<Fideliza> getFidelizas() {
+		return this.fidelizas;
+	}
+
+	public void setFidelizas(Set<Fideliza> fidelizas) {
+		this.fidelizas = fidelizas;
+	}
+	
+	public Set<Indemnizacion> getIndemnizacions() {
+		return this.indemnizacions;
+	}
+
+	public void setIndemnizacions(Set<Indemnizacion> indemnizacions) {
+		this.indemnizacions = indemnizacions;
+	}
+	
+	public Set<ItemsReclamo> getItemsReclamos() {
+		return this.itemsReclamos;
+	}
+
+	public void setItemsReclamos(Set<ItemsReclamo> itemsReclamos) {
+		this.itemsReclamos = itemsReclamos;
+	}
+	
+	public Set<Solucion> getSolucions() {
+		return this.solucions;
+	}
+
+	public void setSolucions(Set<Solucion> solucions) {
+		this.solucions = solucions;
+	}
+
+	 @Override
+     public String toString() {
+          return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
+     }
+	 
 }

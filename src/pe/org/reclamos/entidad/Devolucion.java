@@ -7,50 +7,53 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import java.util.Date;
+import java.util.Set;
 
 
 /**
- * The persistent class for the solicitud database table.
+ * The persistent class for the devolucion database table.
  * 
  */
 @Entity
-@Table(name="solicitud")
-public class Solicitud implements Serializable {
+@Table(name="devolucion")
+public class Devolucion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idSolicitud;
+	private int idDevolucion;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date createdAt;
 
-	private String descripcion;
+    @Lob()
+	private String detalle;
 
 	private int estado;
-
-    @Temporal( TemporalType.TIMESTAMP)
-	private Date fecSolicitud;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	private Date updatedAt;
 
-	//bi-directional many-to-one association to Cliente
-    @ManyToOne
-	@JoinColumn(name="idCliente")
-	private Cliente cliente;
+	//bi-directional many-to-one association to DetalleDevolucion
+	@OneToMany(mappedBy="devolucion")
+	private Set<DetalleDevolucion> detalleDevolucions;
 
-    public Solicitud() {
+	//bi-directional many-to-one association to Reclamo
+    @ManyToOne
+	@JoinColumn(name="idReclamo")
+	private Reclamo reclamo;
+
+    public Devolucion() {
     }
 
-	public int getIdSolicitud() {
-		return this.idSolicitud;
+	public int getIdDevolucion() {
+		return this.idDevolucion;
 	}
 
-	public void setIdSolicitud(int idSolicitud) {
-		this.idSolicitud = idSolicitud;
+	public void setIdDevolucion(int idDevolucion) {
+		this.idDevolucion = idDevolucion;
 	}
 
 	public Date getCreatedAt() {
@@ -61,12 +64,12 @@ public class Solicitud implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public String getDescripcion() {
-		return this.descripcion;
+	public String getDetalle() {
+		return this.detalle;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
 
 	public int getEstado() {
@@ -77,14 +80,6 @@ public class Solicitud implements Serializable {
 		this.estado = estado;
 	}
 
-	public Date getFecSolicitud() {
-		return this.fecSolicitud;
-	}
-
-	public void setFecSolicitud(Date fecSolicitud) {
-		this.fecSolicitud = fecSolicitud;
-	}
-
 	public Date getUpdatedAt() {
 		return this.updatedAt;
 	}
@@ -93,17 +88,26 @@ public class Solicitud implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Cliente getCliente() {
-		return this.cliente;
+	public Set<DetalleDevolucion> getDetalleDevolucions() {
+		return this.detalleDevolucions;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setDetalleDevolucions(Set<DetalleDevolucion> detalleDevolucions) {
+		this.detalleDevolucions = detalleDevolucions;
+	}
+	
+	public Reclamo getReclamo() {
+		return this.reclamo;
 	}
 
+	public void setReclamo(Reclamo reclamo) {
+		this.reclamo = reclamo;
+	}
+	
+	
 	 @Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
      }
-	 
+	
 }

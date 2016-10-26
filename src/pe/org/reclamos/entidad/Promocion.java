@@ -7,20 +7,21 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import java.util.Date;
+import java.util.Set;
 
 
 /**
- * The persistent class for the solicitud database table.
+ * The persistent class for the promocion database table.
  * 
  */
 @Entity
-@Table(name="solicitud")
-public class Solicitud implements Serializable {
+@Table(name="promocion")
+public class Promocion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idSolicitud;
+	private int idPromocion;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
@@ -31,26 +32,22 @@ public class Solicitud implements Serializable {
 	private int estado;
 
     @Temporal( TemporalType.TIMESTAMP)
-	private Date fecSolicitud;
-
-    @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	private Date updatedAt;
 
-	//bi-directional many-to-one association to Cliente
-    @ManyToOne
-	@JoinColumn(name="idCliente")
-	private Cliente cliente;
+	//bi-directional many-to-one association to Fideliza
+	@OneToMany(mappedBy="promocion")
+	private Set<Fideliza> fidelizas;
 
-    public Solicitud() {
+    public Promocion() {
     }
 
-	public int getIdSolicitud() {
-		return this.idSolicitud;
+	public int getIdPromocion() {
+		return this.idPromocion;
 	}
 
-	public void setIdSolicitud(int idSolicitud) {
-		this.idSolicitud = idSolicitud;
+	public void setIdPromocion(int idPromocion) {
+		this.idPromocion = idPromocion;
 	}
 
 	public Date getCreatedAt() {
@@ -77,14 +74,6 @@ public class Solicitud implements Serializable {
 		this.estado = estado;
 	}
 
-	public Date getFecSolicitud() {
-		return this.fecSolicitud;
-	}
-
-	public void setFecSolicitud(Date fecSolicitud) {
-		this.fecSolicitud = fecSolicitud;
-	}
-
 	public Date getUpdatedAt() {
 		return this.updatedAt;
 	}
@@ -93,12 +82,12 @@ public class Solicitud implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Cliente getCliente() {
-		return this.cliente;
+	public Set<Fideliza> getFidelizas() {
+		return this.fidelizas;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setFidelizas(Set<Fideliza> fidelizas) {
+		this.fidelizas = fidelizas;
 	}
 
 	 @Override

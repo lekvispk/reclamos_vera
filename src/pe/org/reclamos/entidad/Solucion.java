@@ -10,47 +10,48 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the solicitud database table.
+ * The persistent class for the solucion database table.
  * 
  */
 @Entity
-@Table(name="solicitud")
-public class Solicitud implements Serializable {
+@Table(name="solucion")
+public class Solucion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idSolicitud;
+	private int idSolucion;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date createdAt;
 
+    @Lob()
 	private String descripcion;
 
 	private int estado;
 
     @Temporal( TemporalType.TIMESTAMP)
-	private Date fecSolicitud;
+	private Date fecSolucion;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	private Date updatedAt;
 
-	//bi-directional many-to-one association to Cliente
+	//bi-directional many-to-one association to Reclamo
     @ManyToOne
-	@JoinColumn(name="idCliente")
-	private Cliente cliente;
+	@JoinColumn(name="idReclamo")
+	private Reclamo reclamo;
 
-    public Solicitud() {
+    public Solucion() {
     }
 
-	public int getIdSolicitud() {
-		return this.idSolicitud;
+	public int getIdSolucion() {
+		return this.idSolucion;
 	}
 
-	public void setIdSolicitud(int idSolicitud) {
-		this.idSolicitud = idSolicitud;
+	public void setIdSolucion(int idSolucion) {
+		this.idSolucion = idSolucion;
 	}
 
 	public Date getCreatedAt() {
@@ -77,12 +78,12 @@ public class Solicitud implements Serializable {
 		this.estado = estado;
 	}
 
-	public Date getFecSolicitud() {
-		return this.fecSolicitud;
+	public Date getFecSolucion() {
+		return this.fecSolucion;
 	}
 
-	public void setFecSolicitud(Date fecSolicitud) {
-		this.fecSolicitud = fecSolicitud;
+	public void setFecSolucion(Date fecSolucion) {
+		this.fecSolucion = fecSolucion;
 	}
 
 	public Date getUpdatedAt() {
@@ -93,12 +94,12 @@ public class Solicitud implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Cliente getCliente() {
-		return this.cliente;
+	public Reclamo getReclamo() {
+		return this.reclamo;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setReclamo(Reclamo reclamo) {
+		this.reclamo = reclamo;
 	}
 
 	 @Override

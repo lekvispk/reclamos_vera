@@ -1,5 +1,6 @@
 package pe.org.reclamos.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -57,15 +58,15 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 				criteria.add( Restrictions.eq("idFactura", factura.getIdFactura() ) );
 			}
 			
-			if( !Utiles.nullToBlank( factura.getFecFactura() ).equals("")){
-				criteria.add( Restrictions.ge("fecFactura", factura.getFecFactura() ) );
+			if( !Utiles.nullToBlank( factura.getEmision() ).equals("")){
+				criteria.add( Restrictions.ge("fecFactura", factura.getEmision() ) );
 			}
 			
-			if( !Utiles.nullToBlank( factura.getFecFacturaFin() ).equals("")){
-				criteria.add( Restrictions.le("fecFacturaFin", factura.getFecFacturaFin() ) );
+			if( !Utiles.nullToBlank( factura.getEmisionFin() ).equals("")){
+				criteria.add( Restrictions.le("fecFacturaFin", factura.getEmisionFin() ) );
 			}
 			
-			if( factura.getMonto()!=null && factura.getMonto()>0)
+			if( factura.getMonto()!=null && factura.getMonto().compareTo( BigDecimal.ZERO ) > 0 )
 				criteria.add( Restrictions.gt("monto", factura.getMonto() ) );
 			
 			if(factura.getCliente()!=null && factura.getCliente().getIdCliente()!=null){

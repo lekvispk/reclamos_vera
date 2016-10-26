@@ -24,7 +24,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="fecFactura">Desde</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${factura.fecFactura}" pattern="dd/MM/yyyy" var="f_fecFactura"/>
+							  	<fmt:formatDate value="${factura.emision}" pattern="dd/MM/yyyy" var="f_fecFactura"/>
                     			<input type="text" class="form-control input-md" name="fecFactura" id="fecFactura" placeholder="dd/MM/yyyy" size="10" value="${f_fecFactura}"/>
 							  </div>
 							</div>
@@ -33,7 +33,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="fecFacturaFin">Hasta</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${factura.fecFacturaFin}" pattern="dd/MM/yyyy" var="f_fecFacturaFin"/>
+							  	<fmt:formatDate value="${factura.emisionFin}" pattern="dd/MM/yyyy" var="f_fecFacturaFin"/>
                     			<input type="text" class="form-control input-md" name="fecFacturaFin" id="fecFacturaFin" placeholder="dd/MM/yyyy" size="10" value="${f_fecFacturaFin}"/>
 							  </div>
 							</div>
@@ -94,8 +94,8 @@
 						            </display:column>
 						            <display:column title="RUC" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Inicio" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Fin" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+						            <display:column title="Fec. Inicio" property="emision" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+						            <display:column title="Fec. Fin" property="emision" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
 						            						         
 						            <display:column title="Consumo" property="monto" sortable="true" headerClass="sortable" />
 						    	</display:table>

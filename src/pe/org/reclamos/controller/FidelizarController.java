@@ -18,11 +18,10 @@ import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.FacturaService;
 import pe.org.reclamos.service.ReclamoService;
-import pe.org.reclamos.utiles.Utiles;
 
 /**
  * Clase que registra la fidelizacion realizada a los clientes
- * @author ElvisRubén
+ * @author cvera
  *
  */
 @Controller
@@ -66,13 +65,13 @@ public class FidelizarController {
 			   logger.debug("lFidelizar Post");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
-			   
+			   /*
 			   if(!Utiles.nullToBlank( request.getParameter("fecFactura")).equals("") ){}
 		   			factura.setFecFactura( Utiles.stringToDate( request.getParameter("fecFactura") , "dd/MM/yyyy")) ;
 		  		
 			   if(!Utiles.nullToBlank( request.getParameter("fecFacturaFin")).equals("") ){}
 		   			factura.setFecFacturaFin( Utiles.stringToDate( request.getParameter("fecFacturaFin") , "dd/MM/yyyy")) ;
-		  			  
+		  			 */ 
 			   model.put("lFacturas", facturaService.buscar( factura ));
 			   
 		   } catch (Exception e) {
@@ -96,7 +95,7 @@ public class FidelizarController {
 			   
 			   model.put("lFacturas", facturaService.buscar( new Factura( fac.getCliente() ) ));
 			   
-			   logger.debug( fac.getDescripcion() );
+			   logger.debug( fac.toString());
 			   model.put("factura", fac );
 			   
 		   } catch (Exception e) {
@@ -118,7 +117,7 @@ public class FidelizarController {
 			  
 			   model.put("factura", facturaService.obtener( new Long( factura.getIdFactura() ) ));
 			   
-			   factura.setIdFactura(  null );
+			   factura.setIdFactura( null );
 			   
 			   model.put("lFacturas", facturaService.buscar( factura ));
 			  

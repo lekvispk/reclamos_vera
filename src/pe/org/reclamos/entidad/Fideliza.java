@@ -10,17 +10,17 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the solicitud database table.
+ * The persistent class for the fideliza database table.
  * 
  */
 @Entity
-@Table(name="solicitud")
-public class Solicitud implements Serializable {
+@Table(name="fideliza")
+public class Fideliza implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idSolicitud;
+	private int idFideliza;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
@@ -31,26 +31,31 @@ public class Solicitud implements Serializable {
 	private int estado;
 
     @Temporal( TemporalType.TIMESTAMP)
-	private Date fecSolicitud;
+	private Date fecFideliza;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	private Date updatedAt;
 
-	//bi-directional many-to-one association to Cliente
+	//bi-directional many-to-one association to Promocion
     @ManyToOne
-	@JoinColumn(name="idCliente")
-	private Cliente cliente;
+	@JoinColumn(name="idPromocion")
+	private Promocion promocion;
 
-    public Solicitud() {
+	//bi-directional many-to-one association to Reclamo
+    @ManyToOne
+	@JoinColumn(name="idReclamo")
+	private Reclamo reclamo;
+
+    public Fideliza() {
     }
 
-	public int getIdSolicitud() {
-		return this.idSolicitud;
+	public int getIdFideliza() {
+		return this.idFideliza;
 	}
 
-	public void setIdSolicitud(int idSolicitud) {
-		this.idSolicitud = idSolicitud;
+	public void setIdFideliza(int idFideliza) {
+		this.idFideliza = idFideliza;
 	}
 
 	public Date getCreatedAt() {
@@ -77,12 +82,12 @@ public class Solicitud implements Serializable {
 		this.estado = estado;
 	}
 
-	public Date getFecSolicitud() {
-		return this.fecSolicitud;
+	public Date getFecFideliza() {
+		return this.fecFideliza;
 	}
 
-	public void setFecSolicitud(Date fecSolicitud) {
-		this.fecSolicitud = fecSolicitud;
+	public void setFecFideliza(Date fecFideliza) {
+		this.fecFideliza = fecFideliza;
 	}
 
 	public Date getUpdatedAt() {
@@ -93,12 +98,20 @@ public class Solicitud implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Cliente getCliente() {
-		return this.cliente;
+	public Promocion getPromocion() {
+		return this.promocion;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setPromocion(Promocion promocion) {
+		this.promocion = promocion;
+	}
+	
+	public Reclamo getReclamo() {
+		return this.reclamo;
+	}
+
+	public void setReclamo(Reclamo reclamo) {
+		this.reclamo = reclamo;
 	}
 
 	 @Override

@@ -1,87 +1,96 @@
 package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Set;
+
 
 /**
- * The persistent class for the tb_factura database table.
+ * The persistent class for the factura database table.
  * 
  */
 @Entity
-@Table(name="tb_factura")
-@NamedQuery(name="Factura.findAll", query="SELECT f FROM Factura f")
+@Table(name="factura")
 public class Factura implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long idFactura;
+	private Integer idFactura;
 
-	private String descripcion;
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="created_at")
+	private Date createdAt;
+
+    @Temporal( TemporalType.TIMESTAMP)
+	private Date emision;
+    
+    @Transient
+    private Date emisionFin;
 
 	private int estado;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fecFactura;
+	private BigDecimal monto;
 
-	@Transient
-	private Date fecFacturaFin;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fecRegistro;
-	
 	private String numero;
-	
-	private Double monto;
+
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="updated_at")
+	private Date updatedAt;
+
+	//bi-directional many-to-one association to Capacitacion
+	@OneToMany(mappedBy="factura")
+	private Set<Capacitacion> capacitacions;
+
+	//bi-directional many-to-one association to Detallefactura
+	@OneToMany(mappedBy="factura")
+	private Set<Detallefactura> detallefacturas;
 
 	//bi-directional many-to-one association to Cliente
-	@ManyToOne
+    @ManyToOne
 	@JoinColumn(name="idCliente")
 	private Cliente cliente;
 
 	//bi-directional many-to-one association to Proveedor
-	@ManyToOne
+    @ManyToOne
 	@JoinColumn(name="idProveedor")
-	private Proveedor tbProveedor;
+	private Proveedor proveedor;
 
-	public Factura() {
-		cliente = new Cliente();
-	}
+    public Factura() {
+    }
 
-	public Factura( Cliente cliente) {
-		this.cliente=cliente;
-	}
-	
-	public Long getIdFactura() {
+    public Factura(Cliente cliente) {
+    	this.cliente = cliente;
+    }
+    
+	public Integer getIdFactura() {
 		return this.idFactura;
 	}
 
-	public void setIdFactura(Long idFactura) {
+	public void setIdFactura(Integer idFactura) {
 		this.idFactura = idFactura;
 	}
 
-	public String getDescripcion() {
-		return this.descripcion;
+	public Date getCreatedAt() {
+		return this.createdAt;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getEmision() {
+		return this.emision;
+	}
+
+	public void setEmision(Date emision) {
+		this.emision = emision;
 	}
 
 	public int getEstado() {
@@ -92,12 +101,12 @@ public class Factura implements Serializable {
 		this.estado = estado;
 	}
 
-	public Date getFecFactura() {
-		return this.fecFactura;
+	public BigDecimal getMonto() {
+		return this.monto;
 	}
 
-	public void setFecFactura(Date fecFactura) {
-		this.fecFactura = fecFactura;
+	public void setMonto(BigDecimal monto) {
+		this.monto = monto;
 	}
 
 	public String getNumero() {
@@ -108,49 +117,57 @@ public class Factura implements Serializable {
 		this.numero = numero;
 	}
 
+	public Date getUpdatedAt() {
+		return this.updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Set<Capacitacion> getCapacitacions() {
+		return this.capacitacions;
+	}
+
+	public void setCapacitacions(Set<Capacitacion> capacitacions) {
+		this.capacitacions = capacitacions;
+	}
+	
+	public Set<Detallefactura> getDetallefacturas() {
+		return this.detallefacturas;
+	}
+
+	public void setDetallefacturas(Set<Detallefactura> detallefacturas) {
+		this.detallefacturas = detallefacturas;
+	}
+	
 	public Cliente getCliente() {
 		return this.cliente;
 	}
 
-	public void setCliente(Cliente tbCliente) {
-		this.cliente = tbCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	public Proveedor getProveedor() {
+		return this.proveedor;
 	}
 
-	public Proveedor getTbProveedor() {
-		return this.tbProveedor;
+	public void setProveedor(Proveedor proveedor) {
+		this.proveedor = proveedor;
+	}
+	
+	 public Date getEmisionFin() {
+		return emisionFin;
 	}
 
-	public void setTbProveedor(Proveedor tbProveedor) {
-		this.tbProveedor = tbProveedor;
+	public void setEmisionFin(Date emisionFin) {
+		this.emisionFin = emisionFin;
 	}
 
-	public Date getFecRegistro() {
-		return fecRegistro;
-	}
-
-	public void setFecRegistro(Date fecRegistro) {
-		this.fecRegistro = fecRegistro;
-	}
-
-	public Double getMonto() {
-		return monto;
-	}
-
-	public void setMonto(Double monto) {
-		this.monto = monto;
-	}
-
-	public Date getFecFacturaFin() {
-		return fecFacturaFin;
-	}
-
-	public void setFecFacturaFin(Date fecFacturaFin) {
-		this.fecFacturaFin = fecFacturaFin;
-	}
-
-	 @Override
+	@Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
      }
-
+	 
 }

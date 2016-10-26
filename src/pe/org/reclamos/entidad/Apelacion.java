@@ -10,28 +10,28 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the solicitud database table.
+ * The persistent class for the apelacion database table.
  * 
  */
 @Entity
-@Table(name="solicitud")
-public class Solicitud implements Serializable {
+@Table(name="apelacion")
+public class Apelacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idSolicitud;
+	private int idApelacion;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date createdAt;
 
+    @Lob()
 	private String descripcion;
 
 	private int estado;
 
-    @Temporal( TemporalType.TIMESTAMP)
-	private Date fecSolicitud;
+	private int tipoApelacion;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
@@ -42,15 +42,15 @@ public class Solicitud implements Serializable {
 	@JoinColumn(name="idCliente")
 	private Cliente cliente;
 
-    public Solicitud() {
+    public Apelacion() {
     }
 
-	public int getIdSolicitud() {
-		return this.idSolicitud;
+	public int getIdApelacion() {
+		return this.idApelacion;
 	}
 
-	public void setIdSolicitud(int idSolicitud) {
-		this.idSolicitud = idSolicitud;
+	public void setIdApelacion(int idApelacion) {
+		this.idApelacion = idApelacion;
 	}
 
 	public Date getCreatedAt() {
@@ -77,12 +77,12 @@ public class Solicitud implements Serializable {
 		this.estado = estado;
 	}
 
-	public Date getFecSolicitud() {
-		return this.fecSolicitud;
+	public int getTipoApelacion() {
+		return this.tipoApelacion;
 	}
 
-	public void setFecSolicitud(Date fecSolicitud) {
-		this.fecSolicitud = fecSolicitud;
+	public void setTipoApelacion(int tipoApelacion) {
+		this.tipoApelacion = tipoApelacion;
 	}
 
 	public Date getUpdatedAt() {
