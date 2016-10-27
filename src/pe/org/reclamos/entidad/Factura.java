@@ -62,6 +62,10 @@ public class Factura implements Serializable {
 	@JoinColumn(name="idProveedor")
 	private Proveedor proveedor;
 
+    //bi-directional many-to-one association to Reclamo
+	@OneToMany(mappedBy="factura")
+	private Set<Reclamo> reclamos;
+	
     public Factura() {
     }
 
@@ -165,6 +169,14 @@ public class Factura implements Serializable {
 		this.emisionFin = emisionFin;
 	}
 
+	public Set<Reclamo> getReclamos() {
+		return this.reclamos;
+	}
+
+	public void setReclamos(Set<Reclamo> reclamos) {
+		this.reclamos = reclamos;
+	}
+	
 	@Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);

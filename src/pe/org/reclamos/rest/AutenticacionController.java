@@ -30,6 +30,7 @@ public class AutenticacionController {
 		return "list";
 	}
 	
+	//http://localhost:8082/reclamos/rest/auth/login
 	@RequestMapping(value = "/login", method = RequestMethod.POST )
 	public String postLogin(HttpServletRequest request, ModelMap model) {
 

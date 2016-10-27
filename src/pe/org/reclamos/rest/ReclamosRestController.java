@@ -1,5 +1,7 @@
 package pe.org.reclamos.rest;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,6 +21,13 @@ public class ReclamosRestController {
 	public @ResponseBody String reclamo(@PathVariable String user, ModelMap model) {
 		logger.debug("usuario=" + user+" listar reclamos");
 		return "[{'idReclamo':'1','fecha':'marzo'},{'idReclamo':'2','fecha':'abril'}]";
+	}
+	
+	//http://localhost:8082/reclamos/rest/elvis/reclamos/
+	@RequestMapping(value = "/{user}/reclamos/", method = RequestMethod.POST )
+	public @ResponseBody String reclamoNuevo(@PathVariable String user,HttpServletRequest request,  ModelMap model) {
+		logger.debug("registrar reclamo" );
+		return "{'idReclamo':'1','fecha':'marzo','status':'ok','errorMsg':''}";
 	}
 	
 	//http://localhost:8082/reclamos/rest/elvis/reclamos/1

@@ -19,14 +19,6 @@
 							<!-- Form Name -->
 							<legend>Lista de Permisos</legend>
 						
-							<!-- Button -->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="btnBuscar"></label>
-							  <div class="col-md-4">
-							    <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
-							  </div>
-							</div>
-							
 							</fieldset>
 				          </form:form>
 				   		
@@ -40,12 +32,7 @@
 						           
 						           <display:column title="Id" property="idPermiso" sortable="true" headerClass="sortable" />
 						           <display:column title="Permiso" property="permiso" sortable="true" headerClass="sortable" />
-						           <display:column title="Estado" property="estado" sortable="true" headerClass="sortable" />
-						           <display:column>
-						           	<a href="#">M</a>
-						           	<a href="#">X</a>
-						           </display:column>
-						           
+						          
 						    	</display:table>
 							</div>
 						  	</div>

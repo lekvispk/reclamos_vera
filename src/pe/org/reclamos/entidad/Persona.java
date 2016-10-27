@@ -27,11 +27,7 @@ public class Persona implements Serializable {
 	@Column(name="created_at")
 	private Date createdAt;
 
-	private String departamento;
-
-	private String direccion;
-
-	private String distrito;
+	private String ubigeo;
 
 	private String email;
 
@@ -77,28 +73,12 @@ public class Persona implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public String getDepartamento() {
-		return this.departamento;
+	public String getUbigeo() {
+		return this.ubigeo;
 	}
 
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-
-	public String getDireccion() {
-		return this.direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getDistrito() {
-		return this.distrito;
-	}
-
-	public void setDistrito(String distrito) {
-		this.distrito = distrito;
+	public void setUbigeo(String ubigeo) {
+		this.ubigeo = ubigeo;
 	}
 
 	public String getEmail() {

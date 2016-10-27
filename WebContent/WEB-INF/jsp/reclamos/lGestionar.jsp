@@ -55,8 +55,16 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="txtVencimiento">Vencimiento</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${reclamo.fecReclamo}" pattern="dd/MM/yyyy" var="f_fecReclamo"/>
-                    			<input type="text" class="form-control input-md" name="fecReclamo" id="fecReclamo" placeholder="dd/MM/yyyy" size="10" value="${f_fecReclamo}"/>
+							  
+							  	<div class='input-group date' id='datetimepicker1'>
+				                    <fmt:formatDate value="${reclamo.fecReclamo}" pattern="dd/MM/yyyy" var="f_fecReclamo"/>
+                    				<input type="text" class="form-control input-md" name="fecReclamo" id="fecReclamo" placeholder="dd/MM/yyyy" size="10" value="${f_fecReclamo}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				                
+							  	
 							  </div>
 							</div>
 							
@@ -141,19 +149,10 @@
 	   		);
 		}
 	}
-	
-	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   	   
-    	$( "#fecReclamo" ).datepicker({
- 	        showOn: "button",
- 	        buttonImage: "${pageContext.request.contextPath}/img/cal.gif",
- 	        buttonImageOnly: false,
- 	        dateFormat: 'dd/mm/yy'
- 	      });
-	 	
-    	
-    	
-   });
+
+	$( function(){
+		$("#displayTagDiv").displayTagAjax();
+   		$('#datetimepicker1').datetimepicker();
+	});
    
 </script>

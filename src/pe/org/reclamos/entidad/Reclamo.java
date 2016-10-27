@@ -78,6 +78,11 @@ public class Reclamo implements Serializable {
 	@OneToMany(mappedBy="reclamo")
 	private Set<Solucion> solucions;
 
+	//bi-directional many-to-one association to Factura
+    @ManyToOne
+	@JoinColumn(name="idFactura")
+	private Factura factura;
+    
     public Reclamo() {
     }
 
@@ -245,6 +250,14 @@ public class Reclamo implements Serializable {
 		this.solucions = solucions;
 	}
 
+	public Factura getFactura() {
+		return this.factura;
+	}
+
+	public void setFactura(Factura factura) {
+		this.factura = factura;
+	}
+	
 	 @Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
