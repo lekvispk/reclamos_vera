@@ -22,6 +22,8 @@ public class Permiso implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idPermiso;
 
+	private String detalle;
+
 	private int estado;
 
 	private String permiso;
@@ -29,10 +31,6 @@ public class Permiso implements Serializable {
 	//bi-directional many-to-one association to PermisosPerfil
 	@OneToMany(mappedBy="permiso")
 	private Set<PermisosPerfil> permisosPerfils;
-
-	//bi-directional many-to-one association to PermisosUsuario
-	@OneToMany(mappedBy="permiso")
-	private Set<PermisosUsuario> permisosUsuarios;
 
     public Permiso() {
     }
@@ -43,6 +41,14 @@ public class Permiso implements Serializable {
 
 	public void setIdPermiso(int idPermiso) {
 		this.idPermiso = idPermiso;
+	}
+
+	public String getDetalle() {
+		return this.detalle;
+	}
+
+	public void setDetalle(String detalle) {
+		this.detalle = detalle;
 	}
 
 	public int getEstado() {
@@ -69,14 +75,6 @@ public class Permiso implements Serializable {
 		this.permisosPerfils = permisosPerfils;
 	}
 	
-	public Set<PermisosUsuario> getPermisosUsuarios() {
-		return this.permisosUsuarios;
-	}
-
-	public void setPermisosUsuarios(Set<PermisosUsuario> permisosUsuarios) {
-		this.permisosUsuarios = permisosUsuarios;
-	}
-
 	 @Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);

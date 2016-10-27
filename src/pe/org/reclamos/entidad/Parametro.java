@@ -6,13 +6,15 @@ import javax.persistence.*;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import java.util.Date;
+
 
 /**
- * The persistent class for the parametros database table.
+ * The persistent class for the parametro database table.
  * 
  */
 @Entity
-@Table(name="parametros")
+@Table(name="parametro")
 public class Parametro implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,13 +22,23 @@ public class Parametro implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idParametro;
 
+	@Column(name="cod_grupo")
 	private String codGrupo;
 
-	private String codigo;
+	@Column(name="cod_param")
+	private String codParam;
+
+	@Column(name="des_corta")
+	private String desCorta;
+
+	@Column(name="des_param")
+	private String desParam;
 
 	private int estado;
 
-	private String valor;
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="fec_modif")
+	private Date fecModif;
 
     public Parametro() {
     }
@@ -47,12 +59,28 @@ public class Parametro implements Serializable {
 		this.codGrupo = codGrupo;
 	}
 
-	public String getCodigo() {
-		return this.codigo;
+	public String getCodParam() {
+		return this.codParam;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodParam(String codParam) {
+		this.codParam = codParam;
+	}
+
+	public String getDesCorta() {
+		return this.desCorta;
+	}
+
+	public void setDesCorta(String desCorta) {
+		this.desCorta = desCorta;
+	}
+
+	public String getDesParam() {
+		return this.desParam;
+	}
+
+	public void setDesParam(String desParam) {
+		this.desParam = desParam;
 	}
 
 	public int getEstado() {
@@ -63,12 +91,12 @@ public class Parametro implements Serializable {
 		this.estado = estado;
 	}
 
-	public String getValor() {
-		return this.valor;
+	public Date getFecModif() {
+		return this.fecModif;
 	}
 
-	public void setValor(String valor) {
-		this.valor = valor;
+	public void setFecModif(Date fecModif) {
+		this.fecModif = fecModif;
 	}
 
 	 @Override

@@ -27,11 +27,7 @@ public class Proveedor implements Serializable {
 	@Column(name="created_at")
 	private Date createdAt;
 
-	private String departamento;
-
 	private String direccion;
-
-	private String distrito;
 
 	private String email;
 
@@ -40,8 +36,6 @@ public class Proveedor implements Serializable {
 	@Column(name="numero_documento")
 	private String numeroDocumento;
 
-	private String provincia;
-
 	private String razonSocial;
 
 	private String representante;
@@ -49,6 +43,8 @@ public class Proveedor implements Serializable {
 	private String telefono1;
 
 	private int tipoCertiProveedor;
+
+	private String ubigeo;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
@@ -77,28 +73,12 @@ public class Proveedor implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public String getDepartamento() {
-		return this.departamento;
-	}
-
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
-	}
-
 	public String getDireccion() {
 		return this.direccion;
 	}
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
-	}
-
-	public String getDistrito() {
-		return this.distrito;
-	}
-
-	public void setDistrito(String distrito) {
-		this.distrito = distrito;
 	}
 
 	public String getEmail() {
@@ -123,14 +103,6 @@ public class Proveedor implements Serializable {
 
 	public void setNumeroDocumento(String numeroDocumento) {
 		this.numeroDocumento = numeroDocumento;
-	}
-
-	public String getProvincia() {
-		return this.provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
 	}
 
 	public String getRazonSocial() {
@@ -163,6 +135,14 @@ public class Proveedor implements Serializable {
 
 	public void setTipoCertiProveedor(int tipoCertiProveedor) {
 		this.tipoCertiProveedor = tipoCertiProveedor;
+	}
+
+	public String getUbigeo() {
+		return this.ubigeo;
+	}
+
+	public void setUbigeo(String ubigeo) {
+		this.ubigeo = ubigeo;
 	}
 
 	public Date getUpdatedAt() {

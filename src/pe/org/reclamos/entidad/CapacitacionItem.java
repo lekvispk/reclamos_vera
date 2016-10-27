@@ -34,15 +34,15 @@ public class CapacitacionItem implements Serializable {
 	@Column(name="updated_at")
 	private Date updatedAt;
 
-	//bi-directional many-to-one association to Detallefactura
-    @ManyToOne
-	@JoinColumn(name="idDetalleFactura")
-	private Detallefactura detallefactura;
-
 	//bi-directional many-to-one association to Capacitacion
     @ManyToOne
 	@JoinColumn(name="idCapacitacion")
 	private Capacitacion capacitacion;
+
+	//bi-directional many-to-one association to Detallefactura
+    @ManyToOne
+	@JoinColumn(name="idDetalleFactura")
+	private Detallefactura detallefactura;
 
     public CapacitacionItem() {
     }

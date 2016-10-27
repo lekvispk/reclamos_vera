@@ -27,7 +27,7 @@ public class Persona implements Serializable {
 	@Column(name="created_at")
 	private Date createdAt;
 
-	private String ubigeo;
+	private String direccion;
 
 	private String email;
 
@@ -36,11 +36,11 @@ public class Persona implements Serializable {
 	@Column(name="numero_documento")
 	private String numeroDocumento;
 
-	private String provincia;
-
 	private String telefono1;
 
 	private String telefono2;
+
+	private String ubigeo;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
@@ -73,12 +73,12 @@ public class Persona implements Serializable {
 		this.createdAt = createdAt;
 	}
 
-	public String getUbigeo() {
-		return this.ubigeo;
+	public String getDireccion() {
+		return this.direccion;
 	}
 
-	public void setUbigeo(String ubigeo) {
-		this.ubigeo = ubigeo;
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public String getEmail() {
@@ -105,14 +105,6 @@ public class Persona implements Serializable {
 		this.numeroDocumento = numeroDocumento;
 	}
 
-	public String getProvincia() {
-		return this.provincia;
-	}
-
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
-
 	public String getTelefono1() {
 		return this.telefono1;
 	}
@@ -127,6 +119,14 @@ public class Persona implements Serializable {
 
 	public void setTelefono2(String telefono2) {
 		this.telefono2 = telefono2;
+	}
+
+	public String getUbigeo() {
+		return this.ubigeo;
+	}
+
+	public void setUbigeo(String ubigeo) {
+		this.ubigeo = ubigeo;
 	}
 
 	public Date getUpdatedAt() {

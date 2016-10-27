@@ -48,9 +48,6 @@ public class Usuario implements Serializable {
 
 	private String username;
 
-	//bi-directional many-to-one association to PermisosUsuario
-	@OneToMany(mappedBy="usuario")
-	private Set<PermisosUsuario> permisosUsuarios;
 
 	//bi-directional many-to-one association to Persona
     @ManyToOne
@@ -135,14 +132,6 @@ public class Usuario implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public Set<PermisosUsuario> getPermisosUsuarios() {
-		return this.permisosUsuarios;
-	}
-
-	public void setPermisosUsuarios(Set<PermisosUsuario> permisosUsuarios) {
-		this.permisosUsuarios = permisosUsuarios;
 	}
 	
 	public Persona getPersona() {
