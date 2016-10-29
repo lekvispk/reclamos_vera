@@ -47,7 +47,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="idFactura">Factura</label>  
 							  <div class="col-md-5">
-							  	<select name="factura.idFactura" id="idFactura">
+							  	<select name="factura.idFactura" id="idFactura" class="form-control">
 							  		<option value="1">0000222</option>
 							  	</select>
 							  </div>
@@ -58,7 +58,7 @@
 							  <label class="col-md-4 control-label" for="prioridad">Prioridad</label>  
 							  <div class="col-md-5">
 							  	
-							  	<form:select path="prioridad">
+							  	<form:select path="prioridad" class="form-control">
 							  		<form:option value="1">Alta</form:option>
 							  		<form:option value="2">Normal</form:option>
 							  		<form:option value="3">Baja</form:option>
@@ -130,40 +130,66 @@
 		}
 	}
 	
-	 $( function(){
+	$( function(){
+		 
    	   $("#displayTagDiv").displayTagAjax();
    	   
    	   
-   	$( "#tagsCliente" ).autocomplete({
-		width: 300,
-        max: 10,
-        delay: 100,
-        autoFocus: true,
-        cacheLength: 1,
-        scroll: true,
-        highlight: false,
-		source: function(request, response) {
-            $.ajax({
-                url: "${pageContext.request.contextPath}/reclamos/lClienteAuto.htm",
-                dataType: "json",
-                data: request,
-                success: function( data, textStatus, jqXHR) {
-                    /*console.log( data);*/
-                    var items = data;
-                    response(items);
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    /* console.log(textStatus);*/
-                }
-            });
-        },
-		minLength: 2,
-		select: function( event, ui ) {
-			  $( "#idCliente" ).val( ui.item.id );
-		}
-	});
+	   	$( "#tagsCliente" ).autocomplete({
+			width: 300,
+	        max: 10,
+	        delay: 100,
+	        autoFocus: true,
+	        cacheLength: 1,
+	        scroll: true,
+	        highlight: false,
+			source: function(request, response) {
+	            $.ajax({
+	                url: "${pageContext.request.contextPath}/reclamos/lClienteAuto.htm",
+	                dataType: "json",
+	                data: request,
+	                success: function( data, textStatus, jqXHR) {
+	                    /*console.log( data);*/
+	                    var items = data;
+	                    response(items);
+	                },
+	                error: function(jqXHR, textStatus, errorThrown){
+	                    /* console.log(textStatus);*/
+	                }
+	            });
+	        },
+			minLength: 2,
+			select: function( event, ui ) {
+				  $( "#idCliente" ).val( ui.item.id );
+				  //cargar combo de facturas;
+				  cargarFacturas( ui.item.id );
+			}
+		});
 	
    	
-   });
-   
+	});
+
+	function cargarFacturas( idCliente ){
+		
+		$.ajax({
+            url: "${pageContext.request.contextPath}/rest/"+idCliente+"/facturas/",
+            dataType: "json",
+            data: {  },
+            success: function( data, textStatus, jqXHR) {
+                console.log( " facturas " +  data);
+                var items = data;
+                $('#idFactura').empty();
+                $.each( data, function( key, value ) {
+                	console.log( key +" facturas " +  value.numero);
+                	 $('#idFactura').append($("<option></option>")
+                                .attr("value",key)
+                                .text(value.numero)); 
+               	});
+
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+            }
+        });
+	}
 </script>

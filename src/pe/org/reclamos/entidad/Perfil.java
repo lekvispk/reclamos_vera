@@ -20,7 +20,7 @@ public class Perfil implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idPerfil;
+	private Long idPerfil;
 
 	private int estado;
 
@@ -37,11 +37,11 @@ public class Perfil implements Serializable {
     public Perfil() {
     }
 
-	public int getIdPerfil() {
+	public Long getIdPerfil() {
 		return this.idPerfil;
 	}
 
-	public void setIdPerfil(int idPerfil) {
+	public void setIdPerfil(Long idPerfil) {
 		this.idPerfil = idPerfil;
 	}
 

@@ -33,7 +33,8 @@ public class Cliente implements Serializable {
 	private String rucCliente;
 
 	//bi-directional many-to-one association to Apelacion
-	@OneToMany(mappedBy="cliente")
+	//@OneToMany(mappedBy="cliente")
+	@Transient
 	private Set<Apelacion> apelacions;
 
 	//bi-directional many-to-one association to Persona
@@ -42,11 +43,13 @@ public class Cliente implements Serializable {
 	private Persona persona;
 
 	//bi-directional many-to-one association to Factura
-	@OneToMany(mappedBy="cliente")
+	//@OneToMany(mappedBy="cliente")
+    @Transient
 	private Set<Factura> facturas;
 
 	//bi-directional many-to-one association to Solicitud
-	@OneToMany(mappedBy="cliente")
+	//@OneToMany(mappedBy="cliente")
+    @Transient
 	private Set<Solicitud> solicituds;
 
     public Cliente() {

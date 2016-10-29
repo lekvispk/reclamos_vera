@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
@@ -87,6 +88,9 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		*/
 			}
 			//criteria.addOrder( Order.desc("fechaIngreso") );
+			criteria.setFetchMode("capacitacions", FetchMode.JOIN);
+			criteria.setFetchMode("detallefacturas", FetchMode.JOIN);
+			
 			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 			return this.getHibernateTemplate().findByCriteria(criteria);
 	}

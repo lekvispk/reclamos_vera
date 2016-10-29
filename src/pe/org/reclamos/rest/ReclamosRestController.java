@@ -18,7 +18,7 @@ public class ReclamosRestController {
 	
 	//http://localhost:8082/reclamos/rest/elvis/reclamos/
 	@RequestMapping(value = "/{user}/reclamos/", method = RequestMethod.GET )
-	public @ResponseBody String reclamo(@PathVariable String user, ModelMap model) {
+	public @ResponseBody String listaReclamos(@PathVariable String user, ModelMap model) {
 		logger.debug("usuario=" + user+" listar reclamos");
 		return "[{'idReclamo':'1','fecha':'marzo'},{'idReclamo':'2','fecha':'abril'}]";
 	}
@@ -32,7 +32,7 @@ public class ReclamosRestController {
 	
 	//http://localhost:8082/reclamos/rest/elvis/reclamos/1
 	@RequestMapping(value = "/{user}/reclamos/{idReclamo}", method = RequestMethod.GET )
-	public @ResponseBody String listReclamos(@PathVariable String user,@PathVariable String idReclamo, ModelMap model) {
+	public @ResponseBody String datosReclamo(@PathVariable String user,@PathVariable String idReclamo, ModelMap model) {
 		logger.debug("usuario=" + user + " idreclamo=" + idReclamo) ;
 		return "{'idReclamo':'1','fecha':'marzo'}";
 	}

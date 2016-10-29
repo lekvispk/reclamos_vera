@@ -47,11 +47,13 @@ public class Persona implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to Cliente
-	@OneToMany(mappedBy="persona")
+	//@OneToMany(mappedBy="persona")
+    @Transient
 	private Set<Cliente> clientes;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="persona")
+	//@OneToMany(mappedBy="persona")
+    @Transient
 	private Set<Usuario> usuarios;
 
     public Persona() {

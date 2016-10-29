@@ -23,8 +23,6 @@
 	<mapping class="pe.org.reclamos.entidad.Permiso"/>
 	<mapping class="pe.org.reclamos.entidad.PermisosPerfil"/>
 	<mapping class="pe.org.reclamos.entidad.PermisosPerfilPK"/>
-	<mapping class="pe.org.reclamos.entidad.PermisosUsuario"/>
-	<mapping class="pe.org.reclamos.entidad.PermisosUsuarioPK"/>
 	<mapping class="pe.org.reclamos.entidad.Persona"/>
 	<mapping class="pe.org.reclamos.entidad.Producto"/>
 	<mapping class="pe.org.reclamos.entidad.Promocion"/>

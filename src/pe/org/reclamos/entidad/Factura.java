@@ -45,11 +45,13 @@ public class Factura implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to Capacitacion
-	@OneToMany(mappedBy="factura")
+	//@OneToMany(mappedBy="factura",fetch=FetchType.LAZY)
+    @Transient
 	private Set<Capacitacion> capacitacions;
 
 	//bi-directional many-to-one association to Detallefactura
-	@OneToMany(mappedBy="factura")
+	//@OneToMany(mappedBy="factura",fetch=FetchType.LAZY)
+	@Transient
 	private Set<Detallefactura> detallefacturas;
 
 	//bi-directional many-to-one association to Cliente
@@ -63,7 +65,8 @@ public class Factura implements Serializable {
 	private Proveedor proveedor;
 
     //bi-directional many-to-one association to Reclamo
-	@OneToMany(mappedBy="factura")
+	//@OneToMany(mappedBy="factura")
+    @Transient
 	private Set<Reclamo> reclamos;
 	
     public Factura() {

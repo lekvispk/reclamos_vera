@@ -39,8 +39,8 @@ public class Detallefactura implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to CapacitacionItem
-	@OneToMany(mappedBy="detallefactura")
-	private Set<CapacitacionItem> capacitacionItems;
+	//@OneToMany(mappedBy="detallefactura",fetch=FetchType.EAGER)
+	//private Set<CapacitacionItem> capacitacionItems;
 
 	//bi-directional many-to-one association to Factura
     @ManyToOne
@@ -53,8 +53,8 @@ public class Detallefactura implements Serializable {
 	private Producto producto;
 
 	//bi-directional many-to-one association to ItemsReclamo
-	@OneToMany(mappedBy="detallefactura")
-	private Set<ItemsReclamo> itemsReclamos;
+	//@OneToMany(mappedBy="detallefactura",fetch=FetchType.EAGER)
+	//private Set<ItemsReclamo> itemsReclamos;
 
     public Detallefactura() {
     }
@@ -107,13 +107,13 @@ public class Detallefactura implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<CapacitacionItem> getCapacitacionItems() {
+	/*public Set<CapacitacionItem> getCapacitacionItems() {
 		return this.capacitacionItems;
 	}
 
 	public void setCapacitacionItems(Set<CapacitacionItem> capacitacionItems) {
 		this.capacitacionItems = capacitacionItems;
-	}
+	}*/
 	
 	public Factura getFactura() {
 		return this.factura;
@@ -131,13 +131,13 @@ public class Detallefactura implements Serializable {
 		this.producto = producto;
 	}
 	
-	public Set<ItemsReclamo> getItemsReclamos() {
+	/*public Set<ItemsReclamo> getItemsReclamos() {
 		return this.itemsReclamos;
 	}
 
 	public void setItemsReclamos(Set<ItemsReclamo> itemsReclamos) {
 		this.itemsReclamos = itemsReclamos;
-	}
+	}*/
 	
 	 @Override
      public String toString() {

@@ -48,10 +48,13 @@
 						           
 						           <display:column title="Id" property="idPerfil" sortable="true" headerClass="sortable" />
 						           <display:column title="Perfil" property="perfil" sortable="true" headerClass="sortable" />
-						           <display:column title="Estado" property="estado" sortable="true" headerClass="sortable" />
-						           <display:column>
-						           	<a href="#">M</a>
-						           	<a href="#">X</a>
+						           <display:column title="Estado" sortable="true" headerClass="sortable">
+						           		<c:if test="${row.estado == 0}">Inactivo</c:if>
+						           		<c:if test="${row.estado == 1}">Activo</c:if>
+						           </display:column>
+						           <display:column title="Acciones" media="html" style="text-align:center">
+						           		<a href="#" id="btnEdit" data-id="${row.idPerfil}" style="border: 0px;" title="Modificar"><img src="${pageContext.request.contextPath}/img/edit.png" width="18" height="18" border="0"></a>
+						           		<a href="#" id="btnDelete" data-id="${row.idPerfil}" style="border: 0px;" title="Eliminar"><img src="${pageContext.request.contextPath}/img/error.png" width="18" height="18" border="0"></a>
 						           </display:column>
 						           
 						    	</display:table>
@@ -59,8 +62,6 @@
 							</div>
 						  	</div>
 							</div>			
-                        
-                        
                         
                     </div>
                     <!-- /.col-lg-12 -->
@@ -80,26 +81,32 @@
 	 
 	 
 <script>
+
+	$( function(){
+	   $("#displayTagDiv").displayTagAjax();
+	});
+
+	$(document).undelegate('#btnEdit', 'click').delegate('#btnEdit', 'click', function(){
+		var id = $(this).data('id');
+		window.location.assign("${pageContext.request.contextPath}/perfil/modificar.htm?id="+id);
+	});
+
+	$(document).undelegate('#btnDelete', 'click').delegate('#btnDelete', 'click', function(){
+		if(confirm('¿Seguro de eliminar el perfil?')){
+			var id = $(this).data('id');
+			$("#tablaDinamica").css('opacity', 0.4);
+	   		$("#tablaDinamica").load('${pageContext.request.contextPath}/perfil/eliminar.htm?id='+ id +'&randval=' + Math.random() + " #resultado", 
+   				function(){ 
+   					$("#tablaDinamica").css('opacity', 1); 
+   					$("#rolling").toggle(); 
+   				}
+	   		);
+		}
+	});
+	
 	function nuevo(){
 		document.forms[0].action='ncliente.htm';
 		document.forms[0].action.submit();
 	}
 	
-
-	function eliminar(id){
-		if(confirm('¿Está seguro de eliminar al cliente?')){
-			$("#tablaDinamica").css('opacity', 0.4);
-	   		$("#tablaDinamica").load('eliminarCliente.htm?id='+ id +'&randval=' + Math.random() + " #resultado", 
-	   				function(){ 
-	   					$("#tablaDinamica").css('opacity', 1); 
-	   					//$("#rolling").toggle(); 
-	   				}
-	   		);
-		}
-	}
-	
-	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   });
-   
 </script>
