@@ -18,8 +18,6 @@
         					<input type="hidden" value="1" name="estado"/>  
         				
 							<fieldset>
-							
-							<!-- Form Name -->
 							<legend>Registrar Reclamo</legend>
 							
 							<!-- RUC Text input-->
@@ -43,15 +41,72 @@
 							  </div>
 							</div>
 							
+							<input type="hidden" value="0" name="idCliente" id="idCliente2"/>
+							<!-- Razon Social Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="asunto">Raz&oacute;n Social</label>  
+							  <div class="col-md-5">
+							  	<input type="text" name="razonSocial" id="razonSocial" class="form-control input-md"/>
+							  </div>
+							</div>
+							<!-- Representante Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="asunto">Representante</label>  
+							  <div class="col-md-5">
+							  	<input type="text" name="representante" id="representante" class="form-control input-md"/>
+							  </div>
+							</div>
+							<!-- Email Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="asunto">Email</label>  
+							  <div class="col-md-5">
+							  	<input type="text" name="email" id="email" class="form-control input-md"/>
+							  </div>
+							</div>
+							<!-- Button -->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="btnBuscar"></label>
+							  <div class="col-md-4">
+							    <input type="button" id="btnBuscarRuc" class="btn btn-success" value="Buscar">
+							  </div>
+							</div>
+							
+							</fieldset>
+							<fieldset>
+							<legend>Informaci&oacute;n General</legend>
+							
 							<!-- Factura Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="idFactura">Factura</label>  
 							  <div class="col-md-5">
 							  	<select name="factura.idFactura" id="idFactura" class="form-control">
-							  		<option value="1">0000222</option>
+							  		<option value="0">-seleccionar-</option>
 							  	</select>
 							  </div>
 							</div>
+							
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="idFactura">Items</label>  
+							  <div class="col-md-5">
+							  		<div class="box-body table-responsive no-padding">
+					                  <table id="lContratolocal" class="table table-bordered table-striped">
+					                    <thead>
+					                      <tr>
+					                        <th>Codigo</th>
+					                        <th>Descripcion</th>
+					                        <th>Cantida</th>
+					                        <th>Importe</th>
+					                        <th></th>
+					                      </tr>
+					                    </thead>
+					                    <tbody>
+					                      
+					                    </tbody>
+					                  </table>
+					                </div>
+							  </div>
+							</div>
+							
 							
 							<!-- Prioridad Text input-->
 							<div class="form-group">
@@ -66,6 +121,10 @@
 							  	
 							  </div>
 							</div>
+							
+							</fieldset>
+							<fieldset>
+							<legend>Detalles del mensaje</legend>
 							
 							<!-- Asunto Text input-->
 							<div class="form-group">
@@ -88,6 +147,9 @@
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
 							    <input class="btn btn-success" type="submit" value="Registrar">
+							  </div>
+							  <div class="col-md-4">
+							    <input class="btn btn-success" type="reset" value="Limpiar">
 							  </div>
 							</div>
 							
@@ -133,7 +195,8 @@
 	$( function(){
 		 
    	   $("#displayTagDiv").displayTagAjax();
-   	   
+
+   	   /* voy a dejar el autocompletar, ahora el cargar combo facturas sera desde un boton y tambien pitara los datos del cliente */
    	   
 	   	$( "#tagsCliente" ).autocomplete({
 			width: 300,
@@ -161,28 +224,80 @@
 			minLength: 2,
 			select: function( event, ui ) {
 				  $( "#idCliente" ).val( ui.item.id );
+				  $( "#idCliente2" ).val( ui.item.id );
+				  
 				  //cargar combo de facturas;
-				  cargarFacturas( ui.item.id );
+				  //cargarFacturas( ui.item.id );
 			}
 		});
 	
    	
 	});
 
+	$(document).undelegate('#idFactura', 'change').delegate('#idFactura', 'change', function(){
+		console.debug('factura seleccionada ');
+		var idFactura =  $(this).val();
+		var idCliente = $('#idCliente').attr('value');
+		console.debug(' idFactura = ' + idFactura + ' idCliente=' + idCliente );
+		//listar items de la factura
+		
+		cargarItemsFactura( idCliente, idFactura );
+			
+		
+	});	
+
+	$(document).undelegate('#btnBuscarRuc', 'click').delegate('#btnBuscarRuc', 'click', function(){
+		var idCliente = $('#idCliente').attr('value');
+			
+		if( idCliente == -1 ){
+			alert('No existe RUC, se debe registrar al cliente');
+			return;
+		}
+		
+		cargarFacturas( idCliente );
+		cargarCliente( idCliente );
+	});
+
+	function cargarCliente( idCliente ){
+		
+		$.ajax({
+            url: "${pageContext.request.contextPath}/rest/clientes/"+idCliente,
+            dataType: "json",
+            data: {  },
+            success: function( data, textStatus, jqXHR) {
+                console.log( " cliente " +  data);
+                var items = data;
+				
+                $( "#razonSocial" ).val( data.nomCliente );
+                $( "#representante" ).val( data.representante );
+                $( "#email" ).val( data.persona.email );
+                
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+            }
+        });
+	}
+	
 	function cargarFacturas( idCliente ){
 		
 		$.ajax({
-            url: "${pageContext.request.contextPath}/rest/"+idCliente+"/facturas/",
+            url: "${pageContext.request.contextPath}/rest/clientes/"+idCliente+"/facturas/",
             dataType: "json",
             data: {  },
             success: function( data, textStatus, jqXHR) {
                 console.log( " facturas " +  data);
                 var items = data;
                 $('#idFactura').empty();
+
+                $('#idFactura').append($("<option></option>")
+		                        .attr("value",-1)
+		                        .text( '-Seleccionar-' ));
+                
                 $.each( data, function( key, value ) {
-                	console.log( key +" facturas " +  value.numero);
+                	//console.log( key +" facturas " +  value.numero);
                 	 $('#idFactura').append($("<option></option>")
-                                .attr("value",key)
+                                .attr("value",value.idFactura)
                                 .text(value.numero)); 
                	});
 
@@ -192,4 +307,34 @@
             }
         });
 	}
+
+	function cargarItemsFactura( idCliente, idFactura ){
+		
+		$.ajax({
+            url: "${pageContext.request.contextPath}/rest/clientes/"+idCliente+"/facturas/"+ idFactura +"/items",
+            dataType: "json",
+            data: {  },
+            success: function( data, textStatus, jqXHR) {
+                console.log( " items " +  data);
+                var items = data;
+                
+                $('#lContratolocal tbody').remove();
+                $.each(data, function(index, element) {
+                	console.log( " sku " +  element.producto.skuProducto);
+                	var row = '<tr id="contratolocal_' + element.producto.idProducto + '">'+
+                             '<td>' + element.producto.skuProducto +'</td>'+
+                             '<td>' + element.producto.descripcion +'</td>'+
+                             '<td>' + element.cantidad + '</td>'+
+                             '<td>' + element.precio + '</td>'+
+                             '<td> <input type="radio" name="rb_item" id="rb_item_' + element.producto.idProducto + '" value="' + element.producto.idProducto + '"> </td>'; 
+                             row += '</tr>';
+                  $('#lContratolocal').append(row);
+                 });
+             
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+            }
+        });
+     }
 </script>

@@ -14,6 +14,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Reclamo;
@@ -297,15 +299,17 @@ public class ReclamoController {
 	}
 	
 	@RequestMapping(value="/registro.htm" , method=RequestMethod.POST)  
-	 public String nuevo(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request,  HttpServletResponse response, ModelMap model) {  
+	 public String nuevo(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model /*,  RedirectAttributes redirectAttrs*/ ) {  
 		try {
 			logger.debug("grabar nuevo");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			reclamoService.registrar(reclamo);
 			
-			model.put("mensaje","Se ha grabado satisfactoriamente");
-			return lGestionar(request, response, model);
+			request.setAttribute("mensaje","Se ha grabado satisfactoriamente");
+			//Argument [RedirectAttributes] is of type Model or Map but is not assignable from the actual model. You may need to switch newer MVC infrastructure classes to use this argument.
+			//redirectAttrs.addFlashAttribute("mensaje","Se ha grabado satisfactoriamente");
+			return "redirect:/reclamos/lGestionar.htm";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );

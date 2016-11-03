@@ -22,6 +22,8 @@ public class Reclamo implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long idReclamo;
+	
+	private Long idCliente;
 
 	private String asunto;
 
@@ -59,23 +61,28 @@ public class Reclamo implements Serializable {
 	private Date vencimiento;
 
 	//bi-directional many-to-one association to Devolucion
-	@OneToMany(mappedBy="reclamo")
-	private Set<Devolucion> devolucions;
+	//@OneToMany(mappedBy="reclamo")
+    @Transient
+    private Set<Devolucion> devolucions;
 
 	//bi-directional many-to-one association to Fideliza
-	@OneToMany(mappedBy="reclamo")
+	//@OneToMany(mappedBy="reclamo")
+	@Transient
 	private Set<Fideliza> fidelizas;
 
 	//bi-directional many-to-one association to Indemnizacion
-	@OneToMany(mappedBy="reclamo")
+	//@OneToMany(mappedBy="reclamo")
+	@Transient
 	private Set<Indemnizacion> indemnizacions;
 
 	//bi-directional many-to-one association to ItemsReclamo
-	@OneToMany(mappedBy="reclamo")
+	//@OneToMany(mappedBy="reclamo")
+	@Transient
 	private Set<ItemsReclamo> itemsReclamos;
 
 	//bi-directional many-to-one association to Solucion
-	@OneToMany(mappedBy="reclamo")
+	//@OneToMany(mappedBy="reclamo")
+	@Transient
 	private Set<Solucion> solucions;
 
 	//bi-directional many-to-one association to Factura
@@ -258,7 +265,15 @@ public class Reclamo implements Serializable {
 		this.factura = factura;
 	}
 	
-	 @Override
+	 public Long getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	@Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
      }

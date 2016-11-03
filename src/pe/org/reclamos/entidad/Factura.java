@@ -22,7 +22,7 @@ public class Factura implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Integer idFactura;
+	private Long idFactura;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
@@ -76,11 +76,11 @@ public class Factura implements Serializable {
     	this.cliente = cliente;
     }
     
-	public Integer getIdFactura() {
+	public Long getIdFactura() {
 		return this.idFactura;
 	}
 
-	public void setIdFactura(Integer idFactura) {
+	public void setIdFactura(Long idFactura) {
 		this.idFactura = idFactura;
 	}
 

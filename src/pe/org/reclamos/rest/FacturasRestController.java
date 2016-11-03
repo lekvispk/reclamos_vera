@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pe.org.reclamos.entidad.Cliente;
+import pe.org.reclamos.entidad.Detallefactura;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.service.FacturaService;
 
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/clientes")
 public class FacturasRestController {
 
 	private static final Logger logger = Logger.getLogger( FacturasRestController.class );
@@ -29,19 +30,57 @@ public class FacturasRestController {
 	@Autowired
 	FacturaService facturaService;
 	
-	//http://localhost:8082/reclamos/rest/1/facturas/
-	@RequestMapping(value = "/{user}/facturas/", method = RequestMethod.GET )
+	/**
+	 * http://localhost:8082/reclamos/rest/clientes/1/facturas
+	 * @param user id cliente
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/{user}/facturas", method = RequestMethod.GET )
 	public @ResponseBody String listaReclamos(@PathVariable String user, ModelMap model,HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("usuario=" + user+" listar facturas");
 		 String json = "";
 		try {
-			response.setContentType("application/json;charset=ISO-8859-1");
+			response.setContentType("application/json; charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
 			Factura fact = new Factura();
 			fact.setCliente( new Cliente() );
 			fact.getCliente().setIdCliente( new Long (user));
 			List<Factura> lista = facturaService.buscar( fact );
+			
+			Gson gson = new Gson();
+		    json = gson.toJson(lista);
+		    
+		} catch (Exception e) {
+			 json = "";
+		}
+		return json;
+	}
+	
+	/**
+	 * http://localhost:8082/reclamos/rest/clientes/1/facturas/1/items
+	 * @param user
+	 * @param factura
+	 * @param model
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/{user}/facturas/{factura}/items", method = RequestMethod.GET )
+	public @ResponseBody String listaItems(@PathVariable String user,@PathVariable String factura, ModelMap model,HttpServletRequest request, HttpServletResponse response) {
+		logger.debug(" factura =" + factura+" listar items");
+		 String json = "";
+		try {
+			response.setContentType("application/json; charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
+			
+			Detallefactura detalle = new Detallefactura();  
+			detalle.setFactura( new  Factura() );
+			detalle.getFactura().setIdFactura( new Long ( factura ));
+			List<Detallefactura> lista = facturaService.listarDetalleFactura(detalle);
 			
 			Gson gson = new Gson();
 		    json = gson.toJson(lista);

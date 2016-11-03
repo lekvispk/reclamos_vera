@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.org.reclamos.dao.FacturaDAO;
+import pe.org.reclamos.entidad.Detallefactura;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.service.FacturaService;
 
@@ -33,6 +34,11 @@ public class FacturaServiceImpl implements FacturaService {
 	@Override
 	public void eliminar(Long cliente) {
 		facturaDAO.eliminar(cliente);
+	}
+
+	@Override
+	public List<Detallefactura>  listarDetalleFactura(Detallefactura detalle) {
+		return facturaDAO.listarDetalleFactura(detalle);
 	}
 
 }

@@ -23,6 +23,12 @@ public class Persona implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idPersona;
 
+	@Column(name="ape_materno")
+	private String apeMaterno;
+
+	@Column(name="ape_paterno")
+	private String apePaterno;
+	
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date createdAt;
@@ -32,6 +38,8 @@ public class Persona implements Serializable {
 	private String email;
 
 	private int estado;
+
+	private String nombres;
 
 	@Column(name="numero_documento")
 	private String numeroDocumento;
@@ -155,7 +163,31 @@ public class Persona implements Serializable {
 		this.usuarios = usuarios;
 	}
 
-	 @Override
+	 public String getApeMaterno() {
+		return apeMaterno;
+	}
+
+	public void setApeMaterno(String apeMaterno) {
+		this.apeMaterno = apeMaterno;
+	}
+
+	public String getApePaterno() {
+		return apePaterno;
+	}
+
+	public void setApePaterno(String apePaterno) {
+		this.apePaterno = apePaterno;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	@Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
      }

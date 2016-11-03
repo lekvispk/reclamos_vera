@@ -89,15 +89,22 @@ CREATE TABLE parametro (
 )
 ENGINE=INNODB;
 
+-- ------------------------------------------------------------
+-- datos completos de la persona
+-- ------------------------------------------------------------
+
 CREATE TABLE persona (
   idPersona INTEGER NOT NULL AUTO_INCREMENT,
   numero_documento VARCHAR(12) NULL,
+  nombres VARCHAR(150) NULL,
+  ape_paterno VARCHAR(150) NULL,
+  ape_materno VARCHAR(150) NULL,
+  email VARCHAR(250) NULL,
   direccion VARCHAR(500) NULL,
   ubigeo VARCHAR(6) NULL,
   telefono1 VARCHAR(25) NULL,
   telefono2 VARCHAR(25) NULL,
-  email VARCHAR(250) NULL,
-  estado INTEGER NULL,
+  estado INTEGER NULL DEFAULT 1,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
   PRIMARY KEY(idPersona)
@@ -145,9 +152,10 @@ CREATE TABLE cliente (
   idCliente INTEGER NOT NULL AUTO_INCREMENT,
   idPersona INTEGER NOT NULL,
   nomCliente VARCHAR(500) NULL,
-  fecCliente DATETIME NULL,
   rucCliente VARCHAR(500) NULL,
-  estado INTEGER NULL,
+  representante VARCHAR(250) NULL,
+  fecCliente DATETIME NULL,
+  estado INTEGER NULL DEFAULT 1,
   PRIMARY KEY(idCliente),
   FOREIGN KEY(idPersona)
     REFERENCES persona(idPersona)
@@ -275,6 +283,7 @@ ENGINE=INNODB;
 CREATE TABLE reclamo (
   idReclamo INTEGER NOT NULL AUTO_INCREMENT,
   idFactura INTEGER NOT NULL,
+  idCliente INTEGER NOT NULL,
   descripcion TEXT NULL,
   fecReclamo DATETIME NULL,
   tipoReclamo VARCHAR(20) NULL,

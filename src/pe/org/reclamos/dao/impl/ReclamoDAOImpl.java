@@ -56,6 +56,10 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 				criteria.add( Restrictions.eq("idReclamo", reclamo.getIdReclamo() ) );
 			}
 			
+			if( reclamo.getIdCliente() != null ){
+				criteria.add( Restrictions.eq("idCliente", reclamo.getIdCliente() ) );
+			}
+			
 			if( reclamo.getPrioridad() > 0 ){
 				criteria.add( Restrictions.eq("prioridad", reclamo.getPrioridad() ) );
 			}

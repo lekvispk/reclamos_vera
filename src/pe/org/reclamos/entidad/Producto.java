@@ -48,11 +48,13 @@ public class Producto implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to DetalleDevolucion
-	@OneToMany(mappedBy="producto")
+	//@OneToMany(mappedBy="producto")
+    @Transient
 	private Set<DetalleDevolucion> detalleDevolucions;
 
 	//bi-directional many-to-one association to Detallefactura
-	@OneToMany(mappedBy="producto")
+	//@OneToMany(mappedBy="producto")
+    @Transient
 	private Set<Detallefactura> detallefacturas;
 
     public Producto() {

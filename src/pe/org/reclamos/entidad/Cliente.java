@@ -30,6 +30,8 @@ public class Cliente implements Serializable {
 
 	private String nomCliente;
 
+	private String representante;
+	
 	private String rucCliente;
 
 	//bi-directional many-to-one association to Apelacion
@@ -127,7 +129,15 @@ public class Cliente implements Serializable {
 		this.solicituds = solicituds;
 	}
 	
-	 @Override
+	 public String getRepresentante() {
+		return representante;
+	}
+
+	public void setRepresentante(String representante) {
+		this.representante = representante;
+	}
+
+	@Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
      }

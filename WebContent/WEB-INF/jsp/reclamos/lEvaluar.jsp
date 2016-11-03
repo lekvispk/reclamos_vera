@@ -97,7 +97,7 @@
 							     ]]>
 							  </jsp:scriptlet> 
 							  
-						    	<display:table  name="requestScope.lReclamos" requestURI="lEvaluar.htm" class="displaytag" pagesize="20"
+						    	<display:table  name="requestScope.lReclamos" requestURI="lEvaluar.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            decorator="checkboxDecorator" >
 						             <display:column property="checkbox"/>

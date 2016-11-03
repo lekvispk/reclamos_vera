@@ -15,6 +15,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import pe.org.reclamos.dao.FacturaDAO;
+import pe.org.reclamos.entidad.Detallefactura;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.utiles.Utiles;
 
@@ -99,6 +100,33 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 	public void eliminar(Long reclamo) {
 		logger.debug("eliminar " + reclamo );
 		this.getHibernateTemplate().bulkUpdate("update Factura u set estado=0 where idFactura = ?  ", reclamo );
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Detallefactura>  listarDetalleFactura(Detallefactura detalle) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Detallefactura.class);
+		logger.debug(" buscar Factura() " + detalle);
+				
+		if(detalle !=null){
+			logger.debug(" estado " + detalle.getEstado());
+			
+			if( detalle.getEstado()>0)
+				criteria.add( Restrictions.eq("estado", detalle.getEstado() ) );
+			else
+				criteria.add( Restrictions.gt("estado", 0 ) );
+			
+			if( detalle.getFactura() != null  ){
+				if( detalle.getFactura().getIdFactura() != null && detalle.getFactura().getIdFactura() > 0 ){
+					criteria.add( Restrictions.eq("factura.idFactura", detalle.getFactura().getIdFactura() ) );
+				}	
+			}
+			
+			//criteria.setFetchMode("producto", FetchMode.SELECT);
+			//criteria.setFetchMode("propertyName", FetchMode.SELECT); 
+		}
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+		return this.getHibernateTemplate().findByCriteria(criteria);
 	}
 
 }
