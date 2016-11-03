@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.reclamos.dao.ReclamoDAO;
+import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.utiles.Utiles;
 
@@ -24,10 +27,19 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	}
 	
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void registrar(Reclamo reclamo) {
+		System.out.println( "insertar reclamo " );
 		this.getHibernateTemplate().saveOrUpdate( reclamo );
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void registrar(ItemsReclamo item) {
+		System.out.println(" insertar item de reclamo ");
+		this.getHibernateTemplate().saveOrUpdate( item );
+	}
+	
 	@Override
 	public Reclamo obtener(Long reclamo) {
 		try {
@@ -68,6 +80,13 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 				criteria.add( Restrictions.ge("fecReclamo", reclamo.getFecReclamo() ) );
 			}
 			
+			if( reclamo.getFactura() != null ){
+				if( reclamo.getFactura().getIdFactura() != null ){
+					logger.debug(" IDfactura " +  reclamo.getFactura().getIdFactura() );
+					criteria.add( Restrictions.eq("factura.idFactura", reclamo.getFactura().getIdFactura() ) );
+				}	
+			}
+			
 			/*if( !Utiles.nullToBlank( exp.getNumeroExpediente() ).equals("")){
 				criteria.add( Restrictions.ilike("numeroExpediente", exp.getNumeroExpediente() ,MatchMode.ANYWHERE ) );
 			}
@@ -87,5 +106,6 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		logger.debug("eliminar " + reclamo );
 		this.getHibernateTemplate().bulkUpdate("update Reclamo u set estado=0 where idReclamo = ?  ", reclamo );
 	}
+
 
 }

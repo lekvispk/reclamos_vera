@@ -321,12 +321,12 @@
                 $('#lContratolocal tbody').remove();
                 $.each(data, function(index, element) {
                 	console.log( " sku " +  element.producto.skuProducto);
-                	var row = '<tr id="contratolocal_' + element.producto.idProducto + '">'+
+                	var row = '<tr id="contratolocal_' + element.idDetalleFactura + '">'+
                              '<td>' + element.producto.skuProducto +'</td>'+
                              '<td>' + element.producto.descripcion +'</td>'+
                              '<td>' + element.cantidad + '</td>'+
                              '<td>' + element.precio + '</td>'+
-                             '<td> <input type="radio" name="rb_item" id="rb_item_' + element.producto.idProducto + '" value="' + element.producto.idProducto + '"> </td>'; 
+                             '<td> <input type="radio" name="rb_item" id="rb_item_' + element.idDetalleFactura + '" value="' + element.idDetalleFactura + '"> </td>'; 
                              row += '</tr>';
                   $('#lContratolocal').append(row);
                  });

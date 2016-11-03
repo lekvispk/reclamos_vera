@@ -1,6 +1,8 @@
 package pe.org.reclamos.controller;
 
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +16,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import pe.org.reclamos.entidad.Cliente;
+import pe.org.reclamos.entidad.Detallefactura;
+import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.ReclamoService;
@@ -304,6 +306,14 @@ public class ReclamoController {
 			logger.debug("grabar nuevo");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
+			
+			
+			Integer idDetalleFactura = Integer.parseInt( request.getParameter("rb_item") );
+			ItemsReclamo ir = new ItemsReclamo();
+			ir.setDetallefactura( new Detallefactura() );
+			ir.getDetallefactura().setIdDetalleFactura(idDetalleFactura);
+			reclamo.setItemsReclamos( new HashSet<ItemsReclamo>()); 
+			reclamo.getItemsReclamos().add( ir );
 			reclamoService.registrar(reclamo);
 			
 			request.setAttribute("mensaje","Se ha grabado satisfactoriamente");
