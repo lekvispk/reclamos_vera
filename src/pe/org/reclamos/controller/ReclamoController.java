@@ -214,7 +214,9 @@ public class ReclamoController {
 			   request.setCharacterEncoding("UTF8");
 
 			   Reclamo rec = new Reclamo(); 
-			   rec.setEstado(2);
+			   rec.getEstados().add(2);
+			   rec.getEstados().add(4);
+			   //ver estados Aceptado y Solucionado
 			  
 			   model.put("lReclamos", reclamoService.buscar( rec));
 			   

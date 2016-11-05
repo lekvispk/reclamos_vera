@@ -93,19 +93,11 @@
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
 					   		
-					   		<jsp:scriptlet>
-							    <![CDATA[
-							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-							        decorator.setId("idReclamo");
-							        decorator.setFieldName("_chk");
-							        pageContext.setAttribute("checkboxDecorator", decorator);
-							     ]]>
-							  </jsp:scriptlet> 
-							  
 						    	<display:table  name="requestScope.lReclamos" requestURI="lSolucionar.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
-						            decorator="checkboxDecorator" >
-						        		<display:column property="checkbox"/>
+						            >
+						            
+						            	<display:column ><c:if test="${row.estado == 2}"> <input type="checkbox" name="_chk" id="_chk_${row.idReclamo}" value="${row.idReclamo}"/> </c:if> </display:column>
 						           		<display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
 						           		<display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />
 						           		<display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />

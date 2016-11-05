@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="../include/cabecera.jsp"/>
 
@@ -11,8 +13,9 @@
                     <div class="col-lg-12">
                                                
                        <jsp:include page="../include/error.jsp"/>
-        
-				   		<form class="form-horizontal" action="registro.htm" name="frmDocumentos" id="frmDocumentos" method="post">
+        		
+        				<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="reclamo">
+				   		
 							<fieldset>
 							
 							<!-- Form Name -->
@@ -22,20 +25,34 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="txtRuc">Nro de Recalmo</label>  
 							  <div class="col-md-5">
-							  	<input type="text" id="txtRuc" name="txtRuc" placeholder="nro. reclamo" maxlength="11" class="form-control input-md">
+							  	<label class="form-control input-md">${reclamo.idReclamo}</label>
+							  </div>
+							</div>
+							<!-- Fecha de reclamo-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" >Nro. Factura:</label>  
+							  <div class="col-md-5">
+							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
 							  </div>
 							</div>
 							
-							<!-- vencimiento Text input-->
+							<!-- Fecha de reclamo-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtRazonSocial">Fecha de Vencimiento</label>  
+							  <label class="col-md-4 control-label" >Fecha de Reclamo:</label>  
 							  <div class="col-md-5">
-							  	 <div class='input-group date' id='fecha_servicio'>
-				                      <input type="text" name="fecha_vencimiento" id="fecha_vencimiento" class="form-control" placeholder="dd/mm/yyyy">
-				                      <span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                      </span>
-				                 </div>
+							  	<label class="form-control input-md">
+							  	<fmt:formatDate value="${reclamo.fecReclamo}" pattern="dd/MM/yyyy" />
+							  	</label>
+							  </div>
+							</div>
+							
+							<!-- Fecha de vencimiento-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" >Fecha de Vencimiento:</label>  
+							  <div class="col-md-5">
+							  	<label class="form-control input-md">
+							  	<fmt:formatDate value="${reclamo.vencimiento}" pattern="dd/MM/yyyy" />
+							  	</label>
 							  </div>
 							</div>
 							
@@ -70,8 +87,8 @@
 							</div>
 							
 							</fieldset>
-				          </form>
-				   	
+				          
+				   			</form:form>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -92,7 +109,8 @@
 <script>
 
 	$(document).undelegate('#btnRegistrar', 'click').delegate('#btnRegistrar', 'click', function(){
-		
+		document.forms[0].action='indemnizar.htm';
+		document.forms[0].action.submit();
 	});
 
 	$(document).undelegate('#btnCalcular', 'click').delegate('#btnCalcular', 'click', function(){

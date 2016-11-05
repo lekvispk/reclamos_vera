@@ -81,10 +81,7 @@
 							            	<c:if test="${row.estado == 4}">Solucionado</c:if>
 							            </display:column>
 							            <display:column title="Respuesta" property="respuesta" sortable="false"/>
-							            <display:column title="Indemnizar" sortable="false">
-							            -
-							            </display:column>
-						           
+							            <display:column title="Indemnizar" property="indemnizar" sortable="false"/>
 						   		</display:table>
 							</div>
 						  	</div>
@@ -126,7 +123,7 @@
 		
 		if(confirm('¿Indemnizar al cliente?')){
 	   		console.info('redirecciona a indemnizar');
-	   		window.location.assign("${pageContext.request.contextPath}/indemnizar/indemnizar.htm");
+	   		window.location.assign("${pageContext.request.contextPath}/indemnizar/indemnizar.htm?idReclamo="+$("input[name='_chk']").val());
 		}else{
 			console.debug(' registrar en BD que no se va a indemnizar');
 		}

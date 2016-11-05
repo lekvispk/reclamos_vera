@@ -68,9 +68,16 @@ public class IndemnizarController {
 
 	
 	@RequestMapping(value="/indemnizar.htm" , method=RequestMethod.GET)
-	public String preIndemnizar( ModelMap model){
+	public String preIndemnizar( HttpServletRequest request,ModelMap model){
 		logger.debug("pre indemnizar ");
-		model.put("reclamo", new Reclamo());
+		Reclamo rec = new Reclamo();
+		try {
+			rec = reclamoService.obtener( new Long ( request.getParameter("idReclamo")));	
+		} catch (Exception e) {
+			logger.error(" ERROR: " + e.getMessage() );
+		}finally{
+			model.put("reclamo", rec);
+		}
 		//model.put("lTipoTram", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOTRAM) );
 		return "indemnizar/indemnizar";
 	}

@@ -6,7 +6,9 @@ import javax.persistence.*;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -36,6 +38,9 @@ public class Reclamo implements Serializable {
 
 	private int estado;
 
+	@Transient
+	private List<Integer> estados;
+	
     @Temporal( TemporalType.TIMESTAMP)
 	private Date fecReclamo;
 
@@ -91,6 +96,7 @@ public class Reclamo implements Serializable {
 	private Factura factura;
     
     public Reclamo() {
+    	this.estados = new ArrayList<Integer>();
     }
 
 	public Long getIdReclamo() {
@@ -128,7 +134,7 @@ public class Reclamo implements Serializable {
 	 * 1=Abierto : cuando se registra, estado inicial<br>
 	 * 2=Aceptado : cuando se evalua y es aceptado<br>
 	 * 3=Rechazado : cuando se evalua y es rechazado<br>
-	 * 4=solucionado<br>
+	 * 4=solucionado: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * Segun sus mockups: Abierto, en proceso, atendido
 	 * @param estado
 	 */
@@ -139,7 +145,7 @@ public class Reclamo implements Serializable {
 	 * 1=Abierto : cuando se registra, estado inicial<br>
 	 * 2=Aceptado : cuando se evalua y es aceptado<br>
 	 * 3=Rechazado : cuando se evalua y es rechazado<br>
-	 * 4=solucionado<br>
+	 * 4=solucionado: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * Segun sus mockups: Abierto, en proceso, atendido
 	 * @param estado
 	 */
@@ -273,6 +279,14 @@ public class Reclamo implements Serializable {
 
 	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
+	}
+
+	public List<Integer> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<Integer> estados) {
+		this.estados = estados;
 	}
 
 	@Override

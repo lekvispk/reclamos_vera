@@ -1,5 +1,8 @@
 package pe.org.reclamos.dao.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -63,11 +66,17 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			logger.debug(" estado " + reclamo.getEstado());
 			
 			//TODO para pantalla de solucionar e imdenizar se deben validar que estados se mostraran.
-			
-			if( reclamo.getEstado()>0)
-				criteria.add( Restrictions.eq("estado", reclamo.getEstado() ) );
-			else
-				criteria.add( Restrictions.gt("estado", 0 ) );
+			// cuando la pantalla puede ver dos estados especificos
+			if( reclamo.getEstados().size() > 0 ){
+				criteria.add( Restrictions.in("estado", reclamo.getEstados() ) );
+			}else{
+
+				if( reclamo.getEstado()>0)
+					criteria.add( Restrictions.eq("estado", reclamo.getEstado() ) );
+				else
+					criteria.add( Restrictions.gt("estado", 0 ) );
+					
+			}
 			
 			if( reclamo.getIdReclamo() != null ){
 				criteria.add( Restrictions.eq("idReclamo", reclamo.getIdReclamo() ) );
