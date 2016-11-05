@@ -24,7 +24,7 @@ public class IndemnizarController {
 	@Autowired
 	private ReclamoService reclamoService;
 	
-	@RequestMapping(value="/lIndemnizar.htm")
+	@RequestMapping(value="/lIndemnizar.htm", method=RequestMethod.GET)
 	public String lIndemnizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
@@ -32,7 +32,10 @@ public class IndemnizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("lReclamos", reclamoService.buscar( new Reclamo() ));
+			   Reclamo reclamo = new Reclamo();
+			   reclamo.setEstado( 2 );
+			   
+			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -43,6 +46,27 @@ public class IndemnizarController {
 		return "indemnizar/lIndemnizar";
 	}
 
+	@RequestMapping(value="/lIndemnizar.htm", method=RequestMethod.POST)
+	public String lBuscar(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("lista");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   reclamo.setEstado( 2 );
+			   model.put("lReclamos", reclamoService.buscar( reclamo ));
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			   model.put("reclamo", reclamo );
+		   }
+		return "indemnizar/lIndemnizar";
+	}
+
+	
 	@RequestMapping(value="/indemnizar.htm" , method=RequestMethod.GET)
 	public String preIndemnizar( ModelMap model){
 		logger.debug("pre indemnizar ");

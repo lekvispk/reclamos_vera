@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <jsp:include page="../include/cabecera.jsp"/>
 
@@ -11,7 +12,8 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form class="form-horizontal" action="#" name="frmDocumentos" id="frmDocumentos" method="post">
+        				<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="reclamo">
+				   		
 							<fieldset>
 							
 							<!-- Form Name -->
@@ -19,9 +21,9 @@
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtCodigo">N&uacute;mero de Reclamo</label>  
+							  <label class="col-md-4 control-label" for="txtCodigo">C&oacute;digo</label>  
 							  <div class="col-md-5">
-							  	<input type="text" id="txtCodigo" name="txtCodigo" placeholder="Codigo" class="form-control input-md">
+							  	<form:input path="idReclamo" id="idReclamo" size="10" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
@@ -29,7 +31,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="txtRazonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-5">
-							  	<input id="txtRazonSocial" name="txtRazonSocial" type="text" placeholder="Razon Social" class="form-control input-md">
+							  	<form:input path="factura.cliente.nomCliente" id="nomCliente" size="20" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
@@ -43,7 +45,7 @@
 							</div>
 							
 							</fieldset>
-				          </form>
+				          </form:form>
 				   		
                          	<div id="tablaDinamica">
 						 	<div id="resultado">
@@ -78,9 +80,7 @@
 							            	<c:if test="${row.estado == 3}">Rechazado</c:if>
 							            	<c:if test="${row.estado == 4}">Solucionado</c:if>
 							            </display:column>
-							            <display:column title="Respuesta" sortable="false">
-							            -
-							            </display:column>
+							            <display:column title="Respuesta" property="respuesta" sortable="false"/>
 							            <display:column title="Indemnizar" sortable="false">
 							            -
 							            </display:column>
@@ -112,7 +112,8 @@
 <script>
 
 	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
-	
+		document.forms[0].action="lIndemnizar.htm";
+		document.forms[0].submit();
 	});
 
 	$(document).undelegate('#btnProcesar', 'click').delegate('#btnProcesar', 'click', function(){

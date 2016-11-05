@@ -2,9 +2,12 @@ package pe.org.reclamos.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -59,6 +62,8 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		if(reclamo !=null){
 			logger.debug(" estado " + reclamo.getEstado());
 			
+			//TODO para pantalla de solucionar e imdenizar se deben validar que estados se mostraran.
+			
 			if( reclamo.getEstado()>0)
 				criteria.add( Restrictions.eq("estado", reclamo.getEstado() ) );
 			else
@@ -80,11 +85,23 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 				criteria.add( Restrictions.ge("fecReclamo", reclamo.getFecReclamo() ) );
 			}
 			
+			if( !Utiles.nullToBlank( reclamo.getVencimiento() ).equals("")){
+				criteria.add( Restrictions.le("vencimiento", reclamo.getVencimiento() ) );
+			}
+			
 			if( reclamo.getFactura() != null ){
 				if( reclamo.getFactura().getIdFactura() != null ){
 					logger.debug(" IDfactura " +  reclamo.getFactura().getIdFactura() );
 					criteria.add( Restrictions.eq("factura.idFactura", reclamo.getFactura().getIdFactura() ) );
 				}	
+				if( reclamo.getFactura().getCliente() != null ){
+					//factura.cliente.nomClient	
+					if( !StringUtils.isEmpty( reclamo.getFactura().getCliente().getNomCliente()) ){
+						logger.debug(" nomCliente " + reclamo.getFactura().getCliente().getNomCliente() );
+						DetachedCriteria criteria2 = criteria.createCriteria("factura.cliente");
+						criteria2.add( Restrictions.ilike("nomCliente", reclamo.getFactura().getCliente().getNomCliente() , MatchMode.ANYWHERE ) );
+					}
+				}
 			}
 			
 			/*if( !Utiles.nullToBlank( exp.getNumeroExpediente() ).equals("")){
@@ -97,6 +114,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		*/
 			}
 			//criteria.addOrder( Order.desc("fechaIngreso") );
+			//criteria.setFetchMode("capacitacions", FetchMode.JOIN);
 			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 			return this.getHibernateTemplate().findByCriteria(criteria);
 	}

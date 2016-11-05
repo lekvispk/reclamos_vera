@@ -1,6 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="../include/cabecera.jsp"/>
 
@@ -22,18 +23,45 @@
         
 				   		<form:form cssClass="form-horizontal" name="frmDocumentos" action="solucionar.htm" method="post" modelAttribute="reclamo">
 							<fieldset>
-							<legend>Evaluar Reclamo</legend>
+							<legend>Solucionar Reclamo</legend>
 							
 							<form:hidden path="idReclamo"/>
 							
 							Informaci&oacute;n General:<hr>
+							
+							<!-- Fecha de reclamo-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" >Nro. Factura:</label>  
+							  <div class="col-md-5">
+							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
+							  </div>
+							</div>
+							
+							<!-- Fecha de reclamo-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" >Codigo de Producto:</label>  
+							  <div class="col-md-5">
+							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
+							  </div>
+							</div>
+							
+							<!-- Fecha de reclamo-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" >Descripcion:</label>  
+							  <div class="col-md-5">
+							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
+							  </div>
+							</div>
+							
 							<!-- Prioridad-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" >Prioridad</label>  
 							  <div class="col-md-5">
+							  	<label class="form-control input-md">
 							  	<c:if test="${reclamo.prioridad == 1}">Alta</c:if>
 				            	<c:if test="${reclamo.prioridad == 2}">Normal</c:if>
 				            	<c:if test="${reclamo.prioridad == 3}">Baja</c:if>
+				            	</label>
 							  </div>
 							</div>
 							
@@ -41,7 +69,9 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" >Fecha de Reclamo:</label>  
 							  <div class="col-md-5">
-							  	${reclamo.fecReclamo}
+							  	<label class="form-control input-md">
+							  	<fmt:formatDate value="${reclamo.fecReclamo}" pattern="dd/MM/yyyy" />
+							  	</label>
 							  </div>
 							</div>
 							
@@ -51,7 +81,9 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" >Asunto:</label>  
 							  <div class="col-md-5">
-							  	${reclamo.asunto}
+							  	<label class="form-control input-md">
+							  		${reclamo.asunto}
+							  	</label>
 							  </div>
 							</div>
 							
@@ -59,14 +91,14 @@
 							<div class="form-group">
 							 <label class="col-md-4 control-label" for="mensaje">Mensaje:</label>  
 							  <div class="col-md-5">
-							  	${reclamo.mensaje}
+							  	<textarea rows="5" class="form-control input-md" readonly="readonly" > ${reclamo.mensaje} </textarea>
 							  </div>
 							</div>
 							
 							<div class="form-group">
 							 <label class="col-md-4 control-label" for="solucion">Soluci&oacute;n:</label>  
 							  <div class="col-md-5">
-							  	<input type="text" id="solucion" name="solucion"  placeholder="Solucion" class="form-control input-md">
+							  	<textarea rows="5" id="solucion" name="solucion" class="form-control input-md"></textarea>
 							  </div>
 							</div>
 							

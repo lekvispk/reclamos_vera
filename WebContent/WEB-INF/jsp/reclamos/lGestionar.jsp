@@ -42,7 +42,7 @@
 							  <div class="col-md-4">
 							    
 							    <form:select path="prioridad" cssClass="form-control" >
-							    	<form:option value="">-Seleccionar-</form:option>
+							    	<form:option value="">-Todas-</form:option>
 							  		<form:option value="1">Alta</form:option>
 							  		<form:option value="2">Normal</form:option>
 							  		<form:option value="3">Baja</form:option>
@@ -57,14 +57,13 @@
 							  <div class="col-md-4">
 							  
 							  	<div class='input-group date' id='datetimepicker1'>
-				                    <fmt:formatDate value="${reclamo.fecReclamo}" pattern="dd/MM/yyyy" var="f_fecReclamo"/>
-                    				<input type="text" class="form-control input-md" name="fecReclamo" id="fecReclamo" placeholder="dd/MM/yyyy" size="10" value="${f_fecReclamo}"/>
+				                    <fmt:formatDate value="${reclamo.vencimiento}" pattern="dd/MM/yyyy" var="f_vencimiento"/>
+                    				<input type="text" class="form-control input-md" name="vencimiento" id="vencimiento" placeholder="dd/MM/yyyy"  size="10" value="${f_vencimiento}"/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
 				                </div>
 				                
-							  	
 							  </div>
 							</div>
 							
@@ -94,7 +93,7 @@
 						            	<c:if test="${row.prioridad == 2}">Normal</c:if>
 						            	<c:if test="${row.prioridad == 3}">Baja</c:if>
 						            </display:column>
-						            <display:column title="Fec. Vencimiento" property="fecReclamo" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
+						            <display:column title="Fec. Vencimiento" property="vencimiento" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
 						             <display:column title="Estado" sortable="true" headerClass="sortable">
 						            	<c:if test="${row.estado == 1}">Abierto</c:if>
 						            	<c:if test="${row.estado == 2}">Aceptado</c:if>
@@ -133,6 +132,13 @@
 	 
 	 
 <script>
+
+	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
+		document.forms[0].action="lGestionar.htm";
+		document.forms[0].submit();
+		//return false;
+	});
+
 	function nuevo(){
 		document.forms[0].action='ncliente.htm';
 		document.forms[0].action.submit();
@@ -152,7 +158,10 @@
 
 	$( function(){
 		$("#displayTagDiv").displayTagAjax();
-   		$('#datetimepicker1').datetimepicker();
+   		$('#datetimepicker1').datetimepicker({
+   		    format: 'DD/MM/YYYY'
+   		});
+
 	});
    
 </script>

@@ -1,5 +1,6 @@
 package pe.org.reclamos.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -31,11 +32,16 @@ public class ReclamoServiceImpl implements ReclamoService {
 			throw new Exception("Ya existe un reclamo con la factura indicada");
 		}
 		
+		//identificar que es un reclamo nuevo y no un update
 		if(reclamo.getFecReclamo()==null){
 			reclamo.setFecReclamo(new Date());
-			//auditoria
-			reclamo.setFecReclamo( new Date());
-			//TODO validar cuando se registra fecha de vencimiento
+			reclamo.setCreatedAt( new Date() ); // TODO: hacer mediante aspecto
+			Calendar c = Calendar.getInstance();
+			c.setTime( reclamo.getFecReclamo() );
+			c.add(Calendar.DATE, 30);  
+			
+			reclamo.setVencimiento( c.getTime() );
+			
 		}
 		
 		reclamoDAO.registrar(reclamo);
@@ -62,6 +68,14 @@ public class ReclamoServiceImpl implements ReclamoService {
 	@Override
 	public void eliminar(Long reclamo) {
 		reclamoDAO.eliminar(reclamo);
+	}
+
+	@Override
+	public void actualizar(Reclamo reclamo) {
+		
+		reclamo.setUpdatedAt( new Date() ); // TODO: hacer mediante aspecto
+		reclamoDAO.registrar(reclamo);
+		
 	}
 
 }

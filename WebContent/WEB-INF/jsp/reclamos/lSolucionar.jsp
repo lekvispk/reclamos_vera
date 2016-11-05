@@ -32,7 +32,7 @@
 							<!-- Form Name -->
 							<legend>Solucionar Reclamos</legend>
 							
-								<!-- Text input-->
+							<!-- Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="txtCodigo">C&oacute;digo</label>  
 							  <div class="col-md-5">
@@ -67,8 +67,13 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="txtVencimiento">Vencimiento</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${reclamo.fecReclamo}" pattern="dd/MM/yyyy" var="f_fecReclamo"/>
-                    			<input type="text" class="form-control input-md" name="fecReclamo" id="fecReclamo" placeholder="dd/MM/yyyy" size="10" value="${f_fecReclamo}"/>
+							  	<div class='input-group date' id='datetimepicker1'>
+				                    <fmt:formatDate value="${reclamo.vencimiento}" pattern="dd/MM/yyyy" var="f_vencimiento"/>
+                    				<input type="text" class="form-control input-md" name="vencimiento" id="vencimiento" placeholder="dd/MM/yyyy"  size="10" value="${f_vencimiento}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
 							  </div>
 							</div>
 							
@@ -90,7 +95,6 @@
 					   		
 					   		<jsp:scriptlet>
 							    <![CDATA[
-							       
 							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
 							        decorator.setId("idReclamo");
 							        decorator.setFieldName("_chk");
@@ -101,24 +105,24 @@
 						    	<display:table  name="requestScope.lReclamos" requestURI="lSolucionar.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            decorator="checkboxDecorator" >
-						             <display:column property="checkbox"/>
-						            <display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
-						           <display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />
-						           <display:column title="Razon Social" property="factura.cliente.nomCliente" sortable="true" headerClass="sortable" />
-						           <display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />
-						             <display:column title="Prioridad" sortable="true" headerClass="sortable">
-						            	<c:if test="${row.prioridad == 1}">Alta</c:if>
-						            	<c:if test="${row.prioridad == 2}">Normal</c:if>
-						            	<c:if test="${row.prioridad == 3}">Baja</c:if>
-						            </display:column>
-						            <display:column title="Fec. Vencimiento" property="fecReclamo" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
-						             <display:column title="Estado" sortable="true" headerClass="sortable">
-						            	<c:if test="${row.estado == 1}">Abierto</c:if>
-						            	<c:if test="${row.estado == 2}">Aceptado</c:if>
-						            	<c:if test="${row.estado == 3}">Rechazado</c:if>
-						            	<c:if test="${row.estado == 4}">Solucionado</c:if>
-						            </display:column>
-						           <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
+						        		<display:column property="checkbox"/>
+						           		<display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
+						           		<display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />
+						           		<display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />
+							            <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
+							            <display:column title="Prioridad" sortable="true" headerClass="sortable">
+							            	<c:if test="${row.prioridad == 1}">Alta</c:if>
+							            	<c:if test="${row.prioridad == 2}">Normal</c:if>
+							            	<c:if test="${row.prioridad == 3}">Baja</c:if>
+							            </display:column>
+							            <display:column title="Fec. Vencimiento" property="vencimiento" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
+							            <display:column title="Estado" sortable="true" headerClass="sortable">
+							            	<c:if test="${row.estado == 1}">Abierto</c:if>
+							            	<c:if test="${row.estado == 2}">Aceptado</c:if>
+							            	<c:if test="${row.estado == 3}">Rechazado</c:if>
+							            	<c:if test="${row.estado == 4}">Solucionado</c:if>
+							            </display:column>
+										<display:column title="Respuesta" property="respuesta" sortable="true" headerClass="sortable" />							           
 						           <%--
 						           
 						           
@@ -168,7 +172,11 @@
 		document.forms[0].action='ncliente.htm';
 		document.forms[0].action.submit();
 	}
-	
+
+	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
+		document.forms[0].action="lSolucionar.htm";
+		document.forms[0].submit();
+	});
 
 	function eliminar(id){
 		if(confirm('¿Está seguro de eliminar al cliente?')){
@@ -182,8 +190,12 @@
 		}
 	}
 	
-	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   });
+	$( function(){
+   	   	$("#displayTagDiv").displayTagAjax();
+   		$('#datetimepicker1').datetimepicker({
+		    format: 'DD/MM/YYYY'
+		});
+   	});
+   
    
 </script>

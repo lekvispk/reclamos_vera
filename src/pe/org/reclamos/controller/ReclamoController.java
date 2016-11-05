@@ -1,7 +1,6 @@
 package pe.org.reclamos.controller;
 
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -63,13 +62,11 @@ public class ReclamoController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   if(!Utiles.nullToBlank( request.getParameter("fecReclamo")).equals("") ){}
-			   		reclamo.setFecReclamo( Utiles.stringToDate( request.getParameter("fecReclamo") , "dd/MM/yyyy")) ;
-			   
+			   reclamo.setVencimiento( Utiles.stringToDate( request.getParameter("vencimiento") , "dd/MM/yyyy") );
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
 		   } catch (Exception e) {
-			 e.printStackTrace();
+			 logger.error( "ERROR: " + e.getMessage() );
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
 			  // model.put("lTipoMov", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOMOVTRAM ) );
@@ -78,7 +75,6 @@ public class ReclamoController {
 		   }
 		return "reclamos/lGestionar";
 	}
-	
 	
 	@RequestMapping(value="/eliminarReclamo.htm")
 	public String eliminar( HttpServletRequest request, HttpServletResponse response, ModelMap model){
@@ -131,14 +127,12 @@ public class ReclamoController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   if(!Utiles.nullToBlank( request.getParameter("fecReclamo")).equals("") ){}
-			   		reclamo.setFecReclamo( Utiles.stringToDate( request.getParameter("fecReclamo") , "dd/MM/yyyy")) ;
-			   
+			   reclamo.setVencimiento( Utiles.stringToDate( request.getParameter("vencimiento") , "dd/MM/yyyy") );
 			   reclamo.setEstado(1);
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
 		   } catch (Exception e) {
-			 e.printStackTrace();
+			 logger.error(" ERROR : " + e.getMessage() );
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
 			  model.put("reclamo", reclamo );
@@ -167,7 +161,14 @@ public class ReclamoController {
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
 			rec.setEstado( reclamo.getEstado() );
 			rec.setDescripcion( reclamo.getDescripcion() );
-			reclamoService.registrar(rec);
+			if( reclamo.getEstado() == 2 ){
+				rec.setRespuesta("Aceptado");
+			}
+			if( reclamo.getEstado() == 3 ){
+				rec.setRespuesta("Rechazado");
+			}
+			
+			reclamoService.actualizar(rec);
 			
 			model.put("mensaje","Se ha grabado satisfactoriamente");
 			return lEvaluar(request, response, model);
@@ -190,6 +191,7 @@ public class ReclamoController {
 			   request.setCharacterEncoding("UTF8");
 
 			   Reclamo rec = new Reclamo(); 
+			   //TODO mostrar los que estan en estado 2 y 3 
 			  /// rec.setEstado(2);
 			  
 			   model.put("lReclamos", reclamoService.buscar( rec));
@@ -225,6 +227,7 @@ public class ReclamoController {
 		return "reclamos/lSolucionar";
 	}
 	
+	//para el buscar
 	@RequestMapping(value="/lSolucionar.htm", method=RequestMethod.POST)
 	public String lSolucionarPost(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
@@ -233,13 +236,12 @@ public class ReclamoController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   if(!Utiles.nullToBlank( request.getParameter("fecReclamo")).equals("") ){}
-			   		reclamo.setFecReclamo( Utiles.stringToDate( request.getParameter("fecReclamo") , "dd/MM/yyyy")) ;
+			   reclamo.setVencimiento( Utiles.stringToDate( request.getParameter("vencimiento") , "dd/MM/yyyy") );
 			   reclamo.setEstado(2);
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
 		   } catch (Exception e) {
-			 e.printStackTrace();
+			 logger.error(" ERROR: " + e.getMessage());
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
 			  model.put("reclamo", reclamo );
@@ -268,7 +270,7 @@ public class ReclamoController {
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
 			rec.setEstado( 4 );
 			rec.setSolucion( reclamo.getSolucion() );
-			reclamoService.registrar(rec);
+			reclamoService.actualizar(rec);
 			
 			model.put("mensaje","La solucion se ha grabado satisfactoriamente");
 			return lSolucionar(request, response, model);
@@ -307,7 +309,6 @@ public class ReclamoController {
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
-			
 			Integer idDetalleFactura = Integer.parseInt( request.getParameter("rb_item") );
 			ItemsReclamo ir = new ItemsReclamo();
 			ir.setDetallefactura( new Detallefactura() );
@@ -329,9 +330,6 @@ public class ReclamoController {
 		}
 	 }  
 	
-	
-	
-
 	@RequestMapping(value="/lClienteAuto.htm")
 	public String lpersonaAuto(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		PrintWriter out = null;

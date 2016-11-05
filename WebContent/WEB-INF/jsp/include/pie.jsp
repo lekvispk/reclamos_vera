@@ -9,6 +9,7 @@
     <script src="${pageContext.request.contextPath}/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/bower_components/bootstrap/js/collapse.js"></script>
     <script src="${pageContext.request.contextPath}/bower_components/bootstrap/js/transition.js"></script>
+    <script src="${pageContext.request.contextPath}/js/moment.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap-datetimepicker.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->

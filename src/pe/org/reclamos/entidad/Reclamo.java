@@ -125,20 +125,22 @@ public class Reclamo implements Serializable {
 		this.descripcion = descripcion;
 	}
 	/**
-	 * 1=Abierto<br>
-	 * 2=Aceptado<br>
-	 * 3=Rechazado<br>
+	 * 1=Abierto : cuando se registra, estado inicial<br>
+	 * 2=Aceptado : cuando se evalua y es aceptado<br>
+	 * 3=Rechazado : cuando se evalua y es rechazado<br>
 	 * 4=solucionado<br>
+	 * Segun sus mockups: Abierto, en proceso, atendido
 	 * @param estado
 	 */
 	public int getEstado() {
 		return this.estado;
 	}
 	/**
-	 * 1=Abierto<br>
-	 * 2=Aceptado<br>
-	 * 3=Rechazado<br>
+	 * 1=Abierto : cuando se registra, estado inicial<br>
+	 * 2=Aceptado : cuando se evalua y es aceptado<br>
+	 * 3=Rechazado : cuando se evalua y es rechazado<br>
 	 * 4=solucionado<br>
+	 * Segun sus mockups: Abierto, en proceso, atendido
 	 * @param estado
 	 */
 	public void setEstado(int estado) {
