@@ -35,6 +35,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+	<!-- estilos para jquery validator -->
+	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
 </head>
 
 <body>

@@ -79,9 +79,9 @@
 						           <display:column title="RUC" property="ruc" sortable="true" headerClass="sortable" />
 						           <display:column title="Representante" property="representante" sortable="true" headerClass="sortable" />
 						           <display:column title="Estado" sortable="true" headerClass="sortable">
-						            	<c:if test="${row.estado == 1}">Activo</c:if>
-						            	<c:if test="${row.estado == 2}">Inactivo</c:if>
-						            	<c:if test="${row.estado == 3}">Eliminado</c:if>
+						            	<c:if test="${row.estado == 1}">Abierto</c:if>
+						            	<c:if test="${row.estado == 2}">En Proceso</c:if>
+						            	<c:if test="${row.estado == 3}">Atendido</c:if>
 						            </display:column>
 						            <display:column title="Codigo" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
 						            <display:column title="Asunto" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />

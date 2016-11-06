@@ -78,4 +78,24 @@ public class ReclamoServiceImpl implements ReclamoService {
 		
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public void grabarNoIndemnizados(String[] idReclamos) {
+		for( String rec : idReclamos){
+			reclamoDAO.grabarNoIndemnizado( new Long(rec) );
+		}
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	public void registrarIndemnizacion(Reclamo rec) {
+		reclamoDAO.registrar( rec );
+		//registrar 
+		rec.getIndemnizacion().setReclamo( rec );
+		rec.getIndemnizacion().setEstado(1);
+		rec.getIndemnizacion().setCreatedAt( new Date());
+		rec.getIndemnizacion().setFechaIndemnizacion( new Date());
+		reclamoDAO.registrar(rec.getIndemnizacion());
+	}
+
 }

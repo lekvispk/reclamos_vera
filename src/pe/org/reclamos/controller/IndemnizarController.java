@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pe.org.reclamos.entidad.Indemnizacion;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ReclamoService;
 
@@ -33,7 +34,8 @@ public class IndemnizarController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   Reclamo reclamo = new Reclamo();
-			   reclamo.setEstado( 2 );
+			   reclamo.getEstados().add(2);
+			   reclamo.getEstados().add(3);
 			   
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
@@ -89,8 +91,18 @@ public class IndemnizarController {
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
+			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
+			rec.setIndemnizar( reclamo.getIndemnizar());
+			rec.setEstado( 3 );
+			
+			Indemnizacion inm = new Indemnizacion();
+			inm.setTotalIndemnizacion( 0.0 );
+			rec.setIndemnizacion( inm );
+			
+			reclamoService.registrarIndemnizacion(rec);
+			
 			model.put("mensaje","Se ha grabado satisfactoriamente");
-			return "indemnizar/lIndemnizar";
+			return "redirect:/indemnizar/lIndemnizar.htm";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );
@@ -100,4 +112,25 @@ public class IndemnizarController {
 		}
 	 }  
 	
+	@RequestMapping(value="/noIndemnizar.htm" , method=RequestMethod.POST)  
+	 public String niIndemnizar(HttpServletRequest request,  HttpServletResponse response, ModelMap model) {  
+		try {
+			logger.debug("niIndemnizar");
+			response.setContentType("text/html;charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
+			
+			String ids = request.getParameter("id_reclamos");
+			logger.debug("Ids para no indemnizar " + ids);
+			String[] idReclamos = ids.split("_");
+			reclamoService.grabarNoIndemnizados(idReclamos);
+			
+			return "redirect:/indemnizar/lIndemnizar.htm";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );
+			return "indemnizar/lIndemnizar";
+		}finally{
+			model.put("reclamo", new Reclamo());
+		}
+	 }
 }

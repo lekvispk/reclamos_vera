@@ -11,5 +11,7 @@ public interface ReclamoService {
 	public Reclamo obtener(Long reclamo);
 	public List<Reclamo> buscar(Reclamo reclamo);
 	public void eliminar(Long reclamo);
+	public void grabarNoIndemnizados(String[] idReclamos);
+	public void registrarIndemnizacion(Reclamo rec);
 		
 }

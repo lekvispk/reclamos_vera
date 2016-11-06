@@ -4,7 +4,6 @@
 
 <jsp:include page="../include/cabecera.jsp"/>
 
-
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
@@ -13,7 +12,7 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-        				<form:form cssClass="form-horizontal" name="frmDocumentos" action="registro.htm" method="post" modelAttribute="reclamo">
+        				<form:form cssClass="form-horizontal" name="frmDocumentos" action="" method="post" modelAttribute="reclamo">
         					<form:hidden path="idReclamo"/>
         					<input type="hidden" value="1" name="estado"/>  
         				
@@ -46,21 +45,21 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="asunto">Raz&oacute;n Social</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="razonSocial" id="razonSocial" class="form-control input-md"/>
+							  	<input type="text" name="razonSocial" id="razonSocial" class="form-control input-md" readonly="readonly"/>
 							  </div>
 							</div>
 							<!-- Representante Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="asunto">Representante</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="representante" id="representante" class="form-control input-md"/>
+							  	<input type="text" name="representante" id="representante" class="form-control input-md" readonly="readonly"/>
 							  </div>
 							</div>
 							<!-- Email Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="asunto">Email</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="email" id="email" class="form-control input-md"/>
+							  	<input type="text" name="email" id="email" class="form-control input-md" readonly="readonly"/>
 							  </div>
 							</div>
 							<!-- Button -->
@@ -144,9 +143,9 @@
 							
 							<!-- Button -->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="btnBuscar"></label>
+							  <label class="col-md-4 control-label"></label>
 							  <div class="col-md-4">
-							    <input class="btn btn-success" type="submit" value="Registrar">
+							    <input id="btnRegistrar" type="button" value="Registrar" class="btn btn-success" >
 							  </div>
 							  <div class="col-md-4">
 							    <input class="btn btn-success" type="reset" value="Limpiar">
@@ -169,17 +168,21 @@
 			<div id="cuerpoDiv"></div>
 		</div>
 		
-		
 	 <jsp:include page="../include/pie.jsp"/>
 	 
-	 
 <script>
-	function nuevo(){
-		document.forms[0].action='ncliente.htm';
-		document.forms[0].action.submit();
-	}
 	
-
+	$(document).undelegate('#btnRegistrar', 'click').delegate('#btnRegistrar', 'click', function(){
+		var fields = $("input[name='rb_item']").serializeArray(); 
+	    if (fields.length == 0) {
+			alert('Debe seleccionar un producto');
+			return;
+		}  
+		document.forms[0].action="registro.htm";
+		document.forms[0].submit();
+		
+	});
+	
 	function eliminar(id){
 		if(confirm('¿Está seguro de eliminar al cliente?')){
 			$("#tablaDinamica").css('opacity', 0.4);

@@ -2,6 +2,4 @@
 
  	<c:if test="${not empty msgError}"><div class="alert alert-danger"> <strong><c:out value="${msgError}"/></strong> </div></c:if>
 	<c:if test="${not empty mensaje}"><div class="alert alert-success">  <strong><c:out value="${mensaje}"/></strong> </div></c:if>
-	
-	<c:if test="${not empty param.mensaje}"><div class="alert alert-success">  <strong><c:out value="${param.mensaje}"/></strong> </div></c:if>
 		

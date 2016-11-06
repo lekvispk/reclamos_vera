@@ -15,7 +15,9 @@
                        <jsp:include page="../include/error.jsp"/>
         		
         				<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="reclamo">
-				   		
+				   			<input type="hidden" id="indemnizar" name="indemnizar" value="si">
+				   			<form:hidden path="idReclamo"/>
+				   			
 							<fieldset>
 							
 							<!-- Form Name -->
@@ -58,7 +60,7 @@
 							
 							<!-- monto inicial Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtRepresentante">Monto inicial</label>
+							  <label class="col-md-4 control-label" for="inicial">Monto inicial</label>
 							  <div class="col-md-3">
 							  	<input type="text" id="inicial" name="inicial"  placeholder="0.0" class="form-control input-md">
 							  </div>
@@ -69,9 +71,9 @@
 							
 							<!-- monto total Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtEmail">Monto Total</label>
+							  <label class="col-md-4 control-label" for="txtTotal">Monto Total</label>
 							  <div class="col-md-5">
-							  	<input type="text" id="txtTotal" name="txtTotal"  placeholder="Representante" class="form-control input-md">
+							  	<input type="text" id="totalIndemnizacion" name="totalIndemnizacion"  placeholder="0.0" class="form-control input-md">
 							  </div>
 							</div>
 							
@@ -108,16 +110,47 @@
 	 
 <script>
 
+	$( "#frmDocumentos" ).validate({
+	  rules: {
+		inicial: {
+	      required: true,
+	      number: true
+	    },
+	    adicional: {
+	      required: true,
+	      number: true
+	    },
+	    totalIndemnizacion: {
+	      required: true,
+	      number: true
+	    }
+	  }
+	});
+
 	$(document).undelegate('#btnRegistrar', 'click').delegate('#btnRegistrar', 'click', function(){
-		document.forms[0].action='indemnizar.htm';
-		document.forms[0].action.submit();
+		var total = $('#totalIndemnizacion').val();
+		if( total && total!='' ){ 
+			document.forms[0].action='indemnizar.htm';
+			document.forms[0].submit();	 
+		}else{
+			alert('No se ha calculado el total');
+			return false;
+		}
 	});
 
 	$(document).undelegate('#btnCalcular', 'click').delegate('#btnCalcular', 'click', function(){
 		console.debug('calculando...');
-		$('#txtTotal').attr('value','100');
+		var inicial = $('#inicial').val();
+		var porcentaje = $('#adicional').val();
+
+		if( inicial && porcentaje && ( inicial!='' && porcentaje !='' )){
+			$('#totalIndemnizacion').attr('value', inicial * porcentaje);
+		}else{
+			alert('Ingrese los montos Inicial y el porcentaje');
+		}
+		
 	});
-	
+
 	/*function nuevo(){
 		document.forms[0].action='ncliente.htm';
 		document.forms[0].action.submit();

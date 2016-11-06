@@ -80,6 +80,9 @@ public class Reclamo implements Serializable {
 	@Transient
 	private Set<Indemnizacion> indemnizacions;
 
+	@Transient
+	private Indemnizacion indemnizacion;
+	
 	//bi-directional many-to-one association to ItemsReclamo
 	//@OneToMany(mappedBy="reclamo")
 	@Transient
@@ -132,27 +135,37 @@ public class Reclamo implements Serializable {
 	}
 	/**
 	 * 1=Abierto : cuando se registra, estado inicial<br>
-	 * 2=Aceptado : cuando se evalua y es aceptado<br>
-	 * 3=Rechazado : cuando se evalua y es rechazado<br>
-	 * 4=solucionado: luego de que grabe la solucion en la pantalla de Solucion<br>
-	 * Segun sus mockups: Abierto, en proceso, atendido
-	 * @param estado
+	 * 2=En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
+	 * 4=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
+	 * @return estado
 	 */
 	public int getEstado() {
 		return this.estado;
 	}
 	/**
 	 * 1=Abierto : cuando se registra, estado inicial<br>
-	 * 2=Aceptado : cuando se evalua y es aceptado<br>
-	 * 3=Rechazado : cuando se evalua y es rechazado<br>
-	 * 4=solucionado: luego de que grabe la solucion en la pantalla de Solucion<br>
-	 * Segun sus mockups: Abierto, en proceso, atendido
+	 * 2=En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
+	 * 4=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @param estado
 	 */
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 
+	/**
+	 * 1=Abierto : cuando se registra, estado inicial<br>
+	 * 2=En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
+	 * 4=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
+	 * @return lista de estados
+	 */
+	public List<Integer> getEstados() {
+		return estados;
+	}
+
+	public void setEstados(List<Integer> estados) {
+		this.estados = estados;
+	}
+	
 	public Date getFecReclamo() {
 		return this.fecReclamo;
 	}
@@ -177,18 +190,40 @@ public class Reclamo implements Serializable {
 		this.mensaje = mensaje;
 	}
 
+	/**
+	 * 1=Alta
+	 * 2=Normal
+	 * 3=Baja
+	 * @return
+	 */
 	public int getPrioridad() {
 		return this.prioridad;
 	}
 
+	/**
+	 * 1=Alta
+	 * 2=Normal
+	 * 3=Baja
+	 * @param prioridad
+	 */
 	public void setPrioridad(int prioridad) {
 		this.prioridad = prioridad;
 	}
 
+	/**
+	 * Aceptado
+	 * Rechazado
+	 * @return
+	 */
 	public String getRespuesta() {
 		return this.respuesta;
 	}
 
+	/**
+	 * Aceptado
+	 * Rechazado
+	 * @param respuesta
+	 */
 	public void setRespuesta(String respuesta) {
 		this.respuesta = respuesta;
 	}
@@ -281,12 +316,12 @@ public class Reclamo implements Serializable {
 		this.idCliente = idCliente;
 	}
 
-	public List<Integer> getEstados() {
-		return estados;
+	public Indemnizacion getIndemnizacion() {
+		return indemnizacion;
 	}
 
-	public void setEstados(List<Integer> estados) {
-		this.estados = estados;
+	public void setIndemnizacion(Indemnizacion indemnizacion) {
+		this.indemnizacion = indemnizacion;
 	}
 
 	@Override

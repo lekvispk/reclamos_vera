@@ -13,7 +13,7 @@
                        <jsp:include page="../include/error.jsp"/>
         
         				<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="reclamo">
-				   		
+				   			<input type="hidden" name="id_reclamos">
 							<fieldset>
 							
 							<!-- Form Name -->
@@ -40,7 +40,6 @@
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
 							    <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
-							    <button id="btnProcesar" name="btnProcesar" class="btn btn-success">Proccesar</button>
 							  </div>
 							</div>
 							
@@ -50,19 +49,15 @@
                          	<div id="tablaDinamica">
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
-						    	<jsp:scriptlet>
-							    <![CDATA[
-							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-							        decorator.setId("idReclamo");
-							        decorator.setFieldName("_chk");
-							        pageContext.setAttribute("checkboxDecorator", decorator);
-							     ]]>
-							  </jsp:scriptlet> 
-							  
+						    	
 						    	<display:table  name="requestScope.lReclamos" requestURI="lIndemnizar.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
-						            decorator="checkboxDecorator" >
-						            	<display:column property="checkbox"/>
+						            >
+						            	<display:column>
+						            		<c:if test="${row.estado == 2}">
+						            			<input type="checkbox" name="_chk" id="_chk${row.idReclamo}" value="${row.idReclamo}">
+						            		</c:if>
+						            	</display:column>
 						            	<display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
 						           		<display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />
 						           		<display:column title="Razon Social" property="factura.cliente.nomCliente" sortable="true" headerClass="sortable" media="csv" />
@@ -76,9 +71,8 @@
 							            <display:column title="Fec. Vencimiento" property="fecReclamo" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
 							            <display:column title="Estado" sortable="true" headerClass="sortable">
 							            	<c:if test="${row.estado == 1}">Abierto</c:if>
-							            	<c:if test="${row.estado == 2}">Aceptado</c:if>
-							            	<c:if test="${row.estado == 3}">Rechazado</c:if>
-							            	<c:if test="${row.estado == 4}">Solucionado</c:if>
+							            	<c:if test="${row.estado == 2}">En Proceso</c:if>
+							            	<c:if test="${row.estado == 3}">Atendido</c:if>
 							            </display:column>
 							            <display:column title="Respuesta" property="respuesta" sortable="false"/>
 							            <display:column title="Indemnizar" property="indemnizar" sortable="false"/>
@@ -87,7 +81,22 @@
 						  	</div>
 							</div>			
                         
-                        
+                        	<!-- radio button-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="rbIndemnizar">Indemnizar</label>
+							  <div class="col-md-8">
+							    <label><input type="radio" name="rbIndemnizar" id="rbIndemnizar_si" value="si">SI</label>
+							    <label><input type="radio" name="rbIndemnizar" id="rbIndemnizar_no" value="no">No</label>
+							  </div>
+							</div>
+							
+                        	<!-- Button -->
+							<div class="form-group">
+							  <div class="col-md-4"></div>
+							  <div class="col-md-4">
+							    <button id="btnProcesar" name="btnProcesar" class="btn btn-success">Proccesar</button>
+							  </div>
+							</div>
                         
                     </div>
                     <!-- /.col-lg-12 -->
@@ -117,35 +126,36 @@
 
 		 var fields = $("input[name='_chk']").serializeArray(); 
 		 if (fields.length === 0){ 
-		    alert('Seleccione una factura.');
+		    alert('Seleccione un reclamo.');
 		 	return false;
 		 }
-		
-		if(confirm('¿Indemnizar al cliente?')){
+
+		 var rb_indemnizar = $("input[name='rbIndemnizar']").serializeArray(); 
+		 if (rb_indemnizar.length === 0){ 
+			 alert('Seleccione una opcion.');
+			 return false;
+		 }
+
+		 var rb_nm = $('input[name=rbIndemnizar]:checked').val();
+		 
+		if( rb_nm == 'si'){
 	   		console.info('redirecciona a indemnizar');
 	   		window.location.assign("${pageContext.request.contextPath}/indemnizar/indemnizar.htm?idReclamo="+$("input[name='_chk']").val());
 		}else{
-			console.debug(' registrar en BD que no se va a indemnizar');
+			//ajax update a NO
+			fields_values = "";
+			for (i = 0; i < fields.length; i++) { 
+				fields_values += fields[i].value + "_";
+			}
+			
+			console.log( 'reclamos a negar indemnizacion : ' + fields_values );
+			document.forms[0].action="noIndemnizar.htm";
+			document.forms[0].id_reclamos.value=fields_values;
+			document.forms[0].submit();
 		}
 		return false;
 	});
 
-	/*function nuevo(){
-		document.forms[0].action='ncliente.htm';
-		document.forms[0].action.submit();
-	}
-	function eliminar(id){
-		if(confirm('¿Está seguro de eliminar al cliente?')){
-			$("#tablaDinamica").css('opacity', 0.4);
-	   		$("#tablaDinamica").load('eliminarCliente.htm?id='+ id +'&randval=' + Math.random() + " #resultado", 
-	   				function(){ 
-	   					$("#tablaDinamica").css('opacity', 1); 
-	   					//$("#rolling").toggle(); 
-	   				}
-	   		);
-		}
-	}*/
-	
 	$( function(){
    	   $("#displayTagDiv").displayTagAjax();
    	});

@@ -21,6 +21,18 @@
    <script src="${pageContext.request.contextPath}/js/jquery.displaytag-ajax-1.2.js"></script> 
    
     <script src="${pageContext.request.contextPath}/js/jquery-ui-1.10.4.custom.min.js"></script>
+    <!-- Jquery Validation -->
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+	
+	<script>
+/*	// just for the demos, avoids form submit
+	jQuery.validator.setDefaults({
+	  debug: true,
+	  success: "valid"
+	});*/
+	</script>
+
 </body>
 
 </html>

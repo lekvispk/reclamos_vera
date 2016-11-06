@@ -1,12 +1,8 @@
 package pe.org.reclamos.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
@@ -20,6 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.reclamos.dao.ReclamoDAO;
+import pe.org.reclamos.entidad.Indemnizacion;
 import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.utiles.Utiles;
@@ -134,5 +131,16 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		this.getHibernateTemplate().bulkUpdate("update Reclamo u set estado=0 where idReclamo = ?  ", reclamo );
 	}
 
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void grabarNoIndemnizado(Long idReclamo) {
+		this.getHibernateTemplate().bulkUpdate("update Reclamo set indemnizar='no', estado=3 where idReclamo = ?  ", idReclamo );
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void registrar(Indemnizacion indemnizacion) {
+		this.getHibernateTemplate().saveOrUpdate( indemnizacion );
+	}
 
 }

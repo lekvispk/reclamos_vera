@@ -159,14 +159,8 @@ public class ReclamoController {
 			request.setCharacterEncoding("UTF8");
 			
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
-			rec.setEstado( reclamo.getEstado() );
+			rec.setEstado( 2 );
 			rec.setDescripcion( reclamo.getDescripcion() );
-			if( reclamo.getEstado() == 2 ){
-				rec.setRespuesta("Aceptado");
-			}
-			if( reclamo.getEstado() == 3 ){
-				rec.setRespuesta("Rechazado");
-			}
 			
 			reclamoService.actualizar(rec);
 			
@@ -214,8 +208,7 @@ public class ReclamoController {
 			   request.setCharacterEncoding("UTF8");
 
 			   Reclamo rec = new Reclamo(); 
-			   rec.getEstados().add(2);
-			   rec.getEstados().add(4);
+			   rec.setEstado(2);
 			   //ver estados Aceptado y Solucionado
 			  
 			   model.put("lReclamos", reclamoService.buscar( rec));
@@ -270,7 +263,7 @@ public class ReclamoController {
 			request.setCharacterEncoding("UTF8");
 			
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
-			rec.setEstado( 4 );
+			rec.setEstado( 3 );
 			rec.setSolucion( reclamo.getSolucion() );
 			reclamoService.actualizar(rec);
 			
@@ -320,8 +313,7 @@ public class ReclamoController {
 			reclamoService.registrar(reclamo);
 			
 			request.setAttribute("mensaje","Se ha grabado satisfactoriamente");
-			//Argument [RedirectAttributes] is of type Model or Map but is not assignable from the actual model. You may need to switch newer MVC infrastructure classes to use this argument.
-			//redirectAttrs.addFlashAttribute("mensaje","Se ha grabado satisfactoriamente");
+			
 			return "redirect:/reclamos/lGestionar.htm";
 		} catch (Exception e) {
 			e.printStackTrace();
