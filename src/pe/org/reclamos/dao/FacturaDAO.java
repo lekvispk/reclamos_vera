@@ -10,8 +10,16 @@ public interface FacturaDAO {
 	public void registrar(Factura factura);
 	public Factura obtener(Long factura);
 	public List<Factura> buscar(Factura factura);
+	/**
+	 * lista de facturas que cumplen con el cliterio
+	 * @param factura
+	 * @return
+	 */
+	public List<Factura> buscarFacturasParaFidelizacion(Factura factura);
+	public List<Factura> buscarFacturasParaFidelizacionDeUnCliente(Factura factura);
 	public void eliminar(Long factura);
 
 	public List<Detallefactura> listarDetalleFactura( Detallefactura detalle );
+	public List<Factura> buscarFacturasConFidelizacion( Factura factura);
 	
 }

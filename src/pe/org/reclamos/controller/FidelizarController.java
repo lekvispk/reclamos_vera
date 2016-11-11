@@ -1,6 +1,8 @@
 package pe.org.reclamos.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +16,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Factura;
+import pe.org.reclamos.entidad.Fideliza;
+import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.FacturaService;
+import pe.org.reclamos.service.FidelizaService;
 import pe.org.reclamos.service.ReclamoService;
+import pe.org.reclamos.utiles.Utiles;
 
 /**
  * Clase que registra la fidelizacion realizada a los clientes
@@ -36,7 +43,9 @@ public class FidelizarController {
 	private ClienteService clienteService;
 	@Autowired
 	private FacturaService facturaService;
-
+	@Autowired
+	private FidelizaService fidelizaService;
+	
 	@RequestMapping(value="/lFidelizar.htm", method=RequestMethod.GET)
 	public String lFidelizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
@@ -45,9 +54,9 @@ public class FidelizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   Factura fac = new Factura();
+			   //Factura fac = new Factura();
 			   //TODO pendiente modificar para que la paginacion funcione
-			   model.put("lFacturas", facturaService.buscar( fac ));
+			   //model.put("lFacturas", facturaService.buscar( fac ));
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -55,9 +64,20 @@ public class FidelizarController {
 		   }finally{
 			   model.put("factura", new Factura() );
 		   }
-		return "reclamos/lFidelizar";
+		return "fidelizar/lFidelizar";
 	}
 
+	/**
+	 * Traer facturas  que cumplan con los requisitos siguientes : 
+	 * 
+	 * La suma del monto de las facturas sea mayor a 5000
+	 * @param factura
+	 * @param result
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/lFidelizar.htm", method=RequestMethod.POST)
 	public String lFidelizarPost(@Valid Factura factura, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
@@ -65,14 +85,11 @@ public class FidelizarController {
 			   logger.debug("lFidelizar Post");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
-			   /*
-			   if(!Utiles.nullToBlank( request.getParameter("fecFactura")).equals("") ){}
-		   			factura.setFecFactura( Utiles.stringToDate( request.getParameter("fecFactura") , "dd/MM/yyyy")) ;
-		  		
-			   if(!Utiles.nullToBlank( request.getParameter("fecFacturaFin")).equals("") ){}
-		   			factura.setFecFacturaFin( Utiles.stringToDate( request.getParameter("fecFacturaFin") , "dd/MM/yyyy")) ;
-		  			 */ 
-			   model.put("lFacturas", facturaService.buscar( factura ));
+			   
+			   factura.setEmision( Utiles.stringToDate( request.getParameter("emision") , "dd/MM/yyyy")) ;
+		  	   factura.setEmisionFin( Utiles.stringToDate( request.getParameter("emisionFin") , "dd/MM/yyyy")) ;
+		  	
+			   model.put("lFacturas", facturaService.buscarFacturasParaFidelizacion( factura ));
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -80,7 +97,7 @@ public class FidelizarController {
 		   }finally{
 			  model.put("factura", factura );
 		   }
-		return "reclamos/lFidelizar";
+		return "fidelizar/lFidelizar";
 	}
 	
 	@RequestMapping(value="/lCompensar.htm", method=RequestMethod.GET)
@@ -91,12 +108,14 @@ public class FidelizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   Factura fac = facturaService.obtener( new Long( request.getParameter("idFactura") ) ) ;
+			   Cliente cliente = clienteService.obtener( new Long( request.getParameter("idCliente") ) ) ;
+			   model.put("lFacturas", facturaService.buscarFacturasParaFidelizacionDeUnCliente( new Factura( cliente ) ));
 			   
-			   model.put("lFacturas", facturaService.buscar( new Factura( fac.getCliente() ) ));
-			   
-			   logger.debug( fac.toString());
-			   model.put("factura", fac );
+			   logger.debug( cliente.getNomCliente() );
+			   Factura factura = new Factura();
+			   factura.setCliente(cliente);
+			   factura.setMonto(new BigDecimal(5000));
+			   model.put("factura", factura);
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -131,28 +150,42 @@ public class FidelizarController {
 		return "fidelizar/lCompensar";
 	}
 	
-	@RequestMapping(value="/compensar.htm", method=RequestMethod.GET)
-	public String compensar(@Valid Factura factura, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	/**
+	 * graba si es que se va a compensar o no al cliente / factura indicada
+	 * @param factura
+	 * @param result
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/compensar.htm", method=RequestMethod.POST)
+	public String compensar( HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
 			   logger.debug("compensar ");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			  
-			   Factura fac = facturaService.obtener( new Long( request.getParameter("idFactura")  ) );
-			   fac.setEstado(2);
-			   facturaService.registrar(fac);
+			   Long idFactura = new Long( request.getParameter("idFactura"));
 			   
-			   model.put("lFacturas", facturaService.buscar( factura ));
-			   model.put("factura", facturaService.obtener( new Long( factura.getIdFactura() ) ));
+			   Reclamo recDeFactura = reclamoService.obtenerPorIdFactura(idFactura);
+			   Fideliza fideliza = new Fideliza();
+			   fideliza.setReclamo(recDeFactura );
+			   fideliza.setFecFideliza( new Date() );
+			   fideliza.setCreatedAt(  new Date() );
+			   fideliza.setEstado( 1 );
 			   
+			   fidelizaService.registrarFidelizacion(fideliza);
+			   logger.debug("registrada la fidelizaion");
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
 			//  model.put("reclamo", new Reclamo() );
 		   }
-		return "fidelizar/lCompensar";
+		//return "fidelizar/lCompensar";
+		return "redirect:/fidelizar/lFidelizar.htm";
 	}
 	
 	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.GET)
@@ -163,8 +196,10 @@ public class FidelizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("lFacturas", new ArrayList<Factura>());
+			   Factura factura = new Factura();
+//			   factura.setCliente(cliente)
 			   
+			   model.put("lFacturas", facturaService.buscarFacturasConFidelizacion( factura ));
 			   model.put("factura", new Factura() );
 			   
 		   } catch (Exception e) {
@@ -177,14 +212,15 @@ public class FidelizarController {
 	}
 	
 	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.POST)
-	public String lPromocionesPost(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	public String lPromocionesPost(@Valid Factura factura, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
 			   logger.debug("lPromociones");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("lFacturas", facturaService.buscar( new Factura( ) ));
+			   //facturas que tengan registrado fidelizacion  
+			   model.put("lFacturas", facturaService.buscar( factura ));
 			   
 			   model.put("factura", new Factura() );
 			   

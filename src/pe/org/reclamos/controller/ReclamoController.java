@@ -1,6 +1,7 @@
 package pe.org.reclamos.controller;
 
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -160,6 +161,8 @@ public class ReclamoController {
 			
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
 			rec.setEstado( 2 );
+			rec.setRespuesta( reclamo.getRespuesta() );
+			rec.setFecRespuesta( new Date() );
 			rec.setDescripcion( reclamo.getDescripcion() );
 			
 			reclamoService.actualizar(rec);

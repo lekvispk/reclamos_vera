@@ -44,6 +44,9 @@ public class Reclamo implements Serializable {
     @Temporal( TemporalType.TIMESTAMP)
 	private Date fecReclamo;
 
+    @Temporal( TemporalType.TIMESTAMP)
+    private Date fecRespuesta;
+    
 	private String indemnizar;
 
     @Lob()
@@ -136,7 +139,7 @@ public class Reclamo implements Serializable {
 	/**
 	 * 1=Abierto : cuando se registra, estado inicial<br>
 	 * 2=En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
-	 * 4=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
+	 * 3=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @return estado
 	 */
 	public int getEstado() {
@@ -145,7 +148,7 @@ public class Reclamo implements Serializable {
 	/**
 	 * 1=Abierto : cuando se registra, estado inicial<br>
 	 * 2=En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
-	 * 4=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
+	 * 3=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @param estado
 	 */
 	public void setEstado(int estado) {
@@ -155,7 +158,7 @@ public class Reclamo implements Serializable {
 	/**
 	 * 1=Abierto : cuando se registra, estado inicial<br>
 	 * 2=En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
-	 * 4=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
+	 * 3=Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @return lista de estados
 	 */
 	public List<Integer> getEstados() {
@@ -322,6 +325,15 @@ public class Reclamo implements Serializable {
 
 	public void setIndemnizacion(Indemnizacion indemnizacion) {
 		this.indemnizacion = indemnizacion;
+	}
+
+	
+	public Date getFecRespuesta() {
+		return fecRespuesta;
+	}
+
+	public void setFecRespuesta(Date fecRespuesta) {
+		this.fecRespuesta = fecRespuesta;
 	}
 
 	@Override

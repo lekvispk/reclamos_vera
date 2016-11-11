@@ -41,4 +41,19 @@ public class FacturaServiceImpl implements FacturaService {
 		return facturaDAO.listarDetalleFactura(detalle);
 	}
 
+	@Override
+	public List<Factura> buscarFacturasParaFidelizacion(Factura factura) {
+		return facturaDAO.buscarFacturasParaFidelizacion(factura);
+	}
+
+	@Override
+	public List<Factura> buscarFacturasParaFidelizacionDeUnCliente(Factura factura) {
+		return facturaDAO.buscarFacturasParaFidelizacionDeUnCliente(factura);
+	}
+
+	@Override
+	public List<Factura> buscarFacturasConFidelizacion(Factura factura) {
+		return facturaDAO.buscarFacturasConFidelizacion(factura);
+	}
+
 }

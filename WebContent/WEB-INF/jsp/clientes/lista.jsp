@@ -59,7 +59,7 @@
 						           
 						           <display:column title="Razon Social" property="nomCliente" sortable="true" headerClass="sortable" />
 						           <display:column title="RUC" property="rucCliente" sortable="true" headerClass="sortable" />
-						           <display:column title="Email" property="email" sortable="true" headerClass="sortable" />
+						           <display:column title="Email" property="persona.email" sortable="true" headerClass="sortable" />
 						           <display:column title="Estado" sortable="true" headerClass="sortable">
 						            	<c:if test="${row.estado == 1}">Activo</c:if>
 						            	<c:if test="${row.estado == 2}">Inactivo</c:if>

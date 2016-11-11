@@ -24,8 +24,13 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="fecFactura">Desde</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${factura.emision}" pattern="dd/MM/yyyy" var="f_fecFactura"/>
-                    			<input type="text" class="form-control input-md" name="fecFactura" id="fecFactura" placeholder="dd/MM/yyyy" size="10" value="${f_fecFactura}"/>
+							  	<div class='input-group date' id='datetimepicker1'>
+				                    <fmt:formatDate value="${factura.emision}" pattern="dd/MM/yyyy" var="f_fecFactura"/>
+                    				<input type="text" class="form-control input-md" name="emision" id="emision" placeholder="dd/MM/yyyy" size="10" value="${f_fecFactura}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
 							  </div>
 							</div>
 							
@@ -33,23 +38,26 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="fecFacturaFin">Hasta</label>  
 							  <div class="col-md-4">
-							  	<fmt:formatDate value="${factura.emisionFin}" pattern="dd/MM/yyyy" var="f_fecFacturaFin"/>
-                    			<input type="text" class="form-control input-md" name="fecFacturaFin" id="fecFacturaFin" placeholder="dd/MM/yyyy" size="10" value="${f_fecFacturaFin}"/>
+							  	<div class='input-group date' id='datetimepicker2'>
+				                    <fmt:formatDate value="${factura.emisionFin}" pattern="dd/MM/yyyy" var="f_fecFacturaFin"/>
+                    				<input type="text" class="form-control input-md" name="emisionFin" id="emisionFin" placeholder="dd/MM/yyyy"  size="10" value="${f_fecFacturaFin}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
 							  </div>
 							</div>
 							
 								<!-- Select Basic -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="cmbPrioridad">Consumo</label>
-							  <div class="col-md-4">
-							    
-							    <form:select path="monto" cssClass="form-control" >
-							    	<form:option value="">-Seleccionar-</form:option>
-							  		<form:option value="7000.0">Mayor a 7000</form:option>
-							  		<form:option value="5000.0">Mayor a 5000</form:option>
-							  	</form:select>
-							  	
-							  </div>
+							  
+							    <div class="col-md-4 form-group input-group">
+                                     <span class="input-group-addon">S/.</span>
+                                     <input type="text" name="monto" id="monto" value="5000" readonly="readonly" class="form-control" />
+                                     
+                                 </div>
+							  
 							</div>
 							
 							<!-- Text input-->
@@ -74,29 +82,18 @@
                          	<div id="tablaDinamica">
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
-					   		
-					   		<jsp:scriptlet>
-							    <![CDATA[
-							       
-							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-							        decorator.setId("idReclamo");
-							        decorator.setFieldName("_chk");
-							        pageContext.setAttribute("checkboxDecorator", decorator);
-							     ]]>
-							  </jsp:scriptlet> 
-							  
+					   		  
 						    	<display:table  name="requestScope.lFacturas" requestURI="lFidelizar.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
-						            decorator="checkboxDecorator" >
+						            >
 						            
 						            <display:column title="" >
-						            	<a href="lCompensar.htm?idFactura=${row.idFactura}">ver</a>
+						            	<a href="lCompensar.htm?idCliente=${row.cliente.idCliente}">ver</a>
 						            </display:column>
-						            <display:column title="RUC" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Inicio" property="emision" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Fin" property="emision" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-						            						         
+						            <display:column title="RUC" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
+						            <display:column title="Factura" property="numero" sortable="true" headerClass="sortable" />
+						            <display:column title="Fec. Emision" property="emision" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
 						            <display:column title="Consumo" property="monto" sortable="true" headerClass="sortable" />
 						    	</display:table>
 							
@@ -124,9 +121,25 @@
 	 
 	 
 <script>
+
 	
-	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   });
+	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
+		document.forms[0].action="lFidelizar.htm";
+		document.forms[0].submit();
+		//return false;
+	});
+	
+	$( function(){
+   		$("#displayTagDiv").displayTagAjax();
+
+   		$('#datetimepicker1').datetimepicker({
+		    format: 'DD/MM/YYYY'
+		});
+
+   		$('#datetimepicker2').datetimepicker({
+   		    format: 'DD/MM/YYYY'
+   		});
+   		
+   	});
    
 </script>

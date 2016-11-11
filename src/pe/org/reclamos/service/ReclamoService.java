@@ -9,6 +9,7 @@ public interface ReclamoService {
 	public void registrar(Reclamo reclamo) throws Exception;
 	public void actualizar(Reclamo reclamo);
 	public Reclamo obtener(Long reclamo);
+	public Reclamo obtenerPorIdFactura(Long idFactura);
 	public List<Reclamo> buscar(Reclamo reclamo);
 	public void eliminar(Long reclamo);
 	public void grabarNoIndemnizados(String[] idReclamos);

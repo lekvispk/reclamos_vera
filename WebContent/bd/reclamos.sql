@@ -291,6 +291,7 @@ CREATE TABLE reclamo (
   mensaje TEXT NULL,
   solucion TEXT NULL,
   respuesta VARCHAR(15) NULL,
+  fecRespuesta DATETIME NULL,
   prioridad INTEGER NULL,
   vencimiento DATETIME NULL,
   indemnizar VARCHAR(2) NULL,
@@ -382,7 +383,7 @@ ENGINE=INNODB;
 CREATE TABLE fideliza (
   idFideliza INTEGER NOT NULL AUTO_INCREMENT,
   idReclamo INTEGER NOT NULL,
-  idPromocion INTEGER NOT NULL,
+  idPromocion INTEGER NULL,
   descripcion VARCHAR(2000) NULL,
   fecFideliza DATETIME NULL,
   estado INTEGER NULL DEFAULT 1,

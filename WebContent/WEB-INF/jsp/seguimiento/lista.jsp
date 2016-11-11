@@ -72,9 +72,6 @@
 							  <div class="col-md-4">
 							    <input type="button" id="btnBuscar" name="btnBuscar" class="btn btn-success" value="Buscar"/>
 							  </div>
-							  <div class="col-md-4">
-							    <input type="button" id="btnVerDetalle" name="btnVerDetalle" class="btn btn-success" value="Ver Detalle"/>
-							  </div>
 							</div>
 							
 							</fieldset>
@@ -83,30 +80,18 @@
                          	<div id="tablaDinamica">
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
-					   		
-					   		<jsp:scriptlet>
-							    <![CDATA[
-							       
-							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-							        decorator.setId("idReclamo");
-							        decorator.setFieldName("_chk");
-							        pageContext.setAttribute("checkboxDecorator", decorator);
-							     ]]>
-							  </jsp:scriptlet> 
-							  
+					   		  
 						    	<display:table  name="requestScope.lReclamos" requestURI="lista.htm" class="displaytag" pagesize="3"
-						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
-						            decorator="checkboxDecorator" >
-						            
-						            <display:column title="" >
-						            	<input type="radio" id="rbBeneficio_${row.idReclamo}" name="rbBeneficio" value="${row.idReclamo}">
-						            </display:column>
+						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk">
 						            <display:column title="ID Ticket" property="idReclamo" sortable="true" headerClass="sortable" />
 						            <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
 						            <display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Prioridad" property="prioridad" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Respuesta" property="fecVencimiento" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+						            <display:column title="Fec. Respuesta" property="fecRespuesta" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
 						            <display:column title="Estado" property="estado" sortable="true" headerClass="sortable" />
+						            <display:column title="Ver" sortable="true" headerClass="sortable">
+						            	<a href="#">Ver Detalle</a>
+						            </display:column>
 						    	
 						    	</display:table>
 							

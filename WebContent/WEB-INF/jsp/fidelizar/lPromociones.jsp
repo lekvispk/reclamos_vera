@@ -16,7 +16,7 @@
 			document.forms[0].submit();
 	    	//window.location='promociones.htm?idFactura='+ $("input[name='_chk']").val();
 	    }else {
-	    	alert('Seleccione un cliente');
+	    	alert('Seleccione una factura');
 	    }
 	
 	}
@@ -51,7 +51,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="ruc" id="ruc" placeholder="RUC" class="form-control input-md">
+							  	<form:input path="cliente.rucCliente" size="10" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
@@ -59,7 +59,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="razonSocial" id="razonSocial" placeholder="Razon Social" class="form-control input-md">
+							  	<form:input path="cliente.nomCliente" cssClass="form-control input-md"  />
 							  </div>
 							</div>
 							
@@ -85,7 +85,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnRegresar" name="btnRegresar" onclick="javascript:history.back();" class="btn btn-success" value="Refrescar"/>
+							    <input type="button" id="btnRegresar" name="btnRegresar" class="btn btn-success" value="Refrescar"/>
 							    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Aceptar"/>
 							  </div>
 							</div>
@@ -107,19 +107,19 @@
 							     ]]>
 							  </jsp:scriptlet> 
 							  
-						    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
+						    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            decorator="checkboxDecorator" >
 						            
 						            <display:column property="checkbox" />
 						            <display:column title="RUC" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Inicio" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+						            <display:column title="Fec. Inicio" property="emision" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
 						            <display:column title="# de Compras" property="monto" sortable="true" headerClass="sortable" />
 						            <display:column title="Consumo" property="monto" sortable="true" headerClass="sortable" />
 						            
 						    	</display:table>
-							
+							indicar como se obtiene el numero de compras y el Consumo
 							</div>
 						  	</div>
 							</div>			

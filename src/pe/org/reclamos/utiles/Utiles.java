@@ -118,7 +118,7 @@ public class Utiles {
 			gc.setTime(df.parse(fecha));
 			return gc.getTime();
 		} catch (ParseException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Error con fecha: " + e.getMessage());
 			return null;
 		}
     }

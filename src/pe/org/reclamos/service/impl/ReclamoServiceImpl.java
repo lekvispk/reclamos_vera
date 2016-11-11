@@ -98,4 +98,9 @@ public class ReclamoServiceImpl implements ReclamoService {
 		reclamoDAO.registrar(rec.getIndemnizacion());
 	}
 
+	@Override
+	public Reclamo obtenerPorIdFactura(Long idFactura) {
+		return reclamoDAO.obtenerPorIdFactura(idFactura);
+	}
+
 }

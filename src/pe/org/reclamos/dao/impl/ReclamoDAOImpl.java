@@ -143,4 +143,14 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		this.getHibernateTemplate().saveOrUpdate( indemnizacion );
 	}
 
+	@Override
+	public Reclamo obtenerPorIdFactura(Long idFactura) {
+		try {
+			return (Reclamo) this.getHibernateTemplate().find("from Reclamo u where factura.idFactura = ? ", idFactura).get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }
