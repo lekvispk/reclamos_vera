@@ -95,9 +95,8 @@
 						            </display:column>
 						            <display:column title="Fec. Vencimiento" property="vencimiento" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />						         
 						             <display:column title="Estado" sortable="true" headerClass="sortable">
-						            	<c:if test="${row.estado == 1}">Abierto</c:if>
-						            	<c:if test="${row.estado == 2}">En Proceso</c:if>
-						            	<c:if test="${row.estado == 3}">Atendido</c:if>
+						            	<c:if test="${row.estado == 1}">En Proceso</c:if>
+						            	<c:if test="${row.estado == 2}">Atendido</c:if>
 						            </display:column>
 						           <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
 						         

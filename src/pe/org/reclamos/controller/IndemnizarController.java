@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pe.org.reclamos.entidad.Indemnizacion;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ReclamoService;
+import pe.org.reclamos.utiles.Constantes;
 
 @Controller
 @RequestMapping(value="/indemnizar")
@@ -34,8 +35,9 @@ public class IndemnizarController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   Reclamo reclamo = new Reclamo();
+			   reclamo.getEstados().add(1);
 			   reclamo.getEstados().add(2);
-			   reclamo.getEstados().add(3);
+			   reclamo.setRespuesta(Constantes.RECLAMO_RESPUESTA_RECHAZADO);
 			   
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
@@ -93,7 +95,7 @@ public class IndemnizarController {
 			
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
 			rec.setIndemnizar( reclamo.getIndemnizar());
-			rec.setEstado( 3 );
+			rec.setEstado( 2 );
 			
 			Indemnizacion inm = new Indemnizacion();
 			inm.setTotalIndemnizacion( 0.0 );

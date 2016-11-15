@@ -10,5 +10,6 @@ public interface ClienteDAO {
 	public Cliente obtener(Long cliente);
 	public List<Cliente> buscar(Cliente cliente);
 	public void eliminar(Long cliente);
+	public List<Cliente> buscarClientesParaFidelizacion();
 	
 }

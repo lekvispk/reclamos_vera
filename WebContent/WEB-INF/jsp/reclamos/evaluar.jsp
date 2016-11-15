@@ -112,8 +112,8 @@
 							<div class="form-group">
 							 <label class="col-md-4 control-label" for="mensaje"></label>
 							  <div class="col-md-5">
-							  	<label class="col-md-4">&nbsp;<input type="radio" name="respuesta" value="2" onclick="javascript:mostrarObservaciones(0);">Aceptar</label>
-							  	<label>&nbsp;<input type="radio" name="respuesta" value="3" onclick="javascript:mostrarObservaciones(1);">Rechazar</label>
+							  	<label class="col-md-4">&nbsp;<input type="radio" name="respuesta" value="Aceptado" onclick="javascript:mostrarObservaciones(0);">Aceptar</label>
+							  	<label>&nbsp;<input type="radio" name="respuesta" value="Rechazado" onclick="javascript:mostrarObservaciones(1);">Rechazar</label>
 							  </div>
 							</div>
 							

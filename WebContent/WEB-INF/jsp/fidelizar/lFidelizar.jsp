@@ -20,35 +20,7 @@
 							<!-- Form Name -->
 							<legend>Fidelizar Clientes</legend>
 							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="fecFactura">Desde</label>  
-							  <div class="col-md-4">
-							  	<div class='input-group date' id='datetimepicker1'>
-				                    <fmt:formatDate value="${factura.emision}" pattern="dd/MM/yyyy" var="f_fecFactura"/>
-                    				<input type="text" class="form-control input-md" name="emision" id="emision" placeholder="dd/MM/yyyy" size="10" value="${f_fecFactura}"/>
-				                    <span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							  </div>
-							</div>
-							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="fecFacturaFin">Hasta</label>  
-							  <div class="col-md-4">
-							  	<div class='input-group date' id='datetimepicker2'>
-				                    <fmt:formatDate value="${factura.emisionFin}" pattern="dd/MM/yyyy" var="f_fecFacturaFin"/>
-                    				<input type="text" class="form-control input-md" name="emisionFin" id="emisionFin" placeholder="dd/MM/yyyy"  size="10" value="${f_fecFacturaFin}"/>
-				                    <span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							  </div>
-							</div>
-							
-								<!-- Select Basic -->
+							<!-- Select Basic -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="cmbPrioridad">Consumo</label>
 							  
@@ -83,17 +55,15 @@
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
 					   		  
-						    	<display:table  name="requestScope.lFacturas" requestURI="lFidelizar.htm" class="displaytag" pagesize="10"
+						    	<display:table  name="requestScope.lClientes" requestURI="lFidelizar.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            >
 						            
 						            <display:column title="" >
-						            	<a href="lCompensar.htm?idCliente=${row.cliente.idCliente}">ver</a>
+						            	<a href="lCompensar.htm?idCliente=${row.idCliente}">ver</a>
 						            </display:column>
-						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="RUC" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Factura" property="numero" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Emision" property="emision" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+						            <display:column title="Razon Social" property="nomCliente" sortable="true" headerClass="sortable" />
+						            <display:column title="RUC" property="rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Consumo" property="monto" sortable="true" headerClass="sortable" />
 						    	</display:table>
 							
@@ -131,15 +101,6 @@
 	
 	$( function(){
    		$("#displayTagDiv").displayTagAjax();
-
-   		$('#datetimepicker1').datetimepicker({
-		    format: 'DD/MM/YYYY'
-		});
-
-   		$('#datetimepicker2').datetimepicker({
-   		    format: 'DD/MM/YYYY'
-   		});
-   		
    	});
    
 </script>

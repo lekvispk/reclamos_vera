@@ -6,12 +6,15 @@
 <jsp:include page="../include/cabecera.jsp"/>
 
 <script>
-
+	
+	function aceptar(){
+	    document.forms[0].action='promociones.htm';
+		document.forms[0].submit();
+	}
+	
 	function buscar(){
-		
 		document.forms[0].action='lPromociones.htm';
 		document.forms[0].submit();
-	
 	}
 	
 </script>
@@ -30,6 +33,9 @@
 							<!-- Form Name -->
 							<legend>Fidelizar Clientes - Promociones</legend>
 							
+							<form:hidden path="idFactura"/>
+							<form:hidden path="cliente.idCliente"/>
+							<input type="hidden" name="lfactura" id="lfactura">
 							<!-- Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
@@ -46,11 +52,13 @@
 							  </div>
 							</div>
 							
-							<!-- Text input-->
+							<!-- Select Basic -->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="numero">Factura</label>  
+							  <label class="col-md-4 control-label" for="cmbPrioridad">Promocion</label>
 							  <div class="col-md-4">
-							  	<form:input path="numero" cssClass="form-control input-md"  />
+							    <select name="promociones" id="promociones" class="form-control input-md">
+							    	<option>dar dscto 20%</option>
+							    </select>
 							  </div>
 							</div>
 							
@@ -58,12 +66,13 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnBuscar" name="btnBuscar" onclick="javascript:buscar();" class="btn btn-success" value="Buscar"/>
+							    <input type="button" id="btnRegresar" name="btnRegresar" class="btn btn-success" value="Regresar"/>
+							    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Aceptar"/>
 							  </div>
 							</div>
-								
+							
 							</fieldset>
-				         		
+				        	
                         </form:form>
                     </div>
                     <!-- /.col-lg-12 -->
@@ -79,4 +88,3 @@
 		</div>
 		
 	 <jsp:include page="../include/pie.jsp"/>
-	 

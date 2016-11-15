@@ -34,6 +34,8 @@ public class Cliente implements Serializable {
 	
 	private String rucCliente;
 
+	private Double monto;
+	
 	//bi-directional many-to-one association to Apelacion
 	//@OneToMany(mappedBy="cliente")
 	@Transient
@@ -135,6 +137,14 @@ public class Cliente implements Serializable {
 
 	public void setRepresentante(String representante) {
 		this.representante = representante;
+	}
+
+	public Double getMonto() {
+		return monto;
+	}
+
+	public void setMonto(Double monto) {
+		this.monto = monto;
 	}
 
 	@Override

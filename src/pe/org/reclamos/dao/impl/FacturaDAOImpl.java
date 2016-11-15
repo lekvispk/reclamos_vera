@@ -14,6 +14,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -154,20 +155,24 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 	public List<Factura> buscarFacturasParaFidelizacion(Factura factura) {
 		
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT * FROM factura WHERE idCliente IN ( ");
+		sql.append(" SELECT f.* FROM factura f inner join reclamo r ");
+		sql.append(" ON F.idFactura = r.idFactura and r.fidelizado=0 ");
+		sql.append(" WHERE f.idCliente IN ( ");
 		sql.append(" 	SELECT f.idCliente FROM factura f ");
 		sql.append(" 	INNER JOIN reclamo r  ");
 		sql.append(" 	ON F.idFactura = r.idFactura ");
-		sql.append(" 	AND r.estado=3 ");
+		sql.append(" 	AND r.estado=2 ");
+		//sql.append(" 	AND r.fidelizado=0 "); // no validare esto, xq si no ya no veria sus demas facturas
 		sql.append(" 	WHERE f.estado=1 ");
 		sql.append(" 	AND f.emision >= DATE('2016-10-01') ");
 		sql.append(" 	AND f.emision <= DATE('2016-11-01') ");
 		sql.append(" 	GROUP BY f.idCliente HAVING SUM(f.monto) >= 5000 ");
-		sql.append(") AND estado=1 ");
-		sql.append(" AND emision >= DATE('2016-10-01') ");
-		sql.append(" AND emision <= DATE('2016-11-01') ");
+		sql.append(") AND f.estado=1 ");
+		sql.append(" AND f.emision >= DATE('2016-10-01') ");
+		sql.append(" AND f.emision <= DATE('2016-11-01') ");
 		sql.append(" ");
 		
+		logger.debug("query " + sql.toString() );
 		Session session =  getSession();
 		Query query = session.createSQLQuery( sql.toString() )
 		.addEntity(Factura.class);
@@ -184,27 +189,17 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Factura> buscarFacturasParaFidelizacionDeUnCliente( Factura factura) {
-		// TODO Auto-generated method stub
-		/*
-		 * SELECT F.* FROM factura F INNER JOIN reclamo r ON F.idFactura = r.idFactura AND r.estado=3 
-			WHERE r.idCliente = 3 
-		 */
-		
+
 		Calendar cal = Calendar.getInstance();
 		Date today = cal.getTime();
 		cal.add(Calendar.YEAR, -1); // to get previous year add -1
 		Date lastYear = cal.getTime();
-		/*
-		List<Factura> lista  = null;
-		lista =  this.getHibernateTemplate().find("select F from Factura F inner join Reclamo R where R.estado=3 and F.emision >= ? and F.idCliente= ? ", lastYear , factura.getCliente().getIdCliente() ) ;
-		return lista ;
-		
-*/
+
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT F.* FROM factura F ");
 		sql.append(" 	INNER JOIN reclamo r  ");
 		sql.append(" 	ON F.idFactura = r.idFactura ");
-		sql.append(" 	AND r.estado=3 ");
+		sql.append(" 	AND r.estado=2 ");
 		sql.append(" 	AND f.emision >= :emision ");
 		sql.append(" 	WHERE r.idCliente = :cliente ");
 		sql.append(" ");
@@ -234,6 +229,26 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		Session session =  getSession();
 		Query query = session.createSQLQuery( sql.toString() )
 		.addEntity(Factura.class);
+		//.setParameter("cliente", factura.getCliente().getIdCliente() );
+		List<Factura> result = query.list();
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Factura> buscarFacturasParaAplicarPromocion(Factura factura) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT f.*, fi.idFideliza FROM factura f ");
+		sql.append(" INNER JOIN reclamo r ON r.idFactura = f.idFactura AND r.fidelizado=1 ");
+		sql.append(" INNER JOIN fideliza fi ON fi.idReclamo = r.idReclamo ");
+		//sql.append(" WHERE r.estado=1 ");
+		//sql.append(" 	WHERE r.idCliente = :cliente ");
+		sql.append(" ");
+		
+		Session session =  getSession();
+		Query query = session.createSQLQuery( sql.toString() )
+		.addEntity(Factura.class);
+		//query.setResultTransformer(Transformers.aliasToBean(Factura.class));
 		//.setParameter("cliente", factura.getCliente().getIdCliente() );
 		List<Factura> result = query.list();
 		return result;

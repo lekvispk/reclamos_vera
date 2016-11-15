@@ -23,6 +23,7 @@ import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.ReclamoService;
+import pe.org.reclamos.utiles.Constantes;
 import pe.org.reclamos.utiles.Utiles;
 
 @Controller
@@ -108,6 +109,7 @@ public class ReclamoController {
 			   
 			   Reclamo rec = new Reclamo(); 
 			   rec.setEstado(1);
+			   rec.setRespuesta(null);
 			   
 			   model.put("lReclamos", reclamoService.buscar( rec));
 			   
@@ -160,7 +162,7 @@ public class ReclamoController {
 			request.setCharacterEncoding("UTF8");
 			
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
-			rec.setEstado( 2 );
+			//rec.setEstado( 2 );
 			rec.setRespuesta( reclamo.getRespuesta() );
 			rec.setFecRespuesta( new Date() );
 			rec.setDescripcion( reclamo.getDescripcion() );
@@ -211,7 +213,8 @@ public class ReclamoController {
 			   request.setCharacterEncoding("UTF8");
 
 			   Reclamo rec = new Reclamo(); 
-			   rec.setEstado(2);
+			   rec.setEstado(1);
+			   rec.setRespuesta(Constantes.RECLAMO_RESPUESTA_ACEPTADO);
 			   //ver estados Aceptado y Solucionado
 			  
 			   model.put("lReclamos", reclamoService.buscar( rec));
@@ -266,7 +269,7 @@ public class ReclamoController {
 			request.setCharacterEncoding("UTF8");
 			
 			Reclamo rec = reclamoService.obtener( reclamo.getIdReclamo() );
-			rec.setEstado( 3 );
+			rec.setEstado( 2 );
 			rec.setSolucion( reclamo.getSolucion() );
 			reclamoService.actualizar(rec);
 			

@@ -295,7 +295,6 @@
                         	<a href="#"><i class="fa fa-star fa-fw"></i> Fidelizar<span class="fa arrow"></span></a>
                         	<ul class="nav nav-third-level">
                         		<li><a href="${pageContext.request.contextPath}/fidelizar/lFidelizar.htm">Fidelizar</a></li>
-                        		<li><a href="#">Compensar</a></li>
                         		<li><a href="${pageContext.request.contextPath}/fidelizar/lPromociones.htm">Promoci&oacute;n</a></li>
                         		<li><a href="${pageContext.request.contextPath}/tablero/tablero.htm">Mostrar Tablero</a></li>
                         	</ul>	
@@ -314,7 +313,6 @@
                             <ul class="nav nav-second-level">
                              	<li><a href="${pageContext.request.contextPath}/producto/autorizar.htm">Autorizaci&oacute;n</a></li>
                                 <li><a href="${pageContext.request.contextPath}/producto/seleccionar.htm">Selecci&oacute;n</a></li>
-                                <li><a href="${pageContext.request.contextPath}/producto/verificar.htm">Verificar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/producto/asignar.htm">Asignar</a></li>
                               </ul>
                             <!-- /.nav-second-level -->

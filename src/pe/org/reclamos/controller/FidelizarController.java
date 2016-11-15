@@ -1,13 +1,13 @@
 package pe.org.reclamos.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.entidad.Fideliza;
+import pe.org.reclamos.entidad.Promocion;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.FacturaService;
@@ -54,10 +55,6 @@ public class FidelizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   //Factura fac = new Factura();
-			   //TODO pendiente modificar para que la paginacion funcione
-			   //model.put("lFacturas", facturaService.buscar( fac ));
-			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
@@ -68,9 +65,13 @@ public class FidelizarController {
 	}
 
 	/**
-	 * Traer facturas  que cumplan con los requisitos siguientes : 
+	 * Traer a los clientes que cumplan con lo siguiente : 
 	 * 
-	 * La suma del monto de las facturas sea mayor a 5000
+	 * que el cliente haya relizado un reclamo y su reclamo ya haya sido atendido
+	 * (atendido / aceptado o rechazado)
+	 * La suma del monto de sus facturas del ultimo anio sea mayor a 5000
+	 * 
+	 * 
 	 * @param factura
 	 * @param result
 	 * @param request
@@ -86,10 +87,13 @@ public class FidelizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   factura.setEmision( Utiles.stringToDate( request.getParameter("emision") , "dd/MM/yyyy")) ;
-		  	   factura.setEmisionFin( Utiles.stringToDate( request.getParameter("emisionFin") , "dd/MM/yyyy")) ;
-		  	
-			   model.put("lFacturas", facturaService.buscarFacturasParaFidelizacion( factura ));
+			   String err =request.getParameter("err"); 
+			   if(!StringUtils.isEmpty( err )){
+				   if(err.equals("1")){
+					   model.put("msgError", "No se han encontrado resultados" );
+				   }
+			   }
+			   model.put("lClientes", clienteService.buscarClientesParaFidelizacion() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -116,6 +120,8 @@ public class FidelizarController {
 			   factura.setCliente(cliente);
 			   factura.setMonto(new BigDecimal(5000));
 			   model.put("factura", factura);
+			   
+			   model.put("lFacturas", facturaService.buscarFacturasParaFidelizacionDeUnCliente( factura ));
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -196,10 +202,10 @@ public class FidelizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   Factura factura = new Factura();
+			   //Factura factura = new Factura();
 //			   factura.setCliente(cliente)
 			   
-			   model.put("lFacturas", facturaService.buscarFacturasConFidelizacion( factura ));
+			   //model.put("lFacturas", facturaService.buscarFacturasParaAplicarPromocion( factura ));
 			   model.put("factura", new Factura() );
 			   
 		   } catch (Exception e) {
@@ -220,38 +226,67 @@ public class FidelizarController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   //facturas que tengan registrado fidelizacion  
-			   model.put("lFacturas", facturaService.buscar( factura ));
+			   Factura fact = new Factura();
+			   Fideliza fideliza = new Fideliza();
 			   
-			   model.put("factura", new Factura() );
+			   return "redirect:/fidelizar/promociones.htm?idFideliza=1";
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
+			 return "redirect:/fidelizar/lPromociones.htm?err=1";
 		   }finally{
 			//  model.put("reclamo", new Reclamo() );
 		   }
-		return "fidelizar/lPromociones";
+	}
+	
+	@RequestMapping(value="/promociones.htm", method=RequestMethod.GET)
+	public String preGrabarPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		try {
+			logger.debug("preGrabarPromociones");
+			response.setContentType("text/html;charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
+			   
+			Integer idFideliza = Integer.parseInt( request.getParameter("idFideliza") );
+			Factura f = new Factura();
+			model.put("factura", new Factura() );
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "Error: "+ e.getMessage() );
+		}
+		return "fidelizar/promocion";
 	}
 	
 	@RequestMapping(value="/promociones.htm", method=RequestMethod.POST)
 	public String grabarPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
-		 try {
-			   logger.debug("grabarPromociones");
-			   response.setContentType("text/html;charset=ISO-8859-1");
-			   request.setCharacterEncoding("UTF8");
+		try {
+			logger.debug("grabarPromociones");
+			response.setContentType("text/html;charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
 			   
-			   model.put("lFacturas", facturaService.buscar( new Factura( ) ));
-			   model.put("factura", new Factura() );
-			   model.put("mensaje", "Datos grabados");
-			   
-		   } catch (Exception e) {
-			 e.printStackTrace();
-			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			//  model.put("reclamo", new Reclamo() );
-		   }
-		return "fidelizar/lPromociones";
+			String[] lFacturas = request.getParameterValues("_chk");
+			for( String fact : lFacturas){
+				logger.debug("factura " + fact );
+				//obtener la fidelizacion de esa factura 
+				 
+				Promocion p = new Promocion();
+				p.setIdPromocion( Integer.parseInt( request.getParameter("idPromocion")));
+				Fideliza f = new Fideliza();
+				f.setPromocion(p);
+				f.setUpdatedAt( new Date());
+				
+				//actualizar la fidelizacion de esa factura
+					
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "Error: "+ e.getMessage() );
+		}
+		return "redirect:/fidelizar/lPromociones.htm";
 	}
 	
 	

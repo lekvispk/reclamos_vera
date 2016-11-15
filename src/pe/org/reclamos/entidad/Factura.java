@@ -68,7 +68,11 @@ public class Factura implements Serializable {
 	//@OneToMany(mappedBy="factura")
     @Transient
 	private Set<Reclamo> reclamos;
-	
+    
+    //@Column(insertable=false,updatable=false)
+    @Transient
+    private Integer idFideliza;
+    
     public Factura() {
     }
 
@@ -180,6 +184,15 @@ public class Factura implements Serializable {
 		this.reclamos = reclamos;
 	}
 	
+	
+	public Integer getIdFideliza() {
+		return idFideliza;
+	}
+
+	public void setIdFideliza(Integer idFideliza) {
+		this.idFideliza = idFideliza;
+	}
+
 	@Override
      public String toString() {
           return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);

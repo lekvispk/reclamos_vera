@@ -35,4 +35,9 @@ public class ClienteServiceImpl implements ClienteService {
 		clienteDAO.eliminar(cliente);
 	}
 
+	@Override
+	public List<Cliente> buscarClientesParaFidelizacion() {
+		return clienteDAO.buscarClientesParaFidelizacion();
+	}
+
 }

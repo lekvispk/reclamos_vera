@@ -74,6 +74,11 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 					criteria.add( Restrictions.gt("estado", 0 ) );
 					
 			}
+			if( !StringUtils.isEmpty( reclamo.getRespuesta() ) ){
+				criteria.add( Restrictions.eq("respuesta", reclamo.getRespuesta() ) );
+			}else{
+				criteria.add( Restrictions.isNull("respuesta") );
+			}
 			
 			if( reclamo.getIdReclamo() != null ){
 				criteria.add( Restrictions.eq("idReclamo", reclamo.getIdReclamo() ) );
@@ -134,7 +139,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void grabarNoIndemnizado(Long idReclamo) {
-		this.getHibernateTemplate().bulkUpdate("update Reclamo set indemnizar='no', estado=3 where idReclamo = ?  ", idReclamo );
+		this.getHibernateTemplate().bulkUpdate("update Reclamo set indemnizar='no', estado=2 where idReclamo = ?  ", idReclamo );
 	}
 
 	@Override

@@ -56,4 +56,9 @@ public class FacturaServiceImpl implements FacturaService {
 		return facturaDAO.buscarFacturasConFidelizacion(factura);
 	}
 
+	@Override
+	public List<Factura> buscarFacturasParaAplicarPromocion(Factura factura) {
+		return facturaDAO.buscarFacturasParaAplicarPromocion(factura);
+	}
+
 }

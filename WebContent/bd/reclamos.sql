@@ -155,6 +155,7 @@ CREATE TABLE cliente (
   rucCliente VARCHAR(500) NULL,
   representante VARCHAR(250) NULL,
   fecCliente DATETIME NULL,
+  monto DECIMAL NULL DEFAULT 0,
   estado INTEGER NULL DEFAULT 1,
   PRIMARY KEY(idCliente),
   FOREIGN KEY(idPersona)
@@ -295,6 +296,7 @@ CREATE TABLE reclamo (
   prioridad INTEGER NULL,
   vencimiento DATETIME NULL,
   indemnizar VARCHAR(2) NULL,
+  fidelizado INTEGER NULL DEFAULT 0,
   estado INTEGER NULL,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
