@@ -89,9 +89,9 @@ public class ClienteDAOImpl extends HibernateDaoSupport implements ClienteDAO {
 		sql.append(" INNER JOIN reclamo r ON F.idFactura = r.idFactura AND r.estado=2 ");
 		sql.append(" INNER JOIN cliente c ON c.idcliente = r.idCliente  ");
 		sql.append(" WHERE f.estado=1  ");
-		sql.append(" AND f.emision >= DATE('2015-10-01') "); 
+		sql.append(" AND f.emision >= CURDATE() - INTERVAL 1 YEAR "); 
 		sql.append(" AND f.emision <= CURDATE() ");
-		sql.append(" AND fidelizado=0 ");
+		//sql.append(" AND fidelizado=0 ");
 		sql.append(" GROUP BY f.idCliente HAVING SUM(f.monto) >= 5000 "); 
 		sql.append(" ");
 		

@@ -25,7 +25,6 @@ import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.FacturaService;
 import pe.org.reclamos.service.FidelizaService;
 import pe.org.reclamos.service.ReclamoService;
-import pe.org.reclamos.utiles.Utiles;
 
 /**
  * Clase que registra la fidelizacion realizada a los clientes
@@ -54,6 +53,13 @@ public class FidelizarController {
 			   logger.debug("lFidelizar");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
+			   
+			   String msg = request.getParameter("msg"); 
+			   if(!StringUtils.isEmpty( msg )){
+				   if(msg.equals("1")){
+					   model.put("mensaje", "Fidelizacion registrada" );
+				   }
+			   }
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -191,24 +197,23 @@ public class FidelizarController {
 			//  model.put("reclamo", new Reclamo() );
 		   }
 		//return "fidelizar/lCompensar";
-		return "redirect:/fidelizar/lFidelizar.htm";
+		return "redirect:/fidelizar/lFidelizar.htm?msg=1";
 	}
 	
 	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.GET)
 	public String lPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
 		 try {
 			   logger.debug("lPromociones");
-			   response.setContentType("text/html;charset=ISO-8859-1");
-			   request.setCharacterEncoding("UTF8");
 			   
-			   //Factura factura = new Factura();
-//			   factura.setCliente(cliente)
+			   String err =request.getParameter("err"); 
+			   if(!StringUtils.isEmpty( err )){
+				   if(err.equals("1")){
+					   model.put("msgError", "No se han encontrado resultados" );
+				   }
+			   }
 			   
-			   //model.put("lFacturas", facturaService.buscarFacturasParaAplicarPromocion( factura ));
 			   model.put("factura", new Factura() );
-			   
-		   } catch (Exception e) {
+	   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
@@ -217,6 +222,15 @@ public class FidelizarController {
 		return "fidelizar/lPromociones";
 	}
 	
+	/**
+	 * si existe una fidelizacion entonces redirige a la pantalla para fidelizar, si no, va a la pantalla para seguir buscando
+	 * @param factura
+	 * @param result
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.POST)
 	public String lPromocionesPost(@Valid Factura factura, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
@@ -226,11 +240,14 @@ public class FidelizarController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   //facturas que tengan registrado fidelizacion  
-			   Factura fact = new Factura();
-			   Fideliza fideliza = new Fideliza();
+			   logger.debug("ruc ="+factura.getCliente().getRucCliente());
 			   
-			   return "redirect:/fidelizar/promociones.htm?idFideliza=1";
-			   
+			   Fideliza fi =  fidelizaService.obtenerFidelizacionPorCliente(factura);
+			   if( fi!= null ){
+				   logger.debug("idFideliza ="+ fi.getIdFideliza() );
+				   return "redirect:/fidelizar/promociones.htm?idFideliza=" + fi.getIdFideliza();   
+			   }
+			   return "redirect:/fidelizar/lPromociones.htm?err=1";  
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
@@ -249,8 +266,10 @@ public class FidelizarController {
 			request.setCharacterEncoding("UTF8");
 			   
 			Integer idFideliza = Integer.parseInt( request.getParameter("idFideliza") );
-			Factura f = new Factura();
-			model.put("factura", new Factura() );
+			Fideliza fi = fidelizaService.obtenerFidelizacion( new Long(idFideliza) ); 
+			Factura f = fi.getReclamo().getFactura();
+			model.put("fideliza", fi );
+			model.put("factura", f );
 			
 		} catch (Exception e) {
 			e.printStackTrace();

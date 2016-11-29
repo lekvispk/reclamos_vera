@@ -147,6 +147,7 @@ public class Reclamo implements Serializable {
 		return this.estado;
 	}
 	/**
+	 * 0 = Eliminado
 	 * 1 = En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
 	 * 2 = Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @param estado
@@ -156,6 +157,7 @@ public class Reclamo implements Serializable {
 	}
 
 	/**
+	 * 0 = Eliminado
 	 * 1 = En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
 	 * 2 = Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @return lista de estados

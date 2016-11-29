@@ -7,9 +7,9 @@
 <script>
 	function solucionar(){
 		
-		var fields = $("input[name='_chk']").serializeArray(); 
+		var fields = $("input[name='_chk']:checked").serializeArray(); 
 	    if (fields.length == 1) { 
-	    	window.location='solucionar.htm?idReclamo='+ $("input[name='_chk']").val();
+	    	window.location='solucionar.htm?idReclamo='+ $("input[name='_chk']:checked").val();
 	    }else {
 	    	alert('Seleccione un Reclamo');
 	    }
@@ -96,8 +96,7 @@
 						    	<display:table  name="requestScope.lReclamos" requestURI="lSolucionar.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            >
-						            
-						            	<display:column ><c:if test="${row.estado == 2}"> <input type="checkbox" name="_chk" id="_chk_${row.idReclamo}" value="${row.idReclamo}"/> </c:if> </display:column>
+						            	<display:column ><c:if test="${row.estado == 1}"> <input type="checkbox" name="_chk" id="_chk_${row.idReclamo}" value="${row.idReclamo}"/> </c:if> </display:column>
 						           		<display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
 						           		<display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />
 						           		<display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />

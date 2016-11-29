@@ -19,6 +19,7 @@ import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ReclamoService;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/clientes")
@@ -49,8 +50,13 @@ public class ReclamosRestController {
 			rec.setIdCliente( new Long(user));
 			List<Reclamo> lista = reclamoService.buscar( rec );
 			
-			Gson gson = new Gson();
-		    json = gson.toJson(lista);
+			//String format = "EEE, dd MMM yyyy HH:mm:ss zzz";
+			String format = "yyyy-MM-dd";
+			Gson gson2 = new GsonBuilder()
+			   .setDateFormat( format ).create();
+			
+			//Gson gson = new Gson();
+			json = gson2.toJson(lista);
 		    	
 		} catch (Exception e) {
 			json = "";

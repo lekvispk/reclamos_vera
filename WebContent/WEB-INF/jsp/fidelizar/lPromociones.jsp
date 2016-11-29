@@ -8,10 +8,19 @@
 <script>
 
 	function buscar(){
+		var datos = false;
+
+		var ruc = $("input[name='cliente.rucCliente']").val();
+		var nom = $("input[name='cliente.nomCliente']").val();
+		var fac = $('#numero').val();
 		
-		document.forms[0].action='lPromociones.htm';
-		document.forms[0].submit();
-	
+		if( ruc.length >0 || nom.length >0 || fac.length >0 ){
+			document.forms[0].action='lPromociones.htm';
+			document.forms[0].submit();
+		}else{
+			alert('Ingrese algun dato para la busqueda');
+		}
+		
 	}
 	
 </script>

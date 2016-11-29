@@ -8,7 +8,7 @@
 <script>
 	function evaluar(){
 		
-		var fields = $("input[name='respuesta']").serializeArray(); 
+		var fields = $("input[name='respuesta']:checked").serializeArray(); 
 	    if (fields.length == 0) { 
 	        alert('Seleccione una opción');
 	    }else {

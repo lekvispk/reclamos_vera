@@ -161,9 +161,9 @@
 
 	function evaluar(){
 		
-		var fields = $("input[name='_chk']").serializeArray(); 
+		var fields = $("input[name='_chk']:checked").serializeArray(); 
 	    if (fields.length == 1) { 
-	    	window.location='evaluar.htm?idReclamo='+ $("input[name='_chk']").val();
+	    	window.location='evaluar.htm?idReclamo='+ $("input[name='_chk']:checked").val();
 	    }else {
 	    	alert('Seleccione un Reclamo');
 	    }

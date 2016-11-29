@@ -46,22 +46,6 @@
 							  </div>
 							</div>
 							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="numero">Factura</label>  
-							  <div class="col-md-5">
-							  	<form:input path="numero" id="numero" size="10" cssClass="form-control input-md" />
-							  </div>
-							</div>
-							
-							<!-- Button -->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="btnBuscar"></label>
-							  <div class="col-md-4">
-							    <input type="button" id="btnBuscar" name="btnBuscar" onclick="javascript:buscar();" class="btn btn-success" value="Buscar"/>
-							  </div>
-							</div>
-							
 							</fieldset>
 				         </form:form>
 				   		
@@ -92,9 +76,9 @@
                         
                         	<!-- Button -->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="btnBuscar"></label>
+							  <label class="col-md-4 control-label"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Aceptar"/>
+							    <input type="button" id="btnAceptar" name="btnAceptar" class="btn btn-success" value="Compensar"/>
 							    <input type="button" id="btnRegresar" name="btnRegresar" onclick="javascript:history.back();" class="btn btn-success" value="Regresar"/>
 							  </div>
 							</div>
@@ -124,13 +108,13 @@
 
 	$(document).undelegate('#btnAceptar', 'click').delegate('#btnAceptar', 'click', function(){
 
-		var fields = $("input[name='rbBeneficio']").serializeArray(); 
+		var fields = $("input[name='rbBeneficio']:checked").serializeArray(); 
 	    if (fields.length == 1) { 
 	    	document.forms[0].action="compensar.htm";
-	    	document.forms[0].idFactura.value=$("input[name='rbBeneficio']").val();
+	    	document.forms[0].idFactura.value=$("input[name='rbBeneficio']:checked").val();
 			document.forms[0].submit();
 	    }else {
-	    	alert('Seleccione un elemento');
+	    	alert('Seleccione una factura');
 	    }
 	    
 	});
