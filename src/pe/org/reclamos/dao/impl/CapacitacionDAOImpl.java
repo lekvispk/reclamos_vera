@@ -36,7 +36,7 @@ public class CapacitacionDAOImpl extends HibernateDaoSupport implements Capacita
 	@Override
 	public Capacitacion obtener(Long idCapacitacion) {
 		try {
-			return (Capacitacion) this.getHibernateTemplate().find("from Capacitacion where idCapacitacion = ? ", idCapacitacion).get(0);
+			return (Capacitacion) this.getHibernateTemplate().find("from Capacitacion where idCapacitacion = ? ", idCapacitacion.intValue() ).get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

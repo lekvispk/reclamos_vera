@@ -1,6 +1,7 @@
 
 package pe.org.reclamos.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,12 @@ public class CapacitacionServiceImpl implements CapacitacionService {
 	
 	@Override
 	public void grabar(Capacitacion capacitacion) {
+		if( capacitacion.getIdCapacitacion() > 0 ){
+			capacitacion.setUpdatedAt( new Date() );
+		}else{
+			capacitacion.setEstado(1);
+			capacitacion.setCreatedAt( new Date() );
+		}
 		capacitacionDAO.grabar(capacitacion);
 	}
 

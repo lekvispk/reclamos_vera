@@ -33,21 +33,21 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="factura">
+				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="capacitacion">
 				   		
 							<fieldset>
 							
 							<!-- Form Name -->
 							<legend>Registrar Capacitaci&oacute;n</legend>
 							
-							<form:hidden path="idFactura"/>
-							<form:hidden path="cliente.idCliente"/>
+							<input type="hidden" name="idFactura" id="idFactura" value="${factura.idFactura}" />
+							<input type="hidden" name="idCliente" id="idCliente" value="${factura.cliente.idCliente}" />
 							
 							<!-- Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
 							  <div class="col-md-4">
-							  	<form:input path="cliente.rucCliente" cssClass="form-control input-md"/>
+							  	<input type="text" name="rucCliente" id="rucCliente" value="${factura.cliente.rucCliente}" class="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -55,7 +55,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-4">
-							  	<form:input path="cliente.nomCliente" cssClass="form-control input-md"/>
+							  	<input type="text" name="nomCliente" id="nomCliente" value="${factura.cliente.nomCliente}" class="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -63,7 +63,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="direccion">Direccion</label>  
 							  <div class="col-md-4">
-							  	<form:input path="cliente.persona.direccion" cssClass="form-control input-md"/>
+							  	<input type="text" name="direccion" id="direccion" value="${factura.cliente.persona.direccion}" class="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -105,6 +105,34 @@
 							  </div>
 							</div>
 							
+							<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="fecha">Fecha</label>  
+							  <div class="col-md-4">
+							  	<div class='input-group date' id='datetimepicker1'>
+				                    <fmt:formatDate value="${capacitacion.fechaCapacitacion}" pattern="dd/MM/yyyy" var="f_fechaCapacitacion"/>
+                    				<input type="text" class="form-control input-md" name="fechaCapacitacion" id="fechaCapacitacion" placeholder="dd/MM/yyyy"  size="10" value="${f_fechaCapacitacion}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+							  </div>
+							</div>
+							
+							<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="hora">Hora</label>  
+							  <div class="col-md-4">
+							  	<div class='input-group date' id='datetimepicker2'>
+				                    <fmt:formatDate value="${capacitacion.horaCapacitacion}" pattern="HH:mm" var="f_horaCapacitacion"/>
+                    				<input type="text" class="form-control input-md" name="horaCapacitacion" id="horaCapacitacion" placeholder="HH:mm"  size="10" value="${f_horaCapacitacion}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-time"></span>
+				                    </span>
+				                </div>
+							  </div>
+							</div>
+							
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
@@ -137,7 +165,13 @@
 	$( function(){
    	   $("#displayTagDiv").displayTagAjax();
 
-   	   //
+	   	$('#datetimepicker1').datetimepicker({
+		    format: 'DD/MM/YYYY'
+		});
+	
+	   	$('#datetimepicker2').datetimepicker({
+	   		format: 'LT'
+		});
 	
    	});
 
@@ -146,7 +180,10 @@
 	});
 	
    	$(document).undelegate('#btnGrabar', 'click').delegate('#btnGrabar', 'click', function(){
-   		window.location = '${pageContext.request.contextPath}/capacitacion/lCapacitaciones.htm';
+   	   	
+   		document.forms[0].action='updateCapacitacion.htm';
+   		document.forms[0].submit();
+		
 	});
 	
 	$(document).undelegate('[id^=rb_item_]', 'click').delegate('[id^=rb_item_]', 'click', function(){

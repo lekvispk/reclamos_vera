@@ -1,6 +1,7 @@
 package pe.org.reclamos.controller;
 
 import java.io.PrintWriter;
+import java.sql.Time;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -133,6 +134,35 @@ public class CapacitacionesController {
 	   return "capacitacion/capacitacion";
 	}
 	
+	@RequestMapping(value="/updateCapacitacion.htm", method=RequestMethod.POST)
+	public String updateCapacitacion(@Valid Capacitacion capacitacion, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	try {
+		logger.debug("updateCapacitacion");
+	    response.setContentType("text/html;charset=ISO-8859-1");
+	    request.setCharacterEncoding("UTF8");
+	    
+	    Capacitacion cp2 = capacitacionService.obtener( new Long(capacitacion.getIdCapacitacion()) );
+	    
+	    cp2.setFechaCapacitacion( Utiles.stringToDate( request.getParameter("fechaCapacitacion"), Utiles.FORMATO_FECHA_CORTA));
+	    cp2.setHoraCapacitacion( new Time( Utiles.stringToDate( request.getParameter("horaCapacitacion"), "hh:mm a" ).getTime() ) );
+	    
+	    capacitacionService.grabar( cp2 );
+	    
+	   } catch (Exception e) {
+		 e.printStackTrace();
+		 model.put("msgError", "Error: "+ e.getMessage() );
+	   }
+	   //return "capacitacion/capacitacion";
+	   return "redirect:/capacitacion/lCapacitaciones.htm";
+	}
+	
+	/**
+	 * via ajax
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/grabarDetalle.htm", method=RequestMethod.POST)
 	public String grabarDetalle(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		CapacitacionItem cap = null;
