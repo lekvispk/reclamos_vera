@@ -14,5 +14,6 @@ public interface FidelizaService {
 	 */
 	public Fideliza obtenerFidelizacionPorCliente(Factura factura);
 	public Fideliza obtenerFidelizacion(Long idFidelizacion);
+	public void actualizarPromocion(Fideliza fideliza);
 	
 }

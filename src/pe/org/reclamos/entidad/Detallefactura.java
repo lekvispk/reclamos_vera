@@ -59,6 +59,10 @@ public class Detallefactura implements Serializable {
     public Detallefactura() {
     }
 
+	public Detallefactura(Integer idDetalleFactura) {
+		this.idDetalleFactura = idDetalleFactura; 
+	}
+
 	public int getIdDetalleFactura() {
 		return this.idDetalleFactura;
 	}

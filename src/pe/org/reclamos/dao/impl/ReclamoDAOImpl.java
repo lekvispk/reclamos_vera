@@ -158,4 +158,14 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		}
 	}
 
+	@Override
+	public ItemsReclamo obtenerItemReclamo(Long idReclamo) {
+		try {
+			return (ItemsReclamo) this.getHibernateTemplate().find("from ItemsReclamo where idReclamo = ? ", idReclamo ).get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

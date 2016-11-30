@@ -52,11 +52,16 @@ public class Capacitacion implements Serializable {
 	private Factura factura;
 
 	//bi-directional many-to-one association to CapacitacionItem
-	@OneToMany(mappedBy="capacitacion")
+	//@OneToMany(mappedBy="capacitacion")
+    @Transient
 	private Set<CapacitacionItem> capacitacionItems;
 
     public Capacitacion() {
     }
+
+	public Capacitacion(Integer idCapacitacion) {
+		this.idCapacitacion = idCapacitacion;
+	}
 
 	public int getIdCapacitacion() {
 		return this.idCapacitacion;

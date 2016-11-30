@@ -37,4 +37,9 @@ public class FidelizaServiceImpl implements FidelizaService {
 		return fidelizaDAO.obtenerFidelizacion(idFidelizacion);
 	}
 
+	@Override
+	public void actualizarPromocion(Fideliza fideliza) {
+		fidelizaDAO.actualizarPromocion( fideliza );
+	}
+
 }

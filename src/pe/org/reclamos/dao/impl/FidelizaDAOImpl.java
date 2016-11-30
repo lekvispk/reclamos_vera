@@ -46,10 +46,10 @@ public class FidelizaDAOImpl extends HibernateDaoSupport implements FidelizaDAO 
 			StringBuilder sql = new StringBuilder();
 			sql.append(" SELECT DISTINCT f.* ");
 			sql.append(" FROM fideliza f ");
-			sql.append(" INNER JOIN  reclamo r ON f.idReclamo=r.idReclamo ");
+			sql.append(" INNER JOIN reclamo r ON f.idReclamo=r.idReclamo ");
 			sql.append(" INNER JOIN cliente c ON c.idCliente = r.idCliente ");
 			sql.append(" INNER JOIN factura fa ON fa.idCliente = c.idCliente ");
-			sql.append(" WHERE f.estado=1 ");
+			sql.append(" WHERE f.estado=1 and f.idPromocion IS NULL");
 			if( !Utiles.nullToBlank( factura.getCliente().getRucCliente() ).equals("") )
 				sql.append(" AND c.rucCliente='"+factura.getCliente().getRucCliente()+"' ");
 			if( !Utiles.nullToBlank( factura.getCliente().getNomCliente() ).equals("") )
@@ -78,6 +78,11 @@ public class FidelizaDAOImpl extends HibernateDaoSupport implements FidelizaDAO 
 			logger.debug( e.getMessage() );
 			return null;
 		}
+	}
+
+	@Override
+	public void actualizarPromocion(Fideliza fideliza) {
+		this.getHibernateTemplate().saveOrUpdate( fideliza );		
 	}
 
 }

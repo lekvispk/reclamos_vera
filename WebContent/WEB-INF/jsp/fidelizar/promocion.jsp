@@ -13,30 +13,68 @@
                                        
                <jsp:include page="../include/error.jsp"/>
 					
-					<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="factura">
+					<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="fideliza">
 							
 					<fieldset>
 					
 					<!-- Form Name -->
 					<legend>Fidelizar Clientes - Promociones</legend>
 					
-					<form:hidden path="idFactura"/>
-					<input type="hidden" value="${fideliza.idFideliza}" name="idFideliza" id="idFideliza"/>
-					<form:hidden path="cliente.idCliente"/>
-					<input type="hidden" name="lfactura" id="lfactura">
+					<form:hidden path="idFideliza"/>
+					
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="ruc">RUC</label>  
+					  <label class="col-md-4 control-label">RUC</label>  
 					  <div class="col-md-4">
-					  	<form:input path="cliente.rucCliente" size="10" cssClass="form-control input-md" />
+					  	<label class="form-control input-md">${factura.cliente.rucCliente}</label>
 					  </div>
 					</div>
 					
 					<!-- Text input-->
 					<div class="form-group">
-					  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
+					  <label class="col-md-4 control-label">Raz&oacute;n Social</label>  
 					  <div class="col-md-4">
-					  	<form:input path="cliente.nomCliente" cssClass="form-control input-md"  />
+					  	<label class="form-control input-md">${factura.cliente.nomCliente}</label>
+					  </div>
+					</div>
+					
+					<!-- Text input-->
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Factura</label>  
+					  <div class="col-md-4">
+					  	<label class="form-control input-md">${factura.numero}</label>
+					  </div>
+					</div>
+					
+					<!-- Text input-->
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Producto</label>  
+					  <div class="col-md-4">
+					  	<label class="form-control input-md">${producto.detallefactura.producto.skuProducto}</label>
+					  </div>
+					</div>
+					
+					<!-- Text input-->
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Descripcion</label>  
+					  <div class="col-md-4">
+					  	<label class="form-control input-md">${producto.detallefactura.producto.descripcion}</label>
+					  </div>
+					</div>
+					
+					<!-- Text input-->
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Cantidad</label>  
+					  <div class="col-md-4">
+					  	<label class="form-control input-md">${producto.detallefactura.cantidad}</label>
+					  </div>
+					</div>
+					
+					<!-- Text input-->
+					<div class="form-group">
+					  <label class="col-md-4 control-label">Consumo</label>  
+					  <div class="col-md-4">
+					  	<label class="form-control input-md">${factura.monto}</label>
 					  </div>
 					</div>
 					
@@ -44,9 +82,11 @@
 					<div class="form-group">
 					  <label class="col-md-4 control-label" for="cmbPrioridad">Promocion</label>
 					  <div class="col-md-4">
-					    <select name="promociones" id="promociones" class="form-control input-md">
-					    	<option>dar dscto 20%</option>
-					    </select>
+					  	<form:select path="promocion.idPromocion" cssClass="form-control input-md" 
+					  				 items="${lPromociones}" 
+					  				 itemLabel="descripcion"
+					  				 itemValue="idPromocion">
+					  	</form:select>
 					  </div>
 					</div>
 					
@@ -55,7 +95,7 @@
 					  <label class="col-md-4 control-label" for="btnBuscar"></label>
 					  <div class="col-md-4">
 					    <input type="button" id="btnRegresar" name="btnRegresar" class="btn btn-success" value="Regresar"/>
-					    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Aceptar"/>
+					    <input type="button" id="btnAceptar" name="btnAceptar" class="btn btn-success" value="Aceptar"/>
 					  </div>
 					</div>
 					

@@ -184,23 +184,23 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 	 * lista de facturas de un cliente </br>
 	 * que sean del ultimo anio</br>
 	 * que esten relacionadas con un reclamo Solucionado
+	 * y que no hayan sido ya registrdas en fidelizacion
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Factura> buscarFacturasParaFidelizacionDeUnCliente( Factura factura) {
 
 		Calendar cal = Calendar.getInstance();
-		Date today = cal.getTime();
+		//Date today = cal.getTime();
 		cal.add(Calendar.YEAR, -1); // to get previous year add -1
 		Date lastYear = cal.getTime();
 
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT F.* FROM factura F ");
 		sql.append(" 	INNER JOIN reclamo r  ");
-		sql.append(" 	ON F.idFactura = r.idFactura ");
-		sql.append(" 	AND r.estado=2 ");
-		sql.append(" 	AND f.emision >= :emision ");
-		sql.append(" 	WHERE r.idCliente = :cliente ");
+		sql.append(" 	ON F.idFactura = r.idFactura AND r.estado=2 AND f.emision >= :emision ");
+		sql.append(" 	LEFT OUTER JOIN fideliza fi ON r.idReclamo=fi.idReclamo ");
+		sql.append(" 	WHERE idFideliza IS NULL and r.idCliente = :cliente ");
 		sql.append(" ");
 		
 		Session session =  getSession();

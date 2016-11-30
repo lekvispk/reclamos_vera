@@ -2,6 +2,7 @@ package pe.org.reclamos.service;
 
 import java.util.List;
 
+import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 
 public interface ReclamoService {
@@ -14,5 +15,6 @@ public interface ReclamoService {
 	public void eliminar(Long reclamo);
 	public void grabarNoIndemnizados(String[] idReclamos);
 	public void registrarIndemnizacion(Reclamo rec);
+	public ItemsReclamo obtenerItemReclamo(Long idReclamo);
 		
 }

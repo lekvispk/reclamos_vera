@@ -1,13 +1,19 @@
 package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-
-import java.util.Date;
-import java.util.Set;
 
 
 /**
@@ -34,10 +40,6 @@ public class Promocion implements Serializable {
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	private Date updatedAt;
-
-	//bi-directional many-to-one association to Fideliza
-	@OneToMany(mappedBy="promocion")
-	private Set<Fideliza> fidelizas;
 
     public Promocion() {
     }
@@ -80,14 +82,6 @@ public class Promocion implements Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public Set<Fideliza> getFidelizas() {
-		return this.fidelizas;
-	}
-
-	public void setFidelizas(Set<Fideliza> fidelizas) {
-		this.fidelizas = fidelizas;
 	}
 
 	 @Override

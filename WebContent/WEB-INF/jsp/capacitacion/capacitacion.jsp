@@ -47,7 +47,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="ruc" id="ruc" placeholder="RUC" class="form-control input-md">
+							  	<form:input path="cliente.rucCliente" cssClass="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -55,7 +55,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="razonSocial" id="razonSocial" placeholder="Razon Social" class="form-control input-md">
+							  	<form:input path="cliente.nomCliente" cssClass="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -63,15 +63,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="direccion">Direccion</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="direccion" id="direccion" placeholder="Razon Social" class="form-control input-md">
-							  </div>
-							</div>
-							
-							<!-- Button -->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="btnBuscar"></label>
-							  <div class="col-md-4">
-							    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Aceptar"/>
+							  	<form:input path="cliente.persona.direccion" cssClass="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -82,26 +74,14 @@
 							  		<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
-							   		
-							   		<jsp:scriptlet>
-									    <![CDATA[
-									       
-									        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-									        decorator.setId("idFactura");
-									        decorator.setFieldName("_chk");
-									        pageContext.setAttribute("checkboxDecorator", decorator);
-									     ]]>
-									  </jsp:scriptlet> 
-									  
-								    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
-								            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
-								            decorator="checkboxDecorator" >
-								            
-								            <display:column property="checkbox" />
-								            <display:column title="Factura" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Reclamo" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-								            
+							   		  
+								    	<display:table  name="requestScope.lItems" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
+								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax rb_item">
+								            <display:column title="Producto" property="producto.skuProducto" sortable="true" headerClass="sortable" />
+								            <display:column title="Descripcion" property="producto.descripcion" sortable="true" headerClass="sortable" />
+								            <display:column title="Editar">
+								            	<input type="radio" name="rb_item" id="rb_item_${row.idDetalleFactura}" value="${row.idDetalleFactura}">
+								            </display:column>
 								    	</display:table>
 									
 									</div>
@@ -110,12 +90,18 @@
 							  </div>
 							</div>
 							
+							<input type="hidden" name="idCapacitacion" id="idCapacitacion" value="${capacitacion.idCapacitacion}">
+							<input type="hidden" name="idCapacitacionItem" id="idCapacitacionItem" value="">
+							 
 							<!-- Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="direccion">Detalle</label>  
 							  <div class="col-md-4">
-							  	<textarea name="direccion" id="direccion" placeholder="Razon Social" class="form-control input-md">
+							  	<textarea name="detalle" id="detalle" placeholder="Razon Social" class="form-control input-md">
 							  	</textarea>
+							  </div>
+							  <div class="col-md-4">
+							  	<input type="button" id="btnGuardar" name="btnGuardar" class="btn btn-success" value="Guardar"/>
 							  </div>
 							</div>
 							
@@ -123,8 +109,8 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Regresar"/>
-							    <input type="button" id="btnAceptar" name="btnAceptar" onclick="javascript:aceptar();" class="btn btn-success" value="Grabar"/>
+							    <input type="button" id="btnRegresar" name="btnRegresar" class="btn btn-success" value="Regresar"/>
+							    <input type="button" id="btnGrabar" name="btnGrabar" class="btn btn-success" value="Grabar"/>
 							  </div>
 							</div>
 							
@@ -148,8 +134,77 @@
 	 
 <script>
 	
-	 $( function(){
+	$( function(){
    	   $("#displayTagDiv").displayTagAjax();
-   });
-   
+
+   	   //
+	
+   	});
+
+	$(document).undelegate('#btnRegresar', 'click').delegate('#btnRegresar', 'click', function(){
+   		window.location = '${pageContext.request.contextPath}/capacitacion/lCapacitaciones.htm';
+	});
+	
+   	$(document).undelegate('#btnGrabar', 'click').delegate('#btnGrabar', 'click', function(){
+   		window.location = '${pageContext.request.contextPath}/capacitacion/lCapacitaciones.htm';
+	});
+	
+	$(document).undelegate('[id^=rb_item_]', 'click').delegate('[id^=rb_item_]', 'click', function(){
+		console.log('obtener detalle de capacitacion ' + $("#idCapacitacion").val() + ' Item ' + $(this).val());
+
+		traerDetalleCapacitacionItem( $("#idCapacitacion").val() , $(this).val() );
+		//alert('cargar datos de cada item ' + $(this).val() );
+	});
+
+	$(document).undelegate('#btnGuardar', 'click').delegate('#btnGuardar', 'click', function(){
+
+		console.log('id item ' + + $("input[name='rb_item']:checked").val() + ' id capacitacion ' + $("#idCapacitacion").val());
+
+		$.ajax({
+            url: "${pageContext.request.contextPath}/capacitacion/grabarDetalle.htm",
+            dataType: "json",
+            method: "POST",
+            data: { 'idCapacitacion': 		''+$("#idCapacitacion").val() ,
+            		'idCapacitacionItem': 	''+$("#idCapacitacionItem").val() ,
+            		'idDetalleFactura': 	''+$("input[name='rb_item']:checked").val() ,
+                	'detalle' : 			''+$("#detalle").val()  
+                	},
+            success: function( data ) {
+                console.log( " resultado " +  data );
+                if( data.status == 1 ){
+                	$("input[name='rb_item']").attr("checked", false);
+                	$( "#idCapacitacionItem" ).val( '' );
+            		$( "#detalle" ).val( '' );
+                }else{
+					alert('No se pudo grabar el detalle');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+            }
+        });
+        
+	});
+
+	function traerDetalleCapacitacionItem( idCapacitacion, idItem ){
+		$.ajax({
+            url: "${pageContext.request.contextPath}/rest/capacitacion/"+idCapacitacion +"/detalleItem/"+idItem,
+            dataType: "json",
+            data: {  },
+            success: function( data, textStatus, jqXHR) {
+                console.log( " capacitacionItem " +  data);
+                var items = data;
+				if( data.estado != -1){
+					$( "#detalle" ).val( data.detalle );
+					$( "#idCapacitacionItem" ).val( data.idCapacitacionItem );
+				}else{
+					$( "#detalle" ).val( '' );
+				}
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+            }
+        });
+	}
+	
 </script>

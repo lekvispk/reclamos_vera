@@ -338,7 +338,7 @@ ENGINE=INNODB;
 
 CREATE TABLE capacitacion (
   idCapacitacion INTEGER NOT NULL AUTO_INCREMENT,
-  idCapacitador INTEGER NOT NULL,
+  idCapacitador INTEGER NULL,
   idFactura INTEGER NOT NULL,
   fecha_capacitacion DATE NULL,
   hora_capacitacion TIME NULL,
@@ -459,7 +459,7 @@ ENGINE=INNODB;
 -- ------------------------------------------------------------
 
 CREATE TABLE capacitacion_items (
-  idCapacitacionItem INTEGER NOT NULL,
+  idCapacitacionItem INTEGER NOT NULL AUTO_INCREMENT,
   idCapacitacion INTEGER NOT NULL,
   idDetalleFactura INTEGER NOT NULL,
   detalle VARCHAR(500) NULL,

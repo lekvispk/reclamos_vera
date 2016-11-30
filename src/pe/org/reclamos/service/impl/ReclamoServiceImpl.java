@@ -103,4 +103,9 @@ public class ReclamoServiceImpl implements ReclamoService {
 		return reclamoDAO.obtenerPorIdFactura(idFactura);
 	}
 
+	@Override
+	public ItemsReclamo obtenerItemReclamo(Long idReclamo) {
+		return reclamoDAO.obtenerItemReclamo(idReclamo);
+	}
+
 }

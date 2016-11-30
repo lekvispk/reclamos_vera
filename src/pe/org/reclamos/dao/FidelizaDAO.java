@@ -9,5 +9,6 @@ public interface FidelizaDAO {
 	public Fideliza obtenerFidelizacionPorReclamo(Long idReclamo);
 	public Fideliza obtenerFidelizacionPorReclamo(Factura factura);
 	public Fideliza obtenerFidelizacion(Long idFidelizacion);
+	public void actualizarPromocion(Fideliza fideliza);
 	
 }

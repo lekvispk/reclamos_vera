@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.entidad.Fideliza;
+import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Promocion;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.FacturaService;
 import pe.org.reclamos.service.FidelizaService;
+import pe.org.reclamos.service.PromocionService;
 import pe.org.reclamos.service.ReclamoService;
 
 /**
@@ -45,6 +47,8 @@ public class FidelizarController {
 	private FacturaService facturaService;
 	@Autowired
 	private FidelizaService fidelizaService;
+	@Autowired
+	private PromocionService promocionService;
 	
 	@RequestMapping(value="/lFidelizar.htm", method=RequestMethod.GET)
 	public String lFidelizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
@@ -211,6 +215,12 @@ public class FidelizarController {
 					   model.put("msgError", "No se han encontrado resultados" );
 				   }
 			   }
+			   String msg = request.getParameter("msg"); 
+			   if(!StringUtils.isEmpty( msg )){
+				   if(msg.equals("1")){
+					   model.put("mensaje", "Promocion actualziada" );
+				   }
+			   }
 			   
 			   model.put("factura", new Factura() );
 	   } catch (Exception e) {
@@ -259,7 +269,7 @@ public class FidelizarController {
 	
 	@RequestMapping(value="/promociones.htm", method=RequestMethod.GET)
 	public String preGrabarPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		//ItemsReclamo ir = null;
 		try {
 			logger.debug("preGrabarPromociones");
 			response.setContentType("text/html;charset=ISO-8859-1");
@@ -268,8 +278,13 @@ public class FidelizarController {
 			Integer idFideliza = Integer.parseInt( request.getParameter("idFideliza") );
 			Fideliza fi = fidelizaService.obtenerFidelizacion( new Long(idFideliza) ); 
 			Factura f = fi.getReclamo().getFactura();
+			ItemsReclamo ir = reclamoService.obtenerItemReclamo( fi.getReclamo().getIdReclamo() );
 			model.put("fideliza", fi );
 			model.put("factura", f );
+			model.put("producto", ir );
+			
+			//Lista de promociones
+			model.put("lPromociones", promocionService.listarPromociones() );
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -279,33 +294,23 @@ public class FidelizarController {
 	}
 	
 	@RequestMapping(value="/promociones.htm", method=RequestMethod.POST)
-	public String grabarPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+	public String grabarPromociones(@Valid Fideliza fideliza, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		try {
 			logger.debug("grabarPromociones");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
-			   
-			String[] lFacturas = request.getParameterValues("_chk");
-			for( String fact : lFacturas){
-				logger.debug("factura " + fact );
-				//obtener la fidelizacion de esa factura 
-				 
-				Promocion p = new Promocion();
-				p.setIdPromocion( Integer.parseInt( request.getParameter("idPromocion")));
-				Fideliza f = new Fideliza();
-				f.setPromocion(p);
-				f.setUpdatedAt( new Date());
-				
-				//actualizar la fidelizacion de esa factura
-					
-			}
+			
+			logger.debug("promo " + fideliza.getPromocion().getIdPromocion() );
+			Fideliza fi = fidelizaService.obtenerFidelizacion( new Long( fideliza.getIdFideliza() ) );
+			fi.setPromocion( fideliza.getPromocion() );
+			fi.setUpdatedAt( new Date());
+			fidelizaService.actualizarPromocion( fi );
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msgError", "Error: "+ e.getMessage() );
 		}
-		return "redirect:/fidelizar/lPromociones.htm";
+		return "redirect:/fidelizar/lPromociones.htm?msg=1";
 	}
 	
 	

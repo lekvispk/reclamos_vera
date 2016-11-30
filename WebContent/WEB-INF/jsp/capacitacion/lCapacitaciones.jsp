@@ -13,15 +13,14 @@
 	}
 
 	function aceptar(){
-		
-		var fields = $("input[name='_chk']").serializeArray(); 
+		var fields = $("input[name='_chk']:checked").serializeArray(); 
 	    if (fields.length >= 1) {
-		    document.forms[0].action='preCapacitacion.htm';
+		    var id = $("input[name='_chk']:checked").val();
+		    document.forms[0].action='preCapacitacion.htm?idFactura='+id;
 			document.forms[0].submit();
 	    }else {
-	    	alert('Seleccione un cliente');
+	    	alert('Seleccione una factura');
 	    }
-	
 	}
 	
 </script>
@@ -33,21 +32,18 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="factura">
+				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="cliente">
 				   		
 							<fieldset>
 							
 							<!-- Form Name -->
 							<legend>Capacitaciones</legend>
 							
-							<form:hidden path="idFactura"/>
-							<form:hidden path="cliente.idCliente"/>
-							
 							<!-- Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="ruc" id="ruc" placeholder="RUC" class="form-control input-md">
+							  	<form:input path="rucCliente" cssClass="form-control input-md"/>
 							  </div>
 							   <div class="col-md-4">
 							    <input type="button" id="btnBuscar" name="btnBuscar" onclick="javascript:buscar();" class="btn btn-success" value="Buscar"/>
@@ -58,11 +54,9 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="razonSocial" id="razonSocial" placeholder="Razon Social" class="form-control input-md">
+							  	<form:input path="nomCliente" cssClass="form-control input-md"/>
 							  </div>
 							</div>
-							
-							
 							
 							<!-- Text input-->
 							<div class="form-group">
@@ -105,7 +99,8 @@
 						            <display:column property="checkbox" />
 						            <display:column title="Factura" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Reclamo" property="fecFactura" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+						            <display:column title="Reclamo">
+						            </display:column>
 						            
 						    	</display:table>
 							
