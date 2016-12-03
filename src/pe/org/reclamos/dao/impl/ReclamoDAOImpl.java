@@ -48,7 +48,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		try {
 			return (Reclamo) this.getHibernateTemplate().find("from Reclamo u where idReclamo = ? ", reclamo).get(0);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug( "Error: " + e.getMessage() );
 			return null;
 		}
 	}
@@ -153,7 +153,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		try {
 			return (Reclamo) this.getHibernateTemplate().find("from Reclamo u where factura.idFactura = ? ", idFactura).get(0);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug( "Error: " + e.getMessage() );
 			return null;
 		}
 	}
@@ -163,7 +163,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		try {
 			return (ItemsReclamo) this.getHibernateTemplate().find("from ItemsReclamo where idReclamo = ? ", idReclamo ).get(0);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug( "Error: " + e.getMessage() );
 			return null;
 		}
 	}

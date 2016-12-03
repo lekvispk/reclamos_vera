@@ -14,9 +14,9 @@
 
 	function aceptar(){
 		
-		var fields = $("input[name='_chk']").serializeArray(); 
+		var fields = $("input[name='_chk']:checked").serializeArray(); 
 	    if (fields.length >= 1) {
-	    	window.location.assign("${pageContext.request.contextPath}/capacitacion/posponer.htm?id=1");
+	    	window.location.assign("${pageContext.request.contextPath}/capacitacion/posponer.htm?id="+$("input[name='_chk']:checked").val());
 	    }else {
 	    	alert('Seleccione una capacitacion');
 	    }
@@ -32,21 +32,18 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="factura">
+				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="capacitacion">
 				   		
 							<fieldset>
 							
 							<!-- Form Name -->
 							<legend>Posponer Capacitaci&oacute;n</legend>
 							
-							<form:hidden path="idFactura"/>
-							<form:hidden path="cliente.idCliente"/>
-							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="codCapacitacion">C&oacute;digo de Capacitaci&oacute;n</label>  
+							  <label class="col-md-4 control-label" for="idCapacitacion">C&oacute;digo de Capacitaci&oacute;n</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="codCapacitacion" id="codCapacitacion" placeholder="CAP001" class="form-control input-md">
+							  	<form:input path="idCapacitacion" cssClass="form-control input-md"/>
 							  </div>
 							  <div class="col-md-4">
 							    <input type="button" id="btnBuscar" name="btnBuscar" onclick="javascript:buscar();" class="btn btn-success" value="Buscar"/>
@@ -57,7 +54,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="razonSocial" id="razonSocial" placeholder="Razon Social" class="form-control input-md">
+							  	<form:input path="factura.cliente.nomCliente" cssClass="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -65,7 +62,15 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="txtVencimiento">Fecha de Capacitaci&oacute;n</label>  
 							  <div class="col-md-4">
-							  	<input id="txtVencimiento" name="txtVencimiento" type="text" placeholder="dd/mm/yyyy" class="form-control input-md">
+							  
+							  	<div class='input-group date' id='datetimepicker1'>
+				                    <fmt:formatDate value="${capacitacion.fechaCapacitacion}" pattern="dd/MM/yyyy" var="f_fechaCapacitacion"/>
+                    				<input type="text" class="form-control input-md" name="fechaCapacitacion" id="fechaCapacitacion" placeholder="dd/MM/yyyy"  size="10" value="${f_fechaCapacitacion}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-calendar"></span>
+				                    </span>
+				                </div>
+				                
 							  </div>
 							</div>
 							
@@ -88,20 +93,20 @@
 							    <![CDATA[
 							       
 							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-							        decorator.setId("idFactura");
+							        decorator.setId("idCapacitacion");
 							        decorator.setFieldName("_chk");
 							        pageContext.setAttribute("checkboxDecorator", decorator);
 							     ]]>
 							  </jsp:scriptlet> 
 							  
-						    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
+						    	<display:table  name="requestScope.lCapacitacion" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
 						            
 						            <display:column property="checkbox" />
-						            <display:column title="Capacitacion" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Factura" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Reclamo" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Solcuion" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
+						            <display:column title="Capacitacion" property="idCapacitacion" sortable="true" headerClass="sortable" />
+						            <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
+						            <display:column title="Reclamo" property="reclamo.idReclamo" sortable="true" headerClass="sortable" />
+						            <display:column title="Solcuion" property="reclamo.solucion" sortable="true" headerClass="sortable" />
 						            
 						    	</display:table>
 							
@@ -128,6 +133,11 @@
 	
 	 $( function(){
    	   $("#displayTagDiv").displayTagAjax();
+	
+	   	$('#datetimepicker1').datetimepicker({
+		    format: 'DD/MM/YYYY'
+		});
+		
    });
    
 </script>

@@ -4,6 +4,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
@@ -12,6 +16,8 @@ import org.springframework.stereotype.Repository;
 import pe.org.reclamos.dao.CapacitacionDAO;
 import pe.org.reclamos.entidad.Capacitacion;
 import pe.org.reclamos.entidad.CapacitacionItem;
+import pe.org.reclamos.entidad.Capacitador;
+import pe.org.reclamos.utiles.Utiles;
 
 @Repository
 public class CapacitacionDAOImpl extends HibernateDaoSupport implements CapacitacionDAO {
@@ -72,6 +78,48 @@ public class CapacitacionDAOImpl extends HibernateDaoSupport implements Capacita
 	public Capacitacion obtenerPorFactura(Integer idFactura) {
 		try {
 			return (Capacitacion) this.getHibernateTemplate().find("from Capacitacion where factura.idFactura = ? ", new Long(idFactura) ).get(0);
+		} catch (Exception e) {
+			logger.error( e.getMessage() );
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Capacitacion> buscarCapacitaciones(Capacitacion capacitacion) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(Capacitacion.class);
+		logger.debug(" buscarCapacitaciones() ");
+				
+		if(capacitacion !=null){
+			
+			if( capacitacion.getIdCapacitacion() > 0 ){
+				criteria.add( Restrictions.eq("idCapacitacion", capacitacion.getIdCapacitacion() ) );
+			}
+			
+			if( capacitacion.getFechaCapacitacion() != null ){
+				criteria.add( Restrictions.eq("fechaCapacitacion", capacitacion.getFechaCapacitacion() ) );
+			}
+			
+			if( capacitacion.getFactura() != null ){
+				DetachedCriteria criteria2 = criteria.createCriteria("factura");
+				if( capacitacion.getFactura().getCliente() != null ){
+					if( !Utiles.nullToBlank( capacitacion.getFactura().getCliente().getNomCliente() ).equals("") ){
+						criteria2.add( Restrictions.ilike("cliente.nomCliente", capacitacion.getFactura().getCliente().getNomCliente() ,MatchMode.ANYWHERE ) );	
+					}
+				}
+			}
+			
+		}
+			
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+		return this.getHibernateTemplate().findByCriteria(criteria);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Capacitador> listarCapacitador() {
+		try {
+			return (List<Capacitador>) this.getHibernateTemplate().find("from Capacitador where estado = 1 "  );
 		} catch (Exception e) {
 			logger.error( e.getMessage() );
 			return null;

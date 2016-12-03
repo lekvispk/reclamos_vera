@@ -39,6 +39,13 @@ INSERT INTO `reclamosbd`.`persona`(`idPersona`,`nombres`,`ape_paterno`,`numero_d
 (9,'clara','almeyda','40004009','Av. Principal 900','020109','4170202',NULL,'email9@gmail.com',1, NOW(),NULL),
 (10,'karen','risco','40004010','Av. Principal 1100','020109','4170202',NULL,'email10@gmail.com',1, NOW(),NULL);
 
+INSERT INTO `reclamosbd`.`capacitador` (`idCapacitador`, `codigo`, `nombre`, `apellidos`, `estado`, `created_at`, `updated_at`) VALUES 
+ (1,'CAP001', 'Juan', 'Perez', 1, NOW(), NULL),
+ (2,'CAP002', 'Luis', 'Rosas', 1, NOW(), NULL),
+ (3,'CAP003', 'Alberto', 'Salgado', 1, NOW(), NULL),
+ (4,'CAP004', 'Carlos', 'Sanchez', 1, NOW(), NULL),
+ (5,'CAP005', 'Pedro', 'Salinas', 1, NOW(), NULL);
+ 
 INSERT INTO `reclamosbd`.`promocion`(`idPromocion`,`descripcion`,`estado`,`created_at`,`updated_at`) VALUES 
 (1,'Capacitacion',1,NOW(),NULL),
 (2,'Descuento del 50%',1,NOW(),NULL);

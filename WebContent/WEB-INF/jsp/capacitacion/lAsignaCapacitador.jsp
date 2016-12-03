@@ -43,7 +43,9 @@
 							</div>
 							
 							<div class="form-group">
-							  <div class="col-md-12">
+							  <div class="col-md-2">
+							  </div>
+							  <div class="col-md-8">
 							  	<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
@@ -73,6 +75,8 @@
 								  	</div>
 								</div>	
 							   </div>
+							   <div class="col-md-2">
+							   </div>
 							</div>
 						</fieldset>
 						
@@ -95,7 +99,9 @@
 							</div>
 							
 							<div class="form-group">
-							  <div class="col-md-12">
+							  <div class="col-md-2">
+							  </div>
+							  <div class="col-md-8">
 							  	<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
@@ -104,18 +110,19 @@
 									    <![CDATA[
 									       
 									        org.displaytag.decorator.CheckboxTableDecorator decorator2 = new org.displaytag.decorator.CheckboxTableDecorator();
-									        decorator2.setId("idFactura");
+									        decorator2.setId("idCapacitador");
 									        decorator2.setFieldName("_chk");
 									        pageContext.setAttribute("checkboxDecorator", decorator2);
 									     ]]>
 									  </jsp:scriptlet> 
 									  
-								    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
+								    	<display:table  name="requestScope.lCapacitador" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
 								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
 								            
 								            <display:column property="checkbox" />
-								             <display:column title="Codigo" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Nombre" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
+								            <display:column title="Codigo" property="idCapacitador" sortable="true" headerClass="sortable" />
+								            <display:column title="Nombres" property="nombre" sortable="true" headerClass="sortable" />
+								            <display:column title="Apellidos" property="apellidos" sortable="true" headerClass="sortable" />
 								            
 								    	</display:table>
 									
@@ -123,6 +130,8 @@
 								  	</div>
 								</div>	
 							   </div>
+							   <div class="col-md-2">
+							  </div>
 							</div>
 							
 							<!-- Button -->

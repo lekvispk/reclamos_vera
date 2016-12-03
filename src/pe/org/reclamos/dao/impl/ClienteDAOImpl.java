@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 
 import pe.org.reclamos.dao.ClienteDAO;
 import pe.org.reclamos.entidad.Cliente;
-import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.utiles.Utiles;
 
 @Repository

@@ -14,11 +14,12 @@ public interface FacturaService {
 	public List<Factura> buscarFacturasParaFidelizacion(Factura factura);
 	public List<Factura> buscarFacturasParaFidelizacionDeUnCliente(Factura factura);
 	public List<Factura> buscarFacturasConFidelizacion(Factura factura);
-	
+	public List<Factura> buscarFacturasConReclamos(Factura f);
 	public List<Factura> buscarFacturasParaAplicarPromocion(Factura factura);
 	
 	public void eliminar(Long factura);
 
 	public List<Detallefactura>  listarDetalleFactura( Detallefactura detalle );
+	
 	
 }

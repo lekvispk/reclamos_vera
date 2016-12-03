@@ -4,19 +4,27 @@ package pe.org.reclamos.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.org.reclamos.dao.CapacitacionDAO;
 import pe.org.reclamos.entidad.Capacitacion;
 import pe.org.reclamos.entidad.CapacitacionItem;
+import pe.org.reclamos.entidad.Capacitador;
 import pe.org.reclamos.service.CapacitacionService;
+import pe.org.reclamos.service.ReclamoService;
 
 @Service
 public class CapacitacionServiceImpl implements CapacitacionService {
 
+	private static final Logger logger = Logger.getLogger( CapacitacionServiceImpl.class );
+	
 	@Autowired
 	private CapacitacionDAO capacitacionDAO;
+	
+	@Autowired
+	private ReclamoService reclamoService;
 	
 	@Override
 	public void grabar(Capacitacion capacitacion) {
@@ -57,6 +65,23 @@ public class CapacitacionServiceImpl implements CapacitacionService {
 	@Override
 	public Capacitacion obtenerPorFactura(Integer idFactura) {
 		return capacitacionDAO.obtenerPorFactura(idFactura);
+	}
+
+	@Override
+	public List<Capacitacion> buscarCapacitaciones(Capacitacion capacitacion) {
+		List<Capacitacion> lista = capacitacionDAO.buscarCapacitaciones(capacitacion);
+		logger.debug( "encontrados: " + lista.size() );
+		if(lista.size()>0)
+			for(Capacitacion cap : lista){
+				logger.debug( "idCap: "+cap.getIdCapacitacion()+ " idFactura: " + cap.getFactura().getIdFactura() );
+				cap.setReclamo( reclamoService.obtenerPorIdFactura( cap.getFactura().getIdFactura() ));
+			}
+		return lista;
+	}
+
+	@Override
+	public List<Capacitador> listarCapacitador() {
+		return capacitacionDAO.listarCapacitador();
 	}
 
 }

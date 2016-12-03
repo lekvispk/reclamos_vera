@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import pe.org.reclamos.entidad.Capacitacion;
 import pe.org.reclamos.entidad.CapacitacionItem;
+import pe.org.reclamos.entidad.Capacitador;
 import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Detallefactura;
 import pe.org.reclamos.entidad.Factura;
@@ -68,7 +69,7 @@ public class CapacitacionesController {
 			   Factura f = new Factura();
 			   f.setCliente(cliente);
 			   
-			   model.put("lFacturas", facturaService.buscar( f ));
+			   model.put("lFacturas", facturaService.buscarFacturasConReclamos( f ));
 			   model.put("cliente", new Cliente() );
 			   
 		   } catch (Exception e) {
@@ -211,7 +212,7 @@ public class CapacitacionesController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("factura", new Factura() );
+			   model.put("capacitacion", new Capacitacion() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -223,15 +224,15 @@ public class CapacitacionesController {
 	}
 	
 	@RequestMapping(value="/lPosponer.htm", method=RequestMethod.POST)
-	public String listaPosponerPost(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	public String listaPosponerPost(@Valid Capacitacion capacitacion, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
 			   logger.debug("listaPosponerPost");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("lFacturas", facturaService.buscar( new Factura() ));
-			   model.put("factura", new Factura() );
+			   model.put("lCapacitacion", capacitacionService.buscarCapacitaciones( capacitacion ) );
+			   model.put("capacitacion", new Capacitacion() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -251,8 +252,8 @@ public class CapacitacionesController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   String idCapacitacion = request.getParameter("id");
-			   
-			   model.put("factura", new Factura() );
+			   Capacitacion cap = capacitacionService.obtener( new Long(idCapacitacion) );
+			   model.put("capacitacion", cap );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -264,15 +265,22 @@ public class CapacitacionesController {
 	}
 	
 	@RequestMapping(value="/posponer.htm", method=RequestMethod.POST)
-	public String posponer(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	public String posponer(@Valid Capacitacion capacitacion, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
 			   logger.debug("prePosponer");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("factura", new Factura() );
-			   
+			   Capacitacion cap = capacitacionService.obtener( new Long(capacitacion.getIdCapacitacion()) );
+
+			   cap.setFechaCapacitacion( Utiles.stringToDate( request.getParameter("fechaCapacitacion"), Utiles.FORMATO_FECHA_CORTA));
+			   cap.setHoraCapacitacion( new Time( Utiles.stringToDate( request.getParameter("horaCapacitacion"), "hh:mm a" ).getTime() ) );
+			   cap.setMotivoPospuesto( capacitacion.getMotivoPospuesto() );
+			    
+			   capacitacionService.grabar( cap );
+			   //model.put("capacitacion", new Factura() );
+			   return "redirect:/capacitacion/lPosponer.htm";
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
@@ -280,7 +288,7 @@ public class CapacitacionesController {
 		   }finally{
 			//  model.put("reclamo", new Reclamo() );
 		   }
-		return "capacitacion/lPosponer";
+		
 	}
 	
 	
@@ -292,6 +300,7 @@ public class CapacitacionesController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
+			   model.put("lCapacitador", capacitacionService.listarCapacitador());
 			   model.put("factura", new Factura() );
 			   
 		   } catch (Exception e) {

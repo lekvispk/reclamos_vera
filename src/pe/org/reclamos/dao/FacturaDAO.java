@@ -24,5 +24,6 @@ public interface FacturaDAO {
 
 	public List<Detallefactura> listarDetalleFactura( Detallefactura detalle );
 	public List<Factura> buscarFacturasConFidelizacion( Factura factura);
+	public List<Factura> buscarFacturasConReclamos(Factura f);
 	
 }

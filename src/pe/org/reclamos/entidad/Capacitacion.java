@@ -1,14 +1,21 @@
 package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import java.sql.Time;
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -37,6 +44,9 @@ public class Capacitacion implements Serializable {
 	@Column(name="hora_capacitacion")
 	private Time horaCapacitacion;
 
+	@Column(name="motivo_pospuesto")
+	private String motivoPospuesto;
+	
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="updated_at")
 	private Date updatedAt;
@@ -50,6 +60,9 @@ public class Capacitacion implements Serializable {
     @ManyToOne
 	@JoinColumn(name="idFactura")
 	private Factura factura;
+    
+    @Transient
+    private Reclamo reclamo;
 
 	//bi-directional many-to-one association to CapacitacionItem
 	//@OneToMany(mappedBy="capacitacion")
@@ -57,6 +70,7 @@ public class Capacitacion implements Serializable {
 	private Set<CapacitacionItem> capacitacionItems;
 
     public Capacitacion() {
+    	this.reclamo = new Reclamo();
     }
 
 	public Capacitacion(Integer idCapacitacion) {
@@ -134,10 +148,21 @@ public class Capacitacion implements Serializable {
 	public void setCapacitacionItems(Set<CapacitacionItem> capacitacionItems) {
 		this.capacitacionItems = capacitacionItems;
 	}
-	
-	 @Override
-     public String toString() {
-          return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
-     }
+
+	public Reclamo getReclamo() {
+		return reclamo;
+	}
+
+	public void setReclamo(Reclamo reclamo) {
+		this.reclamo = reclamo;
+	}
+
+	public String getMotivoPospuesto() {
+		return motivoPospuesto;
+	}
+
+	public void setMotivoPospuesto(String motivoPospuesto) {
+		this.motivoPospuesto = motivoPospuesto;
+	}
 	 
 }

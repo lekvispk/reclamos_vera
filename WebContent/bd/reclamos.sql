@@ -129,7 +129,7 @@ CREATE TABLE capacitador (
   codigo VARCHAR(15) NULL,
   nombre VARCHAR(50) NULL,
   apellidos VARCHAR(50) NULL,
-  estado INTEGER NULL,
+  estado INTEGER NULL DEFAULT 1,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
   PRIMARY KEY(idCapacitador)
@@ -342,7 +342,8 @@ CREATE TABLE capacitacion (
   idFactura INTEGER NOT NULL,
   fecha_capacitacion DATE NULL,
   hora_capacitacion TIME NULL,
-  estado INTEGER NULL,
+  motivo_pospuesto TEXT NULL,
+  estado INTEGER NULL DEFAULT 1,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
   PRIMARY KEY(idCapacitacion),
@@ -354,8 +355,7 @@ CREATE TABLE capacitacion (
     REFERENCES factura(idFactura)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
-)
-ENGINE=INNODB;
+)ENGINE=INNODB;
 
 -- ------------------------------------------------------------
 -- detalle de los items por lo que esta reclamando, la factura puede tener munos items pero puede reclamar por uno, alguno o todos los items.

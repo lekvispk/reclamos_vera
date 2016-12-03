@@ -253,4 +253,63 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Factura> buscarFacturasConReclamos(Factura f) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT f.* FROM factura f ");
+		sql.append(" INNER JOIN reclamo r ON r.idFactura = f.idFactura ");
+		sql.append(" INNER JOIN cliente c ON c.idCliente = f.idCliente ");
+		sql.append(" LEFT OUTER JOIN capacitacion cap ON cap.idFactura=f.idFactura ");
+		sql.append(" WHERE f.estado=1 ");
+		sql.append(" AND idCapacitacion is NULL ");
+		if( f.getCliente() != null){
+			if( !Utiles.nullToBlank( f.getCliente().getNomCliente() ).equals("") ){ 
+				sql.append(" and c.nomCliente like '%"+ f.getCliente().getNomCliente() +"%'"); 
+			}
+			if( !Utiles.nullToBlank( f.getCliente().getRucCliente() ).equals("") ){ 
+				sql.append(" and c.rucCliente = '"+ f.getCliente().getRucCliente() +"'"); 
+			}
+		}
+		
+		Session session =  getSession();
+		Query query = session.createSQLQuery( sql.toString() )
+		.addEntity(Factura.class);
+		List<Factura> result = query.list();
+		return result;
+		/*
+		 * DetachedCriteria criteria = DetachedCriteria.forClass(Factura.class);
+		logger.debug(" buscar Factura() " + factura);
+				
+		if(factura !=null){
+			
+			if(factura.getCliente()!=null ){
+				
+				DetachedCriteria criteria2 = criteria.createCriteria("cliente");
+		        
+				if( factura.getCliente().getIdCliente()!=null)
+					criteria.add( Restrictions.eq("cliente.idCliente", factura.getCliente().getIdCliente()  ) );
+				
+				if( !StringUtils.isEmpty( factura.getCliente().getRucCliente() ) )
+					criteria2.add( Restrictions.eq("rucCliente", factura.getCliente().getRucCliente()  ) );
+				
+				if( !StringUtils.isEmpty( factura.getCliente().getNomCliente()) )
+					criteria2.add( Restrictions.ilike("nomCliente", factura.getCliente().getNomCliente() ,MatchMode.ANYWHERE  ) );
+			}
+			
+		if( StringUtils.isNotBlank( factura.getNumero() ) )
+			criteria.add( Restrictions.eq("numero", factura.getNumero() ) );	
+		}
+		
+		//criteria.add( Restrictions.gt("", "") );
+	
+		//criteria.addOrder( Order.desc("fechaIngreso") );
+		//criteria.setFetchMode("capacitacions", FetchMode.JOIN);
+		//criteria.setFetchMode("detallefacturas", FetchMode.JOIN);
+		
+		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+		return this.getHibernateTemplate().findByCriteria(criteria);
+		*/
+	}
+
 }

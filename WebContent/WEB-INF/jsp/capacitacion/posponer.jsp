@@ -13,21 +13,19 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="factura">
+				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="capacitacion">
 				   		
 							<fieldset>
 							
 							<!-- Form Name -->
 							<legend>Posponer Capacitaci&oacute;n</legend>
-							
-							<form:hidden path="idFactura"/>
-							<form:hidden path="cliente.idCliente"/>
+							<form:hidden path="idCapacitacion"/>
 							
 							<!-- Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="ruc" id="ruc" value="1044194490" class="form-control input-md">
+							  	<label class="form-control input-md"> ${capacitacion.factura.cliente.rucCliente} </label>
 							  </div>
 							</div>
 							
@@ -35,7 +33,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="razonSocial">Raz&oacute;n Social</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="razonSocial" id="razonSocial" value="Empresa UNO" class="form-control input-md">
+							  	<label class="form-control input-md"> ${capacitacion.factura.cliente.nomCliente} </label>
 							  </div>
 							</div>
 							
@@ -43,24 +41,24 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="hInicio">Hora Inicio</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="hInicio" id="hInicio" placeholder="inicio" class="form-control input-md">
+							  	<div class='input-group date' id='dateti'>
+							  		<fmt:formatDate value="${capacitacion.fechaCapacitacion}" pattern="dd/MM/yyyy" var="f_fecha"/>
+				                    <fmt:formatDate value="${capacitacion.horaCapacitacion}" pattern="HH:mm" var="f_horaCapacitacion"/>
+                    				<label class="form-control input-md"> ${f_fecha} ${f_horaCapacitacion} </label>
+                    				<span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-time"></span>
+				                    </span>
+				                </div>
 							  </div>
 							</div>
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="hFinal">Hora Final</label>  
-							  <div class="col-md-4">
-							  	<input type="text" name="hFinal" id="hFinal" placeholder="final" class="form-control input-md">
-							  </div>
-							</div>
-							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="hFinal">Fecha</label>  
+							  <label class="col-md-4 control-label" for="fecha">Fecha</label>  
 							  <div class="col-md-4">
 							  	<div class='input-group date' id='datetimepicker1'>
-				                    <input type='text' class="form-control" placeholder="dd/mm/yyyy"/>
+				                    <fmt:formatDate value="${capacitacion.fechaCapacitacion}" pattern="dd/MM/yyyy" var="f_fechaCapacitacion"/>
+                    				<input type="text" class="form-control input-md" name="fechaCapacitacion" id="fechaCapacitacion" placeholder="dd/MM/yyyy"  size="10" value="${f_fechaCapacitacion}"/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
@@ -70,10 +68,22 @@
 							
 							<!-- Text input-->
 							<div class="form-group">
+							  <label class="col-md-4 control-label" for="hora">Hora</label>  
+							  <div class="col-md-4">
+							  	<div class='input-group date' id='datetimepicker2'>
+				                    <fmt:formatDate value="${capacitacion.horaCapacitacion}" pattern="HH:mm" var="f_horaCapacitacion"/>
+                    				<input type="text" class="form-control input-md" name="horaCapacitacion" id="horaCapacitacion" placeholder="HH:mm"  size="10" value="${f_horaCapacitacion}"/>
+				                    <span class="input-group-addon">
+				                        <span class="glyphicon glyphicon-time"></span>
+				                    </span>
+				                </div>
+							  </div>
+							</div>							
+							<!-- Text input-->
+							<div class="form-group">
 							  <label class="col-md-4 control-label" for="motivo">Motivo</label>  
 							  <div class="col-md-4">
-							  	<textarea name="motivo" id="motivo" placeholder="Motivo" class="form-control input-md">
-							  	</textarea>
+							  	<textarea name="motivoPospuesto" id="motivoPospuesto" placeholder="Motivo" class="form-control input-md"></textarea>
 							  </div>
 							</div>
 							
@@ -120,7 +130,13 @@
 	
 	$( function(){
 		 
-		 $('#datetimepicker1').datetimepicker();
+		$('#datetimepicker1').datetimepicker({
+		    format: 'DD/MM/YYYY'
+		});
+	
+	   	$('#datetimepicker2').datetimepicker({
+	   		format: 'LT'
+		});
 		  
 	});
    
