@@ -13,15 +13,12 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="factura">
+				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="cliente">
 				   		
 							<fieldset>
 							
 							<!-- Form Name -->
 							<legend>Asignar Capacitador</legend>
-							
-							<form:hidden path="idFactura"/>
-							<form:hidden path="cliente.idCliente"/>
 							
 							<!-- Text input-->
 							<div class="form-group">
@@ -49,25 +46,18 @@
 							  	<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
-							   		
-							   		<jsp:scriptlet>
-									    <![CDATA[
-									       
-									        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-									        decorator.setId("idFactura");
-									        decorator.setFieldName("_chk");
-									        pageContext.setAttribute("checkboxDecorator", decorator);
-									     ]]>
-									  </jsp:scriptlet> 
-									  
-								    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
-								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
+							   			<display:table  name="requestScope.lCapacitaciones" requestURI="lCapacitador.htm" class="displaytag" pagesize="3"
+								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax">
 								            
-								            <display:column property="checkbox" />
-								            <display:column title="Capacitacion" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Factura" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Reclamo" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Solcuion" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
+								            <display:column>
+								            	<fmt:formatDate value="${row.fechaCapacitacion}" pattern="dd/MM/yyyy" var="f_fechaCapacitacion"/>
+								            	<input type="radio" data-fecha="${f_fechaCapacitacion}" name="rbCapa" id="rbCapa_${row.idCapacitacion}" value="${row.idCapacitacion}">
+								            </display:column>
+								            <display:column title="ID Capacitacion" property="idCapacitacion" sortable="true" headerClass="sortable" />
+								            <display:column title="Fecha" property="fechaCapacitacion" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
+								            <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
+								            <display:column title="ID Reclamo" property="reclamo.idReclamo" sortable="true" headerClass="sortable" />
+								            <display:column title="Solcuion" property="reclamo.solucion" sortable="true" headerClass="sortable" />
 								            
 								    	</display:table>
 									
@@ -90,7 +80,7 @@
 							  <label class="col-md-4 control-label" for="hFinal">Fecha de capacitacion</label>  
 							  <div class="col-md-4">
 							  	<div class='input-group date' id='datetimepicker1'>
-				                    <input type='text' class="form-control" placeholder="dd/mm/yyyy"/>
+				                    <input type='text' id="fecCapacitacion" name="fecCapacitacion" class="form-control" placeholder="dd/mm/yyyy"/>
 				                    <span class="input-group-addon">
 				                        <span class="glyphicon glyphicon-calendar"></span>
 				                    </span>
@@ -116,7 +106,7 @@
 									     ]]>
 									  </jsp:scriptlet> 
 									  
-								    	<display:table  name="requestScope.lCapacitador" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
+								    	<display:table  name="requestScope.lCapacitador" requestURI="lCapacitador.htm" class="displaytag" pagesize="3"
 								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
 								            
 								            <display:column property="checkbox" />
@@ -177,10 +167,47 @@
 	});*/
 	
 	$(document).undelegate('#btnAceptar', 'click').delegate('#btnAceptar', 'click', function(){
-		document.forms[0].action='lCapacitador.htm';
-		document.forms[0].submit();
+		//AJAX
+		
+		var capacitadores = $("input[name='_chk']:checked").serializeArray(); 
+	    if (capacitadores.length == 0) { 
+	    	alert('Seleccione un Capacitador');
+	    	return false;
+	    }
+
+	    var capacitaciones = $("input[name='_chk']:checked").serializeArray(); 
+	    if (capacitaciones.length == 0) { 
+	    	alert('Seleccione una capacitacion');
+	    	return false;
+	    }
+	    
+		$.ajax({
+            url: "${pageContext.request.contextPath}/capacitacion/asignarCapacitador.htm",
+            dataType: "json",
+            method:"POST",
+            data: { 'idCapacitacion' : $("input[name='rbCapa']:checked").val(),
+                	'idCapacitador' : $("input[name='_chk']:checked").val() 
+                  },
+            success: function( data, textStatus, jqXHR) {
+                console.log( " status " +  data.status);
+                if( data.status== '1' ){
+					alert('capacitador asignado');
+                }else{
+                	alert('no se pudo asignar');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+                 alert('error al acceder al servidor');
+            }
+        });
 	});
 
+	$(document).undelegate('[id^=rbCapa_]', 'click').delegate('[id^=rbCapa_]', 'click', function(){
+		console.log( 'capacitacion = ' + $(this).val() );
+		$('#fecCapacitacion').val( $(this).data('fecha') );
+	});
+	
 	 $( function(){
 		$('#datetimepicker1').datetimepicker();
 		 

@@ -17,5 +17,6 @@ public interface CapacitacionDAO {
 	public Capacitacion obtenerPorFactura(Integer idFactura);
 	public List<Capacitacion> buscarCapacitaciones(Capacitacion capacitacion);
 	public List<Capacitador> listarCapacitador();
+	public void asignarCapacitador(Integer idCapacitacion, Integer idCapacitador);
 	
 }

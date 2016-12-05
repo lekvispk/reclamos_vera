@@ -84,4 +84,9 @@ public class CapacitacionServiceImpl implements CapacitacionService {
 		return capacitacionDAO.listarCapacitador();
 	}
 
+	@Override
+	public void asignarCapacitador(Integer idCapacitacion, Integer idCapacitador) {
+		capacitacionDAO.asignarCapacitador(idCapacitacion,idCapacitador);
+	}
+
 }

@@ -1,5 +1,6 @@
 package pe.org.reclamos.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -101,9 +102,17 @@ public class CapacitacionDAOImpl extends HibernateDaoSupport implements Capacita
 			}
 			
 			if( capacitacion.getFactura() != null ){
+				logger.debug("hay factura");
 				DetachedCriteria criteria2 = criteria.createCriteria("factura");
+				
 				if( capacitacion.getFactura().getCliente() != null ){
+					logger.debug("hay Cliente");
 					if( !Utiles.nullToBlank( capacitacion.getFactura().getCliente().getNomCliente() ).equals("") ){
+						logger.debug("nombre=" + capacitacion.getFactura().getCliente().getNomCliente() );
+						criteria2.add( Restrictions.ilike("cliente.nomCliente", capacitacion.getFactura().getCliente().getNomCliente() ,MatchMode.ANYWHERE ) );	
+					}
+					if( !Utiles.nullToBlank( capacitacion.getFactura().getCliente().getNomCliente() ).equals("") ){
+						logger.debug("ruc="+capacitacion.getFactura().getCliente().getNomCliente());
 						criteria2.add( Restrictions.ilike("cliente.nomCliente", capacitacion.getFactura().getCliente().getNomCliente() ,MatchMode.ANYWHERE ) );	
 					}
 				}
@@ -124,6 +133,15 @@ public class CapacitacionDAOImpl extends HibernateDaoSupport implements Capacita
 			logger.error( e.getMessage() );
 			return null;
 		}
+	}
+
+	@Override
+	public void asignarCapacitador(Integer idCapacitacion, Integer idCapacitador) {
+		Capacitacion cap = obtener( new Long(idCapacitacion) );
+		cap.setUpdatedAt( new Date() );
+		cap.setCapacitador( new Capacitador() );
+		cap.getCapacitador().setIdCapacitador(idCapacitador);
+		grabar(cap);
 	}
 
 }
