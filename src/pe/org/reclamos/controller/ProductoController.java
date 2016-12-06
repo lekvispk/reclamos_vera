@@ -1,21 +1,32 @@
 package pe.org.reclamos.controller;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import pe.org.reclamos.entidad.DetalleDevolucion;
+import pe.org.reclamos.entidad.Detallefactura;
 import pe.org.reclamos.entidad.Devolucion;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.DevolucionService;
 import pe.org.reclamos.service.FacturaService;
+import pe.org.reclamos.utiles.CalendarSerializer;
 import pe.org.reclamos.utiles.Utiles;
 
 @Controller
@@ -86,11 +97,10 @@ public class ProductoController {
 	public String preSeleccionar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
-			   logger.debug("preAutorizar");
+			   logger.debug("preSeleccionar");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("lFacturas", facturaService.buscar( new Factura() ));
 			   model.put("factura", new Factura() );
 			   
 		   } catch (Exception e) {
@@ -103,23 +113,63 @@ public class ProductoController {
 	}
 	
 	@RequestMapping(value="/seleccionar.htm", method=RequestMethod.POST)
-	public String seleccionar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	public String seleccionar(@Valid Factura factura, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
-			   logger.debug("autorizar");
+			   logger.debug("seleccionar");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("lFacturas", facturaService.buscar( new Factura() ));
+			   Detallefactura df = new Detallefactura();
+			   df.setFactura(factura);
+			   model.put("lProductos", facturaService.listarDetalleFactura( df ));
 			   model.put("factura", new Factura() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			//  model.put("reclamo", new Reclamo() );
 		   }
 		return "producto/seleccionar";
+	}
+	
+	@RequestMapping(value="/agregar.htm", method=RequestMethod.POST)
+	public String agregarItem(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		String json = "";
+		try {
+			   logger.debug("agregarItem");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   String idDetalleFactura = request.getParameter("idDetalleFactura");
+			   
+			   Devolucion dev = devolucionService.obtenerPorDetalleFactura( Integer.valueOf( idDetalleFactura) );
+			   logger.debug("idDevolucion="+dev.getIdDevolucion());
+			   Detallefactura df = facturaService.obtenerDetalleFactura( Integer.valueOf( idDetalleFactura) );
+			   logger.debug("idDevolucion="+df.getIdDetalleFactura());
+			   logger.debug("idProducto="+df.getProducto().getIdProducto());
+			   DetalleDevolucion dd = new DetalleDevolucion();
+			   dd.setDevolucion( dev );
+			   dd.setProducto( df.getProducto() );
+			   
+			   devolucionService.grabarDetalle( dd );
+			   
+			   //String format = "yyyy-MM-dd";
+			   
+			   //GsonBuilder gsonB = new GsonBuilder();
+			   //gsonB.registerTypeAdapter(Calendar.class, new CalendarSerializer());
+			   //gsonB.registerTypeAdapter(GregorianCalendar.class, new CalendarSerializer());
+			   //Gson gson2 = gsonB.setDateFormat( format ).create();
+			   
+			   json = "";//gson2.toJson( dd );
+			   json = "{  \"status\":\"1\",  \"mensaje\":\"Gabado\" } ";
+			   response.getWriter().println( json );
+			   
+		   } catch (Exception e) {
+			   logger.debug("Error : "+e.getMessage());
+			 json = "{  \"status\":\"2\",  \"mensaje\":\""+e.getMessage()+"\" } ";
+			 try{ response.getWriter().println( json ); } 
+			 catch(Exception e2){ }
+		   }
+		return null;
 	}
 	
 }

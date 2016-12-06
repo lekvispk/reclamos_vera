@@ -66,4 +66,9 @@ public class FacturaServiceImpl implements FacturaService {
 		return facturaDAO.buscarFacturasConReclamos(f);
 	}
 
+	@Override
+	public Detallefactura obtenerDetalleFactura(Integer idDetallefactura) {
+		return facturaDAO.obtenerDetalleFactura(idDetallefactura);
+	}
+
 }

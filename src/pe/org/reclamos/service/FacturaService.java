@@ -20,6 +20,7 @@ public interface FacturaService {
 	public void eliminar(Long factura);
 
 	public List<Detallefactura>  listarDetalleFactura( Detallefactura detalle );
+	public Detallefactura obtenerDetalleFactura( Integer idDetallefactura );
 	
 	
 }

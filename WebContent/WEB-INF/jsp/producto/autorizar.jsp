@@ -109,6 +109,12 @@
             data: {  },
             success: function( data, textStatus, jqXHR) {
                 console.log( " idReclamo " +  data.idReclamo);
+
+				if( data.status ){
+					alert('Error ' + data.status );
+					return;
+				}
+                
                 $('#idReclamo').val( data.idReclamo );
                 if( data.factura ){
                 	$('#nroFactura').val( data.factura.numero );

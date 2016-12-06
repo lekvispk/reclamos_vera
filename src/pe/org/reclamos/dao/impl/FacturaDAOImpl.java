@@ -137,9 +137,15 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 				criteria.add( Restrictions.gt("estado", 0 ) );
 			
 			if( detalle.getFactura() != null  ){
+				
+				DetachedCriteria criteria2 = criteria.createCriteria("factura");
+				
 				if( detalle.getFactura().getIdFactura() != null && detalle.getFactura().getIdFactura() > 0 ){
-					criteria.add( Restrictions.eq("factura.idFactura", detalle.getFactura().getIdFactura() ) );
-				}	
+					criteria2.add( Restrictions.eq("idFactura", detalle.getFactura().getIdFactura() ) );
+				}
+				if( !Utiles.nullToBlank( detalle.getFactura().getNumero()).equals("") ){
+					criteria2.add( Restrictions.eq("numero", detalle.getFactura().getNumero() ) );
+				}
 			}
 			
 			//criteria.setFetchMode("producto", FetchMode.SELECT);
@@ -310,6 +316,16 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
 		return this.getHibernateTemplate().findByCriteria(criteria);
 		*/
+	}
+
+	@Override
+	public Detallefactura obtenerDetalleFactura(Integer idDetalleFactura) {
+		try {
+			return (Detallefactura) this.getHibernateTemplate().find("from Detallefactura where idDetalleFactura = ? ", idDetalleFactura).get(0);
+		} catch (Exception e) {
+			logger.debug("Error: " + e.getMessage());
+			return null;
+		}
 	}
 
 }

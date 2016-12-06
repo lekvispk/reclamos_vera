@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.org.reclamos.dao.DevolucionDAO;
+import pe.org.reclamos.entidad.DetalleDevolucion;
 import pe.org.reclamos.entidad.Devolucion;
 import pe.org.reclamos.service.DevolucionService;
 
@@ -34,6 +35,22 @@ public class DevolucionServiceImpl implements DevolucionService {
 			devolucion.setCreatedAt( new Date() );
 		}
 		devolucionDAO.grabar(devolucion);
+	}
+
+	@Override
+	public Devolucion obtenerPorDetalleFactura(Integer idDetalleFactura) {
+		return devolucionDAO.obtenerPorDetalleFactura(idDetalleFactura);
+	}
+
+	@Override
+	public void grabarDetalle(DetalleDevolucion dd) {
+		if( dd.getIdDetalleDevolucion() >0 ){
+			dd.setUpdatedAt( new Date() );
+		}else{
+			dd.setEstado( 1 );
+			dd.setCreatedAt( new Date() );
+		}
+		devolucionDAO.grabarDetalle(dd);
 	}
 
 }

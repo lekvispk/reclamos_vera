@@ -27,7 +27,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">Nro. Factura</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="ruc" id="ruc" placeholder="CAP001" class="form-control input-md">
+							  	<input type="text" name="numero" id="numero" placeholder="F-001" class="form-control input-md">
 							  </div>
 							  <div class="col-md-4">
 							    <input type="button" id="btnBuscar" name="btnBuscar" class="btn btn-success" value="Buscar"/>
@@ -35,68 +35,59 @@
 							</div>
 							
 							<div class="form-group">
-							  <div class="col-md-12">
+								<div class="col-md-2"></div>
+							  	<div class="col-md-8">
 							  	<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
 							   		
-							   		<jsp:scriptlet>
-									    <![CDATA[
-									       
-									        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
-									        decorator.setId("idFactura");
-									        decorator.setFieldName("_chk");
-									        pageContext.setAttribute("checkboxDecorator", decorator);
-									     ]]>
-									  </jsp:scriptlet> 
-									  
-								    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
-								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
-								            
-								            <display:column property="checkbox" />
-								            <display:column title="Capacitacion" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Factura" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Reclamo" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Solcuion" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
+								    	<display:table  name="requestScope.lProductos" requestURI="lPromociones.htm" class="displaytag" 
+								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="rowProductos" excludedParams="ajax">
+								            <display:column>
+								            	<input type="radio" name="_chkIt" id="_chkIt_${rowProductos.idDetalleFactura}" value="${rowProductos.idDetalleFactura}"/>
+								            </display:column>
+								            <display:column title="Codigo" property="factura.numero" sortable="true" headerClass="sortable" />
+								            <display:column title="Descripcion" property="producto.descripcion" sortable="true" headerClass="sortable" />
+								            <display:column title="Precio Unitario" property="precio" sortable="true" headerClass="sortable" />
+								            <display:column title="Cantidad" property="cantidad" sortable="true" headerClass="sortable" />
+								            <display:column title="Importe" sortable="false" headerClass="sortable">
+								            	${ rowProductos.cantidad * rowProductos.precio }
+								            </display:column>
 								            
 								    	</display:table>
 									
 									</div>
 								  	</div>
 								</div>	
-							   </div>
+							   	</div>
+							   	<div class="col-md-2"></div>
 							</div>
 						
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnAceptar" name="btnAceptar"  class="btn btn-success" value="Agregar"/>
+							    <input type="button" id="btnAgregar" name="btnAgregar"  class="btn btn-success" value="Agregar"/>
 							  </div>
 							</div>
 							
 							<div class="form-group">
-							  <div class="col-md-12">
+							  <div class="col-md-2"></div>
+							  <div class="col-md-8">
 							  	<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
-							   		
-							   		<jsp:scriptlet>
-									    <![CDATA[
-									       
-									        org.displaytag.decorator.CheckboxTableDecorator decorator2 = new org.displaytag.decorator.CheckboxTableDecorator();
-									        decorator2.setId("idFactura");
-									        decorator2.setFieldName("_chk");
-									        pageContext.setAttribute("checkboxDecorator", decorator2);
-									     ]]>
-									  </jsp:scriptlet> 
-									  
-								    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
-								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
+							   			
+							   			<display:table  name="requestScope.lProductos2" requestURI="lPromociones.htm" class="displaytag" 
+								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="rowProductos2" excludedParams="ajax">
 								            
-								            <display:column property="checkbox" />
-								             <display:column title="Codigo" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-								            <display:column title="Nombre" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
+								            <display:column title="Codigo" property="factura.numero" sortable="true" headerClass="sortable" />
+								            <display:column title="Descripcion" property="producto.descripcion" sortable="true" headerClass="sortable" />
+								            <display:column title="Precio Unitario" property="precio" sortable="true" headerClass="sortable" />
+								            <display:column title="Cantidad" property="cantidad" sortable="true" headerClass="sortable" />
+								            <display:column title="Importe" sortable="false" headerClass="sortable">
+								            	${ rowProductos2.cantidad * rowProductos2.precio }
+								            </display:column>
 								            
 								    	</display:table>
 									
@@ -104,13 +95,13 @@
 								  	</div>
 								</div>	
 							   </div>
+							   <div class="col-md-2"></div>
 							</div>
 							
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnImprimir" name="btnImprimir"  class="btn btn-success" value="Imprimir"/>
 							    <input type="button" id="btnAutoriza" name="btnAutoriza"  class="btn btn-success" value="Autorizar"/>
 							    <input type="button" id="btnCancela" name="btnCancela"  class="btn btn-success" value="Cancelar"/>
 							  </div>
@@ -143,7 +134,35 @@
 		document.forms[0].action='seleccionar.htm';
 		document.forms[0].submit();
 	});
+
 	
+	$(document).undelegate('#btnAgregar', 'click').delegate('#btnAgregar', 'click', function(){
+
+		var fields = $("input[name='_chkIt']:checked").serializeArray(); 
+	    if (fields.length == 0) { 
+	    	alert('Selecione un producto');
+	    	return;
+	    }
+
+	    $.ajax({
+            url: "${pageContext.request.contextPath}/producto/agregar.htm",
+            dataType: "json",
+            method: "POST",
+            data: { 'idDetalleFactura':''+$("input[name='_chkIt']:checked").val() 
+                	},
+            success: function( data ) {
+                console.log( " resultado " +  data );
+                if( data.idDetalleDevolucion ){
+                	console.log( " id devolucion =  "  +  data.idDetalleDevolucion );
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+            }
+        });
+	    
+	});
+
 	$(document).undelegate('#btnCancela', 'click').delegate('#btnCancela', 'click', function(){
 		if(confirm('¿Segudo de cancelar?')){
 	   		console.info('redirecciona a lista de posponer capacitaciones');

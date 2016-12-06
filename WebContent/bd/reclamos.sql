@@ -488,7 +488,7 @@ ENGINE=INNODB;
 CREATE TABLE detalle_devolucion (
   idDetalleDevolucion INTEGER NOT NULL AUTO_INCREMENT,
   idDevolucion INTEGER NOT NULL,
-  idDespachador INTEGER NOT NULL,
+  idDespachador INTEGER NULL,
   idProducto INTEGER NOT NULL,
   direccion_entrega VARCHAR(250) NULL,
   fecha_entrega DATE NULL,
