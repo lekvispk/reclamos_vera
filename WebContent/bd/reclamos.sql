@@ -2,7 +2,6 @@ DROP DATABASE IF EXISTS reclamosBD;
 
 CREATE DATABASE IF NOT EXISTS reclamosBD;
 
-USE reclamosBD;
 
 CREATE TABLE producto (
   idProducto INTEGER NOT NULL AUTO_INCREMENT,
@@ -15,7 +14,8 @@ CREATE TABLE producto (
   estado INTEGER NULL DEFAULT 1,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
-  PRIMARY KEY(idProducto)
+  PRIMARY KEY(idProducto),
+  INDEX producto_sku(skuProducto)
 )
 ENGINE=INNODB;
 
@@ -155,8 +155,8 @@ CREATE TABLE cliente (
   rucCliente VARCHAR(500) NULL,
   representante VARCHAR(250) NULL,
   fecCliente DATETIME NULL,
-  monto DECIMAL NULL DEFAULT 0,
   estado INTEGER NULL DEFAULT 1,
+  monto DECIMAL NULL DEFAULT 0,
   PRIMARY KEY(idCliente),
   FOREIGN KEY(idPersona)
     REFERENCES persona(idPersona)
@@ -355,10 +355,11 @@ CREATE TABLE capacitacion (
     REFERENCES factura(idFactura)
       ON DELETE NO ACTION
       ON UPDATE NO ACTION
-)ENGINE=INNODB;
+)
+ENGINE=INNODB;
 
 -- ------------------------------------------------------------
--- detalle de los items por lo que esta reclamando, la factura puede tener munos items pero puede reclamar por uno, alguno o todos los items.
+-- detalle de los items por lo que esta reclamando, la factura puede tener muchos items pero puede reclamar por uno, alguno o todos los items.
 -- ------------------------------------------------------------
 
 CREATE TABLE items_reclamo (
@@ -439,11 +440,17 @@ CREATE TABLE solucion (
 )
 ENGINE=INNODB;
 
+-- ------------------------------------------------------------
+-- aqui se registran las autorizaciones para devolucion de prouctos
+-- ------------------------------------------------------------
+
 CREATE TABLE devolucion (
   idDevolucion INTEGER NOT NULL AUTO_INCREMENT,
   idReclamo INTEGER NOT NULL,
   detalle TEXT NULL,
-  estado INTEGER NULL,
+  fecha_autorizacion DATE NULL,
+  numero_acta VARCHAR(10) NULL,
+  estado INTEGER NULL DEFAULT 1,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
   PRIMARY KEY(idDevolucion),

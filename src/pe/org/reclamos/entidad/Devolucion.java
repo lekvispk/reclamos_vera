@@ -1,13 +1,21 @@
 package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -21,14 +29,21 @@ public class Devolucion implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idDevolucion;
+	private Integer idDevolucion;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="created_at")
 	private Date createdAt;
 
+    @Temporal( TemporalType.TIMESTAMP)
+	@Column(name="fecha_autorizacion")
+	private Date fechaAutorizacion;
+    
     @Lob()
 	private String detalle;
+    
+    @Column(name="numero_acta")
+    private String numeroActa;
 
 	private int estado;
 
@@ -48,11 +63,11 @@ public class Devolucion implements Serializable {
     public Devolucion() {
     }
 
-	public int getIdDevolucion() {
+	public Integer getIdDevolucion() {
 		return this.idDevolucion;
 	}
 
-	public void setIdDevolucion(int idDevolucion) {
+	public void setIdDevolucion(Integer idDevolucion) {
 		this.idDevolucion = idDevolucion;
 	}
 
@@ -103,11 +118,21 @@ public class Devolucion implements Serializable {
 	public void setReclamo(Reclamo reclamo) {
 		this.reclamo = reclamo;
 	}
-	
-	
-	 @Override
-     public String toString() {
-          return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
-     }
+
+	public Date getFechaAutorizacion() {
+		return fechaAutorizacion;
+	}
+
+	public void setFechaAutorizacion(Date fechaAutorizacion) {
+		this.fechaAutorizacion = fechaAutorizacion;
+	}
+
+	public String getNumeroActa() {
+		return numeroActa;
+	}
+
+	public void setNumeroActa(String numeroActa) {
+		this.numeroActa = numeroActa;
+	}
 	
 }

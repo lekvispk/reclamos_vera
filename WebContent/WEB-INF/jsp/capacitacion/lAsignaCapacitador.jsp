@@ -47,11 +47,11 @@
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
 							   			<display:table  name="requestScope.lCapacitaciones" requestURI="lCapacitador.htm" class="displaytag" pagesize="3"
-								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax">
+								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="tbCapacitaciones" excludedParams="ajax">
 								            
 								            <display:column>
-								            	<fmt:formatDate value="${row.fechaCapacitacion}" pattern="dd/MM/yyyy" var="f_fechaCapacitacion"/>
-								            	<input type="radio" data-fecha="${f_fechaCapacitacion}" name="rbCapa" id="rbCapa_${row.idCapacitacion}" value="${row.idCapacitacion}">
+								            	<fmt:formatDate value="${tbCapacitaciones.fechaCapacitacion}" pattern="dd/MM/yyyy" var="f_fechaCapacitacion"/>
+								            	<input type="radio" data-fecha="${f_fechaCapacitacion}" name="rbCapa" id="rbCapa_${tbCapacitaciones.idCapacitacion}" value="${tbCapacitaciones.idCapacitacion}">
 								            </display:column>
 								            <display:column title="ID Capacitacion" property="idCapacitacion" sortable="true" headerClass="sortable" />
 								            <display:column title="Fecha" property="fechaCapacitacion" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
@@ -191,6 +191,9 @@
             success: function( data, textStatus, jqXHR) {
                 console.log( " status " +  data.status);
                 if( data.status== '1' ){
+                	$('#tbCapacitaciones tbody').remove();
+                	$("input:checkbox").attr("checked", false);
+                	$('#fecCapacitacion').val( '' );
 					alert('capacitador asignado');
                 }else{
                 	alert('no se pudo asignar');

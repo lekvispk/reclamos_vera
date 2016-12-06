@@ -92,5 +92,37 @@ public class ReclamosRestController {
 		return "{'idReclamo':'1','fecha':'marzo'}";
 	}
 	
+	/**
+	 * http://localhost:8082/reclamos/rest/clientes/reclamos/1
+	 * @param user
+	 * @param idReclamo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/reclamos/{idReclamo}", method = RequestMethod.GET )
+	public @ResponseBody String reclamoDatos(@PathVariable String idReclamo, ModelMap model,HttpServletRequest request,HttpServletResponse response) {
+		String json = "";
+		try {
+			logger.debug(" idreclamo=" + idReclamo) ;
+			response.setContentType("application/json;charset=ISO-8859-1");
+	        request.setCharacterEncoding("UTF-8");
+	        
+			Reclamo reclamo = reclamoService.obtener( new Long(idReclamo));
+			
+			String format = "yyyy-MM-dd";
+			Gson gson2 = new GsonBuilder()
+			   .setDateFormat( format ).create();
+			
+			//Gson gson = new Gson();
+			json = gson2.toJson(reclamo);
+			
+			
+		} catch (Exception e) {
+			logger.debug("Error: " + e.getMessage()) ;
+			json = "{  \"status\":\"2\",  \"mensaje\":\""+e.getMessage()+"\" } ";
+		}
+		return json;
+	}
+	
 	
 }
