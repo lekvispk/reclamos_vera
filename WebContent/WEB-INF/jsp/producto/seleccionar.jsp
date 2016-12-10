@@ -74,24 +74,24 @@
 							<div class="form-group">
 							  <div class="col-md-2"></div>
 							  <div class="col-md-8">
-							  	<div id="tablaDinamica">
-								 	<div id="resultado">
-							   		<div id="displayTagDiv">
-							   			
-							   			<display:table  name="requestScope.lProductos2" requestURI="lPromociones.htm" class="displaytag" 
+															  	
+								<div id="tablaDinamica2">
+								 	<div id="resultado2">
+								  		<div id="displayTagDiv">
+								  			
+								  			<display:table  name="requestScope.lProductosDevoluciones" requestURI="lPromociones.htm" class="displaytag" 
 								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="rowProductos2" excludedParams="ajax">
-								            
-								            <display:column title="Codigo" property="factura.numero" sortable="true" headerClass="sortable" />
-								            <display:column title="Descripcion" property="producto.descripcion" sortable="true" headerClass="sortable" />
-								            <display:column title="Precio Unitario" property="precio" sortable="true" headerClass="sortable" />
-								            <display:column title="Cantidad" property="cantidad" sortable="true" headerClass="sortable" />
-								            <display:column title="Importe" sortable="false" headerClass="sortable">
-								            	${ rowProductos2.cantidad * rowProductos2.precio }
-								            </display:column>
-								            
-								    	</display:table>
-									
-									</div>
+									            
+									            <display:column title="Descripcion" property="producto.descripcion" sortable="true" headerClass="sortable" />
+									            <display:column title="Precio Unitario" property="producto.precio" sortable="true" headerClass="sortable" />
+									            <display:column title="Cantidad" value="1" sortable="true" headerClass="sortable" />
+									            <display:column title="Importe" sortable="false" headerClass="sortable">
+									            	${ 1 * rowProductos2.producto.precio }
+									            </display:column>
+									            
+									    	</display:table>
+										
+										</div>
 								  	</div>
 								</div>	
 							   </div>
@@ -154,6 +154,9 @@
                 console.log( " resultado " +  data );
                 if( data.idDetalleDevolucion ){
                 	console.log( " id devolucion =  "  +  data.idDetalleDevolucion );
+                	console.log( " id devolucion =  "  +  data.devolucion.idDevolucion );
+                	console.log('llamada al load para refrescar segunda tabla');
+                	cargarListaProductos( data.devolucion.idDevolucion  );
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
@@ -171,8 +174,7 @@
 	});
 	
 	$(document).undelegate('#btnAutoriza', 'click').delegate('#btnAutoriza', 'click', function(){
-		document.forms[0].action='seleccionar.htm';
-		document.forms[0].submit();
+		window.location.assign("${pageContext.request.contextPath}/producto/seleccionar.htm");
 	});
 
 
@@ -181,5 +183,14 @@
 		 
    	   	$("#displayTagDiv").displayTagAjax();
    });
-   
+
+	   function cargarListaProductos( idDevolucion ){
+		   $("#tablaDinamica2").css('opacity', 0.4);
+	   		$("#tablaDinamica2").load('${pageContext.request.contextPath}/producto/listaProductosAgregados.htm?idDevolucion='+ idDevolucion + '&randval=' + Math.random() + " #resultado2", 
+	   				function(){ 
+	   					$("#tablaDinamica2").css('opacity', 1); 
+	   					//$("#rolling").toggle(); 
+	   				}
+	   		);
+		}
 </script>

@@ -2,6 +2,11 @@ DROP DATABASE IF EXISTS reclamosBD;
 
 CREATE DATABASE IF NOT EXISTS reclamosBD;
 
+use reclamosBD;
+
+-- ------------------------------------------------------------
+-- Tabla de productos
+-- ------------------------------------------------------------
 
 CREATE TABLE producto (
   idProducto INTEGER NOT NULL AUTO_INCREMENT,
@@ -10,6 +15,7 @@ CREATE TABLE producto (
   direProducto VARCHAR(500) NULL,
   skuProducto VARCHAR(20) NULL,
   pesoProducto DECIMAL NULL,
+  precio DECIMAL NULL DEFAULT 1,
   tipoProducto INTEGER NULL,
   estado INTEGER NULL DEFAULT 1,
   created_at DATETIME NULL,
@@ -511,4 +517,5 @@ CREATE TABLE detalle_devolucion (
       ON UPDATE NO ACTION
 )
 ENGINE=INNODB;
+
 

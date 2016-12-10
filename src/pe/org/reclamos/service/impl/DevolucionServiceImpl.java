@@ -1,6 +1,7 @@
 package pe.org.reclamos.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,11 @@ public class DevolucionServiceImpl implements DevolucionService {
 			dd.setCreatedAt( new Date() );
 		}
 		devolucionDAO.grabarDetalle(dd);
+	}
+
+	@Override
+	public List<DetalleDevolucion> listarDetalleDevolucion(Integer iddevolucion) {
+		return devolucionDAO.listarDetalleDevolucion(iddevolucion);
 	}
 
 }

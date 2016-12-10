@@ -1,5 +1,7 @@
 package pe.org.reclamos.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -75,6 +77,17 @@ public class DevolucionDAOImpl extends HibernateDaoSupport implements Devolucion
 	@Override
 	public void grabarDetalle(DetalleDevolucion dd) {
 		this.getHibernateTemplate().saveOrUpdate( dd );
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DetalleDevolucion> listarDetalleDevolucion(Integer iddevolucion) {
+		try {
+			return this.getHibernateTemplate().find("from DetalleDevolucion where devolucion.idDevolucion = ? ", iddevolucion );
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

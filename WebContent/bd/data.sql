@@ -96,22 +96,22 @@ INSERT INTO `reclamosbd`.`factura`(`idFactura`,`idProveedor`,`idCliente`,`emisio
 (19,NULL,5,'2016-10-01','001-1018','2500',1,NOW(),NULL),
 (20,NULL,5,'2016-10-01','001-1019','2500',1,NOW(),NULL);
 
-INSERT INTO `reclamosbd`.`producto`(`idProducto`,`descripcion`,`fecProducto`,`direProducto`,`skuProducto`,`pesoProducto`,`tipoProducto`,`estado`,`created_at`,`updated_at`) VALUES 
-(1,'Televisor 1','2016-10-01','--','10000001','1',1,1,NOW(),NULL),
-(2,'Mouse 2','2016-10-01','--','10000002','1',1,1,NOW(),NULL),
-(3,'Reloj 3','2016-10-01','--','10000003','1',1,1,NOW(),NULL),
-(4,'Tablt AOC 4','2016-10-01','--','10000004','1',1,1,NOW(),NULL),
-(5,'Celular5','2016-10-01','--','10000005','1',1,1,NOW(),NULL),
-(6,'Licuadora 6','2016-10-01','--','10000006','1',1,1,NOW(),NULL),
-(7,'Arroecera 7','2016-10-01','--','10000007','1',1,1,NOW(),NULL),
-(8,'Hervidor 8','2016-10-01','--','10000008','1',1,1,NOW(),NULL),
-(9,'Lustradora 9','2016-10-01','--','10000009','1',1,1,NOW(),NULL),
-(10,'Laptop 10','2016-10-01','--','10000010','1',1,1,NOW(),NULL),
-(11,'Telefono 11','2016-10-01','--','10000011','1',1,1,NOW(),NULL),
-(12,'Monitor 12','2016-10-01','--','10000012','1',1,1,NOW(),NULL),
-(13,'Teclado 13','2016-10-01','--','10000013','1',1,1,NOW(),NULL),
-(14,'Ipad 14','2016-10-01','--','10000014','1',1,1,NOW(),NULL),
-(15,'MP3 15','2016-10-01','--','10000015','1',1,1,NOW(),NULL);
+INSERT INTO `reclamosbd`.`producto`(`idProducto`,`descripcion`,`fecProducto`,`direProducto`,`skuProducto`,`precio`,`pesoProducto`,`tipoProducto`,`estado`,`created_at`,`updated_at`) VALUES 
+(1,'Televisor 1','2016-10-01','--','10000001','20','1',1,1,NOW(),NULL),
+(2,'Mouse 2','2016-10-01','--','10000002','20','1',1,1,NOW(),NULL),
+(3,'Reloj 3','2016-10-01','--','10000003','20','1',1,1,NOW(),NULL),
+(4,'Tablt AOC 4','2016-10-01','--','10000004','20','1',1,1,NOW(),NULL),
+(5,'Celular5','2016-10-01','--','10000005','20','1',1,1,NOW(),NULL),
+(6,'Licuadora 6','2016-10-01','--','10000006','20','1',1,1,NOW(),NULL),
+(7,'Arroecera 7','2016-10-01','--','10000007','20','1',1,1,NOW(),NULL),
+(8,'Hervidor 8','2016-10-01','--','10000008','20','1',1,1,NOW(),NULL),
+(9,'Lustradora 9','2016-10-01','--','10000009','20','1',1,1,NOW(),NULL),
+(10,'Laptop 10','2016-10-01','--','10000010','20','1',1,1,NOW(),NULL),
+(11,'Telefono 11','2016-10-01','--','10000011','20','1',1,1,NOW(),NULL),
+(12,'Monitor 12','2016-10-01','--','10000012','20','1',1,1,NOW(),NULL),
+(13,'Teclado 13','2016-10-01','--','10000013','20','1',1,1,NOW(),NULL),
+(14,'Ipad 14','2016-10-01','--','10000014','20','1',1,1,NOW(),NULL),
+(15,'MP3 15','2016-10-01','--','10000015','20','1',1,1,NOW(),NULL);
 
 
 INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFactura`,`cantidad`,`precio`,`estado`,`created_at`,`updated_at`) VALUES 

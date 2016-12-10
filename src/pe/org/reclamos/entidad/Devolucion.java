@@ -16,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -52,7 +53,8 @@ public class Devolucion implements Serializable {
 	private Date updatedAt;
 
 	//bi-directional many-to-one association to DetalleDevolucion
-	@OneToMany(mappedBy="devolucion")
+	//@OneToMany(mappedBy="devolucion")
+    @Transient
 	private Set<DetalleDevolucion> detalleDevolucions;
 
 	//bi-directional many-to-one association to Reclamo

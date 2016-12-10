@@ -43,6 +43,8 @@ public class Producto implements Serializable {
 	private Date fecProducto;
 
 	private BigDecimal pesoProducto;
+	
+	private BigDecimal precio;
 
 	private String skuProducto;
 
@@ -159,6 +161,14 @@ public class Producto implements Serializable {
 
 	public void setDetallefacturas(Set<Detallefactura> detallefacturas) {
 		this.detallefacturas = detallefacturas;
+	}
+
+	public BigDecimal getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(BigDecimal precio) {
+		this.precio = precio;
 	}
 
 }

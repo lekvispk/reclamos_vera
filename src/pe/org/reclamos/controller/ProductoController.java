@@ -2,6 +2,7 @@ package pe.org.reclamos.controller;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -122,8 +123,22 @@ public class ProductoController {
 			   
 			   Detallefactura df = new Detallefactura();
 			   df.setFactura(factura);
-			   model.put("lProductos", facturaService.listarDetalleFactura( df ));
+			   List<Detallefactura> lista = null;
+			   lista = facturaService.listarDetalleFactura( df );
+			   model.put("lProductos", lista );
 			   model.put("factura", new Factura() );
+			   
+			   if( lista != null ){
+				   Integer idDetalleFactura =  null;
+				   for(Detallefactura dd : lista){
+					   idDetalleFactura  = dd.getIdDetalleFactura();
+				   }
+				   if( idDetalleFactura != null ){
+					   Devolucion dev = devolucionService.obtenerPorDetalleFactura( Integer.valueOf( idDetalleFactura) );
+					   //String idDevolucion = request.getParameter("idDevolucion");
+					   model.put("lProductosDevoluciones", devolucionService.listarDetalleDevolucion( dev.getIdDevolucion() ) );
+				   }
+			   }
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -152,15 +167,15 @@ public class ProductoController {
 			   
 			   devolucionService.grabarDetalle( dd );
 			   
-			   //String format = "yyyy-MM-dd";
+			   String format = "yyyy-MM-dd";
 			   
-			   //GsonBuilder gsonB = new GsonBuilder();
-			   //gsonB.registerTypeAdapter(Calendar.class, new CalendarSerializer());
-			   //gsonB.registerTypeAdapter(GregorianCalendar.class, new CalendarSerializer());
-			   //Gson gson2 = gsonB.setDateFormat( format ).create();
+			   GsonBuilder gsonB = new GsonBuilder();
+			   gsonB.registerTypeAdapter(Calendar.class, new CalendarSerializer());
+			   gsonB.registerTypeAdapter(GregorianCalendar.class, new CalendarSerializer());
+			   Gson gson2 = gsonB.setDateFormat( format ).create();
 			   
-			   json = "";//gson2.toJson( dd );
-			   json = "{  \"status\":\"1\",  \"mensaje\":\"Gabado\" } ";
+			   json = gson2.toJson( dd );
+			   //json = "{  \"status\":\"1\",  \"mensaje\":\"Gabado\" } ";
 			   response.getWriter().println( json );
 			   
 		   } catch (Exception e) {
@@ -172,4 +187,23 @@ public class ProductoController {
 		return null;
 	}
 	
+	//pantalla seleccion cambio de producto
+	//
+	@RequestMapping(value="/listaProductosAgregados.htm", method=RequestMethod.GET)
+	public String listaProductosAgregados( HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("listaProductosAgregados");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   String idDevolucion = request.getParameter("idDevolucion");
+			   model.put("lProductosDevoluciones", devolucionService.listarDetalleDevolucion(Integer.valueOf( idDevolucion )) );
+			    
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }
+		return "producto/lProductos";
+	}
 }
