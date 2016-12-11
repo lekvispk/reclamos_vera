@@ -17,7 +17,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 	@Override
 	public List<Usuario> listarUsuarios(Usuario usuario) {
-		return usuarioDAO.listarUsuario(usuario);
+		return usuarioDAO.listarUsuarios(usuario);
+	}
+
+	@Override
+	public Usuario obtener(Integer idUsuario) {
+		return usuarioDAO.obtener(idUsuario);
+	}
+
+	@Override
+	public void registrar(Usuario usuario) {
+		usuarioDAO.registrar(usuario);
 	}
 
 }

@@ -112,7 +112,7 @@
 							  <label class="col-md-4 control-label" for="prioridad">Prioridad</label>  
 							  <div class="col-md-5">
 							  	
-							  	<form:select path="prioridad" class="form-control">
+							  	<form:select path="prioridad" cssClass="form-control">
 							  		<form:option value="1">Alta</form:option>
 							  		<form:option value="2">Normal</form:option>
 							  		<form:option value="3">Baja</form:option>

@@ -217,10 +217,10 @@ ENGINE=INNODB;
 
 CREATE TABLE usuario (
   idUsuario INTEGER NOT NULL AUTO_INCREMENT,
-  idPerfil INTEGER NOT NULL,
-  idPersona INTEGER NOT NULL,
+  idPerfil INTEGER NULL,
+  idPersona INTEGER NULL,
   username VARCHAR(100) NULL,
-  ´password´ VARCHAR(500) NULL,
+  password VARCHAR(500) NULL,
   password_caduca DATETIME NULL,
   email VARCHAR(500) NULL,
   estado INTEGER NULL,
