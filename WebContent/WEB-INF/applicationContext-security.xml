@@ -30,15 +30,15 @@
 	</http>
 	
 	<authentication-manager>
-	<!-- 
+	 
 		<authentication-provider user-service-ref="userLoginService" >		 	
 		 	<password-encoder hash="md5" />		 	
 		</authentication-provider>
-	 -->	
+	<!-- 
 		 <authentication-provider>
 		    <password-encoder hash="sha"/>
 		    <user-service>
-		    	<!-- 123456 -->
+		    	< ! - - 123456 - - >
 		      <user name="lekvispk@gmail.com" password="7c4a8d09ca3762af61e59520943dc26494f8941b"
 		            authorities="ROLE_USER, ROLE_ADMIN" />
 		      <user name="dverat1@gmail.com" password="7c4a8d09ca3762af61e59520943dc26494f8941b"
@@ -46,7 +46,7 @@
 		            
 		    </user-service>
 		  </authentication-provider>
-		
+	-->		
 	</authentication-manager>
 	
 </b:beans>

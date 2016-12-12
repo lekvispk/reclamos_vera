@@ -1,13 +1,26 @@
 package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 
 /**
@@ -16,7 +29,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name="usuario")
-public class Usuario implements Serializable {
+public class Usuario  extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -48,7 +61,6 @@ public class Usuario implements Serializable {
 
 	private String username;
 
-
 	//bi-directional many-to-one association to Persona
     @ManyToOne
 	@JoinColumn(name="idPersona")
@@ -60,7 +72,30 @@ public class Usuario implements Serializable {
 	private Perfil perfil;
 
     public Usuario() {
+    	super("default", "default", true, true, true, true , uno() );		
     }
+	
+	public static List<GrantedAuthority> uno(){
+		List<GrantedAuthority> oo = new ArrayList<GrantedAuthority>(); 
+		oo.add(new GrantedAuthorityImpl("IS_AUTHENTICATED_ANONYMOUSLY") );
+		return oo;
+	}
+	
+    public static Usuario getUsuarioBean() {
+    	Usuario nu = (Usuario)(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		if(nu != null) {
+			return nu;
+		}
+		else return null;
+	}
+	
+    public Usuario(String username, String password, boolean enabled,Collection<GrantedAuthority> authorities) {
+		super(username, password, enabled, true, true, true, authorities);
+		this.estado = enabled==true ? 1 : 0;
+		this.username = username;
+		this.password = password;
+	}
+
 
 	public Integer getIdUsuario() {
 		return this.idUsuario;
@@ -150,9 +185,4 @@ public class Usuario implements Serializable {
 		this.perfil = perfil;
 	}
 
-	 @Override
-     public String toString() {
-          return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
-     }
-	 
 }

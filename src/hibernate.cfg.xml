@@ -6,6 +6,7 @@
   <session-factory>
   	
   	<mapping class="pe.org.reclamos.entidad.Apelacion"/>
+  	<mapping class="pe.org.reclamos.entidad.Authority"/>
 	<mapping class="pe.org.reclamos.entidad.Capacitacion"/>
 	<mapping class="pe.org.reclamos.entidad.CapacitacionItem"/>
 	<mapping class="pe.org.reclamos.entidad.Capacitador"/>

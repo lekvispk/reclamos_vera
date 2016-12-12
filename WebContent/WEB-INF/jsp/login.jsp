@@ -66,7 +66,7 @@
                                 	<c:if test="${not empty param.login_error}">
 										<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
 									</c:if>
-                                    <input class="form-control" placeholder="E-mail" name="j_username"  value="${username}" type="email" autofocus>
+                                    <input class="form-control" placeholder="E-mail" name="j_username"  value="${username}" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Password" name="j_password" type="password" value="">

@@ -1,3 +1,9 @@
+
+INSERT INTO `reclamosbd`.`perfil`(`idPerfil`, `perfil`,`estado`) VALUES 
+ (1,'Administrador',1),
+ (2,'Reclamos',1),
+ (3,'Consulta',1);
+ 
 INSERT INTO `reclamosbd`.`permisos`(`idPermiso`,`permiso`,`detalle`,`estado`) VALUES
  (1,'ROLE_USER','Usuario generico del sistema',1),
  (2,'ROLE_ADMIN','Administrador del sistema',1),
@@ -6,11 +12,6 @@ INSERT INTO `reclamosbd`.`permisos`(`idPermiso`,`permiso`,`detalle`,`estado`) VA
  (5,'ROLE_FIDELIZA','Ver modulo de fidelizar',1),
  (6,'ROLE_FIDELIZA_R','Registro de Fidelizar',1);
 
-INSERT INTO `reclamosbd`.`perfil`(`idPerfil`, `perfil`,`estado`) VALUES 
- (1,'Administrador',1),
- (2,'Reclamos',1),
- (3,'Consulta',1);
- 
 INSERT INTO `reclamosbd`.`permisos_perfil`(`idPermiso`,`idPerfil`,`estado`)VALUES 
  (1,1,1),
  (2,1,1),
@@ -28,8 +29,8 @@ INSERT INTO `reclamosbd`.`permisos_perfil`(`idPermiso`,`idPerfil`,`estado`)VALUE
  (5,3,1);
 
 INSERT INTO `reclamosbd`.`persona`(`idPersona`,`nombres`,`ape_paterno`,`numero_documento`,`direccion`,`ubigeo`,`telefono1`,`telefono2`,`email`,`estado`,`created_at`,`updated_at`)VALUES 
-(1,'juan','abanto','40004001','Av. Principal 100','020109','4170202',NULL,'email1@gmail.com',1, NOW(),NULL),
-(2,'carlos','santiesteban','40004002','Av. Principal 200','020109','4170202',NULL,'email2@gmail.com',1, NOW(),NULL),
+(1,'Carlos','Vera','40004001','Av. Principal 100','020109','4170202',NULL,'dverat@gmail.com',1, NOW(),NULL),
+(2,'Elvis','Campos','40004002','Av. Principal 200','020109','4170202',NULL,'lekvispk@gmail.com',1, NOW(),NULL),
 (3,'pedro','aquijano','40004003','Av. Principal 300','020109','4170202',NULL,'email3@gmail.com',1, NOW(),NULL),
 (4,'marta','quino','40004004','Av. Principal 400','020109','4170202',NULL,'email4@gmail.com',1, NOW(),NULL),
 (5,'lourdes','malpartida','40004005','Av. Principal 500','020109','4170202',NULL,'email5@gmail.com',1, NOW(),NULL),
@@ -38,6 +39,20 @@ INSERT INTO `reclamosbd`.`persona`(`idPersona`,`nombres`,`ape_paterno`,`numero_d
 (8,'maritza','mori','40004008','Av. Principal 800','020109','4170202',NULL,'email8@gmail.com',1, NOW(),NULL),
 (9,'clara','almeyda','40004009','Av. Principal 900','020109','4170202',NULL,'email9@gmail.com',1, NOW(),NULL),
 (10,'karen','risco','40004010','Av. Principal 1100','020109','4170202',NULL,'email10@gmail.com',1, NOW(),NULL);
+
+INSERT INTO `reclamosbd`.`usuario`(`idUsuario`,`idPerfil`,`idPersona`,`username`,`password`,`password_caduca`,`email`,`estado`,`created_at`,`updated_at`,`deleted_at`) VALUES 
+(1,1,1,'dverat','e10adc3949ba59abbe56e057f20f883e',NULL,'dverat@gmail.com',1,NOW(),NULL,NULL),
+(2,1,1,'lekvispk','e10adc3949ba59abbe56e057f20f883e',NULL,'lekvispk@gmail.com',1,NOW(),NULL,NULL);
+
+INSERT INTO `reclamosbd`.`authorities`(`id`,`username`,`authority`) VALUES 
+(1,'dverat','ROLE_USER'),
+(2,'dverat','ROLE_ADMIN'),
+(3,'dverat','ROLE_RECLAMO'),
+(4,'dverat','ROLE_FIDELIZA'),
+(5,'lekvispk','ROLE_USER'),
+(6,'lekvispk','ROLE_ADMIN'),
+(7,'lekvispk','ROLE_RECLAMO'),
+(8,'lekvispk','ROLE_FIDELIZA');
 
 INSERT INTO `reclamosbd`.`capacitador` (`idCapacitador`, `codigo`, `nombre`, `apellidos`, `estado`, `created_at`, `updated_at`) VALUES 
  (1,'CAP001', 'Juan', 'Perez', 1, NOW(), NULL),

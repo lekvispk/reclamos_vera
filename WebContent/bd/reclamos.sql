@@ -130,6 +130,18 @@ CREATE TABLE permisos (
 )
 ENGINE=INNODB;
 
+-- ------------------------------------------------------------
+-- Tabla en donde se guarda la lista de perfiles para cada usuario. Requerida por Spring
+-- ------------------------------------------------------------
+
+CREATE TABLE authorities (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  authority VARCHAR(50) NOT NULL,
+  PRIMARY KEY(id)
+)
+ENGINE=INNODB;
+
 CREATE TABLE capacitador (
   idCapacitador INTEGER NOT NULL AUTO_INCREMENT,
   codigo VARCHAR(15) NULL,

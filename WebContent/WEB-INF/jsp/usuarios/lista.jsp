@@ -41,7 +41,7 @@
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax">
 						           
 						           <display:column title="Usuario" property="username" sortable="true" headerClass="sortable" />
-						           <display:column title="Nombres" property="email" sortable="true" headerClass="sortable" />
+						           <display:column title="Nombres" property="persona.nombres" sortable="true" headerClass="sortable" />
 						           <display:column title="Email" property="email" sortable="true" headerClass="sortable" />
 						           <display:column title="Perfil" property="perfil.perfil" sortable="true" headerClass="sortable" />
 						           <display:column>

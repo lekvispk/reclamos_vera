@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pe.org.reclamos.dao.UsuarioDAO;
 import pe.org.reclamos.entidad.Usuario;
 import pe.org.reclamos.service.UsuarioService;
+import pe.org.reclamos.utiles.Utiles;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -27,6 +28,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public void registrar(Usuario usuario) {
+		if( usuario.getIdUsuario() == null || usuario.getIdUsuario() == 0 ){
+			usuario.setPassword( Utiles.hashMd5(usuario.getPassword() ) );	
+		}
 		usuarioDAO.registrar(usuario);
 	}
 
