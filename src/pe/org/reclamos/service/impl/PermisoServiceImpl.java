@@ -20,4 +20,9 @@ public class PermisoServiceImpl implements PermisoService {
 		return permisoDAO.listarPermisos();
 	}
 
+	@Override
+	public List<Permiso> listarPermisos(Integer idPerfil) {
+		return permisoDAO.listarPermisos(idPerfil);
+	}
+
 }

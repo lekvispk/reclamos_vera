@@ -1,12 +1,14 @@
 package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import java.util.Set;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -75,9 +77,4 @@ public class Permiso implements Serializable {
 		this.permisosPerfils = permisosPerfils;
 	}
 	
-	 @Override
-     public String toString() {
-          return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
-     }
-	 
 }

@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.reclamos.dao.UsuarioDAO;
+import pe.org.reclamos.entidad.Authority;
+import pe.org.reclamos.entidad.Permiso;
 import pe.org.reclamos.entidad.Usuario;
 import pe.org.reclamos.utiles.Utiles;
 
@@ -65,10 +69,10 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public void registrar(Usuario usuario) {
 		this.getHibernateTemplate().saveOrUpdate( usuario );
 	}
-
 
 	@Override
 	public Usuario obtenerUsuarioPorUsername(String username) {
@@ -76,6 +80,18 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
         .setString("id", username);
 		Usuario h = (Usuario)query.uniqueResult();
 		return h;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
+	public void registrarPermisos(Usuario usuario, List<Permiso> permisos) {
+		for(Permiso p : permisos){
+			logger.debug( p.getPermiso() + " " + usuario.getUsername() );
+			Authority permiso = new Authority();
+			permiso.setAuthority( p.getPermiso() );
+			permiso.setUsername( usuario.getUsername() );
+			this.getHibernateTemplate().saveOrUpdate( permiso );	
+		}
 	}
 
 }

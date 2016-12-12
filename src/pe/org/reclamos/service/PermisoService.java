@@ -7,5 +7,6 @@ import pe.org.reclamos.entidad.Permiso;
 public interface PermisoService {
 
 	public List<Permiso> listarPermisos();
+	public List<Permiso> listarPermisos(Integer idPerfil);
 	
 }
