@@ -166,3 +166,12 @@ INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFac
 (34,4,18,'1','100',1,NOW(), NULL),
 (35,5,19,'1','100',1,NOW(), NULL),
 (36,6,20,'1','100',1,NOW(), NULL);
+
+INSERT INTO `reclamosbd`.`despachador` (`idDespachador`, `codigo`, `nombres`, `apellidos`, `estado`, `created_at` ) VALUES 
+(1,'D001', 'Juan', 'Perez', 1, NOW()),
+(2,'D002', 'Luis', 'Salgado', 1, NOW()),
+(3,'D003', 'Enrique', 'Escobar', 1, NOW()),
+(4,'D004', 'Raquel', 'Tarazona', 1, NOW()),
+(5,'D005', 'Javier', 'Vilca', 1, NOW()),
+(6,'D006', 'Pedro', 'Chavez', 1, NOW()),
+(7,'D007', 'Antonio', 'Solis', 1, NOW());

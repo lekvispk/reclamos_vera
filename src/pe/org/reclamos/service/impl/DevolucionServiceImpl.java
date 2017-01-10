@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.org.reclamos.dao.DevolucionDAO;
+import pe.org.reclamos.entidad.Despachador;
 import pe.org.reclamos.entidad.DetalleDevolucion;
 import pe.org.reclamos.entidad.Devolucion;
 import pe.org.reclamos.service.DevolucionService;
@@ -57,6 +58,16 @@ public class DevolucionServiceImpl implements DevolucionService {
 	@Override
 	public List<DetalleDevolucion> listarDetalleDevolucion(Integer iddevolucion) {
 		return devolucionDAO.listarDetalleDevolucion(iddevolucion);
+	}
+
+	@Override
+	public List<DetalleDevolucion> listarProductosParaDevolver() {
+		return devolucionDAO.listarProductosParaDevolver( );
+	}
+
+	@Override
+	public List<Despachador> listarDespachadores() {
+		return devolucionDAO.listarDespachadores();
 	}
 
 }

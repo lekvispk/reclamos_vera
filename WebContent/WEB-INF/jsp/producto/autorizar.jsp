@@ -156,7 +156,8 @@
             success: function( data, textStatus, jqXHR) {
                 console.log( " status " +  data.status);
                 if( data.status ){
-                	$('#btnAutoriza').attr( 'disabled','' );
+                	$('#btnAutoriza').removeAttr('disabled');
+                	alert('Datos grabados satsfactoriamente');	
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){

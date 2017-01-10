@@ -135,8 +135,10 @@ public class ProductoController {
 				   }
 				   if( idDetalleFactura != null ){
 					   Devolucion dev = devolucionService.obtenerPorDetalleFactura( Integer.valueOf( idDetalleFactura) );
-					   //String idDevolucion = request.getParameter("idDevolucion");
-					   model.put("lProductosDevoluciones", devolucionService.listarDetalleDevolucion( dev.getIdDevolucion() ) );
+					   if( dev != null){
+						   //String idDevolucion = request.getParameter("idDevolucion");
+						   model.put("lProductosDevoluciones", devolucionService.listarDetalleDevolucion( dev.getIdDevolucion() ) );   
+					   }
 				   }
 			   }
 			   
@@ -206,4 +208,82 @@ public class ProductoController {
 		   }
 		return "producto/lProductos";
 	}
+	
+	@RequestMapping(value="/asignar.htm", method=RequestMethod.GET)
+	public String preAsignar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("preAsignar");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   model.put("factura", new Factura() );
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			//  model.put("reclamo", new Reclamo() );
+		   }
+		return "producto/asignar";
+	}
+	
+	@RequestMapping(value="/asignar.htm", method=RequestMethod.POST)
+	public String asignar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("asignar");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   //model.put("factura", new Factura() );
+			   String respuesta = "{ \"status\":\"1\", \"mensaje\":\"Asignacion registrada\" } ";
+			   response.getWriter().println( respuesta );
+			 
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			//  model.put("reclamo", new Reclamo() );
+		   }
+		return null;
+	}
+	
+	@RequestMapping(value="/buscarProductosParaAsignarDespachador.htm", method=RequestMethod.GET)
+	public String buscarProductosParaAsignarDespachador(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("buscarProductosParaAsignarDespachador");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   model.put("factura", new Factura() );
+			   model.put("lProductos", devolucionService.listarProductosParaDevolver() );
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }
+		return "producto/asignar";
+	}
+	
+	@RequestMapping(value="/listaDespachadores.htm", method=RequestMethod.GET)
+	public String listaDespachadores(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("listaDespachadores");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   model.put("factura", new Factura() );
+			   model.put("lDespachadores", devolucionService.listarDespachadores() );
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }
+		return "producto/asignar";
+	}
+	
 }

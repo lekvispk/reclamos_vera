@@ -137,13 +137,13 @@
 
 	
 	$(document).undelegate('#btnAgregar', 'click').delegate('#btnAgregar', 'click', function(){
-
+		console.log('agregar produicto para devolucion');
 		var fields = $("input[name='_chkIt']:checked").serializeArray(); 
 	    if (fields.length == 0) { 
 	    	alert('Selecione un producto');
 	    	return;
 	    }
-
+	    console.log('inicia llamada ajax con datos: ' +$("input[name='_chkIt']:checked").val());
 	    $.ajax({
             url: "${pageContext.request.contextPath}/producto/agregar.htm",
             dataType: "json",
@@ -151,7 +151,7 @@
             data: { 'idDetalleFactura':''+$("input[name='_chkIt']:checked").val() 
                 	},
             success: function( data ) {
-                console.log( " resultado " +  data );
+                console.log( "ok... resultado " +  data );
                 if( data.idDetalleDevolucion ){
                 	console.log( " id devolucion =  "  +  data.idDetalleDevolucion );
                 	console.log( " id devolucion =  "  +  data.devolucion.idDevolucion );
@@ -174,7 +174,7 @@
 	});
 	
 	$(document).undelegate('#btnAutoriza', 'click').delegate('#btnAutoriza', 'click', function(){
-		window.location.assign("${pageContext.request.contextPath}/producto/seleccionar.htm");
+		window.location.assign("${pageContext.request.contextPath}/inicio.htm");
 	});
 
 

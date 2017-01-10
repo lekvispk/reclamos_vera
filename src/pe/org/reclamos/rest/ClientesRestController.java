@@ -35,18 +35,19 @@ public class ClientesRestController {
 	@RequestMapping(value = "/{user}", method = RequestMethod.GET )
 	public @ResponseBody String datosCliente(@PathVariable String user, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("cliente = " + user+" ");
-		 String json = "";
+		String json = "";
 		try {
 			response.setContentType("application/json; charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
 			Cliente cliente = clienteService.obtener( new Long(user));
-			
+			logger.debug("cliente: " +cliente);
 			Gson gson = new Gson();
 		    json = gson.toJson(cliente);
 		    
 		} catch (Exception e) {
-			 json = "";
+			logger.debug("Error: " +e.getMessage());
+			json = "";
 		}
 		return json;
 	}

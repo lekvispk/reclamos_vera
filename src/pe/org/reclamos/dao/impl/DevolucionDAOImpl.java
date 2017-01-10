@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import pe.org.reclamos.dao.DevolucionDAO;
+import pe.org.reclamos.entidad.Despachador;
 import pe.org.reclamos.entidad.DetalleDevolucion;
 import pe.org.reclamos.entidad.Devolucion;
 
@@ -61,6 +62,7 @@ public class DevolucionDAOImpl extends HibernateDaoSupport implements Devolucion
 			//return (Devolucion) this.getHibernateTemplate().find( sql.toString(), idDetalleFactura).get(0);
 			
 			logger.debug("query " + sql.toString() );
+			logger.debug("idDetalleFactura = " + idDetalleFactura  );
 			Session session =  getSession();
 			Query query = session.createSQLQuery( sql.toString() )
 			.addEntity(Devolucion.class)
@@ -84,6 +86,28 @@ public class DevolucionDAOImpl extends HibernateDaoSupport implements Devolucion
 	public List<DetalleDevolucion> listarDetalleDevolucion(Integer iddevolucion) {
 		try {
 			return this.getHibernateTemplate().find("from DetalleDevolucion where devolucion.idDevolucion = ? ", iddevolucion );
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DetalleDevolucion> listarProductosParaDevolver() {
+		try {
+			return this.getHibernateTemplate().find("from DetalleDevolucion where estado = ? " , 1 );
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Despachador> listarDespachadores() {
+		try {
+			return this.getHibernateTemplate().find("from Despachador where estado = ? " , 1 );
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

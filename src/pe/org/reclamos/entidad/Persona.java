@@ -61,8 +61,8 @@ public class Persona implements Serializable {
 
 	//bi-directional many-to-one association to Usuario
 	//@OneToMany(mappedBy="persona")
-    @Transient
-	private Set<Usuario> usuarios;
+    //@Transient
+	//private Set<Usuario> usuarios;
 
     public Persona() {
     }
@@ -155,13 +155,13 @@ public class Persona implements Serializable {
 		this.clientes = clientes;
 	}
 	
-	public Set<Usuario> getUsuarios() {
+	/*public Set<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
-	}
+	}*/
 
 	 public String getApeMaterno() {
 		return apeMaterno;
