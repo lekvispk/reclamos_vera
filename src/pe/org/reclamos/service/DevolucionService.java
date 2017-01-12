@@ -16,5 +16,6 @@ public interface DevolucionService {
 	public List<DetalleDevolucion> listarDetalleDevolucion(Integer iddevolucion);
 	public List<DetalleDevolucion> listarProductosParaDevolver();
 	public List<Despachador> listarDespachadores();
+	public DetalleDevolucion obtenerDetalleDevolucion(Integer idDetalleDevolucion);
 	
 }

@@ -25,13 +25,13 @@
 							  <label class="col-md-4 control-label" for="ruc">Día de la semana</label>  
 							  <div class="col-md-4">
 							  	<select name="dia" id="dia" class="form-control input-md">
-							  		<option value="1">Lunes</option>
-							  		<option value="2">Martes</option>
-							  		<option value="3">Miércoles</option>
-							  		<option value="4">Jueves</option>
-							  		<option value="5">Viernes</option>
-							  		<option value="6">Sábado</option>
-							  		<option value="7">Domingo</option>
+							  		<option value="2">Lunes</option>
+							  		<option value="3">Martes</option>
+							  		<option value="4">Miércoles</option>
+							  		<option value="5">Jueves</option>
+							  		<option value="6">Viernes</option>
+							  		<option value="7">Sábado</option>
+							  		<option value="1">Domingo</option>
 							  	</select>
 							  </div>
 							  <div class="col-md-4">
@@ -185,8 +185,8 @@
             dataType: "json",
             method: "POST",
             data: { 
-            		'idDespachador': $("input[name='_chkIt']:checked").val(),
-            		'idProducto': $("input[name='_chkDes']:checked").val(),
+    	        	'idDetalleDevolucion': $("input[name='_chkIt']:checked").val(),	
+            		'idDespachador': $("input[name='_chkDes']:checked").val(),
             		'dia': $("#dia").val(),
             		'hora': $("#hora").val()
             	},
@@ -215,7 +215,7 @@
 	 $( function(){
 		$('#datetimepicker1').datetimepicker();
 	    $('#hora').datetimepicker({
-            format: 'LT'
+	    	 format: 'HH:mm:ss'
         });
    	   	$("#displayTagDiv").displayTagAjax();
    });

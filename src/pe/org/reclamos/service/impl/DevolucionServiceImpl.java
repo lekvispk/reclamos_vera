@@ -70,4 +70,9 @@ public class DevolucionServiceImpl implements DevolucionService {
 		return devolucionDAO.listarDespachadores();
 	}
 
+	@Override
+	public DetalleDevolucion obtenerDetalleDevolucion(Integer idDetalleDevolucion) {
+		return devolucionDAO.obtenerDetalleDevolucion(idDetalleDevolucion);
+	}
+
 }

@@ -96,7 +96,8 @@ public class DevolucionDAOImpl extends HibernateDaoSupport implements Devolucion
 	@Override
 	public List<DetalleDevolucion> listarProductosParaDevolver() {
 		try {
-			return this.getHibernateTemplate().find("from DetalleDevolucion where estado = ? " , 1 );
+			//detalledevolucion que no tengan asignado despachador
+			return this.getHibernateTemplate().find("from DetalleDevolucion dd where dd.estado = ? and dd.despachador.idDespachador is null " , 1 );
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -108,6 +109,16 @@ public class DevolucionDAOImpl extends HibernateDaoSupport implements Devolucion
 	public List<Despachador> listarDespachadores() {
 		try {
 			return this.getHibernateTemplate().find("from Despachador where estado = ? " , 1 );
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public DetalleDevolucion obtenerDetalleDevolucion(Integer idDetalleDevolucion) {
+		try {
+			return (DetalleDevolucion) this.getHibernateTemplate().find("from DetalleDevolucion where idDetalleDevolucion = ? ", idDetalleDevolucion).get(0);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

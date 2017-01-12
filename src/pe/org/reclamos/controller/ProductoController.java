@@ -1,6 +1,8 @@
 package pe.org.reclamos.controller;
 
+import java.sql.Time;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import pe.org.reclamos.entidad.Despachador;
 import pe.org.reclamos.entidad.DetalleDevolucion;
 import pe.org.reclamos.entidad.Detallefactura;
 import pe.org.reclamos.entidad.Devolucion;
@@ -236,7 +239,30 @@ public class ProductoController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   //model.put("factura", new Factura() );
+			   String dia = request.getParameter("dia");
+			   logger.debug("dia " + dia);
+			   Date date = new Date();
+			   Calendar lunes = Calendar.getInstance(); 
+			   lunes.setTime(date);
+			   logger.debug(" dia actual = " + lunes.get(Calendar.DAY_OF_WEEK) ) ;
+			   lunes.set( Calendar.DAY_OF_WEEK , Integer.valueOf( dia ));
+			   logger.debug(" dia modificado = " + lunes.get(Calendar.DAY_OF_WEEK) ) ;
+			   logger.debug(" fecha modificada = " + Utiles.DateToString( lunes.getTime() , "dd/MM/yyyy") );
+			   
+			   //Date fecha = Utiles.stringToDate( request.getParameter("fecha"), "dd/MM/yyyy") ; 
+			   logger.debug("hora " + request.getParameter("hora"));
+			   java.sql.Time hora = Time.valueOf(request.getParameter("hora"));
+			   
+			   Integer idDetalleDevolucion = Integer.valueOf( request.getParameter("idDetalleDevolucion")); 
+			   DetalleDevolucion detDev = devolucionService.obtenerDetalleDevolucion( idDetalleDevolucion );
+			   Despachador des = new Despachador();
+			   des.setIdDespachador( Integer.valueOf( request.getParameter("idDespachador")));
+			   detDev.setDespachador( des );
+			   detDev.setFechaEntrega( lunes.getTime() );
+			   detDev.setHoraEntrega( hora );
+			   
+			   devolucionService.grabarDetalle( detDev );
+			   
 			   String respuesta = "{ \"status\":\"1\", \"mensaje\":\"Asignacion registrada\" } ";
 			   response.getWriter().println( respuesta );
 			 
@@ -244,8 +270,9 @@ public class ProductoController {
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			//  model.put("reclamo", new Reclamo() );
+			 String json = "{  \"status\":\"2\",  \"mensaje\":\""+e.getMessage()+"\" } ";
+			 try{ response.getWriter().println( json ); } 
+			 catch(Exception e2){ }
 		   }
 		return null;
 	}
