@@ -6,6 +6,7 @@ import javax.persistence.*;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,6 +27,9 @@ public class Perfil implements Serializable {
 
 	private String perfil;
 
+	@Transient
+	private List<Permiso> listaPermisos;
+	
 	//bi-directional many-to-one association to PermisosPerfil
 	@OneToMany(mappedBy="perfil")
 	private Set<PermisosPerfil> permisosPerfils;
@@ -77,9 +81,14 @@ public class Perfil implements Serializable {
 		this.usuarios = usuarios;
 	}
 
-	 @Override
-     public String toString() {
-          return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
-     }
+	public List<Permiso> getListaPermisos() {
+		return listaPermisos;
+	}
+
+	public void setListaPermisos(List<Permiso> listaPermisos) {
+		this.listaPermisos = listaPermisos;
+	}
+
+	
 	 
 }

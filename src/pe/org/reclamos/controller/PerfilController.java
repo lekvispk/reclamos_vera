@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import pe.org.reclamos.entidad.Perfil;
 import pe.org.reclamos.service.PerfilService;
+import pe.org.reclamos.service.PermisoService;
 
 @Controller
 @RequestMapping(value="/perfil")
@@ -23,6 +24,9 @@ public class PerfilController {
 	
 	@Autowired
 	PerfilService perfilService;
+	
+	@Autowired
+	PermisoService permisosService;
 	
 	@RequestMapping(value="/lista.htm", method=RequestMethod.GET)
 	public String lista(HttpServletRequest request, HttpServletResponse response, ModelMap model){
@@ -71,6 +75,8 @@ public class PerfilController {
 			   request.setCharacterEncoding("UTF8");
 			   Long id = new Long(request.getParameter("id"));
 			   model.put("perfil", perfilService.obtener( id ) );
+			   
+			   model.put("lPermisos", permisosService.listarPermisos() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();

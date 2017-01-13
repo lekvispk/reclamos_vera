@@ -22,7 +22,7 @@
 							<!-- Form Name -->
 							<legend>Registrar Perfil</legend>
 							
-							<!-- RUC Text input-->
+							<!-- Nombre de perfil Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="rucCliente">Perfil</label>  
 							  <div class="col-md-5">
@@ -38,6 +38,12 @@
 							  </div>
 							</div>
 							
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="rucCliente">Lista de Permisos</label>  
+							  <div class="col-md-5">
+							   	<form:checkboxes items="${lPermisos}" path="listaPermisos" itemLabel="permiso" itemValue="idPermiso" delimiter="<br>"/>
+							  </div>
+							</div>
 							
 							<!-- Button -->
 							<div class="form-group">
