@@ -45,8 +45,8 @@
 						           <display:column title="Email" property="email" sortable="true" headerClass="sortable" />
 						           <display:column title="Perfil" property="perfil.perfil" sortable="true" headerClass="sortable" />
 						           <display:column>
-						           	<a href="#">M</a>
-						           	<a href="#">M</a>
+						           		<a href="modificar.htm?idUsuario=${row.idUsuario}" title="Editar Usuario"><span class="glyphicon glyphicon-pencil"></span></a>
+						         		<a href="javascript:eliminar(${row.idUsuario});" title="Eliminar Usuario" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
 						           </display:column>
 						    	</display:table>
 							</div>
@@ -100,9 +100,9 @@
 	}
 	
 	function eliminar(id){
-		if(confirm('¿Está seguro de eliminar al cliente?')){
+		if(confirm('¿Está seguro de eliminar al usuario?')){
 			$("#tablaDinamica").css('opacity', 0.4);
-	   		$("#tablaDinamica").load('eliminarCliente.htm?id='+ id +'&randval=' + Math.random() + " #resultado", 
+	   		$("#tablaDinamica").load('eliminar.htm?idUsuario='+ id +'&randval=' + Math.random() + " #resultado", 
 	   				function(){ 
 	   					$("#tablaDinamica").css('opacity', 1); 
 	   					//$("#rolling").toggle(); 

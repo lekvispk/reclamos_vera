@@ -55,4 +55,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 	}
 
+	@Override
+	public void eliminar(Integer idUsuario) {
+		usuarioDAO.eliminar(idUsuario);
+	}
+
 }

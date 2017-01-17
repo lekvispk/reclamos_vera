@@ -1,5 +1,6 @@
 package pe.org.reclamos.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,18 @@ public class ClienteServiceImpl implements ClienteService {
 	
 	@Override
 	public void registrar(Cliente cliente) {
+		if( cliente.getIdCliente()==null ){
+			System.out.println("CLIETNE NUEVO SERVICE");
+			cliente.setFecCliente( new Date() );
+			cliente.setEstado( 1 );
+			
+			cliente.getPersona().setEstado(1);
+			cliente.getPersona().setCreatedAt( new Date() );
+			
+		}else{
+			System.out.println("CLIETNE MODIFICADO SERVICE");
+			cliente.getPersona().setUpdatedAt( new Date() );
+		}
 		clienteDAO.registrar(cliente);
 	}
 

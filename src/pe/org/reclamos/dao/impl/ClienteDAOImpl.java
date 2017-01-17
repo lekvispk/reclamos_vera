@@ -28,6 +28,7 @@ public class ClienteDAOImpl extends HibernateDaoSupport implements ClienteDAO {
 	
 	@Override
 	public void registrar(Cliente cliente) {
+		this.getHibernateTemplate().saveOrUpdate( cliente.getPersona() );
 		this.getHibernateTemplate().saveOrUpdate( cliente );
 	}
 

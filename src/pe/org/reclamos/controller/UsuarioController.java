@@ -96,4 +96,21 @@ public class UsuarioController {
 			return "usuarios/registro";
 		}
 	 }
+	
+	@RequestMapping(value="/modificar.htm" , method=RequestMethod.GET)
+	public String preModificarUsuario( ModelMap model,HttpServletRequest request){
+		logger.debug("pre modificar usuario");
+		Usuario usr = usuarioService.obtener( Integer.valueOf( request.getParameter("idUsuario")));
+		model.put("usuario", usr );
+		model.put("lPerfiles", perfilService.listarPerfiles() );
+		return "usuarios/registro";
+	}
+	
+	@RequestMapping(value="/eliminar.htm" , method=RequestMethod.GET)
+	public String eliminarUsuario( ModelMap model,HttpServletRequest request){
+		logger.debug("eliminar usuario");
+		usuarioService.eliminar( Integer.valueOf( request.getParameter("idUsuario")));
+		return "redirect:/usuario/lista.htm";
+	}
+	
 }

@@ -39,7 +39,11 @@
 							</fieldset>
 				          </form:form>
 				   		
-                         	<div id="tablaDinamica">
+				   		<div class="form-group">
+						  <label class="col-md-2"></label>
+						  <div class="col-md-8">
+								
+		                 	<div id="tablaDinamica">
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
 					   		
@@ -62,6 +66,12 @@
 							</div>
 						  	</div>
 							</div>			
+                                
+		                            
+						  </div>
+						  <label class="col-md-2"></label>
+						</div>
+						
                         
                     </div>
                     <!-- /.col-lg-12 -->

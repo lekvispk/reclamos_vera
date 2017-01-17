@@ -65,16 +65,11 @@
 						            	<c:if test="${row.estado == 2}">Inactivo</c:if>
 						            	<c:if test="${row.estado == 3}">Eliminado</c:if>
 						            </display:column>
-						           <%--
-						            <display:column title="Codigo" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						            <display:column title="Asunto" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						            
-						            <display:column title="RUC" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						            <display:column title="Prioridad" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						            <display:column title="Fec. Vencimiento" property="fechaIngreso" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-						            
-						            <display:column title="Factura" property="entidad.nombreEntidad" sortable="true" headerClass="sortable" />
-						           --%>
+						           <display:column title="Acciones" sortable="false">
+						           		<a href="modificar.htm?idCliente=${row.idCliente}" title="Editar Cliente"><span class="glyphicon glyphicon-pencil"></span></a>
+						         		<a href="javascript:eliminar(${row.idCliente});" title="Eliminar Cliente" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+						            </display:column>
+						           
 						   		</display:table>
 							</div>
 						  	</div>

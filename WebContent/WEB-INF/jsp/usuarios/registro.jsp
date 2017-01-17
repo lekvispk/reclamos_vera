@@ -27,7 +27,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="rucCliente">Persona</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="persona" id="persona" class="form-control input-md"> 
+							  	<input type="text" name="persona.idPersona" id="persona.idPersona" class="form-control input-md"> 
 							  </div>
 							</div>
 							

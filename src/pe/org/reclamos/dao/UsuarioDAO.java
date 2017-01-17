@@ -13,5 +13,6 @@ public interface UsuarioDAO {
 	public void registrar(Usuario usuario);
 	public Usuario obtenerUsuarioPorUsername(String username);
 	public void registrarPermisos(Usuario usuario, List<Permiso> permisos);
+	public void eliminar(Integer idUsuario);
 	
 }

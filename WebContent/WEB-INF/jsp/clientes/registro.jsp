@@ -18,7 +18,7 @@
 							<fieldset>
 							
 							<form:hidden path="idCliente"/>
-        					<input type="hidden" value="1" name="estado"/>  
+							<input type="hidden" value="1" name="estado"/>  
         					
 							<!-- Form Name -->
 							<legend>Registrar Cliente</legend>
@@ -39,22 +39,86 @@
 							  </div>
 							</div>
 							
-							<!-- direccionl Text input-->
+							<!-- Razon Social Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="direCliente">Direccion</label>  
+							  <label class="col-md-4 control-label" for="representante">Representante</label>  
 							  <div class="col-md-5">
-							  	<form:input path="direCliente" id="direCliente" size="40" maxlength="500" cssClass="form-control input-md" />
+							  	<form:input path="representante" id="representante" size="30" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
-							<!--email Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="email">Email</label>  
-							  <div class="col-md-5">
-							  	<form:input path="email" id="email" size="30" maxlength="100" cssClass="form-control input-md" />
-							  </div>
-							</div>
+							</fieldset>
 							
+							<fieldset>
+							<legend>Datos adicionales</legend>
+								<form:hidden path="persona.idPersona"/>
+								<form:hidden path="persona.estado"/>
+								
+								<!-- Nombre Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Nombres</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.nombres" id="persona.nombres" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+								<!-- Ape PaternoText input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Apellido paterno</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.apePaterno" id="persona.apePaterno" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+								<!-- Ape Materno Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Apellido Materno</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.apeMaterno" id="persona.apeMaterno" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+								<!-- Ape Materno Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Dirección</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.direccion" id="persona.direccion" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+								<!-- Ape Materno Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Email</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.email" id="persona.email" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+								<!-- Ape Materno Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Num. Documento</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.numeroDocumento" id="persona.numeroDocumento" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+								<!-- Ape Materno Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Telefono</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.telefono1" id="persona.telefono1" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+								<!-- Ape Materno Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" for="representante">Celular</label>  
+								  <div class="col-md-5">
+								  	<form:input path="persona.telefono2" id="persona.telefono2" size="30" cssClass="form-control input-md" />
+								  </div>
+								</div>
+								
+							</fieldset>
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
@@ -63,7 +127,8 @@
 							  </div>
 							</div>
 							
-							</fieldset>
+							
+							
 				          </form:form>
 				   	
                     </div>

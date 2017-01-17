@@ -20,26 +20,31 @@
 							<legend>Lista de Permisos</legend>
 						
 							</fieldset>
-				          </form:form>
+				        </form:form>
 				   		
-                         	<div id="tablaDinamica">
-						 	<div id="resultado">
-					   		<div id="displayTagDiv">
-					   		
-					   		
-						    	<display:table  name="requestScope.lPermisos" requestURI="lista.htm" class="displaytag" pagesize="20"
-						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax">
-						           
-						           <display:column title="Id" property="idPermiso" sortable="true" headerClass="sortable" />
-						           <display:column title="Permiso" property="permiso" sortable="true" headerClass="sortable" />
-						          
-						    	</display:table>
-							</div>
-						  	</div>
-							</div>			
-                        
-                        
-                        
+				   		<div class="form-group">
+						  <label class="col-md-2"></label>
+						  <div class="col-md-8">
+								
+		                        <div id="tablaDinamica">
+								 	<div id="resultado">
+							   			<div id="displayTagDiv">
+							   			<display:table  name="requestScope.lPermisos" requestURI="lista.htm" class="displaytag" pagesize="20"
+								            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax">
+								           
+								           <display:column title="Id" property="idPermiso" sortable="true" headerClass="sortable" />
+								           <display:column title="Permiso" property="permiso" sortable="true" headerClass="sortable" />
+								          
+								    	</display:table>
+										</div>
+								  	</div>
+								</div>			
+		                        
+		                            
+						  </div>
+						  <label class="col-md-2"></label>
+						</div>
+						
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -53,14 +58,12 @@
 			<div id="cuerpoDiv"></div>
 		</div>
 		
-		
 	 <jsp:include page="../../include/pie.jsp"/>
-	 
 	 
 <script>
 	
 	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   });
+	   	   $("#displayTagDiv").displayTagAjax();
+	 });
    
 </script>

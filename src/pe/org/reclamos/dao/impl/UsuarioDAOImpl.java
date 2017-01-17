@@ -94,4 +94,9 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
 		}
 	}
 
+	@Override
+	public void eliminar(Integer idUsuario) {
+		this.getHibernateTemplate().bulkUpdate("update Usuario u set estado=0 where idUsuario= ?  ", idUsuario);
+	}
+
 }

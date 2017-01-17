@@ -73,5 +73,19 @@ public class ClientesController {
 		}
 	 }  
 	
+	@RequestMapping(value="/modificar.htm" , method=RequestMethod.GET)
+	public String preModificarCliente( ModelMap model, HttpServletRequest request){
+		logger.debug("pre modificar cliente");
+		Cliente cli = clienteService.obtener( new Long(request.getParameter("idCliente")) );
+		model.put("cliente", cli );
+		return "clientes/registro";
+	}
+	
+	@RequestMapping(value="/eliminar.htm" , method=RequestMethod.GET)
+	public String eliminarCliente( ModelMap model, HttpServletRequest request){
+		logger.debug("eliminmar cliente");
+		clienteService.eliminar( new Long(request.getParameter("idCliente")) );
+		return "redirect:/clientes/lista.htm";
+	}
 	
 }
