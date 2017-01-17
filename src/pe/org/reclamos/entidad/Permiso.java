@@ -76,5 +76,24 @@ public class Permiso implements Serializable {
 	public void setPermisosPerfils(Set<PermisosPerfil> permisosPerfils) {
 		this.permisosPerfils = permisosPerfils;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+	        return false;
+	    }
+		if (!Permiso.class.isAssignableFrom(obj.getClass())) {
+	        return false;
+	    }
+		final Permiso other = (Permiso) obj;
+	    if ((this.permiso == null) ? (other.permiso != null) : !this.permiso.equals(other.permiso)) {
+	        return false;
+	    }
+	    if (this.idPermiso != other.idPermiso) {
+	        return false;
+	    }
+	    return true;
+	}
+	
 	
 }

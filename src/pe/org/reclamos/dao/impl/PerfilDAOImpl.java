@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import pe.org.reclamos.dao.PerfilDAO;
 import pe.org.reclamos.entidad.Perfil;
+import pe.org.reclamos.entidad.Permiso;
+import pe.org.reclamos.entidad.PermisosPerfil;
 @Repository
 public class PerfilDAOImpl extends HibernateDaoSupport implements PerfilDAO {
 
@@ -51,6 +53,19 @@ public class PerfilDAOImpl extends HibernateDaoSupport implements PerfilDAO {
 			logger.debug( e.getMessage() );
 			return null;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Permiso> obtenerListaPermisos(Long idPerfil) {
+		logger.debug( " obtenerListaPermisos idPerfil=" + idPerfil);
+		List<Permiso> lista =this.getHibernateTemplate()
+				.find("select p from Permiso p join fetch p.permisosPerfils pp where pp.perfil.idPerfil = ? ", idPerfil);
+		logger.debug( " elementos " + lista.size());
+		for(Permiso p : lista){
+			logger.debug( p.getPermiso()  + " " + p.getIdPermiso());	
+		}
+		return lista;
 	}
 
 }

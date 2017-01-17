@@ -2,15 +2,18 @@ package pe.org.reclamos.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Perfil;
 import pe.org.reclamos.service.PerfilService;
 import pe.org.reclamos.service.PermisoService;
@@ -48,7 +51,7 @@ public class PerfilController {
 	}
 	
 	@RequestMapping(value="/registro.htm", method=RequestMethod.GET)
-	public String registro(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+	public String preRegistro(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
 			   logger.debug("lista");
@@ -56,6 +59,7 @@ public class PerfilController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   model.put("perfil", new Perfil() );
+			   model.put("lPermisos", permisosService.listarPermisos() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -66,6 +70,27 @@ public class PerfilController {
 		return "administracion/perfiles/registro";
 	}
 	
+	@RequestMapping(value="/registro.htm", method=RequestMethod.POST)
+	public String registro(@Valid Perfil perfil, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		
+		 try {
+			   logger.debug("lista");
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			   
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+			 model.put("perfil", perfil );
+			 model.put("lPermisos", permisosService.listarPermisos() );
+			 return "administracion/perfiles/registro";	   
+		   }finally{
+			
+		   }
+		 return "redirect:/perfil/lista.htm";
+	}
+
 	@RequestMapping(value="/modificar.htm", method=RequestMethod.GET)
 	public String preModificar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
@@ -73,9 +98,10 @@ public class PerfilController {
 			   logger.debug("preModificar");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
-			   Long id = new Long(request.getParameter("id"));
-			   model.put("perfil", perfilService.obtener( id ) );
 			   
+			   Long id = new Long(request.getParameter("id"));
+			   Perfil perf = perfilService.obtener( id );
+			   model.put("perfil", perf );
 			   model.put("lPermisos", permisosService.listarPermisos() );
 			   
 		   } catch (Exception e) {

@@ -50,6 +50,7 @@
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
 							    <input class="btn btn-success" type="submit" value="Registrar">
+							    <input id="btnCancelar" class="btn btn-success" type="button" value="Cancelar">
 							  </div>
 							</div>
 							
@@ -80,24 +81,9 @@
 		document.forms[0].action.submit();
 	}
 	
-	function eliminar(id){
-		if(confirm('¿Está seguro de eliminar al cliente?')){
-			$("#tablaDinamica").css('opacity', 0.4);
-	   		$("#tablaDinamica").load('eliminarCliente.htm?id='+ id +'&randval=' + Math.random() + " #resultado", 
-	   				function(){ 
-	   					$("#tablaDinamica").css('opacity', 1); 
-	   					//$("#rolling").toggle(); 
-	   				}
-	   		);
-		}
-	}
+	$(document).undelegate('#btnCancelar', 'click').delegate('#btnCancelar', 'click', function(){
 	
-	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   	   
-   	   
-  
-   	
-   });
-   
+   		window.location.assign("${pageContext.request.contextPath}/perfil/lista.htm");
+	
+	});
 </script>

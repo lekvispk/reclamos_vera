@@ -37,7 +37,9 @@ public class PerfilServiceImpl implements PerfilService {
 
 	@Override
 	public Perfil obtener(Long IdPerfil) {
-		return perfilDAO.obtener(IdPerfil);
+		Perfil p = perfilDAO.obtener(IdPerfil);
+		p.setListaPermisos( perfilDAO.obtenerListaPermisos(IdPerfil));
+		return p;
 	}
 
 }
