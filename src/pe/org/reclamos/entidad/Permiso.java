@@ -22,7 +22,7 @@ public class Permiso implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int idPermiso;
+	private Integer idPermiso;
 
 	private String detalle;
 
@@ -36,12 +36,16 @@ public class Permiso implements Serializable {
 
     public Permiso() {
     }
+    
+    public Permiso(Integer idPermiso ) {
+    	this.idPermiso = idPermiso;
+    }
 
-	public int getIdPermiso() {
+	public Integer getIdPermiso() {
 		return this.idPermiso;
 	}
 
-	public void setIdPermiso(int idPermiso) {
+	public void setIdPermiso(Integer idPermiso) {
 		this.idPermiso = idPermiso;
 	}
 
@@ -93,6 +97,11 @@ public class Permiso implements Serializable {
 	        return false;
 	    }
 	    return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Permiso [idPermiso=" + idPermiso + ", detalle=" + detalle + ", permiso=" + permiso + "]";
 	}
 	
 	

@@ -1,5 +1,7 @@
 package pe.org.reclamos.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -13,10 +15,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Perfil;
+import pe.org.reclamos.entidad.Permiso;
 import pe.org.reclamos.service.PerfilService;
 import pe.org.reclamos.service.PermisoService;
+import pe.org.reclamos.utiles.Utiles;
 
 @Controller
 @RequestMapping(value="/perfil")
@@ -40,6 +43,9 @@ public class PerfilController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   model.put("lPerfiles",  perfilService.listarPerfiles() );
+			   if( Utiles.nullToBlank( request.getParameter("msg") ).equals("1") ){
+				   model.put("mensaje", "Perfil registrado correctamente" );
+			   }
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -74,11 +80,23 @@ public class PerfilController {
 	public String registro(@Valid Perfil perfil, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
-			   logger.debug("lista");
+			   logger.debug("registro");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
+			   logger.debug( perfil.toString() );
 			   
+			   String[] lista = request.getParameterValues("listaPermisos");
+			   if( lista !=null){
+				   perfil.setListaPermisos( new ArrayList<Permiso>());
+				   for(String temp : lista ){
+					   logger.debug( temp.toString() );
+					   perfil.getListaPermisos().add( new Permiso( Integer.valueOf( temp.toString() )) );
+				   }
+			   }
+			   
+			   perfilService.registrar( perfil );
+			   			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
@@ -88,7 +106,7 @@ public class PerfilController {
 		   }finally{
 			
 		   }
-		 return "redirect:/perfil/lista.htm";
+		 return "redirect:/perfil/lista.htm?msg=1";
 	}
 
 	@RequestMapping(value="/modificar.htm", method=RequestMethod.GET)

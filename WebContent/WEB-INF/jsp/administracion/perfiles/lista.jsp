@@ -31,8 +31,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
-							    <a href="javascript:registrar();" class="btn btn-success">Registrar</a>
+							    <a href="javascript:registrar();" class="btn btn-success">Nuevo</a>
 							  </div>
 							</div>
 							

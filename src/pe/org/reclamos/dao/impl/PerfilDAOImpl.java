@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.reclamos.dao.PerfilDAO;
 import pe.org.reclamos.entidad.Perfil;
 import pe.org.reclamos.entidad.Permiso;
 import pe.org.reclamos.entidad.PermisosPerfil;
+import pe.org.reclamos.entidad.PermisosPerfilPK;
 @Repository
 public class PerfilDAOImpl extends HibernateDaoSupport implements PerfilDAO {
 
@@ -33,9 +36,27 @@ public class PerfilDAOImpl extends HibernateDaoSupport implements PerfilDAO {
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	public void registrar(Perfil perfil) {
 		//this.getHibernateTemplate().saveOrUpdate( perfil );
-		this.getHibernateTemplate().save( perfil );
+		this.getHibernateTemplate().saveOrUpdate( perfil );
+		
+		this.getHibernateTemplate().bulkUpdate("delete from PermisosPerfil p where perfil.idPerfil = ?  ", perfil.getIdPerfil() );
+		
+		for( Permiso temp : perfil.getListaPermisos() ){
+			PermisosPerfilPK pk = new PermisosPerfilPK();
+			pk.setIdPerfil( perfil.getIdPerfil().intValue() );
+			pk.setIdPermiso( temp.getIdPermiso() );
+			
+			PermisosPerfil permiso = new PermisosPerfil();
+			permiso.setId( pk );
+			permiso.setEstado(1);
+			permiso.setPerfil( perfil );
+			permiso.setPermiso( new Permiso() );
+			permiso.getPermiso().setIdPermiso( temp.getIdPermiso() );
+			
+			this.getHibernateTemplate().save( permiso );
+		}
 	}
 
 	@Override

@@ -33,7 +33,7 @@
 			                   	<c:if test="${empty perfil.idPerfil || perfil.idPerfil <= 0}">
 			                   		<input type="hidden" name="perfil.idPerfil" id="idPerfil" value="-1"/>
 			                   	</c:if>
-			                   	<form:input path="perfil" id="tagsCliente" size="40" cssClass="form-control input-md" />
+			                   	<form:input path="perfil" size="40" cssClass="form-control input-md" />
 								
 							  </div>
 							</div>
