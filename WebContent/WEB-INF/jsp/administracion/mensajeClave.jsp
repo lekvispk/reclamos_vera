@@ -47,39 +47,19 @@
 					<c:if test="${not empty mensaje}"><div class="alert alert-success">  <strong><c:out value="${mensaje}"/></strong> </div></c:if>
 				
                     <div class="panel-heading">
-                        <h3 class="panel-title">Iniciar sesi&oacute;n</h3>
+                        <h3 class="panel-title">Contrase&ntilde;a Enviada</h3>
                     </div>
                     <div class="panel-body">
-                       <form accept-charset="UTF-8" role="form" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
+                       <form accept-charset="UTF-8" role="form" action="#" method="post">
+                            
                             <fieldset>
-                            <c:if test="${not empty param.login_error}">
-				   				<div class="errorLogin">				
-									No pudo ingresar al sistema, Intentelo nuevamente.<br />
-									Razon: ${sessionScope.SPRING_SECURITY_LAST_EXCEPTION.message}
-									
-									<script>
-										document.forms[0].j_password.focus();
-									</script>
-								</div>				
-							</c:if>
+                            
                                 <div class="form-group">
-                                	<c:if test="${not empty param.login_error}">
-										<c:set var="username" value="${sessionScope.SPRING_SECURITY_LAST_USERNAME}"/>
-									</c:if>
-                                    <input class="form-control" placeholder="E-mail" name="j_username"  value="${username}" type="text" autofocus>
+                                   Se ha enviado una clave temporal a su correo. Inicie session y cambie su clave
                                 </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="j_password" type="password" value="">
-                                </div>
-                                <div class="checkbox">
-                                    <label><input name="remember" type="checkbox" value="Remember Me">Recordarme</label>
-                                </div>
-                                 <div class="form-group">
-                                    <a href="${pageContext.request.contextPath}/solicitarClave.htm">Olvidaste tu contraseña?</a>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                               
                             </fieldset>
+                            
                         </form>
                     </div>
                 </div>

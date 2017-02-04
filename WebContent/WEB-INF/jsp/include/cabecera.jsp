@@ -72,6 +72,7 @@
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li> -->
+                        <li><a href="${pageContext.request.contextPath}/cambiarClave.htm"><i class="fa fa-gear fa-fw"></i> Cambiar clave</a></li>
                         <li class="divider"></li>
                         <li><a href="${pageContext.request.contextPath}/j_spring_security_logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>

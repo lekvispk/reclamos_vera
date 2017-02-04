@@ -60,6 +60,7 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
 
 	@Override
 	public Usuario obtener(Integer idUsuario) {
+		logger.debug("obtener idUsuario="+idUsuario);
 		try {
 			return (Usuario) this.getHibernateTemplate().find("from Usuario u where idUsuario = ? ", idUsuario).get(0);
 		} catch (Exception e) {
@@ -97,6 +98,17 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
 	@Override
 	public void eliminar(Integer idUsuario) {
 		this.getHibernateTemplate().bulkUpdate("update Usuario u set estado=0 where idUsuario= ?  ", idUsuario);
+	}
+
+	@Override
+	public Usuario obtenerPorEmail(String email) {
+		logger.debug("email a buscar = "+email);
+		try {
+			return (Usuario) this.getHibernateTemplate().find("from Usuario u where email = ? ", email).get(0);
+		} catch (Exception e) {
+			logger.error( e.getMessage() );
+			return null;
+		}
 	}
 
 }

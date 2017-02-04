@@ -28,8 +28,7 @@
 		    * día de la semana (MON-SUN)
 		-->  
 		
-		<!-- <property name="cronExpression" value="1 30 8 * * ?" />-->
-		<property name="cronExpression" value="1 * * * * ?" />  
+		<property name="cronExpression" value="1 30 8 * * ?" />
 	</bean>  
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  

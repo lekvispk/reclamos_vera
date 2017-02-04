@@ -50,6 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		
 		usuarioDAO.registrar(usuario);
+		
 		if(nuevo){
 			usuarioDAO.registrarPermisos( usuario, permisos);
 		}
@@ -58,6 +59,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public void eliminar(Integer idUsuario) {
 		usuarioDAO.eliminar(idUsuario);
+	}
+
+	@Override
+	public Usuario obtenerPorEmail(String email) {
+		logger.debug("email a buscar = "+email);
+		return usuarioDAO.obtenerPorEmail( email );
+	}
+
+	@Override
+	public Usuario obtenerPorUsername(String username) {
+		logger.debug("username a buscar = "+username);
+		return usuarioDAO.obtenerUsuarioPorUsername( username );
 	}
 
 }

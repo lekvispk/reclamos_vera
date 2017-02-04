@@ -14,5 +14,6 @@ public interface UsuarioDAO {
 	public Usuario obtenerUsuarioPorUsername(String username);
 	public void registrarPermisos(Usuario usuario, List<Permiso> permisos);
 	public void eliminar(Integer idUsuario);
+	public Usuario obtenerPorEmail(String email);
 	
 }

@@ -50,6 +50,9 @@ public class Usuario  extends User implements Serializable {
 	private String email;
 
 	private int estado;
+	
+	@Column(name="reset_password")
+	private int resetPassword;
 
     @Temporal( TemporalType.TIMESTAMP)
 	@Column(name="password_caduca")
@@ -183,6 +186,14 @@ public class Usuario  extends User implements Serializable {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+
+	public int getResetPassword() {
+		return resetPassword;
+	}
+
+	public void setResetPassword(int resetPassword) {
+		this.resetPassword = resetPassword;
 	}
 
 }

@@ -15,11 +15,12 @@
 		<intercept-url pattern="/js/*" filters="none"/>
 		<intercept-url pattern="/images/*" filters="none"/>
 	 	<intercept-url pattern="/login.htm" filters="none"/>
+	 	<intercept-url pattern="/solicitarClave.htm" filters="none"/>
 	 	<intercept-url pattern="/denied.htm" filters="none"/>
 	 	<intercept-url pattern="/**" access="ROLE_USER"/>
 	 	
 	 	<form-login login-page="/login.htm"  
-					default-target-url="/inicio.htm" 
+					default-target-url="/index.htm" 
 					authentication-failure-url="/login.htm?login_error=1"
 					always-use-default-target="true" />
 					

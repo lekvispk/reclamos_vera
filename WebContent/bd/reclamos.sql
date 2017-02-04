@@ -236,6 +236,7 @@ CREATE TABLE usuario (
   password_caduca DATETIME NULL,
   email VARCHAR(500) NULL,
   estado INTEGER NULL,
+  reset_password INTEGER NULL default 0,
   created_at DATETIME NULL,
   updated_at DATETIME NULL,
   deleted_at DATETIME NULL,
