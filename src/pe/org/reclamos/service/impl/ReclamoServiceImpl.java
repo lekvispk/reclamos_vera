@@ -21,7 +21,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 	private ReclamoDAO reclamoDAO;
 	
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation=Propagation.REQUIRES_NEW,rollbackFor=Exception.class)
 	public void registrar(Reclamo reclamo) throws Exception {
 		//validar que no exista un reclamo con esa factura 
 		

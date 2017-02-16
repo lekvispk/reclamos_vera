@@ -38,8 +38,8 @@ public class Perfil implements Serializable {
 	private Set<PermisosPerfil> permisosPerfils;
 
 	//bi-directional many-to-one association to Usuario
-	@OneToMany(mappedBy="perfil")
-	private Set<Usuario> usuarios;
+	/*@OneToMany(mappedBy="perfil")
+	private Set<Usuario> usuarios;*/
 
     public Perfil() {
     }
@@ -76,13 +76,13 @@ public class Perfil implements Serializable {
 		this.permisosPerfils = permisosPerfils;
 	}
 	
-	public Set<Usuario> getUsuarios() {
+	/*public Set<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
-	}
+	}*/
 
 	public List<Permiso> getListaPermisos() {
 		return listaPermisos;
