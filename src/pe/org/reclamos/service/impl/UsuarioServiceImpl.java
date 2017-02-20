@@ -3,6 +3,7 @@ package pe.org.reclamos.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.org.reclamos.dao.UsuarioDAO;
 import pe.org.reclamos.entidad.Permiso;
 import pe.org.reclamos.entidad.Usuario;
+import pe.org.reclamos.rest.bean.UsuarioRest;
 import pe.org.reclamos.service.PermisoService;
 import pe.org.reclamos.service.UsuarioService;
 import pe.org.reclamos.utiles.Utiles;
@@ -71,6 +73,45 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario obtenerPorUsername(String username) {
 		logger.debug("username a buscar = "+username);
 		return usuarioDAO.obtenerUsuarioPorUsername( username );
+	}
+
+	@Override
+	public UsuarioRest obtenerUsuarioRest(String user) {
+		final String METHODNAME = "obtenerUsuarioRest - ";
+		Usuario usuario = null;
+		UsuarioRest usuarioRest = new UsuarioRest();
+		
+		try {
+			usuario = usuarioDAO.obtenerPorEmail( user );	
+		} catch (Exception e) {
+			logger.error(METHODNAME +"No encontrado usuario con email: " + e.getMessage());
+		}
+		try {
+			if( usuario == null){
+				usuario = usuarioDAO.obtenerUsuarioPorUsername( user );	
+			}
+		} catch (Exception e) {
+			logger.error(METHODNAME +"No encontrado usuario con username: " + e.getMessage());
+		}
+		
+		if( usuario == null){
+			return null;
+		}
+		logger.debug(METHODNAME+ "por clonar usuario");
+		
+		try {
+			//TODO: setear id de cliente 
+			BeanUtils.copyProperties(usuarioRest, usuario);
+			
+			usuarioRest.getPersona().setCliente( usuarioDAO.obteneClientePorPersona( usuario.getPersona().getIdPersona() )	);
+			
+			usuario = null;
+		} catch (Exception e) {
+			logger.error("No se pudo clonar el objeto");
+			e.printStackTrace( );
+		}
+		logger.debug(METHODNAME+ "FIN");
+		return usuarioRest;
 	}
 
 }

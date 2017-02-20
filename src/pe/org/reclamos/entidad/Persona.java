@@ -57,6 +57,9 @@ public class Persona implements Serializable {
     @Transient
 	private Set<Cliente> clientes;
 
+    @Transient
+    private Cliente cliente;
+    
     public Persona() {
     }
 
@@ -178,6 +181,14 @@ public class Persona implements Serializable {
 
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override

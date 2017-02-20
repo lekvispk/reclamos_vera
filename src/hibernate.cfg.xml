@@ -19,6 +19,7 @@
 	<mapping class="pe.org.reclamos.entidad.Fideliza"/>
 	<mapping class="pe.org.reclamos.entidad.Indemnizacion"/>
 	<mapping class="pe.org.reclamos.entidad.ItemsReclamo"/>
+	<mapping class="pe.org.reclamos.entidad.Notificacion"/>
 	<mapping class="pe.org.reclamos.entidad.Parametro"/>
 	<mapping class="pe.org.reclamos.entidad.Perfil"/>
 	<mapping class="pe.org.reclamos.entidad.Permiso"/>

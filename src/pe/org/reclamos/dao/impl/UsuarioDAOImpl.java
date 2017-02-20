@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pe.org.reclamos.dao.UsuarioDAO;
 import pe.org.reclamos.entidad.Authority;
+import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Permiso;
 import pe.org.reclamos.entidad.Usuario;
 import pe.org.reclamos.utiles.Utiles;
@@ -105,6 +106,16 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
 		logger.debug("email a buscar = "+email);
 		try {
 			return (Usuario) this.getHibernateTemplate().find("from Usuario u where email = ? ", email).get(0);
+		} catch (Exception e) {
+			logger.error( e.getMessage() );
+			return null;
+		}
+	}
+
+	@Override
+	public Cliente obteneClientePorPersona(Integer idPersona) {
+		try {
+			return (Cliente) this.getHibernateTemplate().find("from Cliente u where persona.idPersona = ? ", idPersona).get(0);
 		} catch (Exception e) {
 			logger.error( e.getMessage() );
 			return null;

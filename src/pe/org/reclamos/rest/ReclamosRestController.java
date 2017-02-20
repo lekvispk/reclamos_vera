@@ -11,11 +11,15 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import pe.org.reclamos.dao.NotificacionesDAO;
+import pe.org.reclamos.entidad.Notificacion;
 import pe.org.reclamos.entidad.Reclamo;
+import pe.org.reclamos.rest.bean.RespuestaRest;
 import pe.org.reclamos.service.ReclamoService;
 
 import com.google.gson.Gson;
@@ -28,18 +32,22 @@ public class ReclamosRestController {
 	private static final Logger logger = Logger.getLogger( ReclamosRestController.class );
 	
 	@Autowired
-	ReclamoService reclamoService;
+	private ReclamoService reclamoService;
+	@Autowired
+	private NotificacionesDAO notificacionesDAO;
 	
 	/**
 	 * Servicio que lista todos los reclamos que ha realizado un cliente
-	 * http://localhost:8082/reclamos/rest/clientes/1/reclamos
+	 * http://localhost:8080/reclamos/rest/clientes/1/reclamos
 	 * @param user id usuario de quien realizo los reclamos
 	 * @param model otros datos
 	 * @return
 	 */
-	@RequestMapping(value = "/{user}/reclamos", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE )
-	public @ResponseBody String listaReclamos(@PathVariable String user, HttpServletRequest request, HttpServletResponse response) {
-		logger.debug("usuario=" + user+" listar reclamos");
+	@RequestMapping(value = "/{idCliente}/reclamos", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE )
+	public @ResponseBody String listaReclamos(@PathVariable String idCliente, HttpServletRequest request, HttpServletResponse response) {
+		final String METHODNAME = "listaReclamos - "; 
+		logger.debug(METHODNAME + "INI");		
+		logger.debug(METHODNAME + "usuario=" + idCliente+" listar reclamos");
 		String json = "";
 		try {
 			
@@ -47,36 +55,42 @@ public class ReclamosRestController {
 			request.setCharacterEncoding("UTF8");
 			
 			Reclamo rec = new Reclamo();
-			rec.setIdCliente( new Long(user));
+			rec.setIdCliente( new Long(idCliente));
 			List<Reclamo> lista = reclamoService.buscar( rec );
-			
-			//String format = "EEE, dd MMM yyyy HH:mm:ss zzz";
+	
 			String format = "yyyy-MM-dd";
 			Gson gson2 = new GsonBuilder()
 			   .setDateFormat( format ).create();
 			
-			//Gson gson = new Gson();
 			json = gson2.toJson(lista);
 		    	
 		} catch (Exception e) {
 			json = "";
 		}
-		
+		logger.debug(METHODNAME + "FIN");	
 	    return json;
-		//return "[{'idReclamo':'1','fecha':'marzo'},{'idReclamo':'2','fecha':'abril'}]";
 	}
 	
 	/**
-	 * http://localhost:8082/reclamos/rest/clientes/1/reclamos/
+	 * Registro de reclamo
+	 * http://localhost:8082/reclamos/rest/clientes/reclamos/
 	 * @param user
 	 * @param request
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/{user}/reclamos/", method = RequestMethod.POST )
-	public @ResponseBody String reclamoNuevo(@PathVariable String user,HttpServletRequest request,  ModelMap model) {
-		logger.debug("registrar reclamo" );
-		return "{'idReclamo':'1','fecha':'marzo','status':'ok','errorMsg':''}";
+	@RequestMapping(value = "/reclamos/", method = RequestMethod.POST , produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody RespuestaRest reclamoNuevo(@RequestBody Reclamo reclamo , HttpServletRequest request,  ModelMap model) {
+		final String METHODNAME = "reclamoNuevo - ";
+		logger.debug(METHODNAME + "registrar reclamo" );
+		
+		logger.debug(METHODNAME + "Rec " + reclamo.toString()  );
+		
+		RespuestaRest respuesta = new RespuestaRest();
+		respuesta.setCodigo(1);
+		respuesta.setMensaje("OK");
+		
+		return respuesta;
 	}
 	
 	/**
@@ -122,6 +136,18 @@ public class ReclamosRestController {
 			json = "{  \"status\":\"2\",  \"mensaje\":\""+e.getMessage()+"\" } ";
 		}
 		return json;
+	}
+	
+	@RequestMapping(value = "/{idCliente}/notificaciones", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE )
+	public @ResponseBody Notificacion verNotificaciones(@PathVariable String idCliente , HttpServletRequest request,  ModelMap model) {
+		final String METHODNAME = "verNotificaciones - ";
+		logger.debug(METHODNAME + "INI" );
+		
+		Notificacion notificacion = new Notificacion();
+		
+		notificacion = notificacionesDAO.obtenernotificacionPorUsuario( Integer.valueOf(idCliente));
+		
+		return notificacion;
 	}
 	
 	

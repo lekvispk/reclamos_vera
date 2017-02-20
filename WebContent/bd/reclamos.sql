@@ -300,6 +300,25 @@ CREATE TABLE permisos_perfil (
 )
 ENGINE=INNODB;
 
+-- ------------------------------------------------------------
+-- Tabla para registrar las notificaciones
+-- ------------------------------------------------------------
+
+CREATE TABLE notificaciones (
+  idNotificacion INTEGER NOT NULL AUTO_INCREMENT,
+  idCliente INTEGER NULL,
+  asunto TEXT NULL,
+  notificacion TEXT NULL,
+  created_at DATETIME NULL,
+  estado INTEGER NULL,
+  PRIMARY KEY(idNotificacion),
+  FOREIGN KEY(idCliente)
+    REFERENCES cliente(idCliente)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+)
+ENGINE=INNODB;
+
 CREATE TABLE reclamo (
   idReclamo INTEGER NOT NULL AUTO_INCREMENT,
   idFactura INTEGER NOT NULL,
