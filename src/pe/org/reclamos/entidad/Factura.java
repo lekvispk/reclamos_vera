@@ -200,4 +200,12 @@ public class Factura implements Serializable {
 		this.idFideliza = idFideliza;
 	}
 
+	@Override
+	public String toString() {
+		return "Factura [idFactura=" + idFactura + ", estado=" + estado + ", monto=" + monto + ", numero=" + numero
+				+ "]";
+	}
+	
+	
+
 }

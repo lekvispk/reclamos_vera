@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +25,11 @@ public class ReclamoServiceImpl implements ReclamoService {
 	@Transactional(propagation=Propagation.REQUIRES_NEW,rollbackFor=Exception.class)
 	public void registrar(Reclamo reclamo) throws Exception {
 		//validar que no exista un reclamo con esa factura 
+		
+		
+		if(reclamo.getFactura() == null || StringUtils.isEmpty( reclamo.getFactura().getNumero() )){
+			throw new Exception("No se a recibido el numero de la facura");
+		}
 		
 		Reclamo rec = new Reclamo();
 		rec.setFactura( reclamo.getFactura() );

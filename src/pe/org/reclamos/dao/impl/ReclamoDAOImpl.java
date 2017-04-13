@@ -101,10 +101,18 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			}
 			
 			if( reclamo.getFactura() != null ){
+				logger.debug(" validar factura " );
+				
+				DetachedCriteria criteria1 = criteria.createCriteria("factura");
+				
 				if( reclamo.getFactura().getIdFactura() != null ){
 					logger.debug(" IDfactura " +  reclamo.getFactura().getIdFactura() );
-					criteria.add( Restrictions.eq("factura.idFactura", reclamo.getFactura().getIdFactura() ) );
-				}	
+					criteria1.add( Restrictions.eq("idFactura", reclamo.getFactura().getIdFactura() ) );
+				}
+				if( reclamo.getFactura().getNumero() != null ){
+					logger.debug(" numero de factura " +  reclamo.getFactura().getNumero() );
+					criteria1.add( Restrictions.eq("numero", reclamo.getFactura().getNumero() ) );
+				}
 				if( reclamo.getFactura().getCliente() != null ){
 					//factura.cliente.nomClient	
 					if( !StringUtils.isEmpty( reclamo.getFactura().getCliente().getNomCliente()) ){

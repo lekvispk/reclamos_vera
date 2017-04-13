@@ -90,6 +90,17 @@ public class ReclamosRestController {
 		respuesta.setCodigo(1);
 		respuesta.setMensaje("OK");
 		
+		try {
+			reclamoService.registrar( reclamo );
+		} catch (Exception e) {
+			e.printStackTrace();
+			respuesta.setCodigo(2);
+			respuesta.setMensaje("Error: " + e.getMessage() );
+			
+		}
+		
+		
+		
 		return respuesta;
 	}
 	
@@ -101,9 +112,14 @@ public class ReclamosRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{user}/reclamos/{idReclamo}", method = RequestMethod.GET )
-	public @ResponseBody String datosReclamo(@PathVariable String user,@PathVariable String idReclamo, ModelMap model) {
-		logger.debug("usuario=" + user + " idreclamo=" + idReclamo) ;
-		return "{'idReclamo':'1','fecha':'marzo'}";
+	public @ResponseBody Reclamo datosReclamo(@PathVariable String user,@PathVariable String idReclamo, ModelMap model) {
+		final String METHODNAME = "datosReclamo - ";
+		logger.debug(METHODNAME + "usuario=" + user + " idreclamo=" + idReclamo);
+		
+		Reclamo reclamo = new Reclamo();
+		reclamo = reclamoService.obtener( new Long(idReclamo) );
+		
+		return reclamo;
 	}
 	
 	/**
@@ -149,6 +165,7 @@ public class ReclamosRestController {
 		
 		return notificacion;
 	}
+	
 	
 	
 }
