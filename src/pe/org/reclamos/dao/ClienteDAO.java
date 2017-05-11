@@ -11,5 +11,6 @@ public interface ClienteDAO {
 	public List<Cliente> buscar(Cliente cliente);
 	public void eliminar(Long cliente);
 	public List<Cliente> buscarClientesParaFidelizacion();
+	public Cliente obtenerPorRUC(String ruc);
 	
 }

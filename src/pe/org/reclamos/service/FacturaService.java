@@ -21,6 +21,7 @@ public interface FacturaService {
 
 	public List<Detallefactura>  listarDetalleFactura( Detallefactura detalle );
 	public Detallefactura obtenerDetalleFactura( Integer idDetallefactura );
+	public List<Factura> buscarFacturasNoUsadas(Long idCliente);
 	
 	
 }

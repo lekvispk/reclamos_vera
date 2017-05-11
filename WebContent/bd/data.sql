@@ -78,15 +78,15 @@ INSERT INTO `reclamosbd`.`proveedor`(`idProveedor`,`razonSocial`,`numero_documen
 (10,'Empresa 10 SAC','20450044410','Juan Perez','Calle Lima # 100','3966698','empresa10@gmail.com','020504',1,1,NOW(),NULL);
 
 INSERT INTO `reclamosbd`.`cliente`(`idCliente`,`idPersona`,`nomCliente`,`representante`,`fecCliente`,`rucCliente`,`estado`) VALUES 
-(1,1,'Carlos Vera','enrique cordero','2015-05-05','1020287020125',1),
-(2,2,'Juan Vera','Pedro Saul Aquijano','2015-05-05','1020287020136',1),
-(3,3,'Pedro Vera','Luis Carlos Garcia','2015-05-05','1020287020127',1),
-(4,4,'Samuel Vera','Lucia Montes','2015-05-05','1020287020128',1),
-(5,5,'Matias Vera','Sara Cabrera','2015-05-05','1020287020129',1),
-(6,6,'Esteban Vera','Melanie Muñoz','2015-05-05','1020287020140',1),
-(7,7,'Luis Vera','Carloz zambrano','2015-05-05','1020287020141',1),
-(8,8,'Manuel Vera','Pedro Quiroz','2015-05-05','1020287020142',1),
-(9,9,'Antonio Vera','Alicia Salgado','2015-05-05','1020287020143',1),
+(1,1,'Carlos Vera','enrique cordero','2015-05-05','20287020125',1),
+(2,2,'Juan Vera','Pedro Saul Aquijano','2015-05-05','20287020136',1),
+(3,3,'Pedro Vera','Luis Carlos Garcia','2015-05-05','20287020127',1),
+(4,4,'Samuel Vera','Lucia Montes','2015-05-05','20287020128',1),
+(5,5,'Matias Vera','Sara Cabrera','2015-05-05','10287020129',1),
+(6,6,'Esteban Vera','Melanie Muñoz','2015-05-05','10287020140',1),
+(7,7,'Luis Vera','Carloz zambrano','2015-05-05','10287020141',1),
+(8,8,'Manuel Vera','Pedro Quiroz','2015-05-05','10287020142',1),
+(9,9,'Antonio Vera','Alicia Salgado','2015-05-05','10287020143',1),
 (10,10,'Carmen Vera','Juan Perez','2015-05-05','1020287020144',1);
 
 INSERT INTO `reclamosbd`.`factura`(`idFactura`,`idProveedor`,`idCliente`,`emision`,`numero`,`monto`,`estado`,`created_at`,`updated_at`) VALUES 

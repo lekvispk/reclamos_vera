@@ -56,11 +56,12 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Reclamo> buscar(Reclamo reclamo) {
+		final String METHODNAME = "buscar - ";
 		DetachedCriteria criteria = DetachedCriteria.forClass(Reclamo.class);
-		logger.debug(" buscar reclamo() ");
+		logger.debug(METHODNAME+"INI");
 				
 		if(reclamo !=null){
-			logger.debug(" estado " + reclamo.getEstado());
+			logger.debug(METHODNAME+" estado " + reclamo.getEstado());
 			
 			//TODO para pantalla de solucionar e imdenizar se deben validar que estados se mostraran.
 			// cuando la pantalla puede ver dos estados especificos
@@ -101,22 +102,22 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			}
 			
 			if( reclamo.getFactura() != null ){
-				logger.debug(" validar factura " );
+				logger.debug(METHODNAME+" validar factura " );
 				
 				DetachedCriteria criteria1 = criteria.createCriteria("factura");
 				
 				if( reclamo.getFactura().getIdFactura() != null ){
-					logger.debug(" IDfactura " +  reclamo.getFactura().getIdFactura() );
+					logger.debug(METHODNAME+" IDfactura " +  reclamo.getFactura().getIdFactura() );
 					criteria1.add( Restrictions.eq("idFactura", reclamo.getFactura().getIdFactura() ) );
 				}
 				if( reclamo.getFactura().getNumero() != null ){
-					logger.debug(" numero de factura " +  reclamo.getFactura().getNumero() );
+					logger.debug(METHODNAME+" numero de factura " +  reclamo.getFactura().getNumero() );
 					criteria1.add( Restrictions.eq("numero", reclamo.getFactura().getNumero() ) );
 				}
 				if( reclamo.getFactura().getCliente() != null ){
 					//factura.cliente.nomClient	
 					if( !StringUtils.isEmpty( reclamo.getFactura().getCliente().getNomCliente()) ){
-						logger.debug(" nomCliente " + reclamo.getFactura().getCliente().getNomCliente() );
+						logger.debug(METHODNAME+" nomCliente " + reclamo.getFactura().getCliente().getNomCliente() );
 						DetachedCriteria criteria2 = criteria.createCriteria("factura.cliente");
 						criteria2.add( Restrictions.ilike("nomCliente", reclamo.getFactura().getCliente().getNomCliente() , MatchMode.ANYWHERE ) );
 					}
@@ -170,6 +171,16 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	public ItemsReclamo obtenerItemReclamo(Long idReclamo) {
 		try {
 			return (ItemsReclamo) this.getHibernateTemplate().find("from ItemsReclamo where idReclamo = ? ", idReclamo ).get(0);
+		} catch (Exception e) {
+			logger.debug( "Error: " + e.getMessage() );
+			return null;
+		}
+	}
+
+	@Override
+	public Reclamo obtenerUltimoReclamoRegistrado(Integer idUsuario) {
+		try {
+			return (Reclamo) this.getHibernateTemplate().find("from Reclamo u where idCliente = ? order by idReclamo desc", new Long(idUsuario) ).get(0);
 		} catch (Exception e) {
 			logger.debug( "Error: " + e.getMessage() );
 			return null;

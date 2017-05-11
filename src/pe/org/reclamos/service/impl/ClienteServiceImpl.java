@@ -53,4 +53,9 @@ public class ClienteServiceImpl implements ClienteService {
 		return clienteDAO.buscarClientesParaFidelizacion();
 	}
 
+	@Override
+	public Cliente obtenerPorRUC(String ruc) {
+		return clienteDAO.obtenerPorRUC(ruc);
+	}
+
 }

@@ -42,6 +42,16 @@ public class ClienteDAOImpl extends HibernateDaoSupport implements ClienteDAO {
 		}
 	}
 
+	@Override
+	public Cliente obtenerPorRUC(String ruc) {
+		try {
+			return (Cliente) this.getHibernateTemplate().find("from Cliente u where rucCliente = ? ", ruc).get(0);
+		} catch (Exception e) {
+			logger.error( "no se pudo obtner usuario: "+ e.getMessage() );
+			return null;
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Cliente> buscar(Cliente cliente) {
@@ -104,4 +114,5 @@ public class ClienteDAOImpl extends HibernateDaoSupport implements ClienteDAO {
 		return result;
 	}
 
+	
 }

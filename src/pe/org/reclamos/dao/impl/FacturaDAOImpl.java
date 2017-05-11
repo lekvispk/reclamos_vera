@@ -328,4 +328,23 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Factura> buscarFacturasNoUsadas(Long idCliente) {
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append(" SELECT * FROM factura f1 WHERE f1.idFactura NOT IN ( ");
+		sql.append(" SELECT f.idFactura FROM factura f INNER JOIN reclamo r ON f.idFactura = r.idFactura AND f.idCliente = :cliente ");
+		sql.append(" ) AND f1.idCliente = :cliente  ");
+		
+		logger.debug("QUERY : " + sql.toString() );
+		
+		Session session =  getSession();
+		Query query = session.createSQLQuery( sql.toString() )
+		.addEntity(Factura.class)
+		.setParameter("cliente", idCliente );
+		List<Factura> result = query.list();
+		return result;
+	}
+
 }

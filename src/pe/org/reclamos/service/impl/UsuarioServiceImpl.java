@@ -78,6 +78,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public UsuarioRest obtenerUsuarioRest(String user) {
 		final String METHODNAME = "obtenerUsuarioRest - ";
+		logger.debug(METHODNAME+ "INI");
 		Usuario usuario = null;
 		UsuarioRest usuarioRest = new UsuarioRest();
 		
@@ -95,12 +96,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		
 		if( usuario == null){
+			logger.error(METHODNAME +"No encontrado usuario." );
 			return null;
 		}
 		logger.debug(METHODNAME+ "por clonar usuario");
 		
 		try {
-			//TODO: setear id de cliente 
 			BeanUtils.copyProperties(usuarioRest, usuario);
 			
 			usuarioRest.getPersona().setCliente( usuarioDAO.obteneClientePorPersona( usuario.getPersona().getIdPersona() )	);

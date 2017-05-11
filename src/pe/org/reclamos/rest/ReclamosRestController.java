@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pe.org.reclamos.dao.NotificacionesDAO;
 import pe.org.reclamos.entidad.Notificacion;
 import pe.org.reclamos.entidad.Reclamo;
+import pe.org.reclamos.rest.bean.NotificacionRest;
 import pe.org.reclamos.rest.bean.RespuestaRest;
 import pe.org.reclamos.service.ReclamoService;
 
@@ -82,9 +83,9 @@ public class ReclamosRestController {
 	@RequestMapping(value = "/reclamos/", method = RequestMethod.POST , produces=MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody RespuestaRest reclamoNuevo(@RequestBody Reclamo reclamo , HttpServletRequest request,  ModelMap model) {
 		final String METHODNAME = "reclamoNuevo - ";
-		logger.debug(METHODNAME + "registrar reclamo" );
+		logger.debug(METHODNAME + "INI" );
 		
-		logger.debug(METHODNAME + "Rec " + reclamo.toString()  );
+		logger.debug(METHODNAME + reclamo.toString()  );
 		
 		RespuestaRest respuesta = new RespuestaRest();
 		respuesta.setCodigo(1);
@@ -154,15 +155,24 @@ public class ReclamosRestController {
 		return json;
 	}
 	
+	/**
+	 * http://localhost:8080/reclamos/rest/clientes/1/notificaciones
+	 * @param idCliente
+	 * @param request
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/{idCliente}/notificaciones", method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE )
-	public @ResponseBody Notificacion verNotificaciones(@PathVariable String idCliente , HttpServletRequest request,  ModelMap model) {
+	public @ResponseBody NotificacionRest verNotificaciones(@PathVariable String idCliente , HttpServletRequest request,  ModelMap model) {
 		final String METHODNAME = "verNotificaciones - ";
-		logger.debug(METHODNAME + "INI" );
-		
-		Notificacion notificacion = new Notificacion();
-		
-		notificacion = notificacionesDAO.obtenernotificacionPorUsuario( Integer.valueOf(idCliente));
-		
+		logger.debug(METHODNAME + "INI" );		
+		NotificacionRest notificacion = null;
+		try {
+			notificacion = notificacionesDAO.obtenerUltimaNotificacionPorUsuario( Integer.valueOf(idCliente));
+		} catch (Exception e) {
+			logger.error(METHODNAME + "Error: " + e.getMessage() );
+		}
+		logger.debug(METHODNAME + "FIN" );
 		return notificacion;
 	}
 	

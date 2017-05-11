@@ -52,4 +52,31 @@ public class ClientesRestController {
 		return json;
 	}
 	
+	/**
+	 * http://localhost:8080/reclamos/rest/clientes/ruc/0000000
+	 * @param ruc
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/ruc/{ruc}", method = RequestMethod.GET )
+	public @ResponseBody String obtenerClientePorRuc(@PathVariable String ruc, HttpServletRequest request, HttpServletResponse response) {
+		logger.debug("obtenerClientePorRuc = " + ruc +" ");
+		String json = "";
+		try {
+			response.setContentType("application/json; charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
+			
+			Cliente cliente = clienteService.obtenerPorRUC( ruc );
+			logger.debug("cliente: " +cliente);
+			Gson gson = new Gson();
+		    json = gson.toJson(cliente);
+		    
+		} catch (Exception e) {
+			logger.debug("Error: " +e.getMessage());
+			json = "";
+		}
+		return json;
+	}
+	
 }

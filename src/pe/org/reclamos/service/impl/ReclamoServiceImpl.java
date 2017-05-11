@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,15 +19,18 @@ import pe.org.reclamos.service.ReclamoService;
 @Service
 public class ReclamoServiceImpl implements ReclamoService {
 
+	private static final Logger logger = Logger.getLogger(ReclamoServiceImpl.class );
+	
 	@Autowired
 	private ReclamoDAO reclamoDAO;
 	
 	@Override
 	@Transactional(propagation=Propagation.REQUIRES_NEW,rollbackFor=Exception.class)
 	public void registrar(Reclamo reclamo) throws Exception {
-		//validar que no exista un reclamo con esa factura 
+		final String METHODNAME = "registrar - ";
+		logger.debug(METHODNAME + "INI" );
 		
-		
+		//validar que no exista un reclamo con esa factura 		
 		if(reclamo.getFactura() == null || StringUtils.isEmpty( reclamo.getFactura().getNumero() )){
 			throw new Exception("No se a recibido el numero de la facura");
 		}
@@ -52,12 +56,15 @@ public class ReclamoServiceImpl implements ReclamoService {
 		
 		reclamoDAO.registrar(reclamo);
 		//registrar itemdetalle
-		for(ItemsReclamo item : reclamo.getItemsReclamos()){
-			System.out.println( "por insertar item ");
-			item.setEstado( 1 );
-			item.setReclamo( reclamo );
-			reclamoDAO.registrar( item );		
+		if( reclamo.getItemsReclamos() != null){
+			for(ItemsReclamo item : reclamo.getItemsReclamos()){
+				System.out.println( "por insertar item ");
+				item.setEstado( 1 );
+				item.setReclamo( reclamo );
+				reclamoDAO.registrar( item );		
+			}
 		}
+		
 		
 	}
 

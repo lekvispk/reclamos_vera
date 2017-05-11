@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pe.org.reclamos.entidad.Cliente;
+import com.google.gson.Gson;
+
 import pe.org.reclamos.entidad.Detallefactura;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.service.FacturaService;
-
-import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("/clientes")
@@ -28,7 +27,7 @@ public class FacturasRestController {
 	private static final Logger logger = Logger.getLogger( FacturasRestController.class );
 	
 	@Autowired
-	FacturaService facturaService;
+	private FacturaService facturaService;
 	
 	/**
 	 * http://localhost:8082/reclamos/rest/clientes/1/facturas
@@ -39,17 +38,15 @@ public class FacturasRestController {
 	 * @return
 	 */
 	@RequestMapping(value = "/{user}/facturas", method = RequestMethod.GET )
-	public @ResponseBody String listaReclamos(@PathVariable String user, ModelMap model,HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody String listarFacturas(@PathVariable String user, ModelMap model,HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("usuario=" + user+" listar facturas");
 		 String json = "";
 		try {
 			response.setContentType("application/json; charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
-			Factura fact = new Factura();
-			fact.setCliente( new Cliente() );
-			fact.getCliente().setIdCliente( new Long (user));
-			List<Factura> lista = facturaService.buscar( fact );
+			Long idCliente =  new Long (user) ;
+			List<Factura> lista = facturaService.buscarFacturasNoUsadas( idCliente );
 			
 			Gson gson = new Gson();
 		    json = gson.toJson(lista);

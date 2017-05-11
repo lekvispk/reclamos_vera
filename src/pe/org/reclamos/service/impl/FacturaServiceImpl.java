@@ -71,4 +71,9 @@ public class FacturaServiceImpl implements FacturaService {
 		return facturaDAO.obtenerDetalleFactura(idDetallefactura);
 	}
 
+	@Override
+	public List<Factura> buscarFacturasNoUsadas(Long idCliente) {
+		return facturaDAO.buscarFacturasNoUsadas( idCliente );
+	}
+
 }

@@ -26,5 +26,6 @@ public interface FacturaDAO {
 	public List<Factura> buscarFacturasConFidelizacion( Factura factura);
 	public List<Factura> buscarFacturasConReclamos(Factura f);
 	public Detallefactura obtenerDetalleFactura(Integer idDetallefactura);
+	public List<Factura> buscarFacturasNoUsadas(Long idCliente);
 	
 }
