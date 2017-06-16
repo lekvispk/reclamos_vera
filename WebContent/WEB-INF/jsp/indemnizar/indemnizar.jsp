@@ -73,7 +73,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="txtTotal">Monto Total</label>
 							  <div class="col-md-5">
-							  	<input type="text" id="totalIndemnizacion" name="totalIndemnizacion"  placeholder="0.0" class="form-control input-md">
+							  	<input type="text" id="totalIndemnizacion" name="totalIndemnizacion" readonly="readonly" placeholder="0.0" class="form-control input-md">
 							  </div>
 							</div>
 							
@@ -139,12 +139,14 @@
 	});
 
 	$(document).undelegate('#btnCalcular', 'click').delegate('#btnCalcular', 'click', function(){
-		console.debug('calculando...');
+		console.log('calculando...');
 		var inicial = $('#inicial').val();
 		var porcentaje = $('#adicional').val();
 
 		if( inicial && porcentaje && ( inicial!='' && porcentaje !='' )){
-			$('#totalIndemnizacion').attr('value', inicial * porcentaje);
+			var total = inicial*1	 + (inicial * ( porcentaje/100 )) ;
+			console.log('total=' + total + ' value = ' + $('#totalIndemnizacion').attr('value' ) );
+			$('#totalIndemnizacion').attr('value', total );
 		}else{
 			alert('Ingrese los montos Inicial y el porcentaje');
 		}

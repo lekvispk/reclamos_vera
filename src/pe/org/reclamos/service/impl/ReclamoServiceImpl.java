@@ -80,6 +80,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 	@Override
 	public List<Reclamo> buscar(Reclamo reclamo) {
 		logger.debug( "buscar");
+		logger.debug( "reclamo " + reclamo);
 		List<Reclamo> lista = reclamoDAO.buscar(reclamo); 
 		logger.debug( "lista " + lista );
 		return  lista;

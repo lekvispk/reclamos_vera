@@ -54,7 +54,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" >Codigo de Producto:</label>  
 							  <div class="col-md-5">
-							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
+							  	<label class="form-control input-md">${reclamo.itemReclamo.detallefactura.producto.skuProducto}</label>
 							  </div>
 							</div>
 							
@@ -62,7 +62,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" >Cantidad:</label>  
 							  <div class="col-md-5">
-							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
+							  	<label class="form-control input-md">${reclamo.itemReclamo.detallefactura.cantidad}</label>
 							  </div>
 							</div>
 							

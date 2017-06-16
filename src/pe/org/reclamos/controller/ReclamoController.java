@@ -103,9 +103,9 @@ public class ReclamoController {
 	
 	@RequestMapping(value="/lEvaluar.htm",method=RequestMethod.GET)
 	public String lEvaluar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "lEvaluar - ";
 		 try {
-			   logger.debug("lEvaluar");
+			   logger.debug(METHODNAME + "INI");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -119,8 +119,10 @@ public class ReclamoController {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
+			   logger.debug(METHODNAME + "coloco nuevo reclamo");
 			   model.put("reclamo", new Reclamo() );
 		   }
+		 logger.debug(METHODNAME + "FIN");
 		return "reclamos/lEvaluar";
 	}
 	
@@ -151,6 +153,7 @@ public class ReclamoController {
 		
 		String idReclamo = request.getParameter("idReclamo");
 		Reclamo rec =  reclamoService.obtener( new Long(idReclamo)) ;
+		rec.setItemReclamo( reclamoService.obtenerItemReclamo(new Long(idReclamo)));
 		model.put("reclamo", rec );
 		
 		return "reclamos/evaluar";
@@ -158,8 +161,9 @@ public class ReclamoController {
 	
 	@RequestMapping(value="/evaluar.htm" , method=RequestMethod.POST)  
 	 public String evaluar(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request,  HttpServletResponse response, ModelMap model) {  
+		final String METHODNAME  = "evaluar - ";
+		 logger.debug(METHODNAME + "INI");
 		try {
-			logger.debug("evaluar");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
@@ -172,6 +176,8 @@ public class ReclamoController {
 			reclamoService.actualizar(rec);
 			
 			model.put("mensaje","Se ha grabado satisfactoriamente");
+			reclamo = new Reclamo();
+			logger.debug(METHODNAME + "FIN");
 			return lEvaluar(request, response, model);
 			
 		} catch (Exception e) {
@@ -179,8 +185,10 @@ public class ReclamoController {
 			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );
 			return "reclamos/evaluar";
 		}finally{
+			logger.debug(METHODNAME + "coloco reclamo en model");
 			model.put("reclamo", reclamo);
 		}
+		 
 	 }  
 	
 	@RequestMapping(value="/lResolucion.htm")

@@ -101,6 +101,9 @@ public class Reclamo implements Serializable {
 	@Transient
 	private Set<ItemsReclamo> itemsReclamos;
 
+	@Transient
+	private ItemsReclamo itemReclamo;
+	
 	//bi-directional many-to-one association to Solucion
 	//@OneToMany(mappedBy="reclamo")
 	@Transient
@@ -115,6 +118,7 @@ public class Reclamo implements Serializable {
     	this.estados = new ArrayList<Integer>();
     	this.prioridad = 0 ;
     	this.estado = 0;
+    	this.idReclamo = null ; 
     }
 
 	public Long getIdReclamo() {
@@ -148,6 +152,15 @@ public class Reclamo implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public ItemsReclamo getItemReclamo() {
+		return itemReclamo;
+	}
+
+	public void setItemReclamo(ItemsReclamo itemReclamo) {
+		this.itemReclamo = itemReclamo;
+	}
+
 	/**
 	 * 1 = En Proceso : cuando se evalua (Aceptado o Rechazado)<br>
 	 * 2 = Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>

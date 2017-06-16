@@ -20,7 +20,6 @@ import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.entidad.Fideliza;
 import pe.org.reclamos.entidad.ItemsReclamo;
-import pe.org.reclamos.entidad.Promocion;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.FacturaService;

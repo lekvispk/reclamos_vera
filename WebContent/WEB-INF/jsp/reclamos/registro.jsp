@@ -214,6 +214,17 @@
 		}
 	}
 	
+	function limpiarFormulario(){
+		
+		$( "#idCliente" ).val( -1 );
+		$( "#idCliente2" ).val( -1 );
+		$( "#razonSocial" ).val( '' );
+        $( "#representante" ).val( '' );
+        $( "#email" ).val( '' );
+        $('#lContratolocal tbody').remove();
+        
+	}
+	
 	$( function(){
 		 
    	   $("#displayTagDiv").displayTagAjax();
@@ -230,11 +241,7 @@
 	        highlight: false,
 			source: function(request, response) {
 				
-				$( "#idCliente" ).val( -1 );
-				$( "#idCliente2" ).val( -1 );
-				$( "#razonSocial" ).val( '' );
-	            $( "#representante" ).val( '' );
-	            $( "#email" ).val( '' );
+				limpiarFormulario();
 				
 	            $.ajax({
 	                url: "${pageContext.request.contextPath}/reclamos/lClienteAuto.htm",
@@ -247,11 +254,6 @@
 	                },
 	                error: function(jqXHR, textStatus, errorThrown){
 	                    console.log('no encontrado nada en la lista');
-	                	$( "#idCliente" ).val( -1 );
-	   				  	$( "#idCliente2" ).val( -1 );
-	   					$( "#razonSocial" ).val( '' );
-	 	            	$( "#representante" ).val( '' );
-	 	            	$( "#email" ).val( '' );	 	            
 	                }
 	            });
 	        },

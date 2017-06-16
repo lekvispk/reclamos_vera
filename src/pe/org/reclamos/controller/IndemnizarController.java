@@ -54,11 +54,12 @@ public class IndemnizarController {
 	public String lBuscar(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
-			   logger.debug("lista");
+			   logger.debug("lBuscar");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   reclamo.setEstado( 2 );
+			   reclamo.setEstado( 1 );
+			   reclamo.setRespuesta( "Rechazado" );
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
 		   } catch (Exception e) {
