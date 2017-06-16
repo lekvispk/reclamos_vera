@@ -148,7 +148,7 @@
 							    <input id="btnRegistrar" type="button" value="Registrar" class="btn btn-success" >
 							  </div>
 							  <div class="col-md-4">
-							    <input class="btn btn-success" type="reset" value="Limpiar">
+							    <input id="btnLimpiar" class="btn btn-success" type="reset" value="Limpiar">
 							  </div>
 							</div>
 							
@@ -210,6 +210,13 @@
 	        scroll: true,
 	        highlight: false,
 			source: function(request, response) {
+				
+				$( "#idCliente" ).val( -1 );
+				$( "#idCliente2" ).val( -1 );
+				$( "#razonSocial" ).val( '' );
+	            $( "#representante" ).val( '' );
+	            $( "#email" ).val( '' );
+				
 	            $.ajax({
 	                url: "${pageContext.request.contextPath}/reclamos/lClienteAuto.htm",
 	                dataType: "json",
@@ -220,7 +227,12 @@
 	                    response(items);
 	                },
 	                error: function(jqXHR, textStatus, errorThrown){
-	                    /* console.log(textStatus);*/
+	                    console.log('no encontrado nada en la lista');
+	                	$( "#idCliente" ).val( -1 );
+	   				  	$( "#idCliente2" ).val( -1 );
+	   					$( "#razonSocial" ).val( '' );
+	 	            	$( "#representante" ).val( '' );
+	 	            	$( "#email" ).val( '' );	 	            
 	                }
 	            });
 	        },
@@ -237,6 +249,11 @@
    	
 	});
 
+	$(document).undelegate('#btnLimpiar', 'click').delegate('#btnLimpiar', 'click', function(){
+		console.debug('Limpiar');
+		$('#lContratolocal tbody').remove();
+	});	
+	
 	$(document).undelegate('#idFactura', 'change').delegate('#idFactura', 'change', function(){
 		console.debug('factura seleccionada ');
 		var idFactura =  $(this).val();
