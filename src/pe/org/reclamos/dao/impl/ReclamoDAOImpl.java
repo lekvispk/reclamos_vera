@@ -69,7 +69,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 				criteria.add( Restrictions.in("estado", reclamo.getEstados() ) );
 			}else{
 
-				if( reclamo.getEstado()>0)
+				if( reclamo.getEstado()!= null && reclamo.getEstado()>0)
 					criteria.add( Restrictions.eq("estado", reclamo.getEstado() ) );
 				else
 					criteria.add( Restrictions.gt("estado", 0 ) );
@@ -89,7 +89,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 				criteria.add( Restrictions.eq("idCliente", reclamo.getIdCliente() ) );
 			}
 			
-			if( reclamo.getPrioridad() > 0 ){
+			if( reclamo.getPrioridad()!=null &&  reclamo.getPrioridad() > 0 ){
 				criteria.add( Restrictions.eq("prioridad", reclamo.getPrioridad() ) );
 			}
 			
@@ -98,6 +98,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			}
 			
 			if( !Utiles.nullToBlank( reclamo.getVencimiento() ).equals("")){
+				logger.debug(METHODNAME+" vencimiento " + reclamo.getVencimiento() );
 				criteria.add( Restrictions.le("vencimiento", reclamo.getVencimiento() ) );
 			}
 			
@@ -136,6 +137,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			//criteria.addOrder( Order.desc("fechaIngreso") );
 			//criteria.setFetchMode("capacitacions", FetchMode.JOIN);
 			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+			logger.debug(METHODNAME+"FIN");
 			return this.getHibernateTemplate().findByCriteria(criteria);
 	}
 

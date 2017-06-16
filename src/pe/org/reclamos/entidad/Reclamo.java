@@ -44,7 +44,7 @@ public class Reclamo implements Serializable {
     @Lob()
 	private String descripcion;
 
-	private int estado;
+	private Integer estado;
 
 	@Transient
 	private List<Integer> estados;
@@ -62,7 +62,7 @@ public class Reclamo implements Serializable {
     @Lob()
 	private String mensaje;
 
-	private int prioridad;
+	private Integer prioridad;
 
 	private String respuesta;
 
@@ -113,6 +113,8 @@ public class Reclamo implements Serializable {
     
     public Reclamo() {
     	this.estados = new ArrayList<Integer>();
+    	this.prioridad = 0 ;
+    	this.estado = 0;
     }
 
 	public Long getIdReclamo() {
@@ -151,7 +153,7 @@ public class Reclamo implements Serializable {
 	 * 2 = Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @return estado
 	 */
-	public int getEstado() {
+	public Integer getEstado() {
 		return this.estado;
 	}
 	/**
@@ -160,7 +162,7 @@ public class Reclamo implements Serializable {
 	 * 2 = Atendido: luego de que grabe la solucion en la pantalla de Solucion<br>
 	 * @param estado
 	 */
-	public void setEstado(int estado) {
+	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
 
@@ -208,7 +210,7 @@ public class Reclamo implements Serializable {
 	 * 3=Baja
 	 * @return
 	 */
-	public int getPrioridad() {
+	public Integer getPrioridad() {
 		return this.prioridad;
 	}
 
@@ -218,7 +220,7 @@ public class Reclamo implements Serializable {
 	 * 3=Baja
 	 * @param prioridad
 	 */
-	public void setPrioridad(int prioridad) {
+	public void setPrioridad(Integer prioridad) {
 		this.prioridad = prioridad;
 	}
 
