@@ -31,7 +31,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 		logger.debug(METHODNAME + "INI" );
 		
 		//validar que no exista un reclamo con esa factura 		
-		if(reclamo.getFactura() == null || StringUtils.isEmpty( reclamo.getFactura().getNumero() )){
+		if(reclamo.getFactura() == null ||  reclamo.getFactura().getIdFactura() == null ){
 			throw new Exception("No se a recibido el numero de la facura");
 		}
 		
@@ -64,8 +64,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 				reclamoDAO.registrar( item );		
 			}
 		}
-		
-		
+		logger.debug(METHODNAME + "FIN" );		
 	}
 
 	@Override
@@ -75,7 +74,10 @@ public class ReclamoServiceImpl implements ReclamoService {
 
 	@Override
 	public List<Reclamo> buscar(Reclamo reclamo) {
-		return reclamoDAO.buscar(reclamo);
+		logger.debug( "buscar");
+		List<Reclamo> lista = reclamoDAO.buscar(reclamo); 
+		logger.debug( "lista " + lista );
+		return  lista;
 	}
 
 	@Override

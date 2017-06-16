@@ -39,9 +39,9 @@ public class ReclamoController {
 	
 	@RequestMapping(value="/lGestionar.htm", method=RequestMethod.GET)
 	public String lGestionar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "lGestionar - ";
 		 try {
-			   logger.debug("lista");
+			   logger.debug(METHODNAME + "INI");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -53,6 +53,7 @@ public class ReclamoController {
 		   }finally{
 			  model.put("reclamo", new Reclamo() );
 		   }
+		 logger.debug(METHODNAME + "FIN");
 		return "reclamos/lGestionar";
 	}
 	
@@ -68,6 +69,7 @@ public class ReclamoController {
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
 		   } catch (Exception e) {
+			   e.printStackTrace();
 			 logger.error( "ERROR: " + e.getMessage() );
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
@@ -309,6 +311,8 @@ public class ReclamoController {
 			logger.debug("grabar nuevo");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
+			
+			logger.debug("Factura " + reclamo.getFactura() ) ;
 			
 			Integer idDetalleFactura = Integer.parseInt( request.getParameter("rb_item") );
 			ItemsReclamo ir = new ItemsReclamo();
