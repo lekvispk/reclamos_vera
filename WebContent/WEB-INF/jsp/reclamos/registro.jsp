@@ -25,7 +25,7 @@
 							  <div class="col-md-5">
 							  
 							   	<c:if test="${reclamo.factura.cliente.idCliente > 0}">
-			                   		<form:hidden path="factura.cliente.idCliente" id="idCliente"/>
+							   		<form:hidden path="factura.cliente.idCliente" id="idCliente"/>
 			                   	</c:if>
 			                   	<c:if test="${empty reclamo.factura.cliente.idCliente || reclamo.factura.cliente.idCliente <= 0}">
 			                   		<input type="hidden" name="factura.cliente.idCliente" id="idCliente" value="-1"/>
@@ -78,9 +78,16 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="idFactura">Factura</label>  
 							  <div class="col-md-5">
-							  	<select name="factura.idFactura" id="idFactura" class="form-control">
+							  	<c:if test="${reclamo.factura.idFactura > 0}">
+							  		<form:hidden path="factura.idFactura"/>
+							  		<form:input path="factura.numero" disabled="true"/>
+							  	</c:if>
+							  	<c:if test="${reclamo.factura.idFactura == null || reclamo.factura.idFactura < 1}">
+							  		<select name="factura.idFactura" id="idFactura" class="form-control">
 							  		<option value="0">-seleccionar-</option>
 							  	</select>
+							  	</c:if>
+							  	
 							  </div>
 							</div>
 							
@@ -148,7 +155,15 @@
 							    <input id="btnRegistrar" type="button" value="Registrar" class="btn btn-success" >
 							  </div>
 							  <div class="col-md-4">
-							    <input id="btnLimpiar" class="btn btn-success" type="reset" value="Limpiar">
+							  
+							  	<c:if test="${reclamo.factura.cliente.idCliente > 0}">
+							   		<input id="btnRegresar" class="btn btn-success" type="button" value="Regresar">
+			                   	</c:if>
+			                   	<c:if test="${empty reclamo.factura.cliente.idCliente || reclamo.factura.cliente.idCliente <= 0}">
+			                   		<input id="btnLimpiar" class="btn btn-success" type="reset" value="Limpiar">
+			                   	</c:if>
+			                   	
+							    
 							  </div>
 							</div>
 							
@@ -171,6 +186,10 @@
 	 <jsp:include page="../include/pie.jsp"/>
 	 
 <script>
+
+	$(document).undelegate('#btnRegresar', 'click').delegate('#btnRegresar', 'click', function(){
+		window.location = '${pageContext.request.contextPath}/reclamos/lGestionar.htm' ; 
+	});
 	
 	$(document).undelegate('#btnRegistrar', 'click').delegate('#btnRegistrar', 'click', function(){
 		var fields = $("input[name='rb_item']").serializeArray(); 
@@ -327,7 +346,25 @@
             }
         });
 	}
-
+	
+	function cargarItemDeReclamo( idCliente,idReclamo ){
+		console.log( "cargarItemDeReclamo - ${pageContext.request.contextPath}/rest/clientes/"+idCliente+"/reclamos/"+idReclamo+"/items" );
+		$.ajax({
+            url: "${pageContext.request.contextPath}/rest/clientes/"+idCliente+"/reclamos/"+idReclamo+"/items",
+            dataType: "json",
+            data: {  },
+            success: function( data, textStatus, jqXHR) {
+                console.log( " itemsReclamo " +  data);
+                var idItemReclamo = data.detallefactura.idDetalleFactura;                
+                console.log( " idItemReclamo " +  idItemReclamo);
+                $('#rb_item_'+idItemReclamo).attr('checked',true);
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                 console.log(textStatus);
+            }
+        });
+	}
+	
 	function cargarItemsFactura( idCliente, idFactura ){
 		
 		$.ajax({
@@ -357,4 +394,22 @@
             }
         });
      }
+	<c:if test="${reclamo.factura.cliente.idCliente > 0}">
+		$( document ).ready(function() {
+			
+			var idCliente = $('#idCliente').attr('value');
+			var idFact = ${reclamo.factura.idFactura};
+			
+			cargarCliente( idCliente );
+			console.log( 'id fact ' + idFact );
+			if( idFact > 0 ){
+				console.log( 'cargar items de factura...' );
+				cargarItemsFactura( idCliente, idFact );
+				
+				//items 
+				cargarItemDeReclamo( idCliente, '${reclamo.idReclamo}' );
+			}
+			
+		});
+</c:if>
 </script>

@@ -35,11 +35,13 @@ public class ReclamoServiceImpl implements ReclamoService {
 			throw new Exception("No se a recibido el numero de la facura");
 		}
 		
-		Reclamo rec = new Reclamo();
-		rec.setFactura( reclamo.getFactura() );
-		List<Reclamo> lista = reclamoDAO.buscar( rec );
-		if( lista.size() > 0){
-			throw new Exception("Ya existe un reclamo con la factura indicada");
+		if( reclamo.getIdReclamo() == null && reclamo.getIdReclamo() < 1){
+			Reclamo rec = new Reclamo();
+			rec.setFactura( reclamo.getFactura() );
+			List<Reclamo> lista = reclamoDAO.buscar( rec );
+			if( lista.size() > 0){
+				throw new Exception("Ya existe un reclamo con la factura indicada");
+			}
 		}
 		
 		//identificar que es un reclamo nuevo y no un update
@@ -57,6 +59,9 @@ public class ReclamoServiceImpl implements ReclamoService {
 		reclamoDAO.registrar(reclamo);
 		//registrar itemdetalle
 		if( reclamo.getItemsReclamos() != null){
+			
+			//eliminar items de reclamo
+			reclamoDAO.eliminarItems( reclamo.getIdReclamo() );	
 			for(ItemsReclamo item : reclamo.getItemsReclamos()){
 				System.out.println( "por insertar item ");
 				item.setEstado( 1 );

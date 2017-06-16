@@ -172,7 +172,9 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	@Override
 	public ItemsReclamo obtenerItemReclamo(Long idReclamo) {
 		try {
-			return (ItemsReclamo) this.getHibernateTemplate().find("from ItemsReclamo where idReclamo = ? ", idReclamo ).get(0);
+			ItemsReclamo item = (ItemsReclamo) this.getHibernateTemplate().find("from ItemsReclamo where idReclamo = ? ", idReclamo ).get(0);
+			logger.debug( "item: " + item );
+			return item ;
 		} catch (Exception e) {
 			logger.debug( "Error: " + e.getMessage() );
 			return null;
@@ -187,6 +189,12 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			logger.debug( "Error: " + e.getMessage() );
 			return null;
 		}
+	}
+
+	@Override
+	public void eliminarItems(Long idReclamo) {
+		logger.debug("eliminar ItemsReclamo " + idReclamo );
+		this.getHibernateTemplate().bulkUpdate("delete ItemsReclamo where idReclamo = ?  ", idReclamo );
 	}
 
 }

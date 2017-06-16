@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import pe.org.reclamos.dao.NotificacionesDAO;
-import pe.org.reclamos.entidad.Notificacion;
+import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.rest.bean.NotificacionRest;
 import pe.org.reclamos.rest.bean.RespuestaRest;
 import pe.org.reclamos.service.ReclamoService;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 @Controller
 @RequestMapping("/clientes")
@@ -120,6 +120,23 @@ public class ReclamosRestController {
 		Reclamo reclamo = new Reclamo();
 		reclamo = reclamoService.obtener( new Long(idReclamo) );
 		
+		return reclamo;
+	}
+	
+	/**
+	 * http://localhost:8080/reclamos/rest/clientes/1/reclamos/1/items
+	 * @param idReclamo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/{user}/reclamos/{idReclamo}/items", method = RequestMethod.GET )
+	public @ResponseBody ItemsReclamo getItemReclamo( @PathVariable String idReclamo, ModelMap model) {
+		final String METHODNAME = "getItemReclamo - ";
+		logger.debug(METHODNAME + "INI" );
+		logger.debug(METHODNAME + "items del reclamo " + idReclamo );
+		ItemsReclamo reclamo = new ItemsReclamo();
+		reclamo = reclamoService.obtenerItemReclamo( new Long(idReclamo) );
+		logger.debug(METHODNAME + "FIN" );
 		return reclamo;
 	}
 	

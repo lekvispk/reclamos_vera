@@ -17,6 +17,7 @@ public interface ReclamoDAO {
 	public void grabarNoIndemnizado(Long idReclamos);
 	public Reclamo obtenerPorIdFactura(Long idFactura);
 	public ItemsReclamo obtenerItemReclamo(Long idReclamo);
-	public Reclamo obtenerUltimoReclamoRegistrado(Integer idUsuario);	
+	public Reclamo obtenerUltimoReclamoRegistrado(Integer idUsuario);
+	public void eliminarItems(Long idReclamo);	
 	
 }
