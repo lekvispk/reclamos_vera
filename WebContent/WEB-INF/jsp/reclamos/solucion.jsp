@@ -41,7 +41,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" >Codigo de Producto:</label>  
 							  <div class="col-md-5">
-							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
+							  	<label class="form-control input-md">${reclamo.itemReclamo.detallefactura.producto.skuProducto}</label>
 							  </div>
 							</div>
 							
@@ -49,7 +49,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" >Descripcion:</label>  
 							  <div class="col-md-5">
-							  	<label class="form-control input-md">${reclamo.factura.numero}</label>
+							  	<label class="form-control input-md">${reclamo.itemReclamo.detallefactura.producto.descripcion}</label>
 							  </div>
 							</div>
 							
@@ -58,9 +58,9 @@
 							  <label class="col-md-4 control-label" >Prioridad</label>  
 							  <div class="col-md-5">
 							  	<label class="form-control input-md">
-							  	<c:if test="${reclamo.prioridad == 1}">Alta</c:if>
-				            	<c:if test="${reclamo.prioridad == 2}">Normal</c:if>
-				            	<c:if test="${reclamo.prioridad == 3}">Baja</c:if>
+								  	<c:if test="${reclamo.prioridad == 1}">Alta</c:if>
+					            	<c:if test="${reclamo.prioridad == 2}">Normal</c:if>
+					            	<c:if test="${reclamo.prioridad == 3}">Baja</c:if>
 				            	</label>
 							  </div>
 							</div>

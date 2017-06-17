@@ -35,7 +35,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 			throw new Exception("No se a recibido el numero de la facura");
 		}
 		
-		if( reclamo.getIdReclamo() == null && reclamo.getIdReclamo() < 1){
+		if( reclamo.getIdReclamo() == null || reclamo.getIdReclamo() < 1){
 			Reclamo rec = new Reclamo();
 			rec.setFactura( reclamo.getFactura() );
 			List<Reclamo> lista = reclamoDAO.buscar( rec );
@@ -63,7 +63,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 			//eliminar items de reclamo
 			reclamoDAO.eliminarItems( reclamo.getIdReclamo() );	
 			for(ItemsReclamo item : reclamo.getItemsReclamos()){
-				System.out.println( "por insertar item ");
+				logger.debug( METHODNAME + "por insertar item ");
 				item.setEstado( 1 );
 				item.setReclamo( reclamo );
 				reclamoDAO.registrar( item );		

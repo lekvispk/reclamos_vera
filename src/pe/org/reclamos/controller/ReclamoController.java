@@ -216,9 +216,9 @@ public class ReclamoController {
 	
 	@RequestMapping(value="/lSolucionar.htm", method=RequestMethod.GET)
 	public String lSolucionar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "lSolucionar - ";
 		 try {
-			   logger.debug("lSolucionar");
+			   logger.debug(METHODNAME + "INI");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 
@@ -233,7 +233,9 @@ public class ReclamoController {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
+			   logger.debug(METHODNAME + "coloco nuevo reclamo");
 			   model.put("reclamo", new Reclamo() );
+			   logger.debug(METHODNAME + "FIN");
 		   }
 		return "reclamos/lSolucionar";
 	}
@@ -248,7 +250,8 @@ public class ReclamoController {
 			   request.setCharacterEncoding("UTF8");
 			   
 			   reclamo.setVencimiento( Utiles.stringToDate( request.getParameter("vencimiento") , "dd/MM/yyyy") );
-			   reclamo.setEstado(2);
+			   reclamo.setEstado(1);
+			   reclamo.setRespuesta(Constantes.RECLAMO_RESPUESTA_ACEPTADO);
 			   model.put("lReclamos", reclamoService.buscar( reclamo ));
 			   
 		   } catch (Exception e) {
@@ -266,6 +269,7 @@ public class ReclamoController {
 		
 		String idReclamo = request.getParameter("idReclamo");
 		Reclamo rec =  reclamoService.obtener( new Long(idReclamo)) ;
+		rec.setItemReclamo( reclamoService.obtenerItemReclamo(new Long(idReclamo)));
 		model.put("reclamo", rec );
 		
 		return "reclamos/solucion";
@@ -284,6 +288,7 @@ public class ReclamoController {
 			reclamoService.actualizar(rec);
 			
 			model.put("mensaje","La solucion se ha grabado satisfactoriamente");
+			reclamo = new Reclamo();
 			return lSolucionar(request, response, model);
 			
 		} catch (Exception e) {
@@ -315,12 +320,13 @@ public class ReclamoController {
 	
 	@RequestMapping(value="/registro.htm" , method=RequestMethod.POST)  
 	 public String nuevo(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model /*,  RedirectAttributes redirectAttrs*/ ) {  
-		try {
-			logger.debug("grabar nuevo");
+		final String METHODNAME = "nuevo - ";
+		logger.debug(METHODNAME + "INI");
+		try {			
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
-			logger.debug("Factura " + reclamo.getFactura() ) ;
+			logger.debug(METHODNAME + "Factura " + reclamo.getFactura() ) ;
 			
 			Integer idDetalleFactura = Integer.parseInt( request.getParameter("rb_item") );
 			ItemsReclamo ir = new ItemsReclamo();
@@ -338,6 +344,7 @@ public class ReclamoController {
 			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );
 			return "reclamos/registro";
 		}finally{
+			logger.debug(METHODNAME + "FIN");
 			model.put("reclamo", reclamo);
 		}
 	 }  

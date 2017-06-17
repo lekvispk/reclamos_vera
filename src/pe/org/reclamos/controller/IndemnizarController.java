@@ -28,9 +28,10 @@ public class IndemnizarController {
 	
 	@RequestMapping(value="/lIndemnizar.htm", method=RequestMethod.GET)
 	public String lIndemnizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "lIndemnizar - ";
+		logger.debug(METHODNAME + "INI");
 		 try {
-			   logger.debug("lista");
+			   
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -45,7 +46,9 @@ public class IndemnizarController {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
+			   logger.debug(METHODNAME + "nuevo reclamo");
 			   model.put("reclamo", new Reclamo() );
+			   logger.debug(METHODNAME + "FIN");
 		   }
 		return "indemnizar/lIndemnizar";
 	}
@@ -89,8 +92,9 @@ public class IndemnizarController {
 	
 	@RequestMapping(value="/indemnizar.htm" , method=RequestMethod.POST)  
 	 public String indemnizar(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request,  HttpServletResponse response, ModelMap model) {  
+		final String METHODNAME = "indemnizar - ";
 		try {
-			logger.debug("indemnizar");
+			logger.debug(METHODNAME + "INI");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
@@ -105,6 +109,8 @@ public class IndemnizarController {
 			reclamoService.registrarIndemnizacion(rec);
 			
 			model.put("mensaje","Se ha grabado satisfactoriamente");
+			reclamo = new Reclamo();
+			
 			return "redirect:/indemnizar/lIndemnizar.htm";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,6 +118,7 @@ public class IndemnizarController {
 			return "indemnizar/indemnizar";
 		}finally{
 			model.put("reclamo", reclamo);
+			logger.debug(METHODNAME + "FIN");
 		}
 	 }  
 	

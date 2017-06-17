@@ -32,14 +32,14 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void registrar(Reclamo reclamo) {
-		System.out.println( "insertar reclamo " );
+		logger.debug( "insertar reclamo " );
 		this.getHibernateTemplate().saveOrUpdate( reclamo );
 	}
 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public void registrar(ItemsReclamo item) {
-		System.out.println(" insertar item de reclamo ");
+		logger.debug(" insertar item de reclamo ");
 		this.getHibernateTemplate().saveOrUpdate( item );
 	}
 	
@@ -103,22 +103,22 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			}
 			
 			if( reclamo.getFactura() != null ){
-				logger.debug(METHODNAME+" validar factura " );
+				logger.debug(METHODNAME + "validar factura " );
 				
 				DetachedCriteria criteria1 = criteria.createCriteria("factura");
 				
 				if( reclamo.getFactura().getIdFactura() != null ){
-					logger.debug(METHODNAME+" IDfactura " +  reclamo.getFactura().getIdFactura() );
+					logger.debug(METHODNAME + "IDfactura " +  reclamo.getFactura().getIdFactura() );
 					criteria1.add( Restrictions.eq("idFactura", reclamo.getFactura().getIdFactura() ) );
 				}
 				if( reclamo.getFactura().getNumero() != null ){
-					logger.debug(METHODNAME+" numero de factura " +  reclamo.getFactura().getNumero() );
+					logger.debug(METHODNAME + "numero de factura " +  reclamo.getFactura().getNumero() );
 					criteria1.add( Restrictions.eq("numero", reclamo.getFactura().getNumero() ) );
 				}
 				if( reclamo.getFactura().getCliente() != null ){
 					//factura.cliente.nomClient	
 					if( !StringUtils.isEmpty( reclamo.getFactura().getCliente().getNomCliente()) ){
-						logger.debug(METHODNAME+" nomCliente " + reclamo.getFactura().getCliente().getNomCliente() );
+						logger.debug(METHODNAME + "nomCliente " + reclamo.getFactura().getCliente().getNomCliente() );
 						DetachedCriteria criteria2 = criteria.createCriteria("factura.cliente");
 						criteria2.add( Restrictions.ilike("nomCliente", reclamo.getFactura().getCliente().getNomCliente() , MatchMode.ANYWHERE ) );
 					}
@@ -137,7 +137,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			//criteria.addOrder( Order.desc("fechaIngreso") );
 			//criteria.setFetchMode("capacitacions", FetchMode.JOIN);
 			criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
-			logger.debug(METHODNAME+"FIN");
+			logger.debug(METHODNAME + "FIN");
 			return this.getHibernateTemplate().findByCriteria(criteria);
 	}
 
