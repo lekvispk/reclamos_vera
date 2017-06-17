@@ -1,10 +1,10 @@
 package pe.org.reclamos.service.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.org.reclamos.dao.ReclamoDAO;
 import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
+import pe.org.reclamos.rest.bean.ReporteDataBean;
 import pe.org.reclamos.service.ReclamoService;
 
 @Service
@@ -127,6 +128,58 @@ public class ReclamoServiceImpl implements ReclamoService {
 	@Override
 	public ItemsReclamo obtenerItemReclamo(Long idReclamo) {
 		return reclamoDAO.obtenerItemReclamo(idReclamo);
+	}
+
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorMesAtendidosAnioActual() {
+		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
+		
+		reclamos.add( new ReporteDataBean("ENE","20"));
+		reclamos.add( new ReporteDataBean("FEB","10"));
+		reclamos.add( new ReporteDataBean("MAR","15"));
+		reclamos.add( new ReporteDataBean("ABR","35"));
+		reclamos.add( new ReporteDataBean("MAY","40"));
+		reclamos.add( new ReporteDataBean("JUN","20"));
+		
+		return reclamos;
+	}
+
+	@Override
+	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio() {
+		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
+		
+		reclamos.add( new ReporteDataBean("TV AOC 28","35"));
+		reclamos.add( new ReporteDataBean("iPhone 3G","5"));
+		reclamos.add( new ReporteDataBean("iPhone 3GS","2"));
+		reclamos.add( new ReporteDataBean("iPhone 4","50"));
+		reclamos.add( new ReporteDataBean("iPhone 4S","15"));
+		
+		return reclamos;
+	}
+	
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio() {
+		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
+		
+		reclamos.add( new ReporteDataBean("2017-01","80"));
+		reclamos.add( new ReporteDataBean("2017-02","70"));
+		reclamos.add( new ReporteDataBean("2017-03","20"));
+		reclamos.add( new ReporteDataBean("2017-04","60"));
+		reclamos.add( new ReporteDataBean("2017-05","22"));
+		reclamos.add( new ReporteDataBean("2017-06","15"));
+		
+		return reclamos;
+	}
+
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual() {
+		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
+		
+		reclamos.add( new ReporteDataBean("En estado Registrado","12"));
+		reclamos.add( new ReporteDataBean("En estado Evaluado","30"));
+		reclamos.add( new ReporteDataBean("En estado Rechazado","20"));
+		
+		return reclamos;
 	}
 
 }

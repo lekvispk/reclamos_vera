@@ -4,6 +4,7 @@ import java.util.List;
 
 import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
+import pe.org.reclamos.rest.bean.ReporteDataBean;
 
 public interface ReclamoService {
 
@@ -16,5 +17,11 @@ public interface ReclamoService {
 	public void grabarNoIndemnizados(String[] idReclamos);
 	public void registrarIndemnizacion(Reclamo rec);
 	public ItemsReclamo obtenerItemReclamo(Long idReclamo);
+	
+	
+	public List<ReporteDataBean> obtenerReclamosPorMesAtendidosAnioActual();
+	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio();
+	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio();
+	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual();
 		
 }

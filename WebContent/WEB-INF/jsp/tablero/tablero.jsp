@@ -59,7 +59,7 @@
 				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Nro. de Reclamos desatendidos al mes en este año</h3>
 				                            </div>
 				                            <div class="panel-body">
-				                                <div id="morris-line-chart"></div>				                                
+				                                <div id="desatendidos-por-mes"></div>				                                
 				                            </div>
 				                        </div>
 				                    </div>
@@ -70,7 +70,7 @@
 				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Nro. de reclamos efectuados (mes actual)</h3>
 				                            </div>
 				                            <div class="panel-body">
-				                                <div id="morris-donut-chart"></div>
+				                                <div id="reclamos-por-estado"></div>
 				                            </div>
 				                        </div>
 				                    </div>
