@@ -109,7 +109,10 @@ INSERT INTO `reclamosbd`.`factura`(`idFactura`,`idProveedor`,`idCliente`,`emisio
 (17,NULL,9,'2016-10-01','001-1016','2500',1,NOW(),NULL),
 (18,NULL,5,'2016-10-01','001-1017','2500',1,NOW(),NULL),
 (19,NULL,5,'2016-10-01','001-1018','2500',1,NOW(),NULL),
-(20,NULL,5,'2016-10-01','001-1019','2500',1,NOW(),NULL);
+(20,NULL,5,'2016-10-01','001-1019','2500',1,NOW(),NULL),
+(21,NULL,6,'2016-10-01','001-1011','2500',1,NOW(),NULL),
+(22,NULL,6,'2016-10-01','001-1012','2500',1,NOW(),NULL);
+
 
 INSERT INTO `reclamosbd`.`producto`(`idProducto`,`descripcion`,`fecProducto`,`direProducto`,`skuProducto`,`precio`,`pesoProducto`,`tipoProducto`,`estado`,`created_at`,`updated_at`) VALUES 
 (1,'Televisor 1','2016-10-01','--','10000001','20','1',1,1,NOW(),NULL),
@@ -166,6 +169,16 @@ INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFac
 (34,4,18,'1','100',1,NOW(), NULL),
 (35,5,19,'1','100',1,NOW(), NULL),
 (36,6,20,'1','100',1,NOW(), NULL);
+
+
+--demo de inser detalle Factura
+
+INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFactura`,`cantidad`,`precio`,`estado`,`created_at`,`updated_at`) VALUES 
+(37,6,20,'3','180',1,NOW(), NULL),
+(38,6,21,'4','200',1,NOW(), NULL);
+(39,5,20,'4','200',1,NOW(), NULL),
+(40,7,20,'3','150',1,NOW(), NULL);
+
 
 INSERT INTO `reclamosbd`.`despachador` (`idDespachador`, `codigo`, `nombres`, `apellidos`, `estado`, `created_at` ) VALUES 
 (1,'D001', 'Juan', 'Perez', 1, NOW()),
