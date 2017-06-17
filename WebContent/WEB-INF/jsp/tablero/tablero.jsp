@@ -26,29 +26,28 @@
 				               
 				                <!-- /.row -->
 				
-				                <div class="row">				                    
+				                <div class="row">
+				                	<div class="col-lg-6">
+				                        <div class="panel panel-yellow">
+				                            <div class="panel-heading">
+				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reclamos atendidos por mes este año</h3>
+				                            </div>
+				                            <div class="panel-body">
+				                                <div id="reclamos-atendidos-por-mes"></div>
+				                            </div>
+				                        </div>
+				                    </div>			                    
 				                    <div class="col-lg-6">
 				                        <div class="panel panel-primary">
 				                            <div class="panel-heading">
-				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reclamos con mas frecuencia de sucesos</h3>
+				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Reclamos con mas frecuencia de sucesos este año</h3>
 				                            </div>
 				                            <div class="panel-body">
-				                                <div id="morris-bar-chart"></div>				                                
+				                                <div id="reclamos-mas-repetidos"></div>				                                
 				                            </div>
 				                        </div>
 				                    </div>
-				                    <div class="col-lg-6">
-				                        <div class="panel panel-yellow">
-				                            <div class="panel-heading">
-				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Multiple Axes Line Graph Example with Tooltips and Raw Data</h3>
-				                            </div>
-				                            <div class="panel-body">
-				                                <div class="flot-chart">
-				                                    <div class="flot-chart-content" id="flot-multiple-axes-chart"></div>
-				                                </div>
-				                            </div>
-				                        </div>
-				                    </div>
+				                    
 				                </div>
 				                <!-- /.row -->
 				
@@ -65,14 +64,13 @@
 				                        </div>
 				                    </div>
 				                    <div class="col-lg-6">
-				                        <div class="panel panel-green">
+				                    	<!-- numero de reclamos segun el estado en que quedaron en el mes actual -->
+				                        <div class="panel panel-yellow">
 				                            <div class="panel-heading">
-				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Nro. de reclamos efectuados</h3>
+				                                <h3 class="panel-title"><i class="fa fa-long-arrow-right"></i> Nro. de reclamos efectuados (mes actual)</h3>
 				                            </div>
 				                            <div class="panel-body">
-				                                <div class="flot-chart">
-				                                    <div class="flot-chart-content" id="flot-pie-chart"></div>
-				                                </div>
+				                                <div id="morris-donut-chart"></div>
 				                            </div>
 				                        </div>
 				                    </div>
@@ -107,14 +105,6 @@
     <script src="${pageContext.request.contextPath}/js/plugins/morris/morris.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/plugins/morris/morris-data.js"></script>
 
-    <!-- Flot Charts JavaScript -->
-    <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
-    <script src="${pageContext.request.contextPath}/js/plugins/flot/jquery.flot.js"></script>
-    <script src="${pageContext.request.contextPath}/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/plugins/flot/jquery.flot.resize.js"></script>
-    <script src="${pageContext.request.contextPath}/js/plugins/flot/jquery.flot.pie.js"></script>
-    <script src="${pageContext.request.contextPath}/js/plugins/flot/jquery.flot.time.js"></script>
-    <script src="${pageContext.request.contextPath}/js/plugins/flot/flot-data.js"></script>
     
 <script>
 $(document).undelegate('#btnVolver', 'click').delegate('#btnVolver', 'click', function(){
