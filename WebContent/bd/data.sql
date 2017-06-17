@@ -65,7 +65,8 @@ INSERT INTO `reclamosbd`.`capacitador` (`idCapacitador`, `codigo`, `nombre`, `ap
  (2,'CAP002', 'Luis', 'Rosas', 1, NOW(), NULL),
  (3,'CAP003', 'Alberto', 'Salgado', 1, NOW(), NULL),
  (4,'CAP004', 'Carlos', 'Sanchez', 1, NOW(), NULL),
- (5,'CAP005', 'Pedro', 'Salinas', 1, NOW(), NULL);
+ (5,'CAP005', 'Pedro', 'Salinas', 1, NOW(), NULL),
+ (6,'CAP006', 'xavi', 'Weiland', 1, NOW(), NULL);
  
 INSERT INTO `reclamosbd`.`promocion`(`idPromocion`,`descripcion`,`estado`,`created_at`,`updated_at`) VALUES 
 (1,'Capacitacion',1,NOW(),NULL),
@@ -203,9 +204,16 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (4, 2, 2, '2017-06-03', '09:10', NULL, 1, NOW(), NULL),
  (5, 2, 2, '2017-06-04', '09:10', NULL, 1, NOW(), NULL),
  (6, 3, 3, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
- (7, 3, 3, '2017-06-05', '09:20', NULL, 1, NOW(), NULL);
- 
- 
+ (7, 3, 3, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (8, 4, 4, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (9, 4, 4, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (10, 5, 5, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (11, 5, 5, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (12, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (13, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL);
+
+
+
  
  
  
