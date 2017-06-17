@@ -4,7 +4,14 @@
 
 <jsp:include page="../../include/cabecera.jsp"/>
 
-
+	<style>
+		#field,label{
+			float:inherit;
+			padding-left: 5px;
+			padding-bottom: 3px;
+		}
+	</style>
+	
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">

@@ -23,17 +23,38 @@
 							<!-- Form Name -->
 							<legend>Registrar Usuario</legend>
 							
+							<form:hidden path="persona.idPersona"/>
+							
 							<!-- Persona Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="rucCliente">Persona</label>  
+							  <label class="col-md-4 control-label" for="persona.nombres">Nombres</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="persona.idPersona" id="persona.idPersona" class="form-control input-md"> 
+							  	<input type="text" name="persona.nombres" id="persona.nombres" class="form-control input-md"> 
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="persona.apePaterno">Apellido Paterno</label>  
+							  <div class="col-md-5">
+							  	<input type="text" name="persona.apePaterno" id="persona.apePaterno" class="form-control input-md"> 
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="persona.apeMaterno">Apellido Materno</label>  
+							  <div class="col-md-5">
+							  	<input type="text" name="persona.apeMaterno" id="persona.apeMaterno" class="form-control input-md"> 
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="persona.numeroDocumento">Nro. de documento</label>  
+							  <div class="col-md-5">
+							  	<input type="text" name="persona.numeroDocumento" id="persona.numeroDocumento" class="form-control input-md"> 
 							  </div>
 							</div>
 							
+							<form:hidden path="idUsuario"/>			
 							<!-- RUC Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="rucCliente">Username</label>  
+							  <label class="col-md-4 control-label" for="rucCliente">Nombre de usuario</label>  
 							  <div class="col-md-5">
 							  	<form:input path="username" id="username" size="20" cssClass="form-control input-md" />
 							  </div>

@@ -3,6 +3,7 @@ package pe.org.reclamos.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,17 @@ import pe.org.reclamos.service.ClienteService;
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
+	private static final Logger logger = Logger.getLogger(ClienteServiceImpl.class );
+	
 	@Autowired
 	private ClienteDAO clienteDAO;
 	
 	@Override
 	public void registrar(Cliente cliente) {
+		final String METHODNAME = "registrar - ";
+		logger.debug(METHODNAME + "INI");
 		if( cliente.getIdCliente()==null ){
-			System.out.println("CLIETNE NUEVO SERVICE");
+			logger.debug(METHODNAME + "CLIETNE NUEV");
 			cliente.setFecCliente( new Date() );
 			cliente.setEstado( 1 );
 			
@@ -27,7 +32,7 @@ public class ClienteServiceImpl implements ClienteService {
 			cliente.getPersona().setCreatedAt( new Date() );
 			
 		}else{
-			System.out.println("CLIETNE MODIFICADO SERVICE");
+			logger.debug(METHODNAME + "CLIETNE MODIFICADO");
 			cliente.getPersona().setUpdatedAt( new Date() );
 		}
 		clienteDAO.registrar(cliente);

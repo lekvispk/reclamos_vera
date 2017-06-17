@@ -1,5 +1,7 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net"  %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <jsp:include page="../include/cabecera.jsp"/>
 
@@ -12,7 +14,7 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form class="form-horizontal" action="#" name="frmDocumentos" id="frmDocumentos" method="post">
+				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="cliente">
 							<fieldset>
 							
 							<!-- Form Name -->
@@ -20,22 +22,17 @@
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtRemitente">Remitente</label>  
+							  <label class="col-md-4 control-label" for="nomCliente">Razón Social</label>  
 							  <div class="col-md-5">
-							  <input id="txtRemitente" name="txtRemitente" type="text" placeholder="Remitente" class="form-control input-md">
-							    
+							  	<form:input path="nomCliente" id="nomCliente" size="20" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
-							<!-- Select Basic -->
+							<!-- rucCliente Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="cmbTipo">Tipo de Trámite</label>
-							  <div class="col-md-4">
-							    <select id="cmbTipo" name="cmbTipo" class="form-control">
-							      <option value="1">Alerta</option>
-							      <option value="2">Oposición</option>
-							      <option value="3">Usuarios</option>
-							    </select>
+							  <label class="col-md-4 control-label" for="rucCliente">R.U.C.</label>  
+							  <div class="col-md-5">
+							  	<form:input path="rucCliente" id="rucCliente" size="20" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
@@ -49,7 +46,7 @@
 							</div>
 							
 							</fieldset>
-				          </form>
+				          </form:form>
 				   		
                          	<div id="tablaDinamica">
 						 	<div id="resultado">
@@ -95,12 +92,13 @@
 	 
 	 
 <script>
-	function nuevo(){
-		document.forms[0].action='ncliente.htm';
-		document.forms[0].action.submit();
-	}
-	
 
+	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
+		document.forms[0].action="lista.htm";
+		document.forms[0].submit();
+		//return false;
+	});
+	
 	function eliminar(id){
 		if(confirm('¿Está seguro de eliminar al cliente?')){
 			$("#tablaDinamica").css('opacity', 0.4);
@@ -113,8 +111,8 @@
 		}
 	}
 	
-	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   });
+	$( function(){
+   		$("#displayTagDiv").displayTagAjax();
+   	});
    
 </script>

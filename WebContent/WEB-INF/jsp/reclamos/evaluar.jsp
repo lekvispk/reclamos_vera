@@ -128,8 +128,8 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input class="btn btn-success" type="button" onclick="javascript:history.back();" value="Regresar">
 							    <input class="btn btn-success" type="button" onclick="javascript:evaluar();" value="Aceptar">
+							    <input class="btn btn-success" type="button" onclick="javascript:history.back();" value="Regresar">
 							  </div>
 							</div>
 							

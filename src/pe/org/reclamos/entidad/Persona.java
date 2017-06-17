@@ -1,13 +1,18 @@
 package pe.org.reclamos.entidad;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import java.util.Date;
 import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -23,6 +28,8 @@ public class Persona implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idPersona;
 
+	private String nombres;
+	
 	@Column(name="ape_materno")
 	private String apeMaterno;
 
@@ -38,8 +45,6 @@ public class Persona implements Serializable {
 	private String email;
 
 	private int estado;
-
-	private String nombres;
 
 	@Column(name="numero_documento")
 	private String numeroDocumento;
@@ -192,8 +197,12 @@ public class Persona implements Serializable {
 	}
 
 	@Override
-     public String toString() {
-          return ReflectionToStringBuilder.toString(this,ToStringStyle.SIMPLE_STYLE);
-     }
-	 
+	public String toString() {
+		return "Persona [idPersona=" + idPersona + ", nombres=" + nombres + ", apeMaterno=" + apeMaterno
+				+ ", apePaterno=" + apePaterno + ", createdAt=" + createdAt + ", direccion=" + direccion + ", email="
+				+ email + ", estado=" + estado + ", numeroDocumento=" + numeroDocumento + ", telefono1=" + telefono1
+				+ ", telefono2=" + telefono2 + ", ubigeo=" + ubigeo + "]";
+	}
+
+	
 }

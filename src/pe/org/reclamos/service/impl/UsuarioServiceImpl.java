@@ -39,8 +39,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@Transactional(propagation=Propagation.REQUIRES_NEW, rollbackFor=Exception.class)
 	public void registrar(Usuario usuario) {
+		final String METHODNAME = "registrar - ";
+		logger.debug(METHODNAME + "INI");
+		
 		List<Permiso> permisos = null ;
 		Boolean nuevo = false;
 		
@@ -51,11 +54,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 			permisos = permisoService.listarPermisos();
 		}
 		
+		usuario.getPersona().setEmail( usuario.getEmail());
+		usuarioDAO.registrar(usuario.getPersona());
 		usuarioDAO.registrar(usuario);
-		
+		logger.debug(METHODNAME + " usuario registrado");
 		if(nuevo){
 			usuarioDAO.registrarPermisos( usuario, permisos);
+			logger.debug(METHODNAME + "permiso registrado");
 		}
+		
+		logger.debug(METHODNAME + "FIN");
 	}
 
 	@Override

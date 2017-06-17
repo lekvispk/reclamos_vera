@@ -40,8 +40,8 @@ public class ReclamoController {
 	@RequestMapping(value="/lGestionar.htm", method=RequestMethod.GET)
 	public String lGestionar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		final String METHODNAME = "lGestionar - ";
-		 try {
-			   logger.debug(METHODNAME + "INI");
+		logger.debug(METHODNAME + "INI");
+		 try {			   
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -59,9 +59,9 @@ public class ReclamoController {
 	
 	@RequestMapping(value="/lGestionar.htm", method=RequestMethod.POST)
 	public String lGestionarPost(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "lGestionarPost - ";
+		logger.debug(METHODNAME + "INI");
 		 try {
-			   logger.debug("lGestionar");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -73,9 +73,8 @@ public class ReclamoController {
 			 logger.error( "ERROR: " + e.getMessage() );
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
-			  // model.put("lTipoMov", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOMOVTRAM ) );
-			  // model.put("lTipoTram", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOTRAM) );
-			  model.put("reclamo", reclamo );
+			   logger.debug(METHODNAME + "INI");
+			   model.put("reclamo", reclamo );
 		   }
 		return "reclamos/lGestionar";
 	}

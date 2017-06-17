@@ -82,7 +82,7 @@
                          	<div id="tablaDinamica">
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
-						    	<display:table  name="requestScope.lReclamos" requestURI="lGestionar.htm" class="displaytag" pagesize="1"
+						    	<display:table  name="requestScope.lReclamos" requestURI="lGestionar.htm" class="displaytag" pagesize="20"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax" >
 						            <display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />
 						           <display:column title="Asunto" property="asunto" sortable="true" headerClass="sortable" />

@@ -30,10 +30,11 @@
 								 	<div id="resultado">
 							   			<div id="displayTagDiv">
 							   			<display:table  name="requestScope.lPermisos" requestURI="lista.htm" class="displaytag" pagesize="20"
-								            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax">
+								            defaultsort="1" defaultorder="ascending" sort="list" export="true" id="row" excludedParams="ajax">
 								           
 								           <display:column title="Id" property="idPermiso" sortable="true" headerClass="sortable" />
 								           <display:column title="Permiso" property="permiso" sortable="true" headerClass="sortable" />
+								           <display:column title="Permiso" property="detalle" sortable="true" headerClass="sortable" />
 								          
 								    	</display:table>
 										</div>

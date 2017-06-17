@@ -18,6 +18,7 @@ import pe.org.reclamos.dao.UsuarioDAO;
 import pe.org.reclamos.entidad.Authority;
 import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Permiso;
+import pe.org.reclamos.entidad.Persona;
 import pe.org.reclamos.entidad.Usuario;
 import pe.org.reclamos.utiles.Utiles;
 
@@ -71,9 +72,17 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
 	}
 
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(propagation=Propagation.MANDATORY)
 	public void registrar(Usuario usuario) {
+		logger.debug("registrar usuario - INI");
 		this.getHibernateTemplate().saveOrUpdate( usuario );
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.MANDATORY)
+	public void registrar(Persona persona) {
+		logger.debug("registrar persona - INI");
+		this.getHibernateTemplate().saveOrUpdate( persona );
 	}
 
 	@Override

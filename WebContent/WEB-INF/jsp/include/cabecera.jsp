@@ -100,8 +100,8 @@
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Reclamos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li><a href="${pageContext.request.contextPath}/reclamos/lGestionar.htm">Gestionar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/reclamos/registro.htm">Registrar</a></li>
+                                <li><a href="${pageContext.request.contextPath}/reclamos/lGestionar.htm">Gestionar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lEvaluar.htm">Evaluar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lSolucionar.htm">Solucionar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/indemnizar/lIndemnizar.htm">Indemnizar</a></li>

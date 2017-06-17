@@ -24,26 +24,46 @@ public class ClientesController {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@RequestMapping(value="/lista.htm")
-	public String listar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+	@RequestMapping(value="/lista.htm" ,  method=RequestMethod.GET)
+	public String listar( HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		final String METHODNAME = "listar - ";
 		 try {
-			   logger.debug("lista");
+			   logger.debug( METHODNAME + "INI");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			  
 			   model.put("lClientes", clienteService.buscar( new Cliente() ));
+			   model.put("cliente", new Cliente() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
-			  // model.put("lTipoMov", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOMOVTRAM ) );
-			  // model.put("lTipoTram", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOTRAM) );
-			  // model.put("tramite", tramite );
+			   logger.debug( METHODNAME + "FIN");
 		   }
 		return "clientes/lista";
 	}
+	
+	@RequestMapping(value="/lista.htm" ,  method=RequestMethod.POST)
+	public String listarPost(@Valid Cliente cliente, BindingResult result,  HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		final String METHODNAME = "listarPost - ";
+		logger.debug( METHODNAME + "INI");
+		
+		try {
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			  
+			   model.put("lClientes", clienteService.buscar( cliente ));
+			   model.put("cliente", cliente );
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			   logger.debug( METHODNAME + "FIN");
+		   }
+		return "clientes/lista";
+	}
+	
 	
 	@RequestMapping(value="/registro.htm" , method=RequestMethod.GET)
 	public String preNuevoCliente( ModelMap model){
@@ -60,6 +80,8 @@ public class ClientesController {
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
+			logger.debug("Persona =  " + cliente.getPersona() );
+			logger.debug("Cliente "  + cliente );
 			clienteService.registrar(cliente);
 			
 			model.put("mensaje","Se ha grabado satisfactoriamente");

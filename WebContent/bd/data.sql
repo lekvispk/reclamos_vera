@@ -2,15 +2,21 @@
 INSERT INTO `reclamosbd`.`perfil`(`idPerfil`, `perfil`,`estado`) VALUES 
  (1,'Administrador',1),
  (2,'Reclamos',1),
- (3,'Consulta',1);
+ (3,'Consulta',1),
+ (4,'Jefe Supervisor',1);
  
 INSERT INTO `reclamosbd`.`permisos`(`idPermiso`,`permiso`,`detalle`,`estado`) VALUES
  (1,'ROLE_USER','Usuario generico del sistema',1),
  (2,'ROLE_ADMIN','Administrador del sistema',1),
- (3,'ROLE_RECLAMO','Ver modulode reclamo',1),
+ (3,'ROLE_RECLAMO','Ver modulo de reclamo',1),
  (4,'ROLE_RECLAMO_R','Registrar Reclamos',1),
  (5,'ROLE_FIDELIZA','Ver modulo de fidelizar',1),
- (6,'ROLE_FIDELIZA_R','Registro de Fidelizar',1);
+ (6,'ROLE_FIDELIZA_R','Registro de Fidelizar',1),
+ (7,'ROLE_CAPACITA','Modulo de capacitaciones',1),
+ (8,'ROLE_PRODUCTO','Modulo de cambio y devolucion de productos',1),
+ (9,'ROLE_SEGUIMIENTO','Modulo de seguimiento dereclamos',1),
+ (10,'ROLE_CLIENTES','Modulo de Clientes, solo consulta',1),
+ (11,'ROLE_CLIENTES_R','Modulo de Clientes, opcion para registrar',1);
 
 INSERT INTO `reclamosbd`.`permisos_perfil`(`idPermiso`,`idPerfil`,`estado`)VALUES 
  (1,1,1),

@@ -78,8 +78,9 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/registro.htm" , method=RequestMethod.POST)  
 	 public String nuevoCliente(@Valid Usuario usuario, BindingResult result, HttpServletRequest request,  HttpServletResponse response, ModelMap model) {  
+		final String METHODNAME	= "nuevoCliente - ";
 		try {
-			logger.debug("grabar un cliente usuario");
+			logger.debug(METHODNAME + "INI");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
@@ -94,6 +95,8 @@ public class UsuarioController {
 			model.put("lPerfiles", perfilService.listarPerfiles() );
 			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );
 			return "usuarios/registro";
+		}finally {
+			logger.debug(METHODNAME + "FIN");
 		}
 	 }
 	
