@@ -55,17 +55,17 @@ $(document).ready(function() {
 $(function() {
 
     var data = [{
-        label: "Series 0",
+        label: "Registrado",
         data: 1
     }, {
-        label: "Series 1",
+        label: "Evaluado",
         data: 3
     }, {
-        label: "Series 2",
+        label: "Rechazado",
         data: 9
     }, {
-        label: "Series 3",
-        data: 20
+        label: "Atendido",
+        data: 15
     }];
 
     var plotObj = $.plot($("#flot-pie-chart"), data, {
