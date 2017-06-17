@@ -212,6 +212,15 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (12, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
  (13, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL);
 
+ 
+INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descripcion`,`fecReclamo`,`tipoReclamo`,`asunto`,`mensaje`, `solucion`, `respuesta`, `fecRespuesta`, `prioridad`, `vencimiento`, `indemnizar`, `fidelizado`, `estado`, `created_at`, `updated_at`) VALUES  
+(9, 1, 2, NULL, '2017-05-01', NULL, 'linterna fallo', 'linternas no funciona', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL),
+(10, 1, 2, NULL, '2017-06-01', NULL, 'señales seguridad', 'señales no funciona pegapega', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
+(11, 2, 3, NULL, '2017-07-01', NULL, 'termos cambiados', 'no son termos metalicos, son plastico', NULL, NULL, '2017-17-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
+(12, 2, 3, NULL, '2017-08-01', NULL, 'botas extranas', 'se pidio 1lote llego incompleto', NULL, NULL, '2017-18-01', 2, '2017-28-01', NULL, NULL, 1, NOW(), NULL),
+(13, 1, 2, NULL, '2017-09-01', NULL, 'auriculares error', 'se pidio auriculares antiruido para obras', NULL, NULL, '2017-19-01', 2, '2017-29-01', NULL, NULL, 1, NOW(), NULL);
+(14, 1, 2, NULL, '2017-10-01', NULL, 'mouse inalambrico', 'no funciona sobre superficies', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL)
+(15, 2, 3, NULL, '2017-11-01', NULL, 'herbidor error', 'herbido se quemo el motor', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL);
 
 
  
