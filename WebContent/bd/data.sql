@@ -222,20 +222,25 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (14, 1, 2, NULL, '2017-10-01', NULL, 'mouse inalambrico', 'no funciona sobre superficies', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL)
 (15, 2, 3, NULL, '2017-11-01', NULL, 'herbidor error', 'herbido se quemo el motor', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL);
 
+-- reclamos mes Febrero
+(16, 2, 3, NULL, '2017-01-02', NULL, 'cargador movil', 'cargador es otro tipo input al pedido', NULL, NULL, '2017-10-01', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL)
+(17, 2, 3, NULL, '2017-02-02', NULL, 'porta mapas', 'no llego la cantidad requerida', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
+(18, 1, 2, NULL, '2017-03-02', NULL, 'bateria externa ', 'la bateria esta drenando agua', NULL, NULL, '2017-11-01', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
+(19, 2, 3, NULL, '2017-04-02', NULL, 'canaletas irq', 'algunas canaletas llegaron quebradas', NULL, NULL, '2017-12-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
+(20, 2, 3, NULL, '2017-05-02', NULL, 'brochas', 'llegaron brochas pequeñas se pidio medianas', NULL, NULL, '2017-13-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
+(21, 2, 3, NULL, '2017-06-02', NULL, 'calaminas', 'faltan unidades de calaminas', NULL, NULL, '2017-14-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
+(22, 2, 3, NULL, '2017-07-02', NULL, 'drywall', 'el material drywall es muy flexible', NULL, NULL, '2017-15-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
+(23, 2, 3, NULL, '2017-08-02', NULL, 'bancos plasticos', 'faltan 5 unidades de bancos', NULL, NULL, '2017-16-01', 2, '2017-28-01', NULL, NULL, 1, NOW(), NULL),
+(24, 2, 3, NULL, '2017-09-02', NULL, 'desarmadores', 'tiene otro tipo de punta qno se pidio', NULL, NULL, '2017-17-01', 2, '2017-28-01', NULL, NULL, 1, NOW(), NULL),
+(25, 2, 3, NULL, '2017-10-02', NULL, 'guantes', 'se probo con corriente y pasa poco electricidad', NULL, NULL, '2017-18-01', 2, '2017-28-01', NULL, NULL, 1, NOW(), NULL);
+
+
+
+
+
+
+
 
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+  
