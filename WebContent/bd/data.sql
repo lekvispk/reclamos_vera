@@ -182,7 +182,7 @@ INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFac
 
 INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFactura`,`cantidad`,`precio`,`estado`,`created_at`,`updated_at`) VALUES 
 (37,6,20,'3','180',1,NOW(), NULL),
-(38,6,21,'4','200',1,NOW(), NULL);
+(38,6,21,'4','200',1,NOW(), NULL),
 (39,5,20,'4','200',1,NOW(), NULL),
 (40,7,20,'3','150',1,NOW(), NULL);
 
@@ -210,7 +210,7 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (10, 5, 5, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
  (11, 5, 5, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
  (12, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
- (13, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL);
+ (13, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
 
  
 INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descripcion`,`fecReclamo`,`tipoReclamo`,`asunto`,`mensaje`, `solucion`, `respuesta`, `fecRespuesta`, `prioridad`, `vencimiento`, `indemnizar`, `fidelizado`, `estado`, `created_at`, `updated_at`) VALUES  
@@ -218,9 +218,9 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (10, 1, 2, NULL, '2017-06-01', NULL, 'señales seguridad', 'señales no funciona pegapega', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
 (11, 2, 3, NULL, '2017-07-01', NULL, 'termos cambiados', 'no son termos metalicos, son plastico', NULL, NULL, '2017-17-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
 (12, 2, 3, NULL, '2017-08-01', NULL, 'botas extranas', 'se pidio 1lote llego incompleto', NULL, NULL, '2017-18-01', 2, '2017-28-01', NULL, NULL, 1, NOW(), NULL),
-(13, 1, 2, NULL, '2017-09-01', NULL, 'auriculares error', 'se pidio auriculares antiruido para obras', NULL, NULL, '2017-19-01', 2, '2017-29-01', NULL, NULL, 1, NOW(), NULL);
-(14, 1, 2, NULL, '2017-10-01', NULL, 'mouse inalambrico', 'no funciona sobre superficies', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL)
-(15, 2, 3, NULL, '2017-11-01', NULL, 'herbidor error', 'herbido se quemo el motor', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL);
+(13, 1, 2, NULL, '2017-09-01', NULL, 'auriculares error', 'se pidio auriculares antiruido para obras', NULL, NULL, '2017-19-01', 2, '2017-29-01', NULL, NULL, 1, NOW(), NULL),
+(14, 1, 2, NULL, '2017-10-01', NULL, 'mouse inalambrico', 'no funciona sobre superficies', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL),
+(15, 2, 3, NULL, '2017-11-01', NULL, 'herbidor error', 'herbido se quemo el motor', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
 
 -- reclamos mes Febrero 2017
 (16, 2, 3, NULL, '2017-01-02', NULL, 'cargador movil', 'cargador es otro tipo input al pedido', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL)
@@ -238,10 +238,40 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (27, 3, 4, NULL, '2017-11-02', NULL, 'gafas proteccion', 'lunas de gafas estan borrosas', NULL, NULL, '2017-14-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
 (28, 3, 4, NULL, '2017-12-02', NULL, 'salvavidas', 'los items estan usados', NULL, NULL, '2017-15-01', 2, '2017-27-02', NULL, NULL, 1, NOW(), NULL),
 (29, 3, 4, NULL, '2017-13-02', NULL, 'equipo telecom radio', 'se requirio marca motorola llegaron dolphin', NULL, NULL, '2017-15-02', 2, '2017-27-02', NULL, NULL, 1, NOW(), NULL),
-(30, 3, 4, NULL, '2017-14-02', NULL, 'guantes', 'se probo con corriente y pasa poco electricidad', NULL, NULL, '2017-16-02', 2, '2017-28-02', NULL, NULL, 1, NOW(), NULL);
+(30, 3, 4, NULL, '2017-14-02', NULL, 'guantes', 'se probo con corriente y pasa poco electricidad', NULL, NULL, '2017-16-02', 2, '2017-28-02', NULL, NULL, 1, NOW(), NULL),
 
 
--- reclamos mes Febrero 2017
+-- reclamos mes Marzo 2017
+
+(31, 1, 1, NULL, '2017-01-03', NULL, 'mascarillas', 'se recibio menos unidades de las pedidas', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL)
+
+(32, 1, 1, NULL, '2017-02-03', NULL, 'impermeables', 'llegaron elementos destenidos sin logo empresa', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
+
+(33, 1, 1, NULL, '2017-03-03', NULL, 'extinguidor', 'los balones extinguidor pesan menos del peso ideal', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
+
+(34, 2, 1, NULL, '2017-04-03', NULL, 'sacos de laboratorio', 'mayoria de sacos blancos llegaron destenidos', NULL, NULL, '2017-11-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
+
+(35, 2, 1, NULL, '2017-05-03', NULL, 'mascaras antigas', 'se recibio mascaras con pequenos agujeros', NULL, NULL, '2017-13-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
+
+(36, 2, 1, NULL, '2017-06-03', NULL, 'cascos', 'llego cascos de un solo color azul se pidio 3 colores', NULL, NULL, '2017-14-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
+
+(37, 2, 2, NULL, '2017-07-03', NULL, 'gafas oscuras', 'se hizo pedido de 50UNI vino menos', NULL, NULL, '2017-15-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
+
+(38, 2, 2, NULL, '2017-08-03', NULL, 'palanas para obra', 'aun no llegan el pedido demora delivery', NULL, NULL, '2017-16-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
+
+(39, 2, 2, NULL, '2017-09-03', NULL, 'Chalecos', 'LLego el pedido mas estan con otro logo de empresa',  NULL, NULL, '2017-17-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
+
+(40, 2, 2, NULL, '2017-10-03', NULL, 'manual de usuario', 'no se recepciono los manuales del equipo adquirido   y pasa poco electricidad', NULL, NULL, '2017-18-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
+
+(41, 3, 4, NULL, '2017-10-03', NULL, 'bandas seguridad', 'bandas incompletas en el envio', NULL, NULL, '2017-14-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
+
+(42, 3, 4, NULL, '2017-11-03', NULL, 'balones de oxigeno', 'los items no pesan de acuerdo las especificaciones', NULL, NULL, '2017-14-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
+
+(43, 3, 4, NULL, '2017-12-03', NULL, 'rodilleras', 'demora en el delivery del producto', NULL, NULL, '2017-15-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
+
+(44, 3, 4, NULL, '2017-13-03', NULL, 'mascara antipolvo', 'llegaron menos unidades de las solicitadas', NULL, NULL, '2017-15-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
+
+(45, 3, 4, NULL, '2017-14-03', NULL, 'candados', 'no llegaron las respectivas llaves de estos items', NULL, NULL, '2017-16-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL)
 
 
 
