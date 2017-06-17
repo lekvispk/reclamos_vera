@@ -194,3 +194,31 @@ INSERT INTO `reclamosbd`.`despachador` (`idDespachador`, `codigo`, `nombres`, `a
 (5,'D005', 'Javier', 'Vilca', 1, NOW()),
 (6,'D006', 'Pedro', 'Chavez', 1, NOW()),
 (7,'D007', 'Antonio', 'Solis', 1, NOW());
+
+
+
+INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFactura`, `fecha_capacitacion`, `hora_capacitacion`, `motivo_pospuesto`, `estado`, `created_at`, `updated_at`) VALUES 
+ (2, 1, 1, '2017-06-01', '09:00', NULL, 1, NOW(), NULL), 
+ (3, 1, 1, '2017-06-02', '09:00', NULL, 1, NOW(), NULL),
+ (4, 2, 2, '2017-06-03', '09:10', NULL, 1, NOW(), NULL),
+ (5, 2, 2, '2017-06-04', '09:10', NULL, 1, NOW(), NULL),
+ (6, 3, 3, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (7, 3, 3, '2017-06-05', '09:20', NULL, 1, NOW(), NULL);
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
