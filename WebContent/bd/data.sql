@@ -244,42 +244,52 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 -- reclamos mes Marzo 2017
 
 (31, 1, 1, NULL, '2017-01-03', NULL, 'mascarillas', 'se recibio menos unidades de las pedidas', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL)
-
 (32, 1, 1, NULL, '2017-02-03', NULL, 'impermeables', 'llegaron elementos destenidos sin logo empresa', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
-
 (33, 1, 1, NULL, '2017-03-03', NULL, 'extinguidor', 'los balones extinguidor pesan menos del peso ideal', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
-
 (34, 2, 1, NULL, '2017-04-03', NULL, 'sacos de laboratorio', 'mayoria de sacos blancos llegaron destenidos', NULL, NULL, '2017-11-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
-
 (35, 2, 1, NULL, '2017-05-03', NULL, 'mascaras antigas', 'se recibio mascaras con pequenos agujeros', NULL, NULL, '2017-13-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
-
 (36, 2, 1, NULL, '2017-06-03', NULL, 'cascos', 'llego cascos de un solo color azul se pidio 3 colores', NULL, NULL, '2017-14-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
-
 (37, 2, 2, NULL, '2017-07-03', NULL, 'gafas oscuras', 'se hizo pedido de 50UNI vino menos', NULL, NULL, '2017-15-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
-
 (38, 2, 2, NULL, '2017-08-03', NULL, 'palanas para obra', 'aun no llegan el pedido demora delivery', NULL, NULL, '2017-16-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
-
 (39, 2, 2, NULL, '2017-09-03', NULL, 'Chalecos', 'LLego el pedido mas estan con otro logo de empresa',  NULL, NULL, '2017-17-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
-
 (40, 2, 2, NULL, '2017-10-03', NULL, 'manual de usuario', 'no se recepciono los manuales del equipo adquirido   y pasa poco electricidad', NULL, NULL, '2017-18-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
-
 (41, 3, 4, NULL, '2017-10-03', NULL, 'bandas seguridad', 'bandas incompletas en el envio', NULL, NULL, '2017-14-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
-
 (42, 3, 4, NULL, '2017-11-03', NULL, 'balones de oxigeno', 'los items no pesan de acuerdo las especificaciones', NULL, NULL, '2017-14-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
-
 (43, 3, 4, NULL, '2017-12-03', NULL, 'rodilleras', 'demora en el delivery del producto', NULL, NULL, '2017-15-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
-
 (44, 3, 4, NULL, '2017-13-03', NULL, 'mascara antipolvo', 'llegaron menos unidades de las solicitadas', NULL, NULL, '2017-15-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
-
-(45, 3, 4, NULL, '2017-14-03', NULL, 'candados', 'no llegaron las respectivas llaves de estos items', NULL, NULL, '2017-16-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL)
-
+(45, 3, 4, NULL, '2017-14-03', NULL, 'candados', 'no llegaron las respectivas llaves de estos items', NULL, NULL, '2017-16-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
 
 
+-- reclamos mes Abril 2017
+
+(46, 4, 1, NULL, '2017-01-04', NULL, 'arneses', 'se recibio menos cantidad de arneses', NULL, NULL, '2017-14-04', 2, '2017-27-04', NULL, NULL, 1, NOW(), NULL),
+(47, 4, 1, NULL, '2017-02-04', NULL, 'visor nocturno', 'los visores no son la marca q se pidio', NULL, NULL, '2017-15-04', 2, '2017-27-04', NULL, NULL, 1, NOW(), NULL),
+(48, 4, 1, NULL, '2017-03-04', NULL, 'cinturones', 'se recibio menos antidad de cinturones requeridos', NULL, NULL, '2017-16-04', 2, '2017-28-04', NULL, NULL, 1, NOW(), NULL),
+(49, 4, 2, NULL, '2017-04-04', NULL, 'bengalas', 'se recepciono una cantidad menor de bengalas',  NULL, NULL, '2017-17-04', 2, '2017-28-04', NULL, NULL, 1, NOW(), NULL),
+(50, 4, 2, NULL, '2017-05-04', NULL, 'uniformes', 'No coinciden con las tallas solicitadas para el pesonal', NULL, NULL, '2017-18-04', 2, '2017-28-04', NULL, NULL, 1, NOW(), NULL),
+(51, 4, 3, NULL, '2017-06-04', NULL, 'linternas acuaticas', 'Algunas linternas no funcionan a cierta profundidad', NULL, NULL, '2017-14-04', 2, '2017-26-04', NULL, NULL, 1, NOW(), NULL),
+(52, 5, 3, NULL, '2017-07-04', NULL, 'extinguidores', 'la mayoria de equipos cuenta con fecha vencida', NULL, NULL, '2017-14-04', 2, '2017-26-04', NULL, NULL, 1, NOW(), NULL),
+(53, 5, 5, NULL, '2017-08-04', NULL, 'cuerdas', 'las cuerdas son de menor grosor al solicitado', NULL, NULL, '2017-15-04', 2, '2017-27-04', NULL, NULL, 1, NOW(), NULL),
+(54, 5, 5, NULL, '2017-09-04', NULL, 'brujulas', 'se solicito esto hace 4 semanas', NULL, NULL, '2017-15-04', 2, '2017-27-04', NULL, NULL, 1, NOW(), NULL),
+(55, 5, 5, NULL, '2017-10-04', NULL, 'guantes electricos', 'demora en delivery del producto', NULL, NULL, '2017-16-04', 2, '2017-28-04', NULL, NULL, 1, NOW(), NULL),
+(56, 5, 4, NULL, '2017-11-04', NULL, 'mascaras antigas', 'LLego menos cantidad de mascarillas', NULL, NULL, '2017-11-04', 2, '2017-23-04', NULL, NULL, 1, NOW(), NULL),
+(57, 5, 4, NULL, '2017-12-04', NULL, 'handsfree NFC', 'se pidio handsfree aun no llegan', NULL, NULL, '2017-11-04', 2, '2017-23-04', NULL, NULL, 1, NOW(), NULL),
+(58, 5, 5, NULL, '2017-13-04', NULL, 'cronometros', 'no funcionan gran parte del pedido', NULL, NULL, '2017-12-04', 2, '2017-24-04', NULL, NULL, 1, NOW(), NULL),
+(59, 5, 5, NULL, '2017-14-04', NULL, 'barretas', 'se requirio cierta cantidad barretas llego incompleto', NULL, NULL, '2017-12-04', 2, '2017-24-04', NULL, NULL, 1, NOW(), NULL),
+(60, 5, 5, NULL, '2017-15-04', NULL, 'chalecos de trafico', 'algunos chalecos no tienen los colores debidos', NULL, NULL, '2017-13-04', 2, '2017-25-04', NULL, NULL, 1, NOW(), NULL),
 
 
-
-
-
+-- -- reclamos mes Mayo 2017
+(61, 4, 3, NULL, '2017-01-05', NULL, 'casco con linterna ', 'la mayoria de linternas integradas no prenden', NULL, NULL, '2017-14-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
+(62, 6, 3, NULL, '2017-02-05', NULL, 'cilindros oxigeno', 'llego menor cantidad de cilindros de lo pedido', NULL, NULL, '2017-14-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
+(63, 6, 5, NULL, '2017-03-05', NULL, 'impermeables', 'durante la lluvia traspasa el uniforme impermeable', NULL, NULL, '2017-15-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
+(64, 6, 1, NULL, '2017-04-05', NULL, 'arneses nuevos', 'llegaron menos arneses de lo solicitado', NULL, NULL, '2017-15-05', 2, '2017-26-05', NULL, NULL, 1, NOW(), NULL),
+(65, 6, 1, NULL, '2017-05-05', NULL, 'botas', 'se recibio menor cantidad de lo acordado', NULL, NULL, '2017-16-05', 2, '2017-26-05', NULL, NULL, 1, NOW(), NULL),
+(66, 6, 6, NULL, '2017-06-05', NULL, 'tapon auditivo', 'se filtra el ruido al estar en calle', NULL, NULL, '2017-11-05', 2, '2017-26-05', NULL, NULL, 1, NOW(), NULL),
+67, 6, 6, NULL, '2017-07-05', NULL, 'banderolas trafico', 'demora en recepcion dee este item', NULL, NULL, '2017-11-05', 2, '2017-27-05', NULL, NULL, 1, NOW(), NULL),
+(68, 6, 6, NULL, '2017-08-05', NULL, 'conos naranjas', 'no funcionan gran parte del pedido', NULL, NULL, '2017-12-05', 2, '2017-27-05', NULL, NULL, 1, NOW(), NULL),
+(69, 6, 6, NULL, '2017-09-05', NULL, 'bandas', 'no se nota la palabra peligro en las bandas', NULL, NULL, '2017-12-05', 2, '2017-27-05', NULL, NULL, 1, NOW(), NULL),
+(70, 6, 6, NULL, '2017-10-05', NULL, 'candados', 'se recepciono solo candandos no hubo llaves', NULL, NULL, '2017-13-05', 2, '2017-27-05', NULL, NULL, 1, NOW(), NULL);
 
 
  
