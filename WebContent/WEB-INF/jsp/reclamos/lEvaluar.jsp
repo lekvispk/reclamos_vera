@@ -89,8 +89,8 @@
 							     ]]>
 							  </jsp:scriptlet> 
 							  
-						    	<display:table  name="requestScope.lReclamos" requestURI="lEvaluar.htm" class="displaytag" pagesize="10"
-						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
+						    	<display:table  name="requestScope.lReclamos" requestURI="lEvaluar.htm" class="displaytag" pagesize="20"
+						            defaultsort="2" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            decorator="checkboxDecorator" >
 						            	<display:column property="checkbox"/>
 						           		<display:column title="Codigo" property="idReclamo" sortable="true" headerClass="sortable" />

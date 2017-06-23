@@ -1,14 +1,20 @@
 package pe.org.reclamos.dao.impl;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -19,6 +25,7 @@ import pe.org.reclamos.dao.ReclamoDAO;
 import pe.org.reclamos.entidad.Indemnizacion;
 import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
+import pe.org.reclamos.rest.bean.ReporteDataBean;
 import pe.org.reclamos.utiles.Utiles;
 
 @Repository
@@ -195,6 +202,81 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	public void eliminarItems(Long idReclamo) {
 		logger.debug("eliminar ItemsReclamo " + idReclamo );
 		this.getHibernateTemplate().bulkUpdate("delete ItemsReclamo where idReclamo = ?  ", idReclamo );
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorMesAtendidosAnioActual() {
+		final String METHODNAME = "obtenerReclamosPorMesAtendidosAnioActual - ";
+		logger.debug(METHODNAME + "INI");
+		
+		List<ReporteDataBean> lista = null;
+		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					
+					StringBuilder sql = new StringBuilder();
+					sql.append( " SELECT MONTH(fecReclamo) AS MES, COUNT(*) AS Reclamos " );
+					sql.append( " FROM reclamo " );
+					sql.append( " WHERE " );
+					//sql.append( " estado=2 AND " );
+					sql.append( " YEAR(fecReclamo) = YEAR(NOW()) " );
+					sql.append( " GROUP BY MONTH(fecReclamo) " );
+					
+					SQLQuery query = session.createSQLQuery(sql.toString());
+					List<Object[]> list = query.list();
+					return list;
+				}
+				
+		});
+
+		logger.debug(METHODNAME + "resultList="+resultList.size());
+		lista = new ArrayList<ReporteDataBean>();
+		for(Object[] o : resultList){
+			lista.add( new ReporteDataBean( Utiles.nombreCortoMes(o[0]) , o[1].toString() ));
+		}
+		logger.debug(METHODNAME + "lista="+lista.size());
+		
+		logger.debug(METHODNAME + "FIN");
+		return lista;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio() {
+		final String METHODNAME = "obtenerReclamosMasRepetidosEnElAnio - ";
+		logger.debug(METHODNAME + "INI");
+		
+		List<ReporteDataBean> lista = null;
+		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					
+					StringBuilder sql = new StringBuilder();
+					sql.append( " SELECT p.descripcion,COUNT(*)  " );
+					sql.append( " FROM reclamo r " );
+					sql.append( " INNER JOIN  items_reclamo ir ON r.`idReclamo` = ir.idReclamo " );
+					sql.append( " INNER JOIN detallefactura df ON df.`idDetalleFactura` = ir.idDetalleFactura " );
+					sql.append( " INNER JOIN producto p ON df.`idProducto` = p.idProducto  " );
+					sql.append( " WHERE  YEAR(fecReclamo) = YEAR(NOW())  " );
+					sql.append( " GROUP BY p.descripcion " );
+					sql.append( " LIMIT 5 " );
+					SQLQuery query = session.createSQLQuery(sql.toString());
+					List<Object[]> list = query.list();
+					return list;
+				}
+				
+		});
+
+		logger.debug(METHODNAME + "resultList="+resultList.size());
+		lista = new ArrayList<ReporteDataBean>();
+		for(Object[] o : resultList){
+			lista.add( new ReporteDataBean( o[0].toString() , o[1].toString() ));
+		}
+		logger.debug(METHODNAME + "lista="+lista.size());
+		
+		logger.debug(METHODNAME + "FIN");
+		return lista;
 	}
 
 }

@@ -536,4 +536,27 @@ private static int getDigitAt(String origin, int position) {
 		}
 		return contrasena;
 	}
+
+	public static String nombreCortoMes(Object object) {
+		if( object == null) return "";
+		Integer mes ;
+		try {
+			mes = Integer.valueOf( object.toString() );
+			if( mes == 1 ) return "ENE";
+			if( mes == 2 ) return "FEB";
+			if( mes == 3 ) return "MAR";
+			if( mes == 4 ) return "ABR";
+			if( mes == 5 ) return "MAY";
+			if( mes == 6 ) return "JUN";
+			if( mes == 7 ) return "JUL";
+			if( mes == 8 ) return "AGO";
+			if( mes == 9 ) return "SEP";
+			if( mes == 10 ) return "OCT";
+			if( mes == 11 ) return "NOV";
+			if( mes == 12 ) return "DIC";
+		} catch (Exception e) {
+			return "";
+		}
+		return null;
+	}
 }

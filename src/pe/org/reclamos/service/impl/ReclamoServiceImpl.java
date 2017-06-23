@@ -132,33 +132,26 @@ public class ReclamoServiceImpl implements ReclamoService {
 
 	@Override
 	public List<ReporteDataBean> obtenerReclamosPorMesAtendidosAnioActual() {
-		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
-		
-		reclamos.add( new ReporteDataBean("ENE","20"));
-		reclamos.add( new ReporteDataBean("FEB","10"));
-		reclamos.add( new ReporteDataBean("MAR","15"));
-		reclamos.add( new ReporteDataBean("ABR","35"));
-		reclamos.add( new ReporteDataBean("MAY","40"));
-		reclamos.add( new ReporteDataBean("JUN","20"));
-		
+		final String METHODNAME = "obtenerReclamosPorMesAtendidosAnioActual - ";
+		logger.debug(METHODNAME + "INI");
+		List<ReporteDataBean> reclamos = reclamoDAO.obtenerReclamosPorMesAtendidosAnioActual();
+		logger.debug(METHODNAME + "FIN");
 		return reclamos;
 	}
 
 	@Override
 	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio() {
-		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
-		
-		reclamos.add( new ReporteDataBean("TV AOC 28","35"));
-		reclamos.add( new ReporteDataBean("iPhone 3G","5"));
-		reclamos.add( new ReporteDataBean("iPhone 3GS","2"));
-		reclamos.add( new ReporteDataBean("iPhone 4","50"));
-		reclamos.add( new ReporteDataBean("iPhone 4S","15"));
-		
+		final String METHODNAME = "obtenerReclamosMasRepetidosEnElAnio - ";
+		logger.debug(METHODNAME + "INI");
+		List<ReporteDataBean> reclamos = reclamoDAO.obtenerReclamosMasRepetidosEnElAnio();
+		logger.debug(METHODNAME + "FIN");
 		return reclamos;
 	}
 	
 	@Override
 	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio() {
+		final String METHODNAME = "obtenerReclamosPorMesNoAtendidosEnElAnio - ";
+		logger.debug(METHODNAME + "INI");
 		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
 		
 		reclamos.add( new ReporteDataBean("2017-01","80"));
@@ -167,18 +160,20 @@ public class ReclamoServiceImpl implements ReclamoService {
 		reclamos.add( new ReporteDataBean("2017-04","60"));
 		reclamos.add( new ReporteDataBean("2017-05","22"));
 		reclamos.add( new ReporteDataBean("2017-06","15"));
-		
+		logger.debug(METHODNAME + "FIN");
 		return reclamos;
 	}
 
 	@Override
 	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual() {
+		final String METHODNAME = "obtenerReclamosPorEstadoMesActual - ";
+		logger.debug(METHODNAME + "INI");
 		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
 		
 		reclamos.add( new ReporteDataBean("En estado Registrado","12"));
 		reclamos.add( new ReporteDataBean("En estado Evaluado","30"));
 		reclamos.add( new ReporteDataBean("En estado Rechazado","20"));
-		
+		logger.debug(METHODNAME + "FIN");
 		return reclamos;
 	}
 

@@ -178,7 +178,7 @@ INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFac
 (36,6,20,'1','100',1,NOW(), NULL);
 
 
---demo de inser detalle Factura
+-- demo de insert detalle Factura
 
 INSERT INTO `reclamosbd`.`detallefactura`(`idDetalleFactura`,`idProducto`,`idFactura`,`cantidad`,`precio`,`estado`,`created_at`,`updated_at`) VALUES 
 (37,6,20,'3','180',1,NOW(), NULL),
@@ -210,9 +210,12 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (10, 5, 5, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
  (11, 5, 5, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
  (12, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
- (13, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL),
+ (13, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL);
 
- 
+
+-- FORMATO DE FECHA PARA INSERT MySQL : yyyy-mm-dd
+-- Validar inserts
+
 INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descripcion`,`fecReclamo`,`tipoReclamo`,`asunto`,`mensaje`, `solucion`, `respuesta`, `fecRespuesta`, `prioridad`, `vencimiento`, `indemnizar`, `fidelizado`, `estado`, `created_at`, `updated_at`) VALUES  
 (9, 1, 2, NULL, '2017-05-01', NULL, 'linterna fallo', 'linternas no funciona', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL),
 (10, 1, 2, NULL, '2017-06-01', NULL, 'señales seguridad', 'señales no funciona pegapega', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
@@ -223,7 +226,7 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (15, 2, 3, NULL, '2017-11-01', NULL, 'herbidor error', 'herbido se quemo el motor', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
 
 -- reclamos mes Febrero 2017
-(16, 2, 3, NULL, '2017-01-02', NULL, 'cargador movil', 'cargador es otro tipo input al pedido', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL)
+(16, 2, 3, NULL, '2017-01-02', NULL, 'cargador movil', 'cargador es otro tipo input al pedido', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
 (17, 2, 3, NULL, '2017-02-02', NULL, 'porta mapas', 'no llego la cantidad requerida', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
 (18, 1, 2, NULL, '2017-03-02', NULL, 'bateria externa ', 'la bateria esta drenando agua', NULL, NULL, '2017-11-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
 (19, 2, 3, NULL, '2017-04-02', NULL, 'canaletas irq', 'algunas canaletas llegaron quebradas', NULL, NULL, '2017-12-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
@@ -241,7 +244,7 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (30, 3, 4, NULL, '2017-14-02', NULL, 'guantes', 'se probo con corriente y pasa poco electricidad', NULL, NULL, '2017-16-02', 2, '2017-28-02', NULL, NULL, 1, NOW(), NULL),
 
 -- reclamos mes Marzo 2017
-(31, 1, 1, NULL, '2017-01-03', NULL, 'mascarillas', 'se recibio menos unidades de las pedidas', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL)
+(31, 1, 1, NULL, '2017-01-03', NULL, 'mascarillas', 'se recibio menos unidades de las pedidas', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
 (32, 1, 1, NULL, '2017-02-03', NULL, 'impermeables', 'llegaron elementos destenidos sin logo empresa', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
 (33, 1, 1, NULL, '2017-03-03', NULL, 'extinguidor', 'los balones extinguidor pesan menos del peso ideal', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
 (34, 2, 1, NULL, '2017-04-03', NULL, 'sacos de laboratorio', 'mayoria de sacos blancos llegaron destenidos', NULL, NULL, '2017-11-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
@@ -291,8 +294,3 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (73, 5, 6, NULL, '2017-13-05', NULL, 'lineas de vida', 'no se nota el color de las lineas', NULL, NULL, '2017-18-05', 2, '2017-29-05', NULL, NULL, 1, NOW(), NULL),
 (74, 5, 6, NULL, '2017-14-05', NULL, 'fajas', 'se recibio menos cantidad de este producto', NULL, NULL, '2017-19-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL),
 (75, 5, 6, NULL, '2017-15-05', NULL, 'respirador ', 'los respiradores se filtra el aire', NULL, NULL, '2017-20-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL);
-
-
- 
- 
-  

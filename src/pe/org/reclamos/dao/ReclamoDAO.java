@@ -5,6 +5,7 @@ import java.util.List;
 import pe.org.reclamos.entidad.Indemnizacion;
 import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
+import pe.org.reclamos.rest.bean.ReporteDataBean;
 
 public interface ReclamoDAO {
 
@@ -18,6 +19,8 @@ public interface ReclamoDAO {
 	public Reclamo obtenerPorIdFactura(Long idFactura);
 	public ItemsReclamo obtenerItemReclamo(Long idReclamo);
 	public Reclamo obtenerUltimoReclamoRegistrado(Integer idUsuario);
-	public void eliminarItems(Long idReclamo);	
+	public void eliminarItems(Long idReclamo);
+	public List<ReporteDataBean> obtenerReclamosPorMesAtendidosAnioActual();
+	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio();	
 	
 }
