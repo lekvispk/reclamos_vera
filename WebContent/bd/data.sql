@@ -226,9 +226,7 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (10,1,1,1),
  (11,38,8,1),
  (12,2,2,1), 
- (14,4,3,1);
- 
- 
+ (14,4,3,1); 
  
  
 -- FORMATO DE FECHA PARA INSERT MySQL : yyyy-mm-dd
@@ -313,5 +311,11 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (74, 5, 6, NULL, '2017-14-05', NULL, 'fajas', 'se recibio menos cantidad de este producto', NULL, NULL, '2017-19-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL),
 (75, 5, 6, NULL, '2017-15-05', NULL, 'respirador ', 'los respiradores se filtra el aire', NULL, NULL, '2017-20-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL);
 
+-- -- reclamos mes Junio 2017
+(76, 7, 6, NULL, '2017-01-06', NULL, 'lentes seguridad', 'La visibilidad es borrosa', NULL, NULL, '2017-11-06', 2, '2017-26-06', NULL, NULL, 1, NOW(), NULL),
+(77, 7, 6, NULL, '2017-02-06', NULL, 'banderolas trafico', 'demora en recepcion dee este item', NULL, NULL, '2017-11-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(78, 7, 6, NULL, '2017-03-06', NULL, 'conos naranjas', 'no funcionan gran parte del pedido', NULL, NULL, '2017-12-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(79, 7, 6, NULL, '2017-04-06', NULL, 'bandas', 'no se nota la palabra peligro en las bandas', NULL, NULL, '2017-12-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(80, 7, 6, NULL, '2017-05-06', NULL, 'candados', 'se recepciono solo candandos no hubo llaves', NULL, NULL, '2017-13-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
 
 
