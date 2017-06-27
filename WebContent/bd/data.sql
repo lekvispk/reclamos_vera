@@ -213,6 +213,24 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (13, 1, 6, '2017-06-05', '09:20', NULL, 1, NOW(), NULL);
 
 
+ insert into `reclamosbd`.`items_reclamo` (`idItemReclamo`,`idDetalleFactura`,`idReclamo`,`Estado`) values
+ (1,1,2,1),
+ (2,7,3,1),
+ (3,9,4,1),
+ (4,5,5,1),
+ (5,11,6,1),
+ (6,6,6,1),
+ (7,7,7,1),
+ (8,21,8,1),
+ (9,3,2,1), 
+ (10,1,1,1),
+ (11,38,8,1),
+ (12,2,2,1), 
+ (14,4,3,1);
+ 
+ 
+ 
+ 
 -- FORMATO DE FECHA PARA INSERT MySQL : yyyy-mm-dd
 -- Validar inserts
 
@@ -294,3 +312,6 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (73, 5, 6, NULL, '2017-13-05', NULL, 'lineas de vida', 'no se nota el color de las lineas', NULL, NULL, '2017-18-05', 2, '2017-29-05', NULL, NULL, 1, NOW(), NULL),
 (74, 5, 6, NULL, '2017-14-05', NULL, 'fajas', 'se recibio menos cantidad de este producto', NULL, NULL, '2017-19-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL),
 (75, 5, 6, NULL, '2017-15-05', NULL, 'respirador ', 'los respiradores se filtra el aire', NULL, NULL, '2017-20-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL);
+
+
+
