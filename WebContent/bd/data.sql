@@ -226,7 +226,7 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (10,1,1,1),
  (11,38,8,1),
  (12,2,2,1), 
- (14,4,3,1); 
+ (14,4,3,1),
  
  
 -- FORMATO DE FECHA PARA INSERT MySQL : yyyy-mm-dd
@@ -309,13 +309,21 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (72, 4, 6, NULL, '2017-12-05', NULL, 'zapatos antishock', 'se recepciono menos cantidad', NULL, NULL, '2017-18-05', 2, '2017-29-05', NULL, NULL, 1, NOW(), NULL),
 (73, 5, 6, NULL, '2017-13-05', NULL, 'lineas de vida', 'no se nota el color de las lineas', NULL, NULL, '2017-18-05', 2, '2017-29-05', NULL, NULL, 1, NOW(), NULL),
 (74, 5, 6, NULL, '2017-14-05', NULL, 'fajas', 'se recibio menos cantidad de este producto', NULL, NULL, '2017-19-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL),
-(75, 5, 6, NULL, '2017-15-05', NULL, 'respirador ', 'los respiradores se filtra el aire', NULL, NULL, '2017-20-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL);
+(75, 5, 6, NULL, '2017-15-05', NULL, 'respirador ', 'los respiradores se filtra el aire', NULL, NULL, '2017-20-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL),
 
 -- -- reclamos mes Junio 2017
 (76, 7, 6, NULL, '2017-01-06', NULL, 'lentes seguridad', 'La visibilidad es borrosa', NULL, NULL, '2017-11-06', 2, '2017-26-06', NULL, NULL, 1, NOW(), NULL),
-(77, 7, 6, NULL, '2017-02-06', NULL, 'banderolas trafico', 'demora en recepcion dee este item', NULL, NULL, '2017-11-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
-(78, 7, 6, NULL, '2017-03-06', NULL, 'conos naranjas', 'no funcionan gran parte del pedido', NULL, NULL, '2017-12-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
-(79, 7, 6, NULL, '2017-04-06', NULL, 'bandas', 'no se nota la palabra peligro en las bandas', NULL, NULL, '2017-12-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
-(80, 7, 6, NULL, '2017-05-06', NULL, 'candados', 'se recepciono solo candandos no hubo llaves', NULL, NULL, '2017-13-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(77, 7, 6, NULL, '2017-02-06', NULL, 'botines', 'LLego menor cantidad q la solicitada', NULL, NULL, '2017-11-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(78, 7, 6, NULL, '2017-03-06', NULL, 'Arnes', 'se hallo q los Arneses son muy flojos', NULL, NULL, '2017-12-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(79, 7, 6, NULL, '2017-04-06', NULL, 'balon oxigeno', 'no concuerda con la descripcion de peso', NULL, NULL, '2017-12-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(80, 7, 6, NULL, '2017-05-06', NULL, 'mascara facil', 'las mascarillas llegaron manchadas', NULL, NULL, '2017-13-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL)
+
+(81, 7, 6, NULL, '2017-06-06', NULL, 'overoles', 'se demora en llegar el pedido', NULL, NULL, '2017-16-06', 2, '2017-26-06', NULL, NULL, 1, NOW(), NULL),
+(82, 7, 6, NULL, '2017-07-06', NULL, 'respiradores', 'llego menos unidades de lo pedido', NULL, NULL, '2017-17-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(83, 7, 6, NULL, '2017-08-06', NULL, 'Tapones auditivos ', 'se recibio el producto pero presentan fallas', NULL, NULL, '2017-18-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(84, 7, 6, NULL, '2017-09-06', NULL, 'guantes aislantes', 'se recepciono menor pedido', NULL, NULL, '2017-19-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+(85, 7, 6, NULL, '2017-10-06', NULL, 'chalecos', 'los chalecos presentan orificios', NULL, NULL, '2017-20-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL)
+
+
 
 
