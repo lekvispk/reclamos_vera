@@ -124,17 +124,17 @@ INSERT INTO `reclamosbd`.`factura`(`idFactura`,`idProveedor`,`idCliente`,`emisio
 INSERT INTO `reclamosbd`.`producto`(`idProducto`,`descripcion`,`fecProducto`,`direProducto`,`skuProducto`,`precio`,`pesoProducto`,`tipoProducto`,`estado`,`created_at`,`updated_at`) VALUES 
 (1,'Televisor 1','2016-10-01','--','10000001','20','1',1,1,NOW(),NULL),
 (2,'Mouse 2','2016-10-01','--','10000002','20','1',1,1,NOW(),NULL),
-(3,'Reloj 3','2016-10-01','--','10000003','20','1',1,1,NOW(),NULL),
-(4,'Tablt AOC 4','2016-10-01','--','10000004','20','1',1,1,NOW(),NULL),
-(5,'Celular5','2016-10-01','--','10000005','20','1',1,1,NOW(),NULL),
-(6,'telf inalambrico','2016-10-01','--','10000006','20','1',1,1,NOW(),NULL),
+(3,'googlesUV 3','2016-10-01','--','10000003','20','1',1,1,NOW(),NULL),
+(4,'conos seguridad4','2016-10-01','--','10000004','20','1',1,1,NOW(),NULL),
+(5,'celular rpm5','2016-10-01','--','10000005','20','1',1,1,NOW(),NULL),
+(6,'telf inalambrico6','2016-10-01','--','10000006','20','1',1,1,NOW(),NULL),
 (7,'Arroecera 7','2016-10-01','--','10000007','20','1',1,1,NOW(),NULL),
 (8,'Hervidor 8','2016-10-01','--','10000008','20','1',1,1,NOW(),NULL),
 (9,'Lustradora 9','2016-10-01','--','10000009','20','1',1,1,NOW(),NULL),
 (10,'Laptop 10','2016-10-01','--','10000010','20','1',1,1,NOW(),NULL),
 (11,'Telefono 11','2016-10-01','--','10000011','20','1',1,1,NOW(),NULL),
 (12,'Monitor 12','2016-10-01','--','10000012','20','1',1,1,NOW(),NULL),
-(13,'Teclado 13','2016-10-01','--','10000013','20','1',1,1,NOW(),NULL),
+(13,'auricular 13','2016-10-01','--','10000013','20','1',1,1,NOW(),NULL),
 (14,'Ipad 14','2016-10-01','--','10000014','20','1',1,1,NOW(),NULL),
 (15,'MP3 15','2016-10-01','--','10000015','20','1',1,1,NOW(),NULL);
 
@@ -235,6 +235,7 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (20,10,10,1),
  (21,11,11,1),
  (22,12,12,1),
+ (23,13,13,1),
  
 
  
