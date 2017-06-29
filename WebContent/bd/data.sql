@@ -322,7 +322,13 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (82, 7, 6, NULL, '2017-07-06', NULL, 'respiradores', 'llego menos unidades de lo pedido', NULL, NULL, '2017-17-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
 (83, 7, 6, NULL, '2017-08-06', NULL, 'Tapones auditivos ', 'se recibio el producto pero presentan fallas', NULL, NULL, '2017-18-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
 (84, 7, 6, NULL, '2017-09-06', NULL, 'guantes aislantes', 'se recepciono menor pedido', NULL, NULL, '2017-19-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
-(85, 7, 6, NULL, '2017-10-06', NULL, 'chalecos', 'los chalecos presentan orificios', NULL, NULL, '2017-20-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL)
+(85, 7, 6, NULL, '2017-10-06', NULL, 'chalecos', 'los chalecos presentan orificios', NULL, NULL, '2017-20-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
+
+(86, 7, 6, NULL, '2017-07-06', NULL, 'respiradores', 'llego menos unidades de lo pedido', NULL, NULL, '2017-17-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
+(87, 7, 6, NULL, '2017-08-06', NULL, 'cinturones', 'los cinturones no ajustan lo debido', NULL, NULL, '2017-18-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
+(88, 7, 6, NULL, '2017-09-06', NULL, 'anteojos para quimicos', 'LLego menos recepciono menor pedido', NULL, NULL, '2017-19-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
+(89, 7, 6, NULL, '2017-10-06', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, NULL, '2017-20-06', 2, '2017-29-06', NULL, NULL, 1, NOW(), NULL)
+
 
 
 
