@@ -127,7 +127,7 @@ INSERT INTO `reclamosbd`.`producto`(`idProducto`,`descripcion`,`fecProducto`,`di
 (3,'Reloj 3','2016-10-01','--','10000003','20','1',1,1,NOW(),NULL),
 (4,'Tablt AOC 4','2016-10-01','--','10000004','20','1',1,1,NOW(),NULL),
 (5,'Celular5','2016-10-01','--','10000005','20','1',1,1,NOW(),NULL),
-(6,'Licuadora 6','2016-10-01','--','10000006','20','1',1,1,NOW(),NULL),
+(6,'telf inalambrico','2016-10-01','--','10000006','20','1',1,1,NOW(),NULL),
 (7,'Arroecera 7','2016-10-01','--','10000007','20','1',1,1,NOW(),NULL),
 (8,'Hervidor 8','2016-10-01','--','10000008','20','1',1,1,NOW(),NULL),
 (9,'Lustradora 9','2016-10-01','--','10000009','20','1',1,1,NOW(),NULL),
@@ -227,6 +227,16 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  (11,38,8,1),
  (12,2,2,1), 
  (14,4,3,1),
+ (15,5,5,1),
+ (16,6,6,1,
+ (17,7,7,1),
+ (18,8,8,1),
+ (19,9,9,1),
+ (20,10,10,1),
+ (21,11,11,1),
+ (22,12,12,1),
+ 
+
  
  
 -- FORMATO DE FECHA PARA INSERT MySQL : yyyy-mm-dd
@@ -327,9 +337,6 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (86, 7, 6, NULL, '2017-07-06', NULL, 'respiradores', 'llego menos unidades de lo pedido', NULL, NULL, '2017-17-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
 (87, 7, 6, NULL, '2017-08-06', NULL, 'cinturones', 'los cinturones no ajustan lo debido', NULL, NULL, '2017-18-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
 (88, 7, 6, NULL, '2017-09-06', NULL, 'anteojos para quimicos', 'LLego menos recepciono menor pedido', NULL, NULL, '2017-19-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
-(89, 7, 6, NULL, '2017-10-06', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, NULL, '2017-20-06', 2, '2017-29-06', NULL, NULL, 1, NOW(), NULL)
-
-
-
-
+(89, 7, 6, NULL, '2017-10-06', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, NULL, '2017-20-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
+(90, 7, 6, NULL, '2017-11-06', NULL, 'mascara antigas', 'se hallo q las mascaras presentan filtros', NULL, NULL, '2017-20-06', 2, '2017-29-06', NULL, NULL, 1, NOW(), NULL)
 
