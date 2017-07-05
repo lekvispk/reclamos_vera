@@ -1,6 +1,5 @@
 package pe.org.reclamos.service.impl;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -152,14 +151,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio() {
 		final String METHODNAME = "obtenerReclamosPorMesNoAtendidosEnElAnio - ";
 		logger.debug(METHODNAME + "INI");
-		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
-		
-		reclamos.add( new ReporteDataBean("2017-01","80"));
-		reclamos.add( new ReporteDataBean("2017-02","70"));
-		reclamos.add( new ReporteDataBean("2017-03","20"));
-		reclamos.add( new ReporteDataBean("2017-04","60"));
-		reclamos.add( new ReporteDataBean("2017-05","22"));
-		reclamos.add( new ReporteDataBean("2017-06","15"));
+		List<ReporteDataBean> reclamos = reclamoDAO.obtenerReclamosPorMesNoAtendidosEnElAnio();
 		logger.debug(METHODNAME + "FIN");
 		return reclamos;
 	}
@@ -168,11 +160,7 @@ public class ReclamoServiceImpl implements ReclamoService {
 	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual() {
 		final String METHODNAME = "obtenerReclamosPorEstadoMesActual - ";
 		logger.debug(METHODNAME + "INI");
-		List<ReporteDataBean> reclamos = new ArrayList<ReporteDataBean>();
-		
-		reclamos.add( new ReporteDataBean("En estado Registrado","12"));
-		reclamos.add( new ReporteDataBean("En estado Evaluado","30"));
-		reclamos.add( new ReporteDataBean("En estado Rechazado","20"));
+		List<ReporteDataBean> reclamos = reclamoDAO.obtenerReclamosPorEstadoMesActual();
 		logger.debug(METHODNAME + "FIN");
 		return reclamos;
 	}

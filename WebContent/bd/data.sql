@@ -215,9 +215,12 @@ INSERT INTO `reclamosbd`.`capacitacion` (`idCapacitacion`,`idCapacitador`, `idFa
  
 -- FORMATO DE FECHA PARA INSERT MySQL : yyyy-mm-dd
 -- Validar inserts
-
+/* respuesta [ Aceptado / Rechazado ]
+ * estado [ 0 = Eliminado / 1 = En Proceso / 2 = Atendido ]
+ * Formato de Fecha : yyyy-mm-dd (2017-01-25)
+ * */
 INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descripcion`,`fecReclamo`,`tipoReclamo`,`asunto`,`mensaje`, `solucion`, `respuesta`, `fecRespuesta`, `prioridad`, `vencimiento`, `indemnizar`, `fidelizado`, `estado`, `created_at`, `updated_at`) VALUES  
-(1, 1, 2, NULL, '2017-05-01', NULL, 'linterna fallo', 'linternas no funciona', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL),
+(1, 1, 2, NULL, '2017-05-01', NULL, 'linterna fallo', 'linternas no funciona', NULL, 'Aceptado', '2017-01-25', 2, '2017-01-25', NULL, NULL, 2, NOW(), NULL),
 (2, 1, 2, NULL, '2017-06-01', NULL, 'señales seguridad', 'señales no funciona pegapega', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
 (3, 2, 3, NULL, '2017-07-01', NULL, 'termos cambiados', 'no son termos metalicos, son plastico', NULL, NULL, '2017-17-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
 (4, 2, 3, NULL, '2017-08-01', NULL, 'botas extranas', 'se pidio 1lote llego incompleto', NULL, NULL, '2017-18-01', 2, '2017-28-01', NULL, NULL, 1, NOW(), NULL),
@@ -225,15 +228,15 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (6, 1, 2, NULL, '2017-10-01', NULL, 'mouse inalambrico', 'no funciona sobre superficies', NULL, NULL, '2017-15-01', 2, '2017-25-01', NULL, NULL, 1, NOW(), NULL),
 (7, 2, 3, NULL, '2017-11-01', NULL, 'herbidor error', 'herbido se quemo el motor', NULL, NULL, '2017-16-01', 2, '2017-26-01', NULL, NULL, 1, NOW(), NULL),
 
--- reclamos mes Febrero 2017
-(8, 2, 3, NULL, '2017-01-02', NULL, 'cargador movil', 'cargador es otro tipo input al pedido', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
+-- reclamos mes Febrero 2017 Formato de Fecha : yyyy-mm-dd (2017-01-25)
+(8, 2, 3, NULL, '2017-02-01', NULL, 'cargador movil', 'cargador es otro tipo input al pedido', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
 (9, 2, 3, NULL, '2017-02-02', NULL, 'porta mapas', 'no llego la cantidad requerida', NULL, NULL, '2017-10-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
-(10, 1, 2, NULL, '2017-03-02', NULL, 'bateria externa ', 'la bateria esta drenando agua', NULL, NULL, '2017-11-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
-(19, 2, 3, NULL, '2017-04-02', NULL, 'canaletas irq', 'algunas canaletas llegaron quebradas', NULL, NULL, '2017-12-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
-(20, 2, 3, NULL, '2017-05-02', NULL, 'brochas', 'llegaron brochas pequeñas se pidio medianas', NULL, NULL, '2017-13-02', 2, '2017-27-02', NULL, NULL, 1, NOW(), NULL),
-(21, 2, 3, NULL, '2017-06-02', NULL, 'calaminas', 'faltan unidades de calaminas', NULL, NULL, '2017-14-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
+(10, 1, 2, NULL, '2017-02-03', NULL, 'bateria externa ', 'la bateria esta drenando agua', NULL, NULL, '2017-11-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
+(19, 2, 3, NULL, '2017-02-04', NULL, 'canaletas irq', 'algunas canaletas llegaron quebradas', NULL, NULL, '2017-12-02', 2, '2017-26-02', NULL, NULL, 1, NOW(), NULL),
+(20, 2, 3, NULL, '2017-02-05', NULL, 'brochas', 'llegaron brochas pequeñas se pidio medianas', NULL, NULL, '2017-13-02', 2, '2017-27-02', NULL, NULL, 1, NOW(), NULL),
+(21, 2, 3, NULL, '2017-02-06', NULL, 'calaminas', 'faltan unidades de calaminas', NULL, NULL, '2017-14-01', 2, '2017-27-01', NULL, NULL, 1, NOW(), NULL),
 (22, 2, 3, NULL, '2017-07-02', NULL, 'drywall', 'el material drywall es muy flexible', NULL, NULL, '2017-15-02', 2, '2017-27-02', NULL, NULL, 1, NOW(), NULL),
-(23, 2, 3, NULL, '2017-08-02', NULL, 'bancos plasticos', 'faltan 5 unidades de bancos', NULL, NULL, '2017-16-02', 2, '2017-28-02', NULL, NULL, 1, NOW(), NULL),
+(23, 2, 3, NULL, '2017-08-02', NULL, 'bancos plasticos', 'faltan 5 unidades de bancos', NULL, 'Aceptado', '2017-02-16', 2, '2017-02-28', NULL, NULL, 2, NOW(), NULL),
 (24, 2, 3, NULL, '2017-09-02', NULL, 'desarmadores', 'tiene otro tipo de punta qno se pidio', NULL, NULL, '2017-17-02', 2, '2017-28-02', NULL, NULL, 1, NOW(), NULL),
 (25, 2, 3, NULL, '2017-10-02', NULL, 'guantes', 'se probo con corriente y pasa poco electricidad', NULL, NULL, '2017-18-02', 2, '2017-28-02', NULL, NULL, 1, NOW(), NULL),
 
@@ -243,8 +246,8 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (29, 3, 4, NULL, '2017-13-02', NULL, 'equipo telecom radio', 'se requirio marca motorola llegaron dolphin', NULL, NULL, '2017-15-02', 2, '2017-27-02', NULL, NULL, 1, NOW(), NULL),
 (30, 3, 4, NULL, '2017-14-02', NULL, 'guantes', 'se probo con corriente y pasa poco electricidad', NULL, NULL, '2017-16-02', 2, '2017-28-02', NULL, NULL, 1, NOW(), NULL),
 
--- reclamos mes Marzo 2017
-(31, 1, 1, NULL, '2017-01-03', NULL, 'mascarillas', 'se recibio menos unidades de las pedidas', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
+-- reclamos mes Marzo 2017 Formato de Fecha : yyyy-mm-dd (2017-01-25)
+(31, 1, 1, NULL, '2017-03-01', NULL, 'mascarillas', 'se recibio menos unidades de las pedidas', NULL, 'Aceptado', '2017-03-10', 2, '2017-03-26', NULL, NULL, 2, NOW(), NULL),
 (32, 1, 1, NULL, '2017-02-03', NULL, 'impermeables', 'llegaron elementos destenidos sin logo empresa', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
 (33, 1, 1, NULL, '2017-03-03', NULL, 'extinguidor', 'los balones extinguidor pesan menos del peso ideal', NULL, NULL, '2017-10-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
 (34, 2, 1, NULL, '2017-04-03', NULL, 'sacos de laboratorio', 'mayoria de sacos blancos llegaron destenidos', NULL, NULL, '2017-11-03', 2, '2017-26-03', NULL, NULL, 1, NOW(), NULL),
@@ -260,10 +263,10 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (44, 3, 4, NULL, '2017-13-03', NULL, 'mascara antipolvo', 'llegaron menos unidades de las solicitadas', NULL, NULL, '2017-15-03', 2, '2017-27-03', NULL, NULL, 1, NOW(), NULL),
 (45, 3, 4, NULL, '2017-14-03', NULL, 'candados', 'no llegaron las respectivas llaves de estos items', NULL, NULL, '2017-16-03', 2, '2017-28-03', NULL, NULL, 1, NOW(), NULL),
 
--- reclamos mes Abril 2017
-(46, 4, 1, NULL, '2017-01-04', NULL, 'arneses', 'se recibio menos cantidad de arneses', NULL, NULL, '2017-14-04', 2, '2017-27-04', NULL, NULL, 1, NOW(), NULL),
-(47, 4, 1, NULL, '2017-02-04', NULL, 'visor nocturno', 'los visores no son la marca q se pidio', NULL, NULL, '2017-15-04', 2, '2017-27-04', NULL, NULL, 1, NOW(), NULL),
-(48, 4, 1, NULL, '2017-03-04', NULL, 'cinturones', 'se recibio menos antidad de cinturones requeridos', NULL, NULL, '2017-16-04', 2, '2017-28-04', NULL, NULL, 1, NOW(), NULL),
+-- reclamos mes Abril 2017 Formato de Fecha : yyyy-mm-dd (2017-01-25)
+(46, 4, 1, NULL, '2017-04-01', NULL, 'arneses', 'se recibio menos cantidad de arneses', NULL, 'Aceptado', '2017-04-14', 2, '2017-04-27', NULL, NULL, 2, NOW(), NULL),
+(47, 4, 1, NULL, '2017-04-02', NULL, 'visor nocturno', 'los visores no son la marca q se pidio', NULL, 'Aceptado', '2017-04-15', 2, '2017-04-27', NULL, NULL, 2, NOW(), NULL),
+(48, 4, 1, NULL, '2017-04-03', NULL, 'cinturones', 'se recibio menos antidad de cinturones requeridos', NULL, 'Aceptado', '2017-04-16', 2, '2017-04-28', NULL, NULL, 2, NOW(), NULL),
 (49, 4, 2, NULL, '2017-04-04', NULL, 'bengalas', 'se recepciono una cantidad menor de bengalas',  NULL, NULL, '2017-17-04', 2, '2017-28-04', NULL, NULL, 1, NOW(), NULL),
 (50, 4, 2, NULL, '2017-05-04', NULL, 'uniformes', 'No coinciden con las tallas solicitadas para el pesonal', NULL, NULL, '2017-18-04', 2, '2017-28-04', NULL, NULL, 1, NOW(), NULL),
 (51, 4, 3, NULL, '2017-06-04', NULL, 'linternas acuaticas', 'Algunas linternas no funcionan a cierta profundidad', NULL, NULL, '2017-14-04', 2, '2017-26-04', NULL, NULL, 1, NOW(), NULL),
@@ -277,10 +280,10 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (59, 5, 5, NULL, '2017-14-04', NULL, 'barretas', 'se requirio cierta cantidad barretas llego incompleto', NULL, NULL, '2017-12-04', 2, '2017-24-04', NULL, NULL, 1, NOW(), NULL),
 (60, 5, 5, NULL, '2017-15-04', NULL, 'chalecos de trafico', 'algunos chalecos no tienen los colores debidos', NULL, NULL, '2017-13-04', 2, '2017-25-04', NULL, NULL, 1, NOW(), NULL),
 
--- -- reclamos mes Mayo 2017
-(61, 4, 3, NULL, '2017-01-05', NULL, 'casco con linterna ', 'la mayoria de linternas integradas no prenden', NULL, NULL, '2017-14-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
-(62, 6, 3, NULL, '2017-02-05', NULL, 'cilindros oxigeno', 'llego menor cantidad de cilindros de lo pedido', NULL, NULL, '2017-14-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
-(63, 6, 5, NULL, '2017-03-05', NULL, 'impermeables', 'durante la lluvia traspasa el uniforme impermeable', NULL, NULL, '2017-15-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
+-- -- reclamos mes Mayo 2017 Formato de Fecha : yyyy-mm-dd (2017-01-25)
+(61, 4, 3, NULL, '2017-05-05', NULL, 'casco con linterna ', 'la mayoria de linternas integradas no prenden', NULL, NULL, '2017-14-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
+(62, 6, 3, NULL, '2017-05-05', NULL, 'cilindros oxigeno', 'llego menor cantidad de cilindros de lo pedido', NULL, NULL, '2017-14-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
+(63, 6, 5, NULL, '2017-05-05', NULL, 'impermeables', 'durante la lluvia traspasa el uniforme impermeable', NULL, NULL, '2017-15-05', 2, '2017-25-05', NULL, NULL, 1, NOW(), NULL),
 (64, 6, 1, NULL, '2017-04-05', NULL, 'arneses nuevos', 'llegaron menos arneses de lo solicitado', NULL, NULL, '2017-15-05', 2, '2017-26-05', NULL, NULL, 1, NOW(), NULL),
 (65, 6, 1, NULL, '2017-05-05', NULL, 'botas', 'se recibio menor cantidad de lo acordado', NULL, NULL, '2017-16-05', 2, '2017-26-05', NULL, NULL, 1, NOW(), NULL),
 (66, 6, 6, NULL, '2017-06-05', NULL, 'tapon auditivo', 'se filtra el ruido al estar en calle', NULL, NULL, '2017-11-05', 2, '2017-26-05', NULL, NULL, 1, NOW(), NULL),
@@ -295,7 +298,7 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (74, 5, 6, NULL, '2017-14-05', NULL, 'fajas', 'se recibio menos cantidad de este producto', NULL, NULL, '2017-19-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL),
 (75, 5, 6, NULL, '2017-15-05', NULL, 'respirador ', 'los respiradores se filtra el aire', NULL, NULL, '2017-20-05', 2, '2017-30-05', NULL, NULL, 1, NOW(), NULL),
 
--- -- reclamos mes Junio 2017
+-- -- reclamos mes Junio 2017 Formato de Fecha : yyyy-mm-dd (2017-01-25)
 (76, 7, 6, NULL, '2017-01-06', NULL, 'lentes seguridad', 'La visibilidad es borrosa', NULL, NULL, '2017-11-06', 2, '2017-26-06', NULL, NULL, 1, NOW(), NULL),
 (77, 7, 6, NULL, '2017-02-06', NULL, 'botines', 'LLego menor cantidad q la solicitada', NULL, NULL, '2017-11-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),
 (78, 7, 6, NULL, '2017-03-06', NULL, 'Arnes', 'se hallo q los Arneses son muy flojos', NULL, NULL, '2017-12-06', 2, '2017-27-06', NULL, NULL, 1, NOW(), NULL),

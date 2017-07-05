@@ -21,6 +21,8 @@ public interface ReclamoDAO {
 	public Reclamo obtenerUltimoReclamoRegistrado(Integer idUsuario);
 	public void eliminarItems(Long idReclamo);
 	public List<ReporteDataBean> obtenerReclamosPorMesAtendidosAnioActual();
-	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio();	
+	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio();
+	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio();
+	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual();	
 	
 }

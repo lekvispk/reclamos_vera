@@ -214,12 +214,12 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
 				
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
-					
+					//TODO aun no hay data con estado 2 
 					StringBuilder sql = new StringBuilder();
 					sql.append( " SELECT MONTH(fecReclamo) AS MES, COUNT(*) AS Reclamos " );
 					sql.append( " FROM reclamo " );
 					sql.append( " WHERE " );
-					//sql.append( " estado=2 AND " );
+					sql.append( " estado=2 AND respuesta IS not NULL AND  " );
 					sql.append( " YEAR(fecReclamo) = YEAR(NOW()) " );
 					sql.append( " GROUP BY MONTH(fecReclamo) " );
 					
@@ -277,6 +277,86 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		
 		logger.debug(METHODNAME + "FIN");
 		return lista;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio() {
+		final String METHODNAME = "obtenerReclamosPorMesNoAtendidosEnElAnio - ";
+		logger.debug(METHODNAME + "INI");
+		
+		List<ReporteDataBean> lista = null;
+		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					
+					StringBuilder sql = new StringBuilder();
+					sql.append( " SELECT MONTH(fecReclamo) AS MES, COUNT(*) AS Reclamos " );
+					sql.append( " FROM reclamo " );
+					sql.append( " WHERE " );
+					sql.append( " estado=1 AND  respuesta IS NULL AND " );
+					sql.append( " YEAR(fecReclamo) = YEAR(NOW()) " );
+					sql.append( " GROUP BY MONTH(fecReclamo) " );
+					
+					SQLQuery query = session.createSQLQuery(sql.toString());
+					List<Object[]> list = query.list();
+					return list;
+				}
+				
+		});
+
+		logger.debug(METHODNAME + "resultList="+resultList.size());
+		lista = new ArrayList<ReporteDataBean>();
+		for(Object[] o : resultList){
+			lista.add( new ReporteDataBean( o[0].toString() , o[1].toString() ));
+		}
+		logger.debug(METHODNAME + "lista="+lista.size());
+		
+		logger.debug(METHODNAME + "FIN");
+		return lista;
+		
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual() {
+		final String METHODNAME = "obtenerReclamosPorEstadoMesActual - ";
+		logger.debug(METHODNAME + "INI");
+		
+		List<ReporteDataBean> lista = null;
+		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					
+					StringBuilder sql = new StringBuilder();
+					sql.append( " SELECT p.descripcion,COUNT(*)  " );
+					sql.append( " FROM reclamo r " );
+					sql.append( " INNER JOIN  items_reclamo ir ON r.`idReclamo` = ir.idReclamo " );
+					sql.append( " INNER JOIN detallefactura df ON df.`idDetalleFactura` = ir.idDetalleFactura " );
+					sql.append( " INNER JOIN producto p ON df.`idProducto` = p.idProducto  " );
+					sql.append( " WHERE  YEAR(fecReclamo) = YEAR(NOW())  " );
+					sql.append( " GROUP BY p.descripcion " );
+					sql.append( " LIMIT 5 " );
+					SQLQuery query = session.createSQLQuery(sql.toString());
+					List<Object[]> list = query.list();
+					return list;
+				}
+				
+		});
+
+		logger.debug(METHODNAME + "resultList="+resultList.size());
+		lista = new ArrayList<ReporteDataBean>();
+		for(Object[] o : resultList){
+			lista.add( new ReporteDataBean( o[0].toString() , o[1].toString() ));
+		}
+		logger.debug(METHODNAME + "lista="+lista.size());
+		
+		logger.debug(METHODNAME + "FIN");
+		return lista;
+		
+		/*reclamos.add( new ReporteDataBean("En estado Registrado","12"));
+		reclamos.add( new ReporteDataBean("En estado Evaluado","30"));
+		reclamos.add( new ReporteDataBean("En estado Rechazado","20"));*/
 	}
 
 }
