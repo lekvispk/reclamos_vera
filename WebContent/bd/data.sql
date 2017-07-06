@@ -314,7 +314,12 @@ INSERT INTO `reclamosbd`.`reclamo` (`idReclamo`,`idFactura`,`idCliente`,`descrip
 (86, 7, 6, NULL, '2017-07-06', NULL, 'respiradores', 'llego menos unidades de lo pedido', NULL, NULL, '2017-17-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
 (87, 7, 6, NULL, '2017-08-06', NULL, 'cinturones', 'los cinturones no ajustan lo debido', NULL, NULL, '2017-18-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
 (88, 7, 6, NULL, '2017-09-06', NULL, 'anteojos para quimicos', 'LLego menos recepciono menor pedido', NULL, NULL, '2017-19-06', 2, '2017-28-06', NULL, NULL, 1, NOW(), NULL),
-(89, 7, 6, NULL, '2017-10-06', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, NULL, '2017-20-06', 2, '2017-29-06', NULL, NULL, 1, NOW(), NULL);
+(89, 7, 6, NULL, '2017-10-06', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, NULL, '2017-20-06', 2, '2017-29-06', NULL, NULL, 1, NOW(), NULL),
+
+( 90 , 8, 6, NULL, '2017-07-01', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, 'Aceptado', '2017-07-20', 2, '2017-07-29', NULL, NULL, 2, NOW(), NULL),
+( 91 , 9, 6, NULL, '2017-07-02', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, 'Rechazado', '2017-07-21', 2, '2017-07-29', NULL, NULL, 2, NOW(), NULL),
+( 92 , 10, 6, NULL, '2017-07-03', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, 'Rechazado', '2017-07-22', 2, '2017-07-29', NULL, NULL, 2, NOW(), NULL),
+( 93 , 11, 6, NULL, '2017-07-04', NULL, 'caretas soldador', 'se recibio menos cantidad q la solicitada', NULL, 'Aceptado', '2017-07-22', 2, '2017-07-29', NULL, NULL, 2, NOW(), NULL);
 
  INSERT INTO `reclamosbd`.`items_reclamo` (`idItemReclamo`,`idDetalleFactura`,`idReclamo`,`Estado`) VALUES
  (1,1,2,1),

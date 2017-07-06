@@ -329,14 +329,10 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
 					
 					StringBuilder sql = new StringBuilder();
-					sql.append( " SELECT p.descripcion,COUNT(*)  " );
-					sql.append( " FROM reclamo r " );
-					sql.append( " INNER JOIN  items_reclamo ir ON r.`idReclamo` = ir.idReclamo " );
-					sql.append( " INNER JOIN detallefactura df ON df.`idDetalleFactura` = ir.idDetalleFactura " );
-					sql.append( " INNER JOIN producto p ON df.`idProducto` = p.idProducto  " );
-					sql.append( " WHERE  YEAR(fecReclamo) = YEAR(NOW())  " );
-					sql.append( " GROUP BY p.descripcion " );
-					sql.append( " LIMIT 5 " );
+					sql.append( " SELECT COUNT(*) as cantidad, estado, respuesta  " );
+					sql.append( " FROM reclamo  " );
+					sql.append( " WHERE  MONTH(fecReclamo) = MONTH(NOW()) " );
+					sql.append( " GROUP BY estado, respuesta " );
 					SQLQuery query = session.createSQLQuery(sql.toString());
 					List<Object[]> list = query.list();
 					return list;
@@ -346,17 +342,29 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 
 		logger.debug(METHODNAME + "resultList="+resultList.size());
 		lista = new ArrayList<ReporteDataBean>();
+		ReporteDataBean evaluado = new ReporteDataBean( "En estado Evaluado" , "" );
+		Integer cantidad = 0 ;
 		for(Object[] o : resultList){
-			lista.add( new ReporteDataBean( o[0].toString() , o[1].toString() ));
+			if( Utiles.nullToZero(o[1]) == 1 ){
+				if( Utiles.nullToBlank(o[2]).equals("") ){
+					lista.add( new ReporteDataBean( "En estado Registrado" , o[0].toString() ));
+				}else{
+					cantidad += Integer.valueOf( o[0].toString() );
+				}
+			}
+			if( Utiles.nullToZero(o[1]) == 2 ){
+				if( Utiles.nullToBlank(o[2]).equals("Aceptado") ){
+					lista.add( new ReporteDataBean( "En estado Aprovado" , o[0].toString() ));
+				}else{
+					lista.add( new ReporteDataBean( "En estado Rechazado" , o[0].toString() ));
+				}
+			}
 		}
+		evaluado.setValue( cantidad + "" );
+		lista.add( evaluado );
 		logger.debug(METHODNAME + "lista="+lista.size());
-		
 		logger.debug(METHODNAME + "FIN");
 		return lista;
-		
-		/*reclamos.add( new ReporteDataBean("En estado Registrado","12"));
-		reclamos.add( new ReporteDataBean("En estado Evaluado","30"));
-		reclamos.add( new ReporteDataBean("En estado Rechazado","20"));*/
 	}
 
 }
