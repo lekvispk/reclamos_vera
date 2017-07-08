@@ -214,12 +214,12 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
 				
 				public Object doInHibernate(Session session) throws HibernateException, SQLException {
-					
+					//TODO aun no hay data con estado 2 
 					StringBuilder sql = new StringBuilder();
 					sql.append( " SELECT MONTH(fecReclamo) AS MES, COUNT(*) AS Reclamos " );
 					sql.append( " FROM reclamo " );
 					sql.append( " WHERE " );
-					//sql.append( " estado=2 AND " );
+					sql.append( " estado=2 AND respuesta IS not NULL AND  " );
 					sql.append( " YEAR(fecReclamo) = YEAR(NOW()) " );
 					sql.append( " GROUP BY MONTH(fecReclamo) " );
 					
@@ -275,6 +275,94 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		}
 		logger.debug(METHODNAME + "lista="+lista.size());
 		
+		logger.debug(METHODNAME + "FIN");
+		return lista;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio() {
+		final String METHODNAME = "obtenerReclamosPorMesNoAtendidosEnElAnio - ";
+		logger.debug(METHODNAME + "INI");
+		
+		List<ReporteDataBean> lista = null;
+		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					
+					StringBuilder sql = new StringBuilder();
+					sql.append( " SELECT MONTH(fecReclamo) AS MES, COUNT(*) AS Reclamos " );
+					sql.append( " FROM reclamo " );
+					sql.append( " WHERE " );
+					sql.append( " estado=1 AND  respuesta IS NULL AND " );
+					sql.append( " YEAR(fecReclamo) = YEAR(NOW()) " );
+					sql.append( " GROUP BY MONTH(fecReclamo) " );
+					
+					SQLQuery query = session.createSQLQuery(sql.toString());
+					List<Object[]> list = query.list();
+					return list;
+				}
+				
+		});
+
+		logger.debug(METHODNAME + "resultList="+resultList.size());
+		lista = new ArrayList<ReporteDataBean>();
+		for(Object[] o : resultList){
+			lista.add( new ReporteDataBean( o[0].toString() , o[1].toString() ));
+		}
+		logger.debug(METHODNAME + "lista="+lista.size());
+		
+		logger.debug(METHODNAME + "FIN");
+		return lista;
+		
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual() {
+		final String METHODNAME = "obtenerReclamosPorEstadoMesActual - ";
+		logger.debug(METHODNAME + "INI");
+		
+		List<ReporteDataBean> lista = null;
+		List<Object[]> resultList = (List<Object[]>)this.getHibernateTemplate().execute(new HibernateCallback() {
+				
+				public Object doInHibernate(Session session) throws HibernateException, SQLException {
+					
+					StringBuilder sql = new StringBuilder();
+					sql.append( " SELECT COUNT(*) as cantidad, estado, respuesta  " );
+					sql.append( " FROM reclamo  " );
+					sql.append( " WHERE  MONTH(fecReclamo) = MONTH(NOW()) " );
+					sql.append( " GROUP BY estado, respuesta " );
+					SQLQuery query = session.createSQLQuery(sql.toString());
+					List<Object[]> list = query.list();
+					return list;
+				}
+				
+		});
+
+		logger.debug(METHODNAME + "resultList="+resultList.size());
+		lista = new ArrayList<ReporteDataBean>();
+		ReporteDataBean evaluado = new ReporteDataBean( "En estado Evaluado" , "" );
+		Integer cantidad = 0 ;
+		for(Object[] o : resultList){
+			if( Utiles.nullToZero(o[1]) == 1 ){
+				if( Utiles.nullToBlank(o[2]).equals("") ){
+					lista.add( new ReporteDataBean( "En estado Registrado" , o[0].toString() ));
+				}else{
+					cantidad += Integer.valueOf( o[0].toString() );
+				}
+			}
+			if( Utiles.nullToZero(o[1]) == 2 ){
+				if( Utiles.nullToBlank(o[2]).equals("Aceptado") ){
+					lista.add( new ReporteDataBean( "En estado Aprovado" , o[0].toString() ));
+				}else{
+					lista.add( new ReporteDataBean( "En estado Rechazado" , o[0].toString() ));
+				}
+			}
+		}
+		evaluado.setValue( cantidad + "" );
+		lista.add( evaluado );
+		logger.debug(METHODNAME + "lista="+lista.size());
 		logger.debug(METHODNAME + "FIN");
 		return lista;
 	}
