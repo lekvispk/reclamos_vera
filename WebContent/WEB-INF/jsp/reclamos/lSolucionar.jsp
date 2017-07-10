@@ -65,7 +65,7 @@
 							
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="txtVencimiento">Vencimiento</label>  
+							  <label class="col-md-4 control-label" for="txtVencimiento">Fecha de vencimiento</label>  
 							  <div class="col-md-4">
 							  	<div class='input-group date' id='datetimepicker1'>
 				                    <fmt:formatDate value="${reclamo.vencimiento}" pattern="dd/MM/yyyy" var="f_vencimiento"/>

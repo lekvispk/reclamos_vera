@@ -1,5 +1,7 @@
 package pe.org.reclamos.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -61,9 +63,15 @@ public class IndemnizarController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   reclamo.setEstado( 1 );
+			   reclamo.setEstado( 0 );
 			   reclamo.setRespuesta( "Rechazado" );
-			   model.put("lReclamos", reclamoService.buscar( reclamo ));
+			   List<Reclamo> lista = reclamoService.buscar( reclamo );
+			   
+			   if( lista.size() == 0 ){
+				   model.put("mensaje", "No se encontraron coincidencias con los filtros indicados" );
+			   }
+			   
+			   model.put("lReclamos", lista );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
