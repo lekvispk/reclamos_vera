@@ -46,22 +46,27 @@ public class UsuarioServiceImpl implements UsuarioService {
 		
 		List<Permiso> permisos = null ;
 		Boolean nuevo = false;
+		usuario.getPersona().setEmail( usuario.getEmail());
+		permisos = permisoService.listarPermisos();
 		
 		if( usuario.getIdUsuario() == null || usuario.getIdUsuario() == 0 ){
 			usuario.setCreatedAt( new Date() );
 			usuario.setPassword( Utiles.hashMd5(usuario.getPassword() ) );	
 			nuevo = true;
-			permisos = permisoService.listarPermisos();
+		}else{
+			usuario.setUpdatedAt( new Date() );
 		}
 		
-		usuario.getPersona().setEmail( usuario.getEmail());
 		usuarioDAO.registrar(usuario.getPersona());
 		usuarioDAO.registrar(usuario);
-		logger.debug(METHODNAME + " usuario registrado");
-		if(nuevo){
-			usuarioDAO.registrarPermisos( usuario, permisos);
-			logger.debug(METHODNAME + "permiso registrado");
+		logger.debug(METHODNAME + "usuario registrado");
+		
+		if(!nuevo){
+			logger.debug(METHODNAME + "eliminar permisos de " + usuario.getUsername());
+			usuarioDAO.eliminarPermisos( usuario.getUsername() );
 		}
+		
+		usuarioDAO.registrarPermisos( usuario, permisos);
 		
 		logger.debug(METHODNAME + "FIN");
 	}

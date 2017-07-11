@@ -3,7 +3,11 @@ INSERT INTO `reclamosbd`.`perfil`(`idPerfil`, `perfil`,`estado`) VALUES
  (1,'Administrador',1),
  (2,'Reclamos',1),
  (3,'Consulta',1),
- (4,'Jefe Supervisor',1);
+ (4,'Jefe Supervisor',1),
+ (5,'Recepcionista',1),
+ (6,'Cliente Externo',1),
+ (7,'Capacitador',1),
+ (8,'Despachador',1);
  
 INSERT INTO `reclamosbd`.`permisos`(`idPermiso`,`permiso`,`detalle`,`estado`) VALUES
  (1,'ROLE_USER','Usuario generico del sistema',1),
@@ -16,7 +20,8 @@ INSERT INTO `reclamosbd`.`permisos`(`idPermiso`,`permiso`,`detalle`,`estado`) VA
  (8,'ROLE_PRODUCTO','Modulo de cambio y devolucion de productos',1),
  (9,'ROLE_SEGUIMIENTO','Modulo de seguimiento dereclamos',1),
  (10,'ROLE_CLIENTES','Modulo de Clientes, solo consulta',1),
- (11,'ROLE_CLIENTES_R','Modulo de Clientes, opcion para registrar',1);
+ (11,'ROLE_CLIENTES_R','Modulo de Clientes, opcion para registrar',1),
+ (12,'ROLE_DESPACHO','Modulo de Despacho',1) ;
 
 INSERT INTO `reclamosbd`.`permisos_perfil`(`idPermiso`,`idPerfil`,`estado`)VALUES 
  (1,1,1),
@@ -25,6 +30,12 @@ INSERT INTO `reclamosbd`.`permisos_perfil`(`idPermiso`,`idPerfil`,`estado`)VALUE
  (4,1,1),
  (5,1,1),
  (6,1,1),
+ (7,1,1),
+ (8,1,1),
+ (9,1,1),
+ (10,1,1),
+ (11,1,1),
+ (12,1,1), 
  (1,2,1),
  (3,2,1),
  (4,2,1),
@@ -32,7 +43,19 @@ INSERT INTO `reclamosbd`.`permisos_perfil`(`idPermiso`,`idPerfil`,`estado`)VALUE
  (6,2,1), 
  (1,3,1),
  (3,3,1),
- (5,3,1);
+ (5,3,1), 
+ (1,5,1),
+ (3,5,1),
+ (1,6,1),
+ (3,6,1),
+ (4,6,1), 
+ (1,7,1),
+ (3,7,1),
+ (7,7,1), 
+ (1,8,1),
+ (3,8,1),
+ (12,8,1);
+ 
 
 INSERT INTO `reclamosbd`.`persona`(`idPersona`,`nombres`,`ape_paterno`,`numero_documento`,`direccion`,`ubigeo`,`telefono1`,`telefono2`,`email`,`estado`,`created_at`,`updated_at`)VALUES 
 (1,'Carlos','Vera','40004001','Av. Principal 100','020109','4170202',NULL,'dverat@gmail.com',1, NOW(),NULL),

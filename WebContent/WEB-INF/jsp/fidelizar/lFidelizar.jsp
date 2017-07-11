@@ -56,9 +56,7 @@
 					   		<div id="displayTagDiv">
 					   		  
 						    	<display:table  name="requestScope.lClientes" requestURI="lFidelizar.htm" class="displaytag" pagesize="10"
-						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
-						            >
-						            
+						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk" >
 						            <display:column title="" >
 						            	<a href="lCompensar.htm?idCliente=${row.idCliente}">ver</a>
 						            </display:column>

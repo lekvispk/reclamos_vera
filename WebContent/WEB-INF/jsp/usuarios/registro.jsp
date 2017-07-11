@@ -18,7 +18,7 @@
 							<fieldset>
 							
 							<form:hidden path="idUsuario"/>
-        					<input type="hidden" value="1" name="estado"/>  
+							<form:hidden path="estado"/>
         					
 							<!-- Form Name -->
 							<legend>Registrar Usuario</legend>
@@ -28,53 +28,57 @@
 							<!-- Persona Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="persona.nombres">Nombres</label>  
-							  <div class="col-md-5">
-							  	<input type="text" name="persona.nombres" id="persona.nombres" class="form-control input-md"> 
-							  </div>
+							  <div class="col-md-5"> <form:input path="persona.nombres" maxlength="150" cssClass="form-control input-md"/> </div>
 							</div>
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="persona.apePaterno">Apellido Paterno</label>  
-							  <div class="col-md-5">
-							  	<input type="text" name="persona.apePaterno" id="persona.apePaterno" class="form-control input-md"> 
-							  </div>
+							  <div class="col-md-5"> <form:input path="persona.apePaterno" maxlength="150" cssClass="form-control input-md"/> </div>
 							</div>
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="persona.apeMaterno">Apellido Materno</label>  
-							  <div class="col-md-5">
-							  	<input type="text" name="persona.apeMaterno" id="persona.apeMaterno" class="form-control input-md"> 
-							  </div>
+							  <div class="col-md-5"> <form:input path="persona.apeMaterno" maxlength="150" cssClass="form-control input-md"/> </div>
 							</div>
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="persona.numeroDocumento">Nro. de documento</label>  
-							  <div class="col-md-5">
-							  	<input type="text" name="persona.numeroDocumento" id="persona.numeroDocumento" class="form-control input-md"> 
-							  </div>
+							  <div class="col-md-5"> <form:input path="persona.numeroDocumento" maxlength="8" cssClass="form-control input-md"/> </div>
 							</div>
 							
-							<form:hidden path="idUsuario"/>			
-							<!-- RUC Text input-->
+							<c:if test="${usuario.idUsuario > 0}">
+							<!-- Username Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="rucCliente">Nombre de usuario</label>  
 							  <div class="col-md-5">
-							  	<form:input path="username" id="username" size="20" cssClass="form-control input-md" />
+							  	<form:input path="username" id="username" readonly="true" size="20" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
+							<form:hidden path="password"/>
+							<input type="hidden" name="confirmar" id="confirmar" value="${usuario.password}"/>
+							</c:if>
+							
+							<c:if test="${ empty usuario.idUsuario }">
+							<!-- Username Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="rucCliente">Nombre de usuario</label>  
+							  <div class="col-md-5">
+							  	<form:input path="username" id="username" size="20" maxlength="150" cssClass="form-control input-md" />
+							  </div>
+							</div>
 							<!-- clave Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="nomCliente">Contrase&ntilde;a</label>  
 							  <div class="col-md-5">
-							  	<form:password path="password" id="password" size="30" cssClass="form-control input-md" />
+							  	<form:password path="password" id="password" size="30" maxlength="20" cssClass="form-control input-md" />
 							  </div>
 							</div>
-							
 							<!-- confirmar claveText input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="nomCliente">Confirmar Contrase&ntilde;a</label>  
 							  <div class="col-md-5">
-							  	<input type="password" name="confirmar" id="confirmar" placeholder="" class="form-control input-md" >
+							  	<input type="password" name="confirmar" id="confirmar" placeholder="" maxlength="20" class="form-control input-md" >
 							  </div>
 							</div>
+							</c:if>
 							
 							<!--email Text input-->
 							<div class="form-group">

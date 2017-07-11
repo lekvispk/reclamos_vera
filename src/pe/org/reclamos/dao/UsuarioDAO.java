@@ -19,5 +19,6 @@ public interface UsuarioDAO {
 	public void eliminar(Integer idUsuario);
 	public Usuario obtenerPorEmail(String email);
 	public Cliente obteneClientePorPersona(Integer idPersona);
+	public void eliminarPermisos(String username);
 	
 }

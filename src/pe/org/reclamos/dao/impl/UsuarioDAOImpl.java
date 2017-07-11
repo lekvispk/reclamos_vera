@@ -131,4 +131,12 @@ public class UsuarioDAOImpl extends HibernateDaoSupport implements UsuarioDAO {
 		}
 	}
 
+	@Override
+	public void eliminarPermisos(String username) {
+		final String METHODNAME = "eliminarPermisos - ";
+		logger.debug(METHODNAME + "INI");
+		this.getHibernateTemplate().bulkUpdate("delete from Authority where username= ?  ", username);
+		logger.debug(METHODNAME + "FIN");
+	}
+
 }

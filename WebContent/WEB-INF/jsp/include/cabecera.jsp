@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri='http://www.springframework.org/security/tags' prefix='security'%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +63,9 @@
                 <!-- /.dropdown -->
                 
                 <!-- /.dropdown -->
-                
+                <li>
+                	Bienvenido: <b>${pageContext.request.userPrincipal.name} </b>
+                </li>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -97,10 +101,13 @@
                             </div> -->
                             <!-- /input-group -->
                         </li>
+                        <security:authorize ifAnyGranted="ROLE_RECLAMO">
                         <li>
                             <a href="#"><i class="fa fa-edit fa-fw"></i> Reclamos<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                            	<security:authorize ifAnyGranted="ROLE_RECLAMO_R">
                                 <li><a href="${pageContext.request.contextPath}/reclamos/registro.htm">Registrar</a></li>
+                                </security:authorize>
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lGestionar.htm">Gestionar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lEvaluar.htm">Evaluar</a></li>
                                 <li><a href="${pageContext.request.contextPath}/reclamos/lSolucionar.htm">Solucionar</a></li>
@@ -108,6 +115,8 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        </security:authorize>
+                        <security:authorize ifAnyGranted="ROLE_FIDELIZA">
                         <li>
                         	<a href="#"><i class="fa fa-star fa-fw"></i> Fidelizar<span class="fa arrow"></span></a>
                         	<ul class="nav nav-third-level">
@@ -116,6 +125,8 @@
                         		<li><a href="${pageContext.request.contextPath}/tablero/tablero.htm">Mostrar Tablero</a></li>
                         	</ul>	
                         </li>
+                        </security:authorize>
+                        <security:authorize ifAnyGranted="ROLE_CAPACITA">
                         <li>
                             <a href="#"><i class="fa fa-clipboard fa-fw"></i> Capacitaci&oacute;n<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -125,6 +136,8 @@
                               </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        </security:authorize>
+                        <security:authorize ifAnyGranted="ROLE_DESPACHO">
                          <li>
                             <a href="#"><i class="fa fa-shopping-cart fa-fw"></i> Producto<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -134,6 +147,7 @@
                               </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        </security:authorize>
                         <li>
                             <a href="#"><i class="fa fa-link  fa-fw"></i> Seguimiento<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

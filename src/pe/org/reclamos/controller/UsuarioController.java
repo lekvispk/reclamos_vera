@@ -70,17 +70,24 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/registro.htm" , method=RequestMethod.GET)
 	public String preNuevoUsuario( ModelMap model){
-		logger.debug("pre registrar usuario");
-		model.put("usuario", new Usuario());
+		final String METHODNAME	= "preNuevoUsuario - ";
+		logger.debug(METHODNAME + "INI");
+		
+		Usuario usr = new Usuario();
+		usr.setEstado( 1 );
+		model.put("usuario",usr);
 		model.put("lPerfiles", perfilService.listarPerfiles() );
+		
+		logger.debug(METHODNAME + "FIN");
 		return "usuarios/registro";
 	}
 	
 	@RequestMapping(value="/registro.htm" , method=RequestMethod.POST)  
 	 public String nuevoCliente(@Valid Usuario usuario, BindingResult result, HttpServletRequest request,  HttpServletResponse response, ModelMap model) {  
 		final String METHODNAME	= "nuevoCliente - ";
+		logger.debug(METHODNAME + "INI");
+		
 		try {
-			logger.debug(METHODNAME + "INI");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
@@ -102,10 +109,12 @@ public class UsuarioController {
 	
 	@RequestMapping(value="/modificar.htm" , method=RequestMethod.GET)
 	public String preModificarUsuario( ModelMap model,HttpServletRequest request){
-		logger.debug("pre modificar usuario");
+		final String METHODNAME = "preModificarUsuario - ";
+		logger.debug(METHODNAME + "INI");
 		Usuario usr = usuarioService.obtener( Integer.valueOf( request.getParameter("idUsuario")));
 		model.put("usuario", usr );
 		model.put("lPerfiles", perfilService.listarPerfiles() );
+		logger.debug(METHODNAME + "FIN");
 		return "usuarios/registro";
 	}
 	

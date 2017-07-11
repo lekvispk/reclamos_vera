@@ -154,41 +154,52 @@ public class ProductoController {
 	
 	@RequestMapping(value="/agregar.htm", method=RequestMethod.POST)
 	public String agregarItem(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		final String METHODNAME = "agregarItem - ";
+		logger.debug(METHODNAME + "INI");
+		
 		String json = "";
 		try {
-			   logger.debug("agregarItem");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   String idDetalleFactura = request.getParameter("idDetalleFactura");
+			   logger.debug(METHODNAME + "idDetalleFactura=" + idDetalleFactura);
 			   
 			   Devolucion dev = devolucionService.obtenerPorDetalleFactura( Integer.valueOf( idDetalleFactura) );
-			   logger.debug("idDevolucion="+dev.getIdDevolucion());
-			   Detallefactura df = facturaService.obtenerDetalleFactura( Integer.valueOf( idDetalleFactura) );
-			   logger.debug("idDevolucion="+df.getIdDetalleFactura());
-			   logger.debug("idProducto="+df.getProducto().getIdProducto());
-			   DetalleDevolucion dd = new DetalleDevolucion();
-			   dd.setDevolucion( dev );
-			   dd.setProducto( df.getProducto() );
 			   
-			   devolucionService.grabarDetalle( dd );
-			   
-			   String format = "yyyy-MM-dd";
-			   
-			   GsonBuilder gsonB = new GsonBuilder();
-			   gsonB.registerTypeAdapter(Calendar.class, new CalendarSerializer());
-			   gsonB.registerTypeAdapter(GregorianCalendar.class, new CalendarSerializer());
-			   Gson gson2 = gsonB.setDateFormat( format ).create();
-			   
-			   json = gson2.toJson( dd );
-			   //json = "{  \"status\":\"1\",  \"mensaje\":\"Gabado\" } ";
+			   if( dev != null){
+				   logger.debug(METHODNAME + "idDevolucion="+dev.getIdDevolucion());
+				   Detallefactura df = facturaService.obtenerDetalleFactura( Integer.valueOf( idDetalleFactura) );
+				   logger.debug(METHODNAME + "idDevolucion="+df.getIdDetalleFactura());
+				   logger.debug(METHODNAME + "idProducto="+df.getProducto().getIdProducto());
+				   DetalleDevolucion dd = new DetalleDevolucion();
+				   dd.setDevolucion( dev );
+				   dd.setProducto( df.getProducto() );
+				   
+				   devolucionService.grabarDetalle( dd );
+				   
+				   String format = "yyyy-MM-dd";
+				   
+				   GsonBuilder gsonB = new GsonBuilder();
+				   gsonB.registerTypeAdapter(Calendar.class, new CalendarSerializer());
+				   gsonB.registerTypeAdapter(GregorianCalendar.class, new CalendarSerializer());
+				   Gson gson2 = gsonB.setDateFormat( format ).create();
+				   
+				   json = gson2.toJson( dd );
+				   //json = "{  \"status\":\"1\",  \"mensaje\":\"Gabado\" } ";
+				  
+			   }else{
+				   json = "{  \"status\":\"2\",  \"mensaje\":\"No se ha encontrado autrizacion de cambio\",  \"idDetalleDevolucion\":\"-1\" } ";
+			   }
 			   response.getWriter().println( json );
 			   
 		   } catch (Exception e) {
+			   e.printStackTrace();
 			   logger.debug("Error : "+e.getMessage());
-			 json = "{  \"status\":\"2\",  \"mensaje\":\""+e.getMessage()+"\" } ";
-			 try{ response.getWriter().println( json ); } 
-			 catch(Exception e2){ }
+			   json = "{  \"status\":\"2\",  \"mensaje\":\""+e.getMessage()+"\" } ";
+			   try{ response.getWriter().println( json ); } 
+			   catch(Exception e2){ }
 		   }
+		logger.debug(METHODNAME + "FIN");
 		return null;
 	}
 	

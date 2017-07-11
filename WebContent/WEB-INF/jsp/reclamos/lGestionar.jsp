@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net"  %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix='security' uri='http://www.springframework.org/security/tags' %>
 
 <jsp:include page="../include/cabecera.jsp"/>
 
@@ -72,7 +73,9 @@
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
 							    <button id="btnBuscar" name="btnBuscar" class="btn btn-success">Buscar</button>
+							    <security:authorize ifAnyGranted="ROLE_RECLAMO_R">
 							    <a href="registro.htm" class="btn btn-success">Nuevo </a>
+							    </security:authorize>
 							  </div>
 							</div>
 							
@@ -109,9 +112,7 @@
 							</div>
 						  	</div>
 							</div>			
-                        
-                        
-                        
+                                                
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -125,9 +126,7 @@
 			<div id="cuerpoDiv"></div>
 		</div>
 		
-		
 	 <jsp:include page="../include/pie.jsp"/>
-	 
 	 
 <script>
 

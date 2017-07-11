@@ -137,7 +137,7 @@
 
 	
 	$(document).undelegate('#btnAgregar', 'click').delegate('#btnAgregar', 'click', function(){
-		console.log('agregar produicto para devolucion');
+		console.log('agregar producto para devolucion');
 		var fields = $("input[name='_chkIt']:checked").serializeArray(); 
 	    if (fields.length == 0) { 
 	    	alert('Selecione un producto');
@@ -152,12 +152,21 @@
                 	},
             success: function( data ) {
                 console.log( "ok... resultado " +  data );
-                if( data.idDetalleDevolucion ){
-                	console.log( " id devolucion =  "  +  data.idDetalleDevolucion );
-                	console.log( " id devolucion =  "  +  data.devolucion.idDevolucion );
-                	console.log('llamada al load para refrescar segunda tabla');
-                	cargarListaProductos( data.devolucion.idDevolucion  );
+                
+                if( data.status == 2){
+                	console.log( " error "  + data.mensaje );
+                	alert(  "Error: "  + data.mensaje );
+                	return false;
+                }else{
+                	 if( data.idDetalleDevolucion != -1 ){
+                     	console.log( " id devolucion =  "  +  data.idDetalleDevolucion );
+                     	console.log( " id devolucion =  "  +  data.devolucion.idDevolucion );
+                     	console.log('llamada al load para refrescar segunda tabla');
+                     	cargarListaProductos( data.devolucion.idDevolucion  );
+                     }
                 }
+                
+               
             },
             error: function(jqXHR, textStatus, errorThrown){
                  console.log(textStatus);
@@ -174,6 +183,7 @@
 	});
 	
 	$(document).undelegate('#btnAutoriza', 'click').delegate('#btnAutoriza', 'click', function(){
+		
 		window.location.assign("${pageContext.request.contextPath}/inicio.htm");
 	});
 
