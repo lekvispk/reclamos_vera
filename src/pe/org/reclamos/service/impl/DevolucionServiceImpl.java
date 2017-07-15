@@ -75,4 +75,9 @@ public class DevolucionServiceImpl implements DevolucionService {
 		return devolucionDAO.obtenerDetalleDevolucion(idDetalleDevolucion);
 	}
 
+	@Override
+	public Devolucion obtenerAutorizacionDeReclamo(Long idReclamo) {
+		return devolucionDAO.obtenerAutorizacionDeReclamo(idReclamo);
+	}
+
 }

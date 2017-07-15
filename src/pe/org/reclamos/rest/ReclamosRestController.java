@@ -24,6 +24,7 @@ import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.rest.bean.NotificacionRest;
 import pe.org.reclamos.rest.bean.RespuestaRest;
+import pe.org.reclamos.service.DevolucionService;
 import pe.org.reclamos.service.ReclamoService;
 
 @Controller
@@ -36,6 +37,8 @@ public class ReclamosRestController {
 	private ReclamoService reclamoService;
 	@Autowired
 	private NotificacionesDAO notificacionesDAO;
+	@Autowired
+	private DevolucionService devolucionService;
 	
 	/**
 	 * Servicio que lista todos los reclamos que ha realizado un cliente
@@ -149,26 +152,34 @@ public class ReclamosRestController {
 	 */
 	@RequestMapping(value = "/reclamos/{idReclamo}", method = RequestMethod.GET )
 	public @ResponseBody String reclamoDatos(@PathVariable String idReclamo, ModelMap model,HttpServletRequest request,HttpServletResponse response) {
+		final String METHODNAME = "reclamoDatos - ";
+		logger.debug(METHODNAME + "INI") ;
 		String json = "";
 		try {
-			logger.debug(" idreclamo=" + idReclamo) ;
+			logger.debug(METHODNAME + "idreclamo=" + idReclamo) ;
 			response.setContentType("application/json;charset=ISO-8859-1");
 	        request.setCharacterEncoding("UTF-8");
 	        
 			Reclamo reclamo = reclamoService.obtener( new Long(idReclamo));
 			
+			if( devolucionService.obtenerAutorizacionDeReclamo( reclamo.getIdReclamo() ) != null ){
+				json = "{  \"status\":\"2\",  \"mensaje\":\"Este reclamo ya ha sido autorizado.\" } ";
+				return json;
+			}
+			
 			String format = "yyyy-MM-dd";
 			Gson gson2 = new GsonBuilder()
-			   .setDateFormat( format ).create();
+							.setDateFormat( format )
+							.create();
 			
 			//Gson gson = new Gson();
 			json = gson2.toJson(reclamo);
-			
 			
 		} catch (Exception e) {
 			logger.debug("Error: " + e.getMessage()) ;
 			json = "{  \"status\":\"2\",  \"mensaje\":\""+e.getMessage()+"\" } ";
 		}
+		logger.debug(METHODNAME + "FIN") ;
 		return json;
 	}
 	

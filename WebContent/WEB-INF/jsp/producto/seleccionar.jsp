@@ -1,5 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net"  %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
@@ -67,7 +68,14 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnAgregar" name="btnAgregar"  class="btn btn-success" value="Agregar"/>
+							  	
+							  	<c:if test="${fn:length(lProductosDevoluciones) > 0}">
+							  		Ya se ha seleccionado un producto
+							  	</c:if>
+							  	<c:if test="${fn:length(lProductosDevoluciones) == 0 }">
+							    	<input type="button" id="btnAgregar" name="btnAgregar"  class="btn btn-success" value="Agregar"/>
+							    </c:if>
+							    
 							  </div>
 							</div>
 							
@@ -98,14 +106,21 @@
 							   <div class="col-md-2"></div>
 							</div>
 							
+							
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input type="button" id="btnAutoriza" name="btnAutoriza"  class="btn btn-success" value="Autorizar"/>
+							  	<c:if test="${fn:length(lProductosDevoluciones) == 0 }">
+							    	<input type="button" id="btnAutoriza" name="btnAutoriza"  class="btn btn-success" value="Verificar Pedido"/>
+							    </c:if>
+							    <c:if test="${fn:length(lProductosDevoluciones) > 0 }">
+							    	<input type="button" id="btnAutoriza" name="btnAutoriza"  class="btn btn-success disabled" value="Verificar Pedido"/>
+							    </c:if>
 							    <input type="button" id="btnCancela" name="btnCancela"  class="btn btn-success" value="Cancelar"/>
 							  </div>
 							</div>
+							
 							
 							</fieldset>
 				         </form:form>
@@ -159,6 +174,11 @@
                 	return false;
                 }else{
                 	 if( data.idDetalleDevolucion != -1 ){
+                		 
+                		 alert('Se ha grabado el producto a devolver');
+                		 
+                		 $('#btnAgregar').attr( 'disabled','disabled' );
+                		 
                      	console.log( " id devolucion =  "  +  data.idDetalleDevolucion );
                      	console.log( " id devolucion =  "  +  data.devolucion.idDevolucion );
                      	console.log('llamada al load para refrescar segunda tabla');

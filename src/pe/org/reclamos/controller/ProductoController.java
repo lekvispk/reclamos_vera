@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -30,6 +31,7 @@ import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.DevolucionService;
 import pe.org.reclamos.service.FacturaService;
+import pe.org.reclamos.service.ReclamoService;
 import pe.org.reclamos.utiles.CalendarSerializer;
 import pe.org.reclamos.utiles.Utiles;
 
@@ -42,9 +44,10 @@ public class ProductoController {
 	
 	@Autowired
 	private FacturaService facturaService;
-	
 	@Autowired
 	private DevolucionService devolucionService;
+	@Autowired
+	private ReclamoService reclamoService;
 	
 	@RequestMapping(value="/autorizar.htm", method=RequestMethod.GET)
 	public String preAutorizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
@@ -67,9 +70,11 @@ public class ProductoController {
 	
 	@RequestMapping(value="/autorizar.htm", method=RequestMethod.POST)
 	public String autorizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		final String METHODNAME = "autorizar - ";
+		logger.debug(METHODNAME + "INI");
 		String respuesta = "";
 		 try {
-			   logger.debug("autorizar");
+			   
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -94,6 +99,7 @@ public class ProductoController {
 			 try{ response.getWriter().println(respuesta); } 
 			 catch(Exception e2){ }
 		   }
+		logger.debug(METHODNAME + "FIN");
 		return null;
 	}
 	
@@ -118,12 +124,26 @@ public class ProductoController {
 	
 	@RequestMapping(value="/seleccionar.htm", method=RequestMethod.POST)
 	public String seleccionar(@Valid Factura factura, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("seleccionar");
+		final String METHODNAME = "seleccionar - ";
+		logger.debug(METHODNAME + "INI");
+		try { 
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
+			   if( StringUtils.isEmpty( factura.getNumero() ) ){
+				   logger.error(METHODNAME + "no hay numero de factura");
+				   throw new Exception("Ingrese el numero de factura");
+			   }
+			   
+			   Reclamo rec = reclamoService.obtenerPorNumeroDeFactura( factura.getNumero() );
+			   if( rec == null){
+				   throw new Exception("No existe reclamo para la factura indicada");
+			   }
+			   
+			   if( devolucionService.obtenerAutorizacionDeReclamo( rec.getIdReclamo() ) == null ){
+				   throw new Exception("No se ha autorizado la devolucion para el reclamo correspondiente a esta factura");
+			   }
+		   
 			   Detallefactura df = new Detallefactura();
 			   df.setFactura(factura);
 			   List<Detallefactura> lista = null;
@@ -149,6 +169,7 @@ public class ProductoController {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }
+		logger.debug(METHODNAME + "FIN");
 		return "producto/seleccionar";
 	}
 	

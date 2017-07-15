@@ -165,4 +165,9 @@ public class ReclamoServiceImpl implements ReclamoService {
 		return reclamos;
 	}
 
+	@Override
+	public Reclamo obtenerPorNumeroDeFactura(String numero) {
+		return reclamoDAO.obtenerPorNumeroDeFactura(numero);
+	}
+
 }

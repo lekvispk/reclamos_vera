@@ -125,4 +125,22 @@ public class DevolucionDAOImpl extends HibernateDaoSupport implements Devolucion
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Devolucion obtenerAutorizacionDeReclamo(Long idReclamo) {
+		try {
+			logger.debug( "buscar devoluciones para reclamoId=" + idReclamo );
+			List list =  this.getHibernateTemplate()
+							.find("from Devolucion where reclamo.idReclamo = ? ", idReclamo);
+			if (list.size() != 0) {
+				return (Devolucion) list.get(0);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			logger.error( "Error: " + e.getMessage() );
+			return null;
+		}
+	}
+
 }

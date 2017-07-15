@@ -17,5 +17,6 @@ public interface DevolucionDAO {
 	public List<DetalleDevolucion> listarProductosParaDevolver();
 	public List<Despachador> listarDespachadores();
 	public DetalleDevolucion obtenerDetalleDevolucion(Integer idDetalleDevolucion);
+	public Devolucion obtenerAutorizacionDeReclamo(Long idReclamo);
 	
 }

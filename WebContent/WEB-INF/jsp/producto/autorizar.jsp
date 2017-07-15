@@ -111,7 +111,7 @@
                 console.log( " idReclamo " +  data.idReclamo);
 
 				if( data.status ){
-					alert('Error ' + data.status );
+					alert('Error: ' + data.mensaje );
 					return;
 				}
                 
@@ -136,9 +136,22 @@
 	
 	$(document).undelegate('#btnAutoriza', 'click').delegate('#btnAutoriza', 'click', function(){
 
-		var idReclamo = $("#idReclamo").val(); 
-	    if ( !idReclamo ) { 
+		var idReclamo = $("#idReclamo").val();
+		var fecha = $("#fechaAutorizacion").val();
+		var acta = $("#numeroActa").val();
+	    
+		if ( !idReclamo ) { 
 	    	alert('No se ha obtenido un reclamo');
+	    	return false;
+	    }
+		
+		if ( !fecha ) { 
+	    	alert('Ingrese la fecha');
+	    	return false;
+	    }
+		
+		if ( !acta ) { 
+	    	alert('Ingrese el numero de acta');
 	    	return false;
 	    }
 	    
@@ -152,12 +165,13 @@
             data: { "idReclamo" : $('#idReclamo').val(),
 					"fechaAutorizacion" : $('#fechaAutorizacion').val(),
 					"numeroActa" : $('#numeroActa').val() 
-				},
+			},
             success: function( data, textStatus, jqXHR) {
                 console.log( " status " +  data.status);
                 if( data.status ){
                 	$('#btnAutoriza').removeAttr('disabled');
-                	alert('Datos grabados satsfactoriamente');	
+                	alert('Datos grabados satsfactoriamente');
+                	document.getElementById("frmDocumentos").reset();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){

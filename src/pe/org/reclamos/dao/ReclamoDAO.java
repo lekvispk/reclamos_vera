@@ -23,6 +23,7 @@ public interface ReclamoDAO {
 	public List<ReporteDataBean> obtenerReclamosPorMesAtendidosAnioActual();
 	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio();
 	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio();
-	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual();	
+	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual();
+	public Reclamo obtenerPorNumeroDeFactura(String numero);	
 	
 }

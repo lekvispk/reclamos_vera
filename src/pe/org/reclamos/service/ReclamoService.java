@@ -23,5 +23,6 @@ public interface ReclamoService {
 	public List<ReporteDataBean> obtenerReclamosMasRepetidosEnElAnio();
 	public List<ReporteDataBean> obtenerReclamosPorMesNoAtendidosEnElAnio();
 	public List<ReporteDataBean> obtenerReclamosPorEstadoMesActual();
-		
+	public Reclamo obtenerPorNumeroDeFactura(String numero);
+	
 }

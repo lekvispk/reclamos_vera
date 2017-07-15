@@ -367,4 +367,19 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 		return lista;
 	}
 
+	@Override
+	public Reclamo obtenerPorNumeroDeFactura(String numero) {
+		try {
+			List list = this.getHibernateTemplate().find("from Reclamo u where factura.numero = ? ", numero);
+			if (list.size() != 0) {
+				return (Reclamo) list.get(0);
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			logger.debug( "Error: " + e.getMessage() );
+			return null;
+		}
+	}
+
 }
