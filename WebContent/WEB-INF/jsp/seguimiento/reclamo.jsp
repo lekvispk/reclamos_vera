@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="display" uri="http://displaytag.sf.net"  %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../include/cabecera.jsp"/>
 
 
@@ -14,6 +14,7 @@
                        <jsp:include page="../include/error.jsp"/>
         
         				<form:form cssClass="form-horizontal" name="frmDocumentos" action="registro.htm" method="post" modelAttribute="reclamo">
+        					
         					<form:hidden path="idReclamo"/>
         					<input type="hidden" value="1" name="estado"/>  
         				
@@ -26,7 +27,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="idTicket">Id Ticket</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="idTicket" id="idTicket" class="form-control input-md" value="000" placeholder="id ticket">
+							  	<label class="form-control input-md" > ${reclamo.idReclamo} </label>
 							  </div>
 							</div>
 							
@@ -34,9 +35,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="idFactura">Factura</label>  
 							  <div class="col-md-5">
-							  	<select name="factura.idFactura" id="idFactura">
-							  		<option value="1">0000222</option>
-							  	</select>
+							  	<label class="form-control input-md" > ${reclamo.factura.numero} </label> 
 							  </div>
 							</div>
 							
@@ -65,13 +64,11 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="prioridad">Prioridad</label>  
 							  <div class="col-md-5">
-							  	
-							  	<form:select path="prioridad">
-							  		<form:option value="1">Alta</form:option>
-							  		<form:option value="2">Normal</form:option>
-							  		<form:option value="3">Baja</form:option>
-							  	</form:select>
-							  	
+							  	<label class="form-control input-md" > 
+								  	<c:if test="${reclamo.prioridad == 1}">Alta</c:if>
+					            	<c:if test="${reclamo.prioridad == 2}">Normal</c:if>
+					            	<c:if test="${reclamo.prioridad == 3}">Baja</c:if>
+							  	</label> 
 							  </div>
 							</div>
 							
@@ -79,17 +76,31 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="rucCliente">Razon Social</label>  
 							  <div class="col-md-5">
+							  	<label class="form-control input-md" > 
 							   	<c:if test="${reclamo.factura.cliente.idCliente > 0}">
 			                   		${reclamo.factura.cliente.nomCliente }
 			                   	</c:if>
+			                   	</label>
 							  </div>
 							</div>
 							
-							<!-- Fecha Text input-->
+							<!-- Fecha de reclamo Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="fecha">Fecha</label>  
+							  <label class="col-md-4 control-label" for="fecha">Fecha de Reclamo</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="fecha" id="fecha" value=""/>
+							  	<label class="form-control input-md" >
+							  		 <fmt:formatDate value="${reclamo.fecReclamo}" pattern="dd/MM/yyyy" />
+							  	</label>
+							  </div>
+							</div>
+							
+							<!-- Fecha de respuesta Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="fecha">Fecha de Respuesta</label>  
+							  <div class="col-md-5">
+							  	<label class="form-control input-md" >
+							  		 <fmt:formatDate value="${reclamo.fecRespuesta}" pattern="dd/MM/yyyy" />
+							  	</label>
 							  </div>
 							</div>
 							
@@ -113,23 +124,23 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="mensaje">Respuesta</label>  
 							  <div class="col-md-5">
-							  	<form:textarea path="mensaje" id="mensaje" cssClass="form-control input-md" cols="40" rows="5"/>
+							  	<form:textarea path="respuesta" id="respuesta" cssClass="form-control input-md" cols="40" rows="5"/>
 							  </div>
 							</div>
 							
-							<!-- observacion Text input-->
+							<!-- solucion Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="mensaje">Observacion</label>  
+							  <label class="col-md-4 control-label" for="solucion">Solucion</label>  
 							  <div class="col-md-5">
-							  	<form:textarea path="mensaje" id="mensaje" cssClass="form-control input-md" cols="40" rows="5"/>
+							  	<form:textarea path="solucion" id="solucion" cssClass="form-control input-md" cols="40" rows="5"/>
 							  </div>
 							</div>
-							
+														
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
 							  <div class="col-md-4">
-							    <input class="btn btn-success" type="button" value="Regresar">
+							    <input class="btn btn-success" type="button" id="btnRegresar" value="Regresar">
 							  </div>
 							</div>
 							
@@ -155,7 +166,13 @@
 	 
 <script>
 	
-	 $( function(){
+	$(document).undelegate('#btnRegresar', 'click').delegate('#btnRegresar', 'click', function(){
+		
+		window.location.assign("${pageContext.request.contextPath}/seguimiento/lista.htm");
+		
+	});
+
+	$( function(){
 		 
    	   $("#displayTagDiv").displayTagAjax();
    	   

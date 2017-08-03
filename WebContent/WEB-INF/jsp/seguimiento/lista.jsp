@@ -81,16 +81,24 @@
 						 	<div id="resultado">
 					   		<div id="displayTagDiv">
 					   		  
-						    	<display:table  name="requestScope.lReclamos" requestURI="lista.htm" class="displaytag" pagesize="3"
+						    	<display:table  name="requestScope.lReclamos" requestURI="lista.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk">
 						            <display:column title="ID Ticket" property="idReclamo" sortable="true" headerClass="sortable" />
 						            <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
 						            <display:column title="RUC" property="factura.cliente.rucCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Prioridad" property="prioridad" sortable="true" headerClass="sortable" />
+						            <display:column title="Prioridad" sortable="true" headerClass="sortable">
+						            	<c:if test="${row.prioridad == 1}">Alta</c:if>
+						            	<c:if test="${row.prioridad == 2}">Normal</c:if>
+						            	<c:if test="${row.prioridad == 3}">Baja</c:if>
+						            </display:column>
 						            <display:column title="Fec. Respuesta" property="fecRespuesta" format="{0,date,dd/MM/yyyy}" sortable="true" headerClass="sortable" />
-						            <display:column title="Estado" property="estado" sortable="true" headerClass="sortable" />
-						            <display:column title="Ver" sortable="true" headerClass="sortable">
-						            	<a href="#">Ver Detalle</a>
+						            <display:column title="Estado" sortable="true" headerClass="sortable">
+						            	<c:if test="${row.estado == 1}">En Proceso</c:if>
+						            	<c:if test="${row.estado == 2}">Atendido</c:if>
+						            </display:column>
+						            
+						            <display:column title="Ver" sortable="true" headerClass="sortable" media="html">
+						            	<a id="btnVerDetalle" data-codigo="${row.idReclamo}" href="#">Ver Detalle</a>
 						            </display:column>
 						    	
 						    	</display:table>
@@ -125,13 +133,9 @@
 	});
 	
 	$(document).undelegate('#btnVerDetalle', 'click').delegate('#btnVerDetalle', 'click', function(){
-		 var fields = $("input[name='rbBeneficio']").serializeArray(); 
-		 if (fields.length === 0){ 
-		    alert('Seleccione una factura.');
-		 	return false;
-		 }
-		var idReclamo = $('input[name=rbBeneficio]:checked').val();
-   		console.info('ver detalle de reclamo');
+		
+		var idReclamo = $(this).data('codigo');
+   		console.info('ver detalle de reclamo ' + idReclamo );
    		window.location.assign("${pageContext.request.contextPath}/seguimiento/ver.htm?idReclamo="+idReclamo);
 		
 	});

@@ -17,42 +17,38 @@ public class TableroController {
 
 	private static final Logger logger = Logger.getLogger(FidelizarController.class );
 	
-	@RequestMapping(value="/tablero.htm", method=RequestMethod.GET)
-	public String tablero(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("tablero");
-			   response.setContentType("text/html;charset=ISO-8859-1");
-			   request.setCharacterEncoding("UTF8");
-			   
-			   //model.put("factura", fac );
-			   
-		   } catch (Exception e) {
-			 e.printStackTrace();
-			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			//  model.put("reclamo", new Reclamo() );
-		   }
-		return "tablero/lTablero";
-	}
-	
-	@RequestMapping(value="/tablero.htm", method=RequestMethod.POST)
-	public String verTablero(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("verTablero");
-			   response.setContentType("text/html;charset=ISO-8859-1");
-			   request.setCharacterEncoding("UTF8");
-			   
-			   //model.put("factura", fac );
-			   
-		   } catch (Exception e) {
-			 e.printStackTrace();
-			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			//  model.put("reclamo", new Reclamo() );
-		   }
+	@RequestMapping(value = "/tablero.htm", method = RequestMethod.GET)
+	public String tablero(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		final String METHODNAME = "tablero - ";
+		try {
+			logger.debug(METHODNAME + "INI");
+			response.setContentType("text/html;charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "Error: " + e.getMessage());
+		} finally {
+			logger.debug(METHODNAME + "FIN");
+		}
 		return "tablero/tablero";
 	}
-	
+
+	@RequestMapping(value = "/tablero.htm", method = RequestMethod.POST)
+	public String verTablero(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		final String METHODNAME = "verTablero - ";
+		try {
+			logger.debug(METHODNAME + "INI");
+			response.setContentType("text/html;charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "Error: " + e.getMessage());
+		} finally {
+			logger.debug(METHODNAME + "FIN");
+		}
+		return "tablero/tablero";
+	}
+
 }
