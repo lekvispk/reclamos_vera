@@ -85,7 +85,8 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 			if( !StringUtils.isEmpty( reclamo.getRespuesta() ) ){
 				criteria.add( Restrictions.eq("respuesta", reclamo.getRespuesta() ) );
 			}else{
-				//criteria.add( Restrictions.isNull("respuesta") );
+				//para que funcione en la pantalla de lista Evaluaacion
+				criteria.add( Restrictions.isNull("respuesta") );
 			}
 			
 			if( reclamo.getIdReclamo() != null ){
