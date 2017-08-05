@@ -25,6 +25,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="factura")
 public class Factura implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -202,7 +203,7 @@ public class Factura implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Factura [idFactura=" + idFactura + ", estado=" + estado + ", monto=" + monto + ", numero=" + numero
+		return "Factura [idFactura=" + idFactura + ", estado=" + estado + ", monto=" + monto + ", numero=" + numero + ", cliente="  + cliente 
 				+ "]";
 	}
 	

@@ -205,31 +205,32 @@ public class FidelizarController {
 		return "redirect:/fidelizar/lFidelizar.htm?msg=1";
 	}
 	
-	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.GET)
-	public String lPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		 try {
-			   logger.debug("lPromociones");
-			   
-			   String err =request.getParameter("err"); 
-			   if(!StringUtils.isEmpty( err )){
-				   if(err.equals("1")){
-					   model.put("msgError", "No se han encontrado resultados" );
-				   }
-			   }
-			   String msg = request.getParameter("msg"); 
-			   if(!StringUtils.isEmpty( msg )){
-				   if(msg.equals("1")){
-					   model.put("mensaje", "Promocion actualziada" );
-				   }
-			   }
-			   
-			   model.put("factura", new Factura() );
-	   } catch (Exception e) {
-			 e.printStackTrace();
-			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			//  model.put("reclamo", new Reclamo() );
-		   }
+	@RequestMapping(value = "/lPromociones.htm", method = RequestMethod.GET)
+	public String lPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		final String METHODNAME = "lPromociones - ";
+		logger.debug(METHODNAME + "INI");
+		try {
+
+			String err = request.getParameter("err");
+			if (!StringUtils.isEmpty(err)) {
+				if (err.equals("1")) {
+					model.put("msgError", "No se han encontrado resultados");
+				}
+			}
+			String msg = request.getParameter("msg");
+			if (!StringUtils.isEmpty(msg)) {
+				if (msg.equals("1")) {
+					model.put("mensaje", "Promocion actualziada");
+				}
+			}
+
+			model.put("factura", new Factura());
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "Error: " + e.getMessage());
+		} finally {
+			logger.debug(METHODNAME + "FIN");
+		}
 		return "fidelizar/lPromociones";
 	}
 	
@@ -242,44 +243,49 @@ public class FidelizarController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/lPromociones.htm", method=RequestMethod.POST)
-	public String lPromocionesPost(@Valid Factura factura, BindingResult result,HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("lPromociones");
-			   response.setContentType("text/html;charset=ISO-8859-1");
-			   request.setCharacterEncoding("UTF8");
-			   
-			   //facturas que tengan registrado fidelizacion  
-			   logger.debug("ruc ="+factura.getCliente().getRucCliente());
-			   
-			   Fideliza fi =  fidelizaService.obtenerFidelizacionPorCliente(factura);
-			   if( fi!= null ){
-				   logger.debug("idFideliza ="+ fi.getIdFideliza() );
-				   return "redirect:/fidelizar/promociones.htm?idFideliza=" + fi.getIdFideliza();   
-			   }
-			   return "redirect:/fidelizar/lPromociones.htm?err=1";  
-		   } catch (Exception e) {
-			 e.printStackTrace();
-			 model.put("msgError", "Error: "+ e.getMessage() );
-			 return "redirect:/fidelizar/lPromociones.htm?err=1";
-		   }finally{
-			//  model.put("reclamo", new Reclamo() );
-		   }
+	@RequestMapping(value = "/lPromociones.htm", method = RequestMethod.POST)
+	public String lPromocionesPost(@Valid Factura factura, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		final String METHODNAME = "lPromocionesPost - ";
+		logger.debug(METHODNAME + "INI");
+		try {
+
+			response.setContentType("text/html;charset=ISO-8859-1");
+			request.setCharacterEncoding("UTF8");
+
+			// facturas que tengan registrado fidelizacion
+			logger.debug(METHODNAME + "ruc =" + factura.toString() );
+
+			Fideliza fi = fidelizaService.obtenerFidelizacionPorCliente(factura);
+			if (fi != null) {
+				logger.debug(METHODNAME + "idFideliza=" + fi.toString());
+				return "redirect:/fidelizar/promociones.htm?idFideliza=" + fi.getIdFideliza();
+			}
+			return "redirect:/fidelizar/lPromociones.htm?err=1";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("msgError", "Error: " + e.getMessage());
+			return "redirect:/fidelizar/lPromociones.htm?err=1";
+		} finally {
+			logger.debug(METHODNAME + "FIN");
+		}
 	}
 	
 	@RequestMapping(value="/promociones.htm", method=RequestMethod.GET)
 	public String preGrabarPromociones(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		//ItemsReclamo ir = null;
+		final String METHODNAME = "preGrabarPromociones - ";
 		try {
-			logger.debug("preGrabarPromociones");
+			logger.debug(METHODNAME + "INI");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			   
 			Integer idFideliza = Integer.parseInt( request.getParameter("idFideliza") );
+			logger.debug(METHODNAME + "idFideliza = " + idFideliza);
 			Fideliza fi = fidelizaService.obtenerFidelizacion( new Long(idFideliza) ); 
+			logger.debug(METHODNAME + "Fideliza = " + fi);
 			Factura f = fi.getReclamo().getFactura();
+			logger.debug(METHODNAME + "Factura = " + f);
 			ItemsReclamo ir = reclamoService.obtenerItemReclamo( fi.getReclamo().getIdReclamo() );
+			logger.debug(METHODNAME + "ItemsReclamo = " + ir );
 			model.put("fideliza", fi );
 			model.put("factura", f );
 			model.put("producto", ir );
@@ -291,6 +297,7 @@ public class FidelizarController {
 			e.printStackTrace();
 			model.put("msgError", "Error: "+ e.getMessage() );
 		}
+		logger.debug(METHODNAME + "FIN");
 		return "fidelizar/promocion";
 	}
 	
