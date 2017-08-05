@@ -57,7 +57,9 @@ public class ProductoController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
-			   model.put("factura", new Factura() );
+			   Factura f = new Factura();
+			   f.setNumeroActa( devolucionService.obtenerSiguienteNumeroDeActa() );
+			   model.put("factura", f );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -80,10 +82,10 @@ public class ProductoController {
 			   
 			   String idReclamo = request.getParameter("idReclamo");
 			   String fechaAutorizacion = request.getParameter("fechaAutorizacion");
-			   String numeroActa = request.getParameter("numeroActa");
+			   //String numeroActa = request.getParameter("numeroActa");
 			   
 			   Devolucion devolucion = new Devolucion();
-			   devolucion.setNumeroActa(numeroActa);
+			   devolucion.setNumeroActa( "" +  devolucionService.obtenerSiguienteNumeroDeActa() );
 			   devolucion.setFechaAutorizacion( Utiles.stringToDate( fechaAutorizacion , Utiles.FORMATO_FECHA_CORTA) );
 			   devolucion.setReclamo( new Reclamo() );
 			   devolucion.getReclamo().setIdReclamo(new Long(idReclamo));

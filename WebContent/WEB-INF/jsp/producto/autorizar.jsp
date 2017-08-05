@@ -66,7 +66,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="nroActa">Nro. Acta</label>  
 							  <div class="col-md-2">
-							  	<input type="text" name="numeroActa" id="numeroActa" placeholder="0000" class="form-control input-md">
+							  	<form:input path="numeroActa" id="numeroActa" cssClass="form-control input-md"/>
 							  </div>
 							</div>
 							
@@ -102,8 +102,10 @@
 	
 	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
 		
+		limpiarErrorAjax();
+		
 		if( $('#nroReclamo').val() == '' ){
-			alert( 'No ha indicado un reclamo' );
+			agregarErrorAjax( 'No ha indicado un reclamo' );
 			return;
 		}
 		
@@ -117,7 +119,7 @@
                 console.log( " idReclamo " +  data.idReclamo);
 
 				if( data.status ){
-					alert('Error: ' + data.mensaje );
+					agregarErrorAjax( 'Error: ' + data.mensaje  );
 					return;
 				}
                 
@@ -130,7 +132,7 @@
             error: function(jqXHR, textStatus, errorThrown){
                  console.log(textStatus);
                  $('#idReclamo').val( '' );
-                 alert('error al acceder al servidor');
+                 agregarErrorAjax( 'error al acceder al servidor' );
             }
         });
         
@@ -142,22 +144,24 @@
 	
 	$(document).undelegate('#btnAutoriza', 'click').delegate('#btnAutoriza', 'click', function(){
 
+		limpiarErrorAjax();
+		
 		var idReclamo = $("#idReclamo").val();
 		var fecha = $("#fechaAutorizacion").val();
 		var acta = $("#numeroActa").val();
 	    
-		if ( !idReclamo ) { 
-	    	alert('No se ha obtenido un reclamo');
+		if ( !idReclamo ) {
+	    	agregarErrorAjax( 'No se ha obtenido un reclamo' );
 	    	return false;
 	    }
 		
-		if ( !fecha ) { 
-	    	alert('Ingrese la fecha');
+		if ( !fecha ) {
+	    	agregarErrorAjax( 'Ingrese la fecha' );
 	    	return false;
 	    }
 		
-		if ( !acta ) { 
-	    	alert('Ingrese el numero de acta');
+		if ( !acta ) {
+	    	agregarErrorAjax( 'Ingrese el numero de acta' );
 	    	return false;
 	    }
 	    
@@ -176,13 +180,13 @@
                 console.log( " status " +  data.status);
                 if( data.status ){
                 	$('#btnAutoriza').removeAttr('disabled');
-                	alert('Datos grabados satsfactoriamente');
+                	agregarMensajeAjax( 'Datos grabados satsfactoriamente' );
                 	document.getElementById("frmDocumentos").reset();
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
                  console.log(textStatus);
-                 alert('error al acceder al servidor');
+                 agregarErrorAjax( 'error al acceder al servidor' );
             }
         });
 	});

@@ -18,5 +18,6 @@ public interface DevolucionService {
 	public List<Despachador> listarDespachadores();
 	public DetalleDevolucion obtenerDetalleDevolucion(Integer idDetalleDevolucion);
 	public Devolucion obtenerAutorizacionDeReclamo(Long idReclamo);
+	public Integer obtenerSiguienteNumeroDeActa();
 	
 }

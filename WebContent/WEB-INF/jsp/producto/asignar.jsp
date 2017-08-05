@@ -160,21 +160,23 @@
 		
 		console.log('Asignar el producto al despachador');
 		
+		limpiarErrorAjax();
+    	
 		var productoSeleccionado = $("input[name='_chkIt']:checked").serializeArray(); 
 	    if (productoSeleccionado.length == 0) { 
-	    	alert('Selecione un producto');
+	    	agregarErrorAjax( 'Selecione un producto' );
 	    	return;
 	    }
 	    
 	    var despachadorSeleccionado = $("input[name='_chkDes']:checked").serializeArray(); 
 	    if (despachadorSeleccionado.length == 0) { 
-	    	alert('Selecione un despachador');
+	    	agregarErrorAjax( 'Selecione un despachador' );
 	    	return;
 	    }
 	    
 	    var horaDeEntrega = $("#hora").val(); 
 	    if ( horaDeEntrega.length == 0 ) { 
-	    	alert('Indique la hora de despacho');
+	    	agregarErrorAjax( 'Indique la hora de despacho' );
 	    	return;
 	    }
 	    
@@ -194,7 +196,7 @@
                 console.log( "ok... resultado " +  data );
                 if( data.status == 1 ){
                 	console.log('registrado correctamente');
-                	alert('Registro correcto.');
+                	agregarMensajeAjax( 'Registro correcto.' );
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){

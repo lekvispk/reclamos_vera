@@ -39,6 +39,9 @@
 
 	<!-- estilos para jquery validator -->
 	<link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+	
+	<script src="${pageContext.request.contextPath}/js/reclamos.js"></script>
+	
 </head>
 
 <body>

@@ -80,4 +80,9 @@ public class DevolucionServiceImpl implements DevolucionService {
 		return devolucionDAO.obtenerAutorizacionDeReclamo(idReclamo);
 	}
 
+	@Override
+	public Integer obtenerSiguienteNumeroDeActa() {
+		return devolucionDAO.obtenerSiguienteNumeroDeActa( );
+	}
+
 }

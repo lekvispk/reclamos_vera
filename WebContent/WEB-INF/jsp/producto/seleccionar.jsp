@@ -144,18 +144,19 @@
 	 
 <script>
 	
-	
 	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
 		document.forms[0].action='seleccionar.htm';
 		document.forms[0].submit();
 	});
 
-	
 	$(document).undelegate('#btnAgregar', 'click').delegate('#btnAgregar', 'click', function(){
+		
 		console.log('agregar producto para devolucion');
+		limpiarErrorAjax();
+		
 		var fields = $("input[name='_chkIt']:checked").serializeArray(); 
 	    if (fields.length == 0) { 
-	    	alert('Selecione un producto');
+	    	agregarErrorAjax( 'Selecione un producto' );
 	    	return;
 	    }
 	    console.log('inicia llamada ajax con datos: ' +$("input[name='_chkIt']:checked").val());
@@ -170,13 +171,12 @@
                 
                 if( data.status == 2){
                 	console.log( " error "  + data.mensaje );
-                	alert(  "Error: "  + data.mensaje );
+                	agregarErrorAjax( "Error: "  + data.mensaje  );
                 	return false;
                 }else{
                 	 if( data.idDetalleDevolucion != -1 ){
                 		 
-                		 alert('Se ha grabado el producto a devolver');
-                		 
+                		 agregarMensajeAjax( 'Se ha grabado el producto a devolver' );
                 		 $('#btnAgregar').attr( 'disabled','disabled' );
                 		 
                      	console.log( " id devolucion =  "  +  data.idDetalleDevolucion );

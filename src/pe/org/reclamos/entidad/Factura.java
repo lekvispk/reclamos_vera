@@ -81,6 +81,10 @@ public class Factura implements Serializable {
     @Transient
     private Integer idFideliza;
     
+    //No corresponde a la factura pero se ha puesto aqui para usarlo en la pantalla de autorizar cambio de producto
+    @Transient
+    private Integer numeroActa;
+    
     public Factura() {
     }
 
@@ -199,6 +203,14 @@ public class Factura implements Serializable {
 
 	public void setIdFideliza(Integer idFideliza) {
 		this.idFideliza = idFideliza;
+	}
+
+	public Integer getNumeroActa() {
+		return numeroActa;
+	}
+
+	public void setNumeroActa(Integer numeroActa) {
+		this.numeroActa = numeroActa;
 	}
 
 	@Override

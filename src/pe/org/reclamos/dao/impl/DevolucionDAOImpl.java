@@ -143,4 +143,24 @@ public class DevolucionDAOImpl extends HibernateDaoSupport implements Devolucion
 		}
 	}
 
+	@Override
+	public Integer obtenerSiguienteNumeroDeActa() {
+		logger.debug("obtenerSiguienteNumeroDeActa");
+		try {
+			 
+			StringBuilder sql = new StringBuilder();
+			sql.append(" SELECT MAX(numero_acta)+1 FROM devolucion ");
+			
+			logger.debug("query " + sql.toString() );
+			Session session =  getSession();
+			Query query = session.createSQLQuery( sql.toString() );
+			Double result = (Double) query.uniqueResult();
+			return result.intValue();
+			
+		} catch (Exception e) {
+			logger.debug("Error: " + e.getMessage());
+			return null;
+		}
+	}
+
 }
