@@ -20,4 +20,9 @@ public class PromocionServiceImpl implements PromocionService {
 		return promocionDAO.listarPromociones();
 	}
 
+	@Override
+	public Promocion obtenerPromocion(Promocion promocion) {
+		return promocionDAO.obtenerPromocion(promocion);
+	}
+
 }

@@ -20,12 +20,14 @@ import pe.org.reclamos.entidad.Cliente;
 import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.entidad.Fideliza;
 import pe.org.reclamos.entidad.ItemsReclamo;
+import pe.org.reclamos.entidad.Promocion;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ClienteService;
 import pe.org.reclamos.service.FacturaService;
 import pe.org.reclamos.service.FidelizaService;
 import pe.org.reclamos.service.PromocionService;
 import pe.org.reclamos.service.ReclamoService;
+import pe.org.reclamos.utiles.Mail;
 
 /**
  * Clase que registra la fidelizacion realizada a los clientes
@@ -48,6 +50,8 @@ public class FidelizarController {
 	private FidelizaService fidelizaService;
 	@Autowired
 	private PromocionService promocionService;
+	@Autowired
+	private Mail mail ;		
 	
 	@RequestMapping(value="/lFidelizar.htm", method=RequestMethod.GET)
 	public String lFidelizar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
@@ -303,21 +307,34 @@ public class FidelizarController {
 	
 	@RequestMapping(value="/promociones.htm", method=RequestMethod.POST)
 	public String grabarPromociones(@Valid Fideliza fideliza, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		final String METHODNAME = "grabarPromociones - ";
 		try {
-			logger.debug("grabarPromociones");
+			logger.debug(METHODNAME + "INI");
 			response.setContentType("text/html;charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
-			logger.debug("promo " + fideliza.getPromocion().getIdPromocion() );
+			logger.debug(METHODNAME + "promo " + fideliza.getPromocion().getIdPromocion() );
 			Fideliza fi = fidelizaService.obtenerFidelizacion( new Long( fideliza.getIdFideliza() ) );
 			fi.setPromocion( fideliza.getPromocion() );
 			fi.setUpdatedAt( new Date());
 			fidelizaService.actualizarPromocion( fi );
 			
+			Cliente cli = clienteService.obtener(fi.getReclamo().getIdCliente() );
+			logger.debug(METHODNAME + "cliente = " + cli.getPersona().getEmail() );
+			if( !StringUtils.isEmpty( cli.getPersona().getEmail() ) ){
+						
+				Promocion pr = promocionService.obtenerPromocion( fideliza.getPromocion() );
+				String mensaje = "Se le ha asignado la siguiente promocion: <br>";
+				mensaje += " " + pr.getDescripcion() + " <br> ";
+				mail.sendMail( "admin@dvertat.com", cli.getPersona().getEmail(), null, "Promocion", mensaje);
+				logger.debug(METHODNAME + "mail enviado " );
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msgError", "Error: "+ e.getMessage() );
 		}
+		logger.debug(METHODNAME + "FIN");
 		return "redirect:/fidelizar/lPromociones.htm?msg=1";
 	}
 	

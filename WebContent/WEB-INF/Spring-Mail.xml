@@ -3,10 +3,10 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 						 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="mail.acsserviciosgenerales.com" />
-		<property name="port" value="25" />
-		<property name="username" value="ecampos@acsserviciosgenerales.com" />
-		<property name="password" value="ABC123456#" />
+		<property name="host" value="outlook.office365.com" />
+		<property name="port" value="587" />
+		<property name="username" value="elvis_lkpk@hotmail.com" />
+		<property name="password" value="300387sj" />
 	 
 		<property name="javaMailProperties">
 		   <props>

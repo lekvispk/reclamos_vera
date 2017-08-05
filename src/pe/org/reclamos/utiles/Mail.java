@@ -44,6 +44,7 @@ public class Mail {
 			helper.setText(msg, true);
 			mailSender.send(message);
 		} catch (Exception e) {
+			logger.error( "No se pudo enviar email a " + to ) ;
 			e.printStackTrace();
 		}
 	}

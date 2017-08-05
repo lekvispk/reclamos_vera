@@ -58,15 +58,6 @@
 							  </div>
 							</div>
 							
-							<!-- Text input-->
-							<div class="form-group">
-							  <label class="col-md-4 control-label" for="razonSocial">Capacitados</label>  
-							  <div class="col-md-4">
-							  	<label><input type="radio" name="rb" id="rb1" value="1">Si</label>
-							  	<label><input type="radio" name="rb" id="rb2" value="2">No</label>
-							  </div>
-							</div>
-							
 							<!-- Button -->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="btnBuscar"></label>
@@ -92,16 +83,16 @@
 							     ]]>
 							  </jsp:scriptlet> 
 							  
-						    	<display:table  name="requestScope.lFacturas" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
+						    	<display:table  name="requestScope.lFacturas" requestURI="lCapacitaciones.htm" class="displaytag" pagesize="10"
 						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk"
 						            decorator="checkboxDecorator" >
 						            
 						            <display:column property="checkbox" />
-						            <display:column title="Factura" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
-						            <display:column title="Reclamo">
-						            </display:column>
+						            <display:column title="Factura" property="numero" sortable="true" headerClass="sortable" />
 						            
+						            <display:column title="RUC" property="cliente.rucCliente" sortable="true" headerClass="sortable" />
+						            <display:column title="Razon Social" property="cliente.nomCliente" sortable="true" headerClass="sortable" />
+						           
 						    	</display:table>
 							
 							</div>
@@ -122,11 +113,11 @@
 		</div>
 		
 	 <jsp:include page="../include/pie.jsp"/>
-	 
-<script>
-	
-	 $( function(){
-   	   $("#displayTagDiv").displayTagAjax();
-   });
-   
-</script>
+		 
+	<script>
+		
+		 $( function(){
+	   	   $("#displayTagDiv").displayTagAjax();
+	   });
+	   
+	</script>

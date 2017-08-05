@@ -25,4 +25,14 @@ public class PromocionDAOImpl extends HibernateDaoSupport  implements PromocionD
 		return this.getHibernateTemplate().find("from Promocion where estado=1");
 	}
 
+	@Override
+	public Promocion obtenerPromocion(Promocion promocion) {
+		try {
+			return (Promocion)this.getHibernateTemplate().find("from Promocion where idPromocion = ? ", promocion.getIdPromocion() ).get(0);
+		} catch (Exception e) {
+			logger.debug( e.getMessage() );
+			return null;
+		}
+	}
+
 }

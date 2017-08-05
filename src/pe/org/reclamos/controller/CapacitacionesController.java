@@ -46,6 +46,9 @@ public class CapacitacionesController {
 		   response.setContentType("text/html;charset=ISO-8859-1");
 		   request.setCharacterEncoding("UTF8");
 		   
+		  /* Factura f = new Factura();
+		   f.setCliente(cliente);
+		   model.put("lFacturas", facturaService.buscarFacturasConReclamos( f ));*/
 		   model.put("cliente", new Cliente() );
 		   
 		} catch (Exception e) {
@@ -59,9 +62,10 @@ public class CapacitacionesController {
 	
 	@RequestMapping(value="/lCapacitaciones.htm", method=RequestMethod.POST)
 	public String listaCapacitacionesPost(@Valid Cliente cliente, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "listaCapacitacionesPost - ";
+		logger.debug(METHODNAME + "INI");
 		 try {
-			   logger.debug("listaCapacitaciones");
+			   
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -69,13 +73,13 @@ public class CapacitacionesController {
 			   f.setCliente(cliente);
 			   
 			   model.put("lFacturas", facturaService.buscarFacturasConReclamos( f ));
-			   model.put("cliente", new Cliente() );
+			   model.put("cliente", cliente );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
-			//  model.put("reclamo", new Reclamo() );
+			   logger.debug(METHODNAME + "FIN");
 		   }
 		return "capacitacion/lCapacitaciones";
 	}

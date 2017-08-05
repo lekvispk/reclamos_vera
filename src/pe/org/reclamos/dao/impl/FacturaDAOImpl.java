@@ -265,8 +265,11 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Factura> buscarFacturasConReclamos(Factura f) {
+		final String METHODNAME = "buscarFacturasConReclamos - ";
+		logger.debug(METHODNAME + "INI");
+		
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT f.* FROM factura f ");
+		sql.append(" SELECT distinct f.* FROM factura f ");
 		sql.append(" INNER JOIN reclamo r ON r.idFactura = f.idFactura ");
 		sql.append(" INNER JOIN cliente c ON c.idCliente = f.idCliente ");
 		sql.append(" LEFT OUTER JOIN capacitacion cap ON cap.idFactura=f.idFactura ");
@@ -285,6 +288,7 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		Query query = session.createSQLQuery( sql.toString() )
 		.addEntity(Factura.class);
 		List<Factura> result = query.list();
+		logger.debug(METHODNAME + "FIN");
 		return result;
 		/*
 		 * DetachedCriteria criteria = DetachedCriteria.forClass(Factura.class);

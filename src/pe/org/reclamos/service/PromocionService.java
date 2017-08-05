@@ -7,5 +7,7 @@ import pe.org.reclamos.entidad.Promocion;
 public interface PromocionService {
 
 	public List<Promocion> listarPromociones();
+
+	public Promocion obtenerPromocion(Promocion promocion);
 	
 }
