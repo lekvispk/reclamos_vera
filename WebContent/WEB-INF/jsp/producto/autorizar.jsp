@@ -101,6 +101,12 @@
 <script>
 	
 	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
+		
+		if( $('#nroReclamo').val() == '' ){
+			alert( 'No ha indicado un reclamo' );
+			return;
+		}
+		
 		var url = "${pageContext.request.contextPath}/rest/clientes/reclamos/" + $('#nroReclamo').val();
 		$.ajax({
             url: url,

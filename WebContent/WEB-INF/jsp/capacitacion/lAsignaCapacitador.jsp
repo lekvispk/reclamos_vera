@@ -24,7 +24,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="ruc">RUC</label>  
 							  <div class="col-md-4">
-							  	<input type="text" name="ruc" id="ruc" placeholder="CAP001" class="form-control input-md">
+							  	<input type="text" name="ruc" id="ruc" placeholder="" class="form-control input-md">
 							  </div>
 							  <div class="col-md-4">
 							    <input type="button" id="btnBuscar" name="btnBuscar" class="btn btn-success" value="Buscar"/>

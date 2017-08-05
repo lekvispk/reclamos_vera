@@ -162,6 +162,11 @@ public class ReclamosRestController {
 	        
 			Reclamo reclamo = reclamoService.obtener( new Long(idReclamo));
 			
+			if( reclamo == null){
+				json = "{  \"status\":\"2\",  \"mensaje\":\"Este reclamo no existe\" } ";
+				return json;
+			}
+			
 			if( devolucionService.obtenerAutorizacionDeReclamo( reclamo.getIdReclamo() ) != null ){
 				json = "{  \"status\":\"2\",  \"mensaje\":\"Este reclamo ya ha sido autorizado.\" } ";
 				return json;
