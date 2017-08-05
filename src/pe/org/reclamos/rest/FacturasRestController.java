@@ -39,15 +39,17 @@ public class FacturasRestController {
 	 */
 	@RequestMapping(value = "/{user}/facturas", method = RequestMethod.GET )
 	public @ResponseBody String listarFacturas(@PathVariable String user, ModelMap model,HttpServletRequest request, HttpServletResponse response) {
-		logger.debug("usuario=" + user+" listar facturas");
-		 String json = "";
+		final String METHODNAME = "listarFacturas - ";
+		logger.debug(METHODNAME + "usuario=" + user+" listar facturas");
+		String json = "";
 		try {
 			response.setContentType("application/json; charset=ISO-8859-1");
 			request.setCharacterEncoding("UTF8");
 			
 			Long idCliente =  new Long (user) ;
+			logger.debug(METHODNAME + "buscar facturas de cliente : " + user );
 			List<Factura> lista = facturaService.buscarFacturasNoUsadas( idCliente );
-			
+			logger.debug(METHODNAME + "cantidad de facturas no usadas " + lista.size() );
 			Gson gson = new Gson();
 		    json = gson.toJson(lista);
 		    

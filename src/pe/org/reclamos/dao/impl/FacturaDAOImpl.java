@@ -331,6 +331,8 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Factura> buscarFacturasNoUsadas(Long idCliente) {
+		final String METHODNAME = "buscarFacturasNoUsadas - "; 
+		logger.debug(METHODNAME + "INI");
 		StringBuilder sql = new StringBuilder();
 		
 		sql.append(" SELECT * FROM factura f1 WHERE f1.idFactura NOT IN ( ");
@@ -344,6 +346,7 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		.addEntity(Factura.class)
 		.setParameter("cliente", idCliente );
 		List<Factura> result = query.list();
+		logger.debug(METHODNAME + "FIN");
 		return result;
 	}
 

@@ -321,14 +321,14 @@
 	}
 	
 	function cargarFacturas( idCliente ){
-		
+		console.log('cargarFacturas INI');
 		$.ajax({
             url: "${pageContext.request.contextPath}/rest/clientes/"+idCliente+"/facturas/",
             dataType: "json",
             data: {  },
             success: function( data, textStatus, jqXHR) {
-                console.log( " facturas " +  data);
-                var items = data;
+                console.log( "Facturas: " +  data);
+                //var items = data;
                 $('#idFactura').empty();
 
                 $('#idFactura').append($("<option></option>")
@@ -344,9 +344,10 @@
 
             },
             error: function(jqXHR, textStatus, errorThrown){
-                 console.log(textStatus);
+                 console.log('Error : ' + textStatus);
             }
         });
+		console.log('cargarFacturas FIN');
 	}
 	
 	function cargarItemDeReclamo( idCliente,idReclamo ){
