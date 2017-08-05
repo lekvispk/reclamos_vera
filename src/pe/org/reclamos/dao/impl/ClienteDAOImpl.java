@@ -108,7 +108,7 @@ public class ClienteDAOImpl extends HibernateDaoSupport implements ClienteDAO {
 		
 		List<Cliente> resultado = new ArrayList<Cliente>();
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT c.* "); 
+		sql.append(" SELECT distinct c.* "); 
 		sql.append(" FROM factura f "); 
 		sql.append(" INNER JOIN reclamo r ON F.idFactura = r.idFactura AND r.estado=2 ");
 		sql.append(" INNER JOIN cliente c ON c.idcliente = r.idCliente ");

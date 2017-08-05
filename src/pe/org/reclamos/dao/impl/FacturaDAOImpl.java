@@ -195,7 +195,8 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Factura> buscarFacturasParaFidelizacionDeUnCliente( Factura factura) {
-
+		final String METHODNAME = "buscarFacturasParaFidelizacionDeUnCliente - ";
+		logger.debug(METHODNAME + "INI");
 		Calendar cal = Calendar.getInstance();
 		//Date today = cal.getTime();
 		cal.add(Calendar.YEAR, -1); // to get previous year add -1
@@ -215,9 +216,11 @@ public class FacturaDAOImpl extends HibernateDaoSupport implements FacturaDAO {
 		.setParameter("emision", lastYear )
 		.setParameter("cliente", factura.getCliente().getIdCliente() );
 		List<Factura> result = query.list();
+		
+		logger.debug(METHODNAME + "result = " + result.size() );
+		
+		logger.debug(METHODNAME + "FIN");
 		return result;
-		
-		
 	}
 
 	@Override

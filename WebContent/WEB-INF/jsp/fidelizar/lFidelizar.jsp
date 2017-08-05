@@ -62,6 +62,7 @@
 						            </display:column>
 						            <display:column title="Razon Social" property="nomCliente" sortable="true" headerClass="sortable" />
 						            <display:column title="RUC" property="rucCliente" sortable="true" headerClass="sortable" />
+						            
 						    	</display:table>
 							
 							</div>

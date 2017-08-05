@@ -115,16 +115,18 @@ public class FidelizarController {
 	
 	@RequestMapping(value="/lCompensar.htm", method=RequestMethod.GET)
 	public String lCompensar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "lCompensar - ";
+		logger.debug(METHODNAME + "INI");
 		 try {
-			   logger.debug("lcompensar");
+			   
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
 			   Cliente cliente = clienteService.obtener( new Long( request.getParameter("idCliente") ) ) ;
-			   model.put("lFacturas", facturaService.buscarFacturasParaFidelizacionDeUnCliente( new Factura( cliente ) ));
+			   logger.debug( METHODNAME + cliente.toString());
 			   
-			   logger.debug( cliente.getNomCliente() );
+			   //model.put("lFacturas", facturaService.buscarFacturasParaFidelizacionDeUnCliente( new Factura( cliente ) ));
+			   
 			   Factura factura = new Factura();
 			   factura.setCliente(cliente);
 			   factura.setMonto(new BigDecimal(5000));
@@ -136,7 +138,7 @@ public class FidelizarController {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
-			//  model.put("reclamo", new Reclamo() );
+			   logger.debug(METHODNAME + "FIN");
 		   }
 		return "fidelizar/lCompensar";
 	}
