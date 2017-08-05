@@ -48,7 +48,7 @@ public class FidelizaDAOImpl extends HibernateDaoSupport implements FidelizaDAO 
 			sql.append(" FROM fideliza f ");
 			sql.append(" INNER JOIN reclamo r ON f.idReclamo=r.idReclamo ");
 			sql.append(" INNER JOIN cliente c ON c.idCliente = r.idCliente ");
-			sql.append(" INNER JOIN factura fa ON fa.idCliente = c.idCliente ");
+			sql.append(" INNER JOIN factura fa ON r.idFactura = fa.idFactura and  fa.idCliente = c.idCliente ");
 			sql.append(" WHERE f.estado=1 and f.idPromocion IS NULL");
 			if( !Utiles.nullToBlank( factura.getCliente().getRucCliente() ).equals("") )
 				sql.append(" AND c.rucCliente='"+factura.getCliente().getRucCliente()+"' ");
