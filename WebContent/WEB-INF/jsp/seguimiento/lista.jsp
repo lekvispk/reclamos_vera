@@ -34,18 +34,17 @@
                                                
                        <jsp:include page="../include/error.jsp"/>
         
-				   		<form class="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post">
-				   		
+				   		<form:form cssClass="form-horizontal" name="frmDocumentos" id="frmDocumentos" action="#" method="post" modelAttribute="reclamo">
 							<fieldset>
 							
 							<!-- Form Name -->
-							<legend>Reclamos</legend>
+							<legend>Solicitudes de Reclamos</legend>
 							
 							<!-- Factura Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="numero">Factura</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="numero" id="numero" size="10" placeholder="Factura" class="form-control input-md"> 
+							  	<form:input path="factura.numero" id="factura.numero" size="10" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
@@ -53,7 +52,7 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="fecFacturaFin">Id Ticket</label>  
 							  <div class="col-md-5">
-							  	<input type="text" name="idticket" id="idticket" size="10" placeholder="idticket" class="form-control input-md">
+							  	<form:input path="idReclamo" id="idReclamo" size="10" cssClass="form-control input-md" />
 							  </div>
 							</div>
 							
@@ -61,8 +60,10 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="cmbPrioridad">Estado</label>
 							  <div class="col-md-4">
-							  	<select  name="estado" id="estado" class="form-control input-md" >
-							  	</select>
+							  	<form:select path="estado" id="estado" cssClass="form-control input-md">
+							  		<form:option value="1">En Proceso</form:option>
+							  		<form:option value="2">Atendido</form:option>
+							  	</form:select>
 							  </div>
 							</div>
 							
@@ -75,7 +76,7 @@
 							</div>
 							
 							</fieldset>
-				         </form>
+				         </form:form>
 				   		
                          	<div id="tablaDinamica">
 						 	<div id="resultado">
@@ -129,7 +130,8 @@
 <script>
 
 	$(document).undelegate('#btnBuscar', 'click').delegate('#btnBuscar', 'click', function(){
-		
+		document.forms[0].action="lista.htm";
+		document.forms[0].submit();
 	});
 	
 	$(document).undelegate('#btnVerDetalle', 'click').delegate('#btnVerDetalle', 'click', function(){

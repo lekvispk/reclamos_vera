@@ -40,7 +40,7 @@ public class AutenticacionJdbcDaoImpl extends JdbcDaoImpl{
 			Usuario ubean = new Usuario(user.getUsername(), user.getPassword(), user.isEnabled(), user.getAuthorities());
 			ubean.setUsername(user.getUsername());
 			ubean.setPassword(user.getPassword());
-			//ubean.setNombres(usuario.getNombres());
+			ubean.setIdUsuario( usuario.getIdUsuario() );
 			//ubean.setApePaterno(usuario.getApePaterno());
 			//ubean.setApeMaterno(usuario.getApeMaterno());
 			ubean.setEstado( user.isEnabled()==true?1:0);

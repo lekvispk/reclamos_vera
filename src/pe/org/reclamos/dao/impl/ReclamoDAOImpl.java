@@ -82,10 +82,10 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 					criteria.add( Restrictions.gt("estado", 0 ) );
 					
 			}
-			if( !Utiles.nullToBlank( reclamo.getRespuesta() ).equals("") ){
+			if( !StringUtils.isEmpty( reclamo.getRespuesta() ) ){
 				criteria.add( Restrictions.eq("respuesta", reclamo.getRespuesta() ) );
 			}else{
-				criteria.add( Restrictions.isNull("respuesta") );
+				//criteria.add( Restrictions.isNull("respuesta") );
 			}
 			
 			if( reclamo.getIdReclamo() != null ){
@@ -118,7 +118,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 					logger.debug(METHODNAME + "IDfactura " +  reclamo.getFactura().getIdFactura() );
 					criteria1.add( Restrictions.eq("idFactura", reclamo.getFactura().getIdFactura() ) );
 				}
-				if( reclamo.getFactura().getNumero() != null ){
+				if( !StringUtils.isEmpty( reclamo.getFactura().getNumero() ) ){
 					logger.debug(METHODNAME + "numero de factura " +  reclamo.getFactura().getNumero() );
 					criteria1.add( Restrictions.eq("numero", reclamo.getFactura().getNumero() ) );
 				}

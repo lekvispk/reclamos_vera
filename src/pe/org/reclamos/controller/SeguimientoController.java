@@ -2,18 +2,19 @@ package pe.org.reclamos.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import pe.org.reclamos.entidad.Factura;
 import pe.org.reclamos.entidad.Reclamo;
-import pe.org.reclamos.service.FacturaService;
+import pe.org.reclamos.entidad.Usuario;
 import pe.org.reclamos.service.ReclamoService;
 
 @Controller
@@ -25,30 +26,54 @@ public class SeguimientoController {
 	
 	@Autowired
 	private ReclamoService reclamoService;
-	@Autowired
-	private FacturaService facturaService;
-	
-	@RequestMapping(value="/lista.htm")
+
+	@RequestMapping(value="/lista.htm",method=RequestMethod.GET)
 	public String listar(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
+		final String METHODNAME = "listar - ";
+		logger.debug(METHODNAME + "INI");
 		 try {
-			   logger.debug("lista");
+			   
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			  
-			   Reclamo reclamo = new Reclamo();
-			   //TODO pendiente modificar para que la paginacion funcione
-			   model.put("lReclamos", reclamoService.buscar(reclamo));
+			   logger.debug( METHODNAME + Usuario.getUsuarioBean() );
 			   
-			   //model.put("lClientes", clienteService.buscar( new Cliente() ));
+			   Reclamo reclamo = new Reclamo();
+			   reclamo.setIdCliente( new Long( Usuario.getUsuarioBean().getIdUsuario() ) );
+			   logger.debug( METHODNAME + reclamo.toString() );
+			   
+			   model.put("lReclamos", reclamoService.buscar(reclamo));
+			   model.put("reclamo", reclamo );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
-			  // model.put("lTipoMov", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOMOVTRAM ) );
-			  // model.put("lTipoTram", parametroService.listarGrupo( ParametrosUtil.PARAM_GROUP_TIPOTRAM) );
-			  // model.put("tramite", tramite );
+			   logger.debug(METHODNAME + "FIN");
+		   }
+		return "seguimiento/lista";
+	}
+	
+	@RequestMapping(value="/lista.htm",method=RequestMethod.POST)
+	public String buscar(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
+		final String METHODNAME = "buscar - ";
+		logger.debug(METHODNAME + "INI");
+		 try {
+			   
+			   response.setContentType("text/html;charset=ISO-8859-1");
+			   request.setCharacterEncoding("UTF8");
+			  
+			   reclamo.setIdCliente( new Long( Usuario.getUsuarioBean().getIdUsuario() ) );
+			   logger.debug( METHODNAME + reclamo.toString() );
+			   
+			   model.put("lReclamos", reclamoService.buscar(reclamo));
+			   model.put("reclamo", reclamo );
+			   
+		   } catch (Exception e) {
+			 e.printStackTrace();
+			 model.put("msgError", "Error: "+ e.getMessage() );
+		   }finally{
+			   logger.debug(METHODNAME + "FIN");
 		   }
 		return "seguimiento/lista";
 	}
