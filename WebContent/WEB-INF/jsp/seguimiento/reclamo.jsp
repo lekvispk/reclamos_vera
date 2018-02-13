@@ -21,7 +21,7 @@
 							<fieldset>
 							
 							<!-- Form Name -->
-							<legend>Registrar Reclamo</legend>
+							<legend>Datos de Reclamo</legend>
 							
 							<!-- Id Ticket Text input-->
 							<div class="form-group">
@@ -44,17 +44,8 @@
 							  <label class="col-md-4 control-label" for="rucCliente">RUC</label>  
 							  <div class="col-md-5">
 							  
-							   	<c:if test="${reclamo.factura.cliente.idCliente > 0}">
-			                   		<form:hidden path="factura.cliente.idCliente" id="idCliente"/>
-			                   	</c:if>
-			                   	<c:if test="${empty reclamo.factura.cliente.idCliente || reclamo.factura.cliente.idCliente <= 0}">
-			                   		<input type="hidden" name="factura.cliente.idCliente" id="idCliente" value="-1"/>
-			                   	</c:if>
-			                   	
 			                    <div class="demo" style="float: left;">
-									<div class="ui-widget">
-										<form:input path="factura.cliente.rucCliente" id="tagsCliente" size="40" cssClass="form-control input-md" />
-									</div>
+									<div class="ui-widget"> <label class="form-control input-md" > ${reclamo.factura.cliente.rucCliente} </label> </div>
 								</div>
 								
 							  </div>
@@ -108,37 +99,31 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="asunto">Asunto</label>  
 							  <div class="col-md-5">
-							  	<form:input path="asunto" id="asunto" cssClass="form-control input-md"/>
+							  <label class="form-control input-md" > ${reclamo.asunto}  </label>
 							  </div>
 							</div>
 							
 							<!-- mensaje Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="mensaje">Detalle</label>  
-							  <div class="col-md-5">
-							  	<form:textarea path="mensaje" id="mensaje" cssClass="form-control input-md" cols="40" rows="5"/>
-							  </div>
+							  <div class="col-md-5"> <label class="form-control input-md" > ${reclamo.mensaje} </label> </div>
 							</div>
 							
 							<!-- respuesta Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="mensaje">Respuesta</label>  
-							  <div class="col-md-5">
-							  	<form:textarea path="respuesta" id="respuesta" cssClass="form-control input-md" cols="40" rows="5"/>
-							  </div>
+							  <div class="col-md-5"> <label class="form-control input-md" > ${reclamo.respuesta} </label> </div>
 							</div>
 							
 							<!-- solucion Text input-->
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="solucion">Solucion</label>  
-							  <div class="col-md-5">
-							  	<form:textarea path="solucion" id="solucion" cssClass="form-control input-md" cols="40" rows="5"/>
-							  </div>
+							  <div class="col-md-5"> <label class="form-control input-md" > ${reclamo.solucion} </label> </div>
 							</div>
 														
 							<!-- Button -->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="btnBuscar"></label>
+							  <label class="col-md-4 control-label" for="btnRegresar"></label>
 							  <div class="col-md-4">
 							    <input class="btn btn-success" type="button" id="btnRegresar" value="Regresar">
 							  </div>

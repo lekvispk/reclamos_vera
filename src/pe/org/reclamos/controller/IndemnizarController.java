@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pe.org.reclamos.entidad.Indemnizacion;
+import pe.org.reclamos.entidad.ItemsReclamo;
 import pe.org.reclamos.entidad.Reclamo;
 import pe.org.reclamos.service.ReclamoService;
 import pe.org.reclamos.utiles.Constantes;
@@ -88,7 +89,17 @@ public class IndemnizarController {
 		logger.debug("pre indemnizar ");
 		Reclamo rec = new Reclamo();
 		try {
-			rec = reclamoService.obtener( new Long ( request.getParameter("idReclamo")));	
+			rec = reclamoService.obtener( new Long ( request.getParameter("idReclamo")));
+			Double montoinicial = 0.0;
+			
+			logger.debug( "Factura " + rec.getFactura() );
+			logger.debug( "ItemsReclamos " + rec.getItemsReclamos().size() );
+			for(ItemsReclamo itmRec : rec.getItemsReclamos()){
+				logger.debug( "Precio = " + itmRec.getDetallefactura().getPrecio() );
+				logger.debug( "Precio = " + itmRec.getDetallefactura().getCantidad() );
+				montoinicial += (itmRec.getDetallefactura().getPrecio().doubleValue() * itmRec.getDetallefactura().getCantidad());
+			}
+			rec.setMontoInicial(montoinicial);
 		} catch (Exception e) {
 			logger.error(" ERROR: " + e.getMessage() );
 		}finally{

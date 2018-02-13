@@ -94,11 +94,10 @@
 							  <div class="col-md-8">
 							  	<div id="tablaDinamica">
 								 	<div id="resultado">
-							   		<div id="displayTagDiv">
+							   		<div id="displayTagDiv2">
 							   		
 							   		<jsp:scriptlet>
 									    <![CDATA[
-									       
 									        org.displaytag.decorator.CheckboxTableDecorator decorator2 = new org.displaytag.decorator.CheckboxTableDecorator();
 									        decorator2.setId("idCapacitador");
 									        decorator2.setFieldName("_chk");
@@ -106,7 +105,7 @@
 									     ]]>
 									  </jsp:scriptlet> 
 									  
-								    	<display:table  name="requestScope.lCapacitador" requestURI="lCapacitador.htm" class="displaytag" pagesize="3"
+								    	<display:table name="requestScope.lCapacitador" requestURI="lCapacitador.htm" class="displaytag" pagesize="3"
 								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
 								            
 								            <display:column property="checkbox" />
@@ -215,6 +214,8 @@
 		$('#datetimepicker1').datetimepicker();
 		 
    	   	$("#displayTagDiv").displayTagAjax();
+   	   	
+   	 	$("#displayTagDiv2").displayTagAjax();
    });
    
 </script>

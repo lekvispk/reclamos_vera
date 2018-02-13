@@ -45,6 +45,10 @@ public class ReclamoController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
+			   if(Utiles.nullToBlank( request.getParameter("r") ).equals("1")){
+				   request.setAttribute("mensaje","Se ha grabado satisfactoriamente"); 
+			   }
+			   
 			   model.put("lReclamos", reclamoService.buscar( new Reclamo() ));
 			   
 		   } catch (Exception e) {
@@ -318,7 +322,7 @@ public class ReclamoController {
 	}
 	
 	@RequestMapping(value="/registro.htm" , method=RequestMethod.POST)  
-	 public String nuevo(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model /*,  RedirectAttributes redirectAttrs*/ ) {  
+	public String nuevo(@Valid Reclamo reclamo, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model /*,  RedirectAttributes redirectAttrs*/ ) {  
 		final String METHODNAME = "nuevo - ";
 		logger.debug(METHODNAME + "INI");
 		try {			
@@ -337,7 +341,7 @@ public class ReclamoController {
 			
 			request.setAttribute("mensaje","Se ha grabado satisfactoriamente");
 			
-			return "redirect:/reclamos/lGestionar.htm";
+			return "redirect:/reclamos/lGestionar.htm?r=1";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("msgError", "Se han producido errores, por favor verifique: "+e.getMessage() );

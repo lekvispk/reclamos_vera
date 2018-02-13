@@ -28,6 +28,7 @@ import pe.org.reclamos.service.FidelizaService;
 import pe.org.reclamos.service.PromocionService;
 import pe.org.reclamos.service.ReclamoService;
 import pe.org.reclamos.utiles.Mail;
+import pe.org.reclamos.utiles.Utiles;
 
 /**
  * Clase que registra la fidelizacion realizada a los clientes
@@ -106,7 +107,9 @@ public class FidelizarController {
 					   model.put("msgError", "No se han encontrado resultados" );
 				   }
 			   }
-			   model.put("lClientes", clienteService.buscarClientesParaFidelizacion() );
+			   String ruc = Utiles.nullToBlank(  factura.getCliente().getRucCliente() );
+			   logger.debug("RUC = " + ruc);
+			   model.put("lClientes", clienteService.buscarClientesParaFidelizacion( ruc ) );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
@@ -224,7 +227,7 @@ public class FidelizarController {
 			String msg = request.getParameter("msg");
 			if (!StringUtils.isEmpty(msg)) {
 				if (msg.equals("1")) {
-					model.put("mensaje", "Promocion actualziada");
+					model.put("mensaje", "Promocion actualizada");
 				}
 			}
 

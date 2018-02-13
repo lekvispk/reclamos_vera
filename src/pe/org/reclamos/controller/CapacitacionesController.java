@@ -46,6 +46,9 @@ public class CapacitacionesController {
 		   response.setContentType("text/html;charset=ISO-8859-1");
 		   request.setCharacterEncoding("UTF8");
 		   
+		   if(Utiles.nullToBlank( request.getParameter("r") ).equals("1")){
+			   request.setAttribute("mensaje","Registro de capacitación satisfactoria"); 
+		   }
 		  /* Factura f = new Factura();
 		   f.setCliente(cliente);
 		   model.put("lFacturas", facturaService.buscarFacturasConReclamos( f ));*/
@@ -156,8 +159,7 @@ public class CapacitacionesController {
 		 e.printStackTrace();
 		 model.put("msgError", "Error: "+ e.getMessage() );
 	   }
-	   //return "capacitacion/capacitacion";
-	   return "redirect:/capacitacion/lCapacitaciones.htm";
+	   return "redirect:/capacitacion/lCapacitaciones.htm?r=1";
 	}
 	
 	/**
@@ -215,6 +217,10 @@ public class CapacitacionesController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
+			   if(Utiles.nullToBlank( request.getParameter("r") ).equals("1")){
+				   request.setAttribute("mensaje","Registro de posposición de capacitación ok"); 
+			   }
+			   
 			   model.put("capacitacion", new Capacitacion() );
 			   
 		   } catch (Exception e) {
@@ -271,7 +277,7 @@ public class CapacitacionesController {
 	public String posponer(@Valid Capacitacion capacitacion, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		
 		 try {
-			   logger.debug("prePosponer");
+			   logger.debug("Post posponer");
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -283,7 +289,7 @@ public class CapacitacionesController {
 			    
 			   capacitacionService.grabar( cap );
 			   //model.put("capacitacion", new Factura() );
-			   return "redirect:/capacitacion/lPosponer.htm";
+			   return "redirect:/capacitacion/lPosponer.htm?r=1";
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
@@ -297,9 +303,8 @@ public class CapacitacionesController {
 	
 	@RequestMapping(value="/lCapacitador.htm", method=RequestMethod.GET)
 	public String lCapacitador(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("lPosponer");
+		logger.debug("lCapacitador - INI");
+		try { 
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
@@ -311,30 +316,29 @@ public class CapacitacionesController {
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
 			//  model.put("reclamo", new Reclamo() );
+			   logger.debug("lCapacitador - FIN");
 		   }
 		return "capacitacion/lAsignaCapacitador";
 	}
 	
 	@RequestMapping(value="/lCapacitador.htm", method=RequestMethod.POST)
 	public String lCapacitadorPost(@Valid Cliente cliente, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("listaPosponerPost");
-			   response.setContentType("text/html;charset=ISO-8859-1");
-			   request.setCharacterEncoding("UTF8");
-			   Capacitacion cap = new Capacitacion();
-			   cap.setFactura( new Factura());
-			   cap.getFactura().setCliente(cliente);
-			   model.put("lCapacitaciones", capacitacionService.buscarCapacitaciones( cap ) );
-			   
-			   
-		   } catch (Exception e) {
+		logger.debug("lCapacitadorPost - INI");
+		try {
+			 response.setContentType("text/html;charset=ISO-8859-1");
+			 request.setCharacterEncoding("UTF8");
+			 Capacitacion cap = new Capacitacion();
+			 cap.setFactura( new Factura());
+			 cap.getFactura().setCliente(cliente);
+			 model.put("lCapacitaciones", capacitacionService.buscarCapacitaciones( cap ) );
+		} catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
-		   }finally{
-			   model.put("lCapacitador", capacitacionService.listarCapacitador());
-			   model.put("cliente", new Cliente() );
-		   }
+		}finally{
+			 model.put("lCapacitador", capacitacionService.listarCapacitador());
+			 model.put("cliente", new Cliente() );
+			 logger.debug("lCapacitadorPost - FIN");
+		}
 		return "capacitacion/lAsignaCapacitador";
 	}
 	

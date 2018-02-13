@@ -93,7 +93,7 @@
 							<div class="form-group">
 							  <div class="col-md-4"></div>
 							  <div class="col-md-4">
-							    <button id="btnProcesar" name="btnProcesar" class="btn btn-success">Proccesar</button>
+							    <button id="btnProcesar" name="btnProcesar" class="btn btn-success">Procesar</button>
 							  </div>
 							</div>
                         

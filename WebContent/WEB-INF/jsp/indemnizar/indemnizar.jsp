@@ -62,10 +62,10 @@
 							<div class="form-group">
 							  <label class="col-md-4 control-label" for="inicial">Monto inicial</label>
 							  <div class="col-md-3">
-							  	<input type="text" id="inicial" name="inicial"  placeholder="0.0" class="form-control input-md">
+							  	<input type="text" id="inicial" name="inicial" value="${reclamo.montoInicial}" placeholder="0.0" class="form-control input-md">
 							  </div>
 							  <div class="col-md-2">
-							  	<input type="text" id="adicional" name="adicional"  placeholder="0%" class="form-control input-md">
+							  	<input type="text" id="adicional" name="adicional" value="10"  placeholder="0%" class="form-control input-md">
 							  </div>
 							</div>
 							

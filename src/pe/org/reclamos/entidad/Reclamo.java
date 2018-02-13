@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -97,8 +98,7 @@ public class Reclamo implements Serializable {
 	private Indemnizacion indemnizacion;
 	
 	//bi-directional many-to-one association to ItemsReclamo
-	//@OneToMany(mappedBy="reclamo")
-	@Transient
+	@OneToMany(mappedBy="reclamo")
 	private Set<ItemsReclamo> itemsReclamos;
 
 	@Transient
@@ -113,6 +113,9 @@ public class Reclamo implements Serializable {
     @ManyToOne
 	@JoinColumn(name="idFactura")
 	private Factura factura;
+    
+    @Transient
+    private Double montoInicial; 
     
     public Reclamo() {
     	this.estados = new ArrayList<Integer>();
@@ -365,6 +368,14 @@ public class Reclamo implements Serializable {
 
 	public void setFecRespuesta(Date fecRespuesta) {
 		this.fecRespuesta = fecRespuesta;
+	}
+
+	public Double getMontoInicial() {
+		return montoInicial;
+	}
+
+	public void setMontoInicial(Double montoInicial) {
+		this.montoInicial = montoInicial;
 	}
 
 	@Override

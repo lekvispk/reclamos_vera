@@ -3,6 +3,7 @@ package pe.org.reclamos.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -102,7 +103,7 @@ public class ClienteDAOImpl extends HibernateDaoSupport implements ClienteDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Cliente> buscarClientesParaFidelizacion() {
+	public List<Cliente> buscarClientesParaFidelizacion( String ruc ) {
 		final String METHODNAME = "buscarClientesParaFidelizacion - ";
 		logger.debug(METHODNAME + "INI");
 		
@@ -113,7 +114,9 @@ public class ClienteDAOImpl extends HibernateDaoSupport implements ClienteDAO {
 		sql.append(" INNER JOIN reclamo r ON F.idFactura = r.idFactura AND r.estado=2 ");
 		sql.append(" INNER JOIN cliente c ON c.idcliente = r.idCliente ");
 		sql.append(" WHERE f.estado=1 ");
-		
+		if( !StringUtils.isEmpty( ruc )){
+			sql.append(" and c.rucCliente = '"+ruc+"' ");
+		}
 		logger.debug("query 1=" + sql.toString() );
 		Session session =  getSession();
 		Query query = session.createSQLQuery( sql.toString() )

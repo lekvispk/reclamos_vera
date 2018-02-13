@@ -53,7 +53,7 @@ public class ReclamoDAOImpl extends HibernateDaoSupport implements ReclamoDAO {
 	@Override
 	public Reclamo obtener(Long reclamo) {
 		try {
-			return (Reclamo) this.getHibernateTemplate().find("from Reclamo u where idReclamo = ? ", reclamo).get(0);
+			return (Reclamo) this.getHibernateTemplate().find("from Reclamo u left join fetch u.itemsReclamos where u.idReclamo = ? ", reclamo).get(0);
 		} catch (Exception e) {
 			logger.debug( "Error: " + e.getMessage() );
 			return null;
