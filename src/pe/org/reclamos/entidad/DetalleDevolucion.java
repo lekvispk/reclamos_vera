@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.google.gson.annotations.Expose;
+
 
 /**
  * The persistent class for the detalle_devolucion database table.
@@ -23,10 +25,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="detalle_devolucion")
 public class DetalleDevolucion implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Expose
 	private int idDetalleDevolucion;
 
     @Temporal( TemporalType.TIMESTAMP)
@@ -52,6 +56,7 @@ public class DetalleDevolucion implements Serializable {
 	//bi-directional many-to-one association to Devolucion
     @ManyToOne
 	@JoinColumn(name="idDevolucion")
+    @Expose
 	private Devolucion devolucion;
 
 	//bi-directional many-to-one association to Producto
@@ -146,5 +151,11 @@ public class DetalleDevolucion implements Serializable {
 	public void setDespachador(Despachador despachador) {
 		this.despachador = despachador;
 	}
-	
+	@Override
+	public String toString() {
+		return "DetalleDevolucion [idDetalleDevolucion=" + idDetalleDevolucion + ", direccionEntrega="
+				+ direccionEntrega + ", estado=" + estado + ", fechaEntrega=" + fechaEntrega + ", horaEntrega="
+				+ horaEntrega + ", devolucion=" + devolucion + "]";
+	}
+
 }

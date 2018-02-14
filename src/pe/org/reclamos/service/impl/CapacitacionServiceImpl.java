@@ -73,7 +73,7 @@ public class CapacitacionServiceImpl implements CapacitacionService {
 		logger.debug( "encontrados: " + lista.size() );
 		if(lista.size()>0)
 			for(Capacitacion cap : lista){
-				logger.debug( "idCap: "+cap.getIdCapacitacion()+ " idFactura: " + cap.getFactura().getIdFactura() );
+				//logger.debug( "idCap: "+cap.getIdCapacitacion()+ " idFactura: " + cap.getFactura().getIdFactura() );
 				cap.setReclamo( reclamoService.obtenerPorIdFactura( cap.getFactura().getIdFactura() ));
 			}
 		return lista;

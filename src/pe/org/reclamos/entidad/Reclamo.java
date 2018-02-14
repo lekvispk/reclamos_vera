@@ -20,6 +20,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.google.gson.annotations.Expose;
+
 
 /**
  * The persistent class for the reclamo database table.
@@ -32,10 +34,11 @@ public class Reclamo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Expose
 	private Long idReclamo;
-	
+	@Expose
 	private Long idCliente;
-
+	@Expose
 	private String asunto;
 
     @Temporal( TemporalType.TIMESTAMP)
@@ -43,8 +46,9 @@ public class Reclamo implements Serializable {
 	private Date createdAt;
 
     @Lob()
+    @Expose
 	private String descripcion;
-
+    @Expose
 	private Integer estado;
 
 	@Transient
@@ -55,19 +59,21 @@ public class Reclamo implements Serializable {
 
     @Temporal( TemporalType.TIMESTAMP)
     private Date fecRespuesta;
-    
+    @Expose
     private Integer fidelizado;
-    
+    @Expose
 	private String indemnizar;
 
     @Lob()
+    @Expose
 	private String mensaje;
-
+    @Expose
 	private Integer prioridad;
-
+    @Expose
 	private String respuesta;
 
     @Lob()
+    @Expose
 	private String solucion;
 
 	private String tipoReclamo;
@@ -112,6 +118,7 @@ public class Reclamo implements Serializable {
 	//bi-directional many-to-one association to Factura
     @ManyToOne
 	@JoinColumn(name="idFactura")
+    @Expose
 	private Factura factura;
     
     @Transient
@@ -380,9 +387,12 @@ public class Reclamo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Reclamo [idReclamo=" + idReclamo + ", idCliente=" + idCliente + ", estado=" + estado + ", factura="
-				+ factura + "]";
+		return "Reclamo [idReclamo=" + idReclamo + ", idCliente=" + idCliente + ", asunto=" + asunto + ", createdAt="
+				+ createdAt + ", descripcion=" + descripcion + ", estado=" + estado + ", estados=" + estados
+				+ ", fecReclamo=" + fecReclamo + ", fecRespuesta=" + fecRespuesta + ", fidelizado=" + fidelizado
+				+ ", indemnizar=" + indemnizar + ", mensaje=" + mensaje + ", prioridad=" + prioridad + ", respuesta="
+				+ respuesta + ", solucion=" + solucion + ", tipoReclamo=" + tipoReclamo + ", updatedAt=" + updatedAt
+				+ ", vencimiento=" + vencimiento  + "]";
 	}
-
 	
 }

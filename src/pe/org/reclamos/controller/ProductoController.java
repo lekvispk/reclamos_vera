@@ -84,20 +84,21 @@ public class ProductoController {
 			   String fechaAutorizacion = request.getParameter("fechaAutorizacion");
 			   //String numeroActa = request.getParameter("numeroActa");
 			   
+			   Integer numActa = devolucionService.obtenerSiguienteNumeroDeActa() ;
 			   Devolucion devolucion = new Devolucion();
-			   devolucion.setNumeroActa( "" +  devolucionService.obtenerSiguienteNumeroDeActa() );
+			   devolucion.setNumeroActa( "" + numActa );
 			   devolucion.setFechaAutorizacion( Utiles.stringToDate( fechaAutorizacion , Utiles.FORMATO_FECHA_CORTA) );
 			   devolucion.setReclamo( new Reclamo() );
 			   devolucion.getReclamo().setIdReclamo(new Long(idReclamo));
 			   devolucionService.grabar(devolucion);
 			   
-			   respuesta = "{ \"status\":\"1\", \"mensaje\":\"Autoriacion registrada\" } ";
+			   respuesta = "{ \"status\":\"1\", \"mensaje\":\"Autoriacion registrada\" , \"nroActa\":\""+ (numActa+1) +"\" } ";
 			   response.getWriter().println( respuesta );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
-			 respuesta = "";
+			 respuesta = "{ \"status\":\"2\", \"mensaje\":\"Error al registrar\" } ";
 			 try{ response.getWriter().println(respuesta); } 
 			 catch(Exception e2){ }
 		   }
@@ -199,10 +200,11 @@ public class ProductoController {
 				   dd.setProducto( df.getProducto() );
 				   
 				   devolucionService.grabarDetalle( dd );
-				   
+				   logger.debug(METHODNAME + "dd = "+ dd.toString() );
 				   String format = "yyyy-MM-dd";
 				   
 				   GsonBuilder gsonB = new GsonBuilder();
+				   gsonB.excludeFieldsWithoutExposeAnnotation();
 				   gsonB.registerTypeAdapter(Calendar.class, new CalendarSerializer());
 				   gsonB.registerTypeAdapter(GregorianCalendar.class, new CalendarSerializer());
 				   Gson gson2 = gsonB.setDateFormat( format ).create();

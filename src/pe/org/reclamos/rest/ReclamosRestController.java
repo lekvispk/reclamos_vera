@@ -166,15 +166,18 @@ public class ReclamosRestController {
 				json = "{  \"status\":\"2\",  \"mensaje\":\"Este reclamo no existe\" } ";
 				return json;
 			}
-			
+			//logger.debug("Reclamo = " + reclamo.toString()  );
 			if( devolucionService.obtenerAutorizacionDeReclamo( reclamo.getIdReclamo() ) != null ){
 				json = "{  \"status\":\"2\",  \"mensaje\":\"Este reclamo ya ha sido autorizado.\" } ";
 				return json;
 			}
 			
 			String format = "yyyy-MM-dd";
-			Gson gson2 = new GsonBuilder()
-							.setDateFormat( format )
+			
+			GsonBuilder builder = new GsonBuilder();
+			builder.excludeFieldsWithoutExposeAnnotation();
+			
+			Gson gson2 = builder.setDateFormat( format )
 							.create();
 			
 			//Gson gson = new Gson();

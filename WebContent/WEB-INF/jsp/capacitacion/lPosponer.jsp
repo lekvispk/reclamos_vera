@@ -91,7 +91,6 @@
 					   		
 					   		<jsp:scriptlet>
 							    <![CDATA[
-							       
 							        org.displaytag.decorator.CheckboxTableDecorator decorator = new org.displaytag.decorator.CheckboxTableDecorator();
 							        decorator.setId("idCapacitacion");
 							        decorator.setFieldName("_chk");
@@ -99,14 +98,15 @@
 							     ]]>
 							  </jsp:scriptlet> 
 							  
-						    	<display:table  name="requestScope.lCapacitacion" requestURI="lPromociones.htm" class="displaytag" pagesize="3"
-						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
+						    	<display:table  name="sessionScope.lCapacitacion" requestURI="lPosponer.htm?lista=1" class="displaytag" pagesize="3"
+						            defaultsort="1" defaultorder="descending" sort="list" export="true" id="row" excludedParams="ajax _chk" 
+						            decorator="checkboxDecorator" >
 						            
 						            <display:column property="checkbox" />
 						            <display:column title="Capacitacion" property="idCapacitacion" sortable="true" headerClass="sortable" />
 						            <display:column title="Factura" property="factura.numero" sortable="true" headerClass="sortable" />
 						            <display:column title="Reclamo" property="reclamo.idReclamo" sortable="true" headerClass="sortable" />
-						            <display:column title="Solcuion" property="reclamo.solucion" sortable="true" headerClass="sortable" />
+						            <display:column title="Solucion" property="reclamo.solucion" sortable="true" headerClass="sortable" />
 						            
 						    	</display:table>
 							

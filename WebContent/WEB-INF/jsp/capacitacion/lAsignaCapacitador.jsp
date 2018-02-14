@@ -46,7 +46,7 @@
 							  	<div id="tablaDinamica">
 								 	<div id="resultado">
 							   		<div id="displayTagDiv">
-							   			<display:table  name="requestScope.lCapacitaciones" requestURI="lCapacitador.htm" class="displaytag" pagesize="3"
+							   			<display:table  name="sessionScope.lCapacitaciones" requestURI="lCapacitador.htm?lista=1" class="displaytag" pagesize="3"
 								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="tbCapacitaciones" excludedParams="ajax">
 								            
 								            <display:column>
@@ -105,7 +105,7 @@
 									     ]]>
 									  </jsp:scriptlet> 
 									  
-								    	<display:table name="requestScope.lCapacitador" requestURI="lCapacitador.htm" class="displaytag" pagesize="3"
+								    	<display:table name="requestScope.lCapacitador" requestURI="lCapacitador.htm?lista=1" class="displaytag" pagesize="3"
 								            defaultsort="1" defaultorder="descending" sort="list" export="false" id="row" excludedParams="ajax _chk" decorator="checkboxDecorator" >
 								            
 								            <display:column property="checkbox" />
@@ -193,14 +193,17 @@
                 	$('#tbCapacitaciones tbody').remove();
                 	$("input:checkbox").attr("checked", false);
                 	$('#fecCapacitacion').val( '' );
-					alert('capacitador asignado');
+					//alert('capacitador asignado');
+					agregarMensajeAjax('Capacitador asignado');
                 }else{
-                	alert('no se pudo asignar');
+                	//alert('no se pudo asignar');
+                	agregarErrorAjax('No se pudo asignar capacitador');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
                  console.log(textStatus);
-                 alert('error al acceder al servidor');
+                 //alert('error al acceder al servidor');
+                 agregarErrorAjax('error al acceder al servidor');
             }
         });
 	});

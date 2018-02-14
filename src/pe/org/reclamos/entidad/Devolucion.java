@@ -12,11 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+
+import com.google.gson.annotations.Expose;
 
 
 /**
@@ -30,6 +31,7 @@ public class Devolucion implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Expose
 	private Integer idDevolucion;
 
     @Temporal( TemporalType.TIMESTAMP)
@@ -44,6 +46,7 @@ public class Devolucion implements Serializable {
 	private String detalle;
     
     @Column(name="numero_acta")
+    @Expose
     private String numeroActa;
 
 	private int estado;
@@ -135,6 +138,12 @@ public class Devolucion implements Serializable {
 
 	public void setNumeroActa(String numeroActa) {
 		this.numeroActa = numeroActa;
+	}
+
+	@Override
+	public String toString() {
+		return "Devolucion [idDevolucion=" + idDevolucion + ", fechaAutorizacion=" + fechaAutorizacion + ", numeroActa="
+				+ numeroActa + ", estado=" + estado + "]";
 	}
 	
 }

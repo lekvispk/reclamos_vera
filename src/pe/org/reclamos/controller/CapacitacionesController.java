@@ -211,14 +211,19 @@ public class CapacitacionesController {
 	
 	@RequestMapping(value="/lPosponer.htm", method=RequestMethod.GET)
 	public String listaPosponer(HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("lPosponer");
+		final String METHODNAME = "listaPosponer - ";
+		logger.debug(METHODNAME + "INI");
+		try {
+			   
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
 			   if(Utiles.nullToBlank( request.getParameter("r") ).equals("1")){
 				   request.setAttribute("mensaje","Registro de posposición de capacitación ok"); 
+			   }
+			   if( !Utiles.nullToBlank( request.getParameter("lista") ).equals("1")){
+				   logger.debug(METHODNAME + "limpiar lista de session");
+				   request.getSession().removeAttribute("lCapacitacion");
 			   }
 			   
 			   model.put("capacitacion", new Capacitacion() );
@@ -227,27 +232,27 @@ public class CapacitacionesController {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
-			//  model.put("reclamo", new Reclamo() );
+			   logger.debug(METHODNAME + "FIN");
 		   }
 		return "capacitacion/lPosponer";
 	}
 	
 	@RequestMapping(value="/lPosponer.htm", method=RequestMethod.POST)
 	public String listaPosponerPost(@Valid Capacitacion capacitacion, BindingResult result, HttpServletRequest request, HttpServletResponse response, ModelMap model){
-		
-		 try {
-			   logger.debug("listaPosponerPost");
+		final String METHODNAME = "listaPosponerPost - ";
+		logger.debug(METHODNAME + "INI");
+		 try { 
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
-			   
-			   model.put("lCapacitacion", capacitacionService.buscarCapacitaciones( capacitacion ) );
+			   request.getSession().setAttribute("lCapacitacion", capacitacionService.buscarCapacitaciones( capacitacion )  );
+			   //model.put("lCapacitacion", capacitacionService.buscarCapacitaciones( capacitacion ) );
 			   model.put("capacitacion", new Capacitacion() );
 			   
 		   } catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );
 		   }finally{
-			//  model.put("reclamo", new Reclamo() );
+			   logger.debug(METHODNAME + "FIN");
 		   }
 		return "capacitacion/lPosponer";
 	}
@@ -308,6 +313,10 @@ public class CapacitacionesController {
 			   response.setContentType("text/html;charset=ISO-8859-1");
 			   request.setCharacterEncoding("UTF8");
 			   
+			   if( !Utiles.nullToBlank( request.getParameter("lista") ).equals("1")){
+				   logger.debug("quitar lista lCapacitaciones");
+				   request.getSession().removeAttribute("lCapacitaciones");
+			   }
 			   model.put("lCapacitador", capacitacionService.listarCapacitador());
 			   model.put("cliente", new Cliente() );
 			   
@@ -330,7 +339,8 @@ public class CapacitacionesController {
 			 Capacitacion cap = new Capacitacion();
 			 cap.setFactura( new Factura());
 			 cap.getFactura().setCliente(cliente);
-			 model.put("lCapacitaciones", capacitacionService.buscarCapacitaciones( cap ) );
+			 request.getSession().setAttribute("lCapacitaciones", capacitacionService.buscarCapacitaciones( cap ) );
+			 //model.put("lCapacitaciones", capacitacionService.buscarCapacitaciones( cap ) );
 		} catch (Exception e) {
 			 e.printStackTrace();
 			 model.put("msgError", "Error: "+ e.getMessage() );

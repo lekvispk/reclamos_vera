@@ -120,6 +120,9 @@
 
 				if( data.status ){
 					agregarErrorAjax( 'Error: ' + data.mensaje  );
+					$('#nroFactura').val( '' );
+					$('#descripcion').val( '' );
+					$('#fechaAutorizacion').val( '' );
 					return;
 				}
                 
@@ -182,6 +185,7 @@
                 	$('#btnAutoriza').removeAttr('disabled');
                 	agregarMensajeAjax( 'Datos grabados satsfactoriamente' );
                 	document.getElementById("frmDocumentos").reset();
+                	$('#numeroActa').val( data.nroActa );
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
